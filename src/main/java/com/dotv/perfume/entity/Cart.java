@@ -2,6 +2,7 @@ package com.dotv.perfume.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,24 +13,22 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Table(name = "cart")
-public class Cart implements Serializable {
-    @Id
-    @Column(name = "id_product")
-    private Integer idProduct;
-
-    @Id
-    @Column(name = "id_account")
-    private Integer idAccount;
+public class Cart  {
+    @EmbeddedId
+    private CartId id;
 
     @Column(name = "amount")
     private Integer amount;
 
-//    @ManyToOne
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @MapsId("idProduct")
 //    @JoinColumn(name = "id_product")
 //    private Product product;
-
-//    @ManyToOne
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @MapsId("idAccount")
 //    @JoinColumn(name = "id_account")
 //    private Account account;
 }

@@ -5,8 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 
@@ -56,7 +58,7 @@ public class Product {
     @Column(name = "status")
     private Boolean status;
 
-    public Product(Integer idCategory, String name, BigDecimal price, Integer gender, String origin, String capacity, Integer amount, String shortDescription, String detail, LocalDate createDate, Integer discount, Boolean status, Set<Image> images) {
+    public Product(Integer idCategory, String name, BigDecimal price, Integer gender, String origin, String capacity, Integer amount, String shortDescription, String detail, LocalDate createDate, Integer discount, Boolean status) {
         this.idCategory = idCategory;
         this.name = name;
         this.price = price;
@@ -69,15 +71,14 @@ public class Product {
         this.createDate = createDate;
         this.discount = discount;
         this.status = status;
-        this.images = images;
     }
 
     //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="id_category")
 //    private Category category;
 //
-    @OneToMany(mappedBy = "image",cascade = CascadeType.PERSIST)
-    private Set<Image> images;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<Image> images;
 //    @OneToMany
 //    @JoinColumn(name="id_product")
 //    private List<Image> images;

@@ -3,7 +3,7 @@ package com.dotv.perfume.controller;
 import com.dotv.perfume.dto.CategoryDTO;
 import com.dotv.perfume.entity.Category;
 import com.dotv.perfume.service.CategoryService;
-import com.dotv.perfume.untils.Message;
+import com.dotv.perfume.untils.MessageResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -41,9 +40,9 @@ public class CategoryController {
 
     //Thêm category, input: name, stauts;
     @PostMapping("/admin/category/add")
-    public Message addCategory(@Valid @RequestBody CategoryDTO categoryDTO){
+    public MessageResponse addCategory(@Valid @RequestBody CategoryDTO categoryDTO){
         Category category = modelMapper.map(categoryDTO,Category.class);
-        Message message = new Message();
+        MessageResponse message = new MessageResponse();
         if(categoryService.addCategory(category))
             message.setMessage("Thêm thành công");
         else
@@ -60,14 +59,16 @@ public class CategoryController {
 
 
     //Sửa category, input: name, status;
-    @PostMapping("/admin/category/edit")
-    public Message editCategory(@Valid @RequestBody CategoryDTO categoryDTO){
+    @PutMapping("/admin/category/edit")
+    public MessageResponse editCategory(@Valid @RequestBody CategoryDTO categoryDTO){
         Category category = modelMapper.map(categoryDTO,Category.class);
-        Message message = new Message();
+        MessageResponse message = new MessageResponse();
         if(categoryService.addCategory(category))
             message.setMessage("Cập nhật thành công");
         else
             message.setMessage("Cập nhật thất bại");
         return message;
     }
+
+
 }
