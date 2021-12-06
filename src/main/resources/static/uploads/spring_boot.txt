@@ -1,0 +1,21 @@
+Spring đặt tên cho container là ApplicationContext và đặt tên cho các dependency là Bean
+
+@Component: 1 annotation đánh dấu trên các class giúp spring biết nó là 1 bean 
+Spring sẽ dò tìm 
+
+Tất cả những Bean được quản lý trong ApplicationContext đều chỉ được tạo ra một lần duy nhất và khi có Class yêu cầu @Autowired thì
+nó sẽ lấy đối tượng có sẵn trong ApplicationContext để inject vào.
+
+Trong trường hợp bạn muốn mỗi lần sử dụng là một instance hoàn toàn mới. Thì hãy đánh dấu @Component đó bằng @Scope("prototype")
+
+- @Autowired đánh dấu cho Spring biết rằng sẽ tự động inject bean tương ứng vào vị trí được đánh dấu.
+Sau khi tìm thấy một class đánh dấu @Component. thì quá trình inject Bean xảy ra theo cách như sau:
+
+- Nếu Class không có hàm Constructor hay Setter. Thì sẽ sử dụng Java Reflection để đưa đối tượng vào thuộc tính có đánh dấu @Autowired.
+- Nếu có hàm Constructor thì sẽ inject Bean vào bởi tham số của hàm
+- Nếu có hàm Setter thì sẽ inject Bean vào bởi tham số của hàm
+
+- cũng có thể gắn @Autowired lên trên method, thay vì thuộc tính, chức năng cũng vẫn tương tự, nó sẽ tìm Bean phù hợp với method đó và truyền vào.
+Java Relection là một core package trong thư viện chuẩn của Java.
+Mục đích của nó là cho phép chúng ta truy cập vào gần như mọi thứ bên trong đối tượng. "Dưới một góc độ khác"!
+

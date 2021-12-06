@@ -1,5 +1,6 @@
 package com.dotv.perfume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -82,4 +83,8 @@ public class Product {
 //    @OneToMany
 //    @JoinColumn(name="id_product")
 //    private List<Image> images;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Cart> carts;
 }

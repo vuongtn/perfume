@@ -82,6 +82,10 @@ public class ProductController {
         for(MultipartFile file:files){
             Image image = new Image();
             image.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+            if(file==files[0])
+                image.setType("main");
+            else
+                image.setType("extra");
             images.add(image);
             image.setProduct(product);//set product cho từng thằng image
         }
@@ -119,6 +123,10 @@ public class ProductController {
         for(MultipartFile file:files){
             Image image = new Image();
             image.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+            if(file==files[0])
+                image.setType("main");
+            else
+                image.setType("extra");
             images.add(image);
             image.setProduct(product);//set product cho từng thằng image
         }
