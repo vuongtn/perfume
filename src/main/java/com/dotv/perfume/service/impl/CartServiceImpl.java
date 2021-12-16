@@ -1,16 +1,15 @@
 package com.dotv.perfume.service.impl;
 
+import com.dotv.perfume.dto.CartDTO;
 import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.Cart;
-import com.dotv.perfume.entity.CartId;
 import com.dotv.perfume.repository.CartRepository;
 import com.dotv.perfume.service.CartService;
+import com.dotv.perfume.untils.MessageResponse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +18,12 @@ public class CartServiceImpl implements CartService {
     @Autowired
     CartRepository cartRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
-    public Boolean addProductToCart(Cart cart) {
+    public MessageResponse addProductToCart(CartDTO cartDTO) {
+        Cart cart = modelMapper.map(cartDTO,Cart.class);
         Optional<Cart> cartOld =cartRepository.findById(cart.getId());
         //kt cartOld có rỗng ko, isPresent() trả về false khi rỗng.
         Boolean test = cartOld.isPresent();
@@ -31,8 +31,8 @@ public class CartServiceImpl implements CartService {
             cart.setAmount(cart.getAmount()+cartOld.get().getAmount());
         }
         if(cartRepository.save(cart)!=null)
-          return true;
-        return false;
+            return new MessageResponse("Thêm sản phẩm vào giỏ hàng thành công");
+        return new MessageResponse("Thêm sản phẩm vào giỏ hàng thất bại");
     }
 
     @Override
@@ -41,15 +41,18 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Boolean editAmountProduct(Cart cart) {
+    public MessageResponse editAmountProduct(CartDTO cartDTO) {
+        Cart cart = modelMapper.map(cartDTO,Cart.class);
         if(cartRepository.save(cart)!=null)
-            return true;
-        return false;
+            return new MessageResponse("Cập nhật số lượng thành công");
+        return new MessageResponse("Cập nhật số lượng thất bại");
     }
 
     @Override
-    public void deleteProductInCart(Cart cart) {
+    public MessageResponse deleteProductInCart(CartDTO cartDTO) {
+        Cart cart = modelMapper.map(cartDTO,Cart.class);
         cartRepository.delete(cart);
+        return new MessageResponse("Xóa sản phẩm trong giỏ thành công");
     }
 
 

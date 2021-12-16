@@ -5,6 +5,7 @@ import com.dotv.perfume.dto.CategoryDTO;
 import com.dotv.perfume.entity.Category;
 import com.dotv.perfume.repository.CategoryRepository;
 import com.dotv.perfume.service.CategoryService;
+import com.dotv.perfume.untils.MessageResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
     public List<Category> getCategoryByStatus() {
         return categoryRepository.getCategoryByStatus();
@@ -28,10 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Boolean addCategory(Category category) {
+    public MessageResponse addCategory(CategoryDTO categoryDTO) {
+        Category category = modelMapper.map(categoryDTO,Category.class);
+        MessageResponse message = new MessageResponse();
         if(categoryRepository.save(category)!=null)
-            return true;
-        return false;
+            return new MessageResponse("Thành công");
+        return new MessageResponse("Thất bại");
     }
 
     @Override

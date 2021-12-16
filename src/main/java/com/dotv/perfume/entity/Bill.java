@@ -1,11 +1,12 @@
 package com.dotv.perfume.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -40,9 +41,13 @@ public class Bill {
     private Integer status;
 
     @Column(name = "create_date")
-    private Date createDate;
+    private LocalDate createDate;
 
     @Column(name = "modify_date")
-    private Date modifyDate;
+    private LocalDate modifyDate;
 
+
+    @OneToMany(mappedBy = "bill",cascade = CascadeType.ALL)
+//    @JsonIgnore
+    private List<BillDetail> billDetails;
 }

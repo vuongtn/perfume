@@ -7,8 +7,11 @@ import com.dotv.perfume.untils.MessageResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +20,6 @@ import java.util.Optional;
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
-
-    @Autowired
-    ModelMapper modelMapper;
 
     /*Trả về danh sách danh mục có status = 1 (Hiển thị)*/
     @GetMapping("/client/category")
@@ -41,34 +41,32 @@ public class CategoryController {
     //Thêm category, input: name, stauts;
     @PostMapping("/admin/category/add")
     public MessageResponse addCategory(@Valid @RequestBody CategoryDTO categoryDTO){
-        Category category = modelMapper.map(categoryDTO,Category.class);
-        MessageResponse message = new MessageResponse();
-        if(categoryService.addCategory(category))
-            message.setMessage("Thêm thành công");
-        else
-            message.setMessage("Thêm thất bại");
-        return message;
+      return categoryService.addCategory(categoryDTO);
     }
 
 
     //Trả vể category theo id
     @GetMapping ("/admin/category")
-    public Optional<Category> editCategory(@RequestParam("id") int id){
+    public Optional<Category> getCategoryById(@RequestParam("id") int id){
        return categoryService.getCategoryById(id);
     }
 
 
-    //Sửa category, input: name, status;
+    //Sửa category, input: id, name, status;
     @PutMapping("/admin/category/edit")
     public MessageResponse editCategory(@Valid @RequestBody CategoryDTO categoryDTO){
-        Category category = modelMapper.map(categoryDTO,Category.class);
-        MessageResponse message = new MessageResponse();
-        if(categoryService.addCategory(category))
-            message.setMessage("Cập nhật thành công");
-        else
-            message.setMessage("Cập nhật thất bại");
-        return message;
+        return categoryService.addCategory(categoryDTO);
     }
 
+
+
+
+    @GetMapping("/testApiClient")
+    public Category testApiClient()  {
+        RestTemplate restTemplate = new RestTemplate();
+        //Category result = restTemplate.getForObject("http://localhost:8081/api/admin/categories", Category.class);
+        Category result = restTemplate.
+        return result;
+    }
 
 }

@@ -39,7 +39,7 @@ public class ProductController {
 
 
     @GetMapping("/client/detail")//Trả về chi tiết sản phẩm theo mã sản phẩm
-    public Optional<Product> getProcductById(@RequestParam int id){
+    public Product getProcductById(@RequestParam int id){
         return productService.getProductById(id);
     }
 

@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ProductService {
     Page<Product> getAllProduct(int currPage);
     Page<Product> getAllByCategory(int id_category, int currPage);
-    Optional<Product> getProductById(int idProduct);
+    Product getProductById(int idProduct);
     List<Product> getAllProductByName(String name);
     Boolean addProduct(Product product, MultipartFile[] files) throws IOException;
 }

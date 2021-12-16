@@ -1,5 +1,12 @@
 package com.dotv.perfume.dto;
 
+import com.dotv.perfume.entity.BillDetail;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.sql.Date;
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BillDTO {
     private Integer id;
     private Integer idAccount;
@@ -11,9 +18,27 @@ public class BillDTO {
     private Integer status;
     private java.sql.Date createDate;
     private java.sql.Date modifyDate;
+    private List<BillDetail> billDetails;
+
+    public BillDTO() {
+    }
+
+    public BillDTO(Integer id, Integer idAccount, String receiverName, String receiverAddress, String receiverEmail, String receiverPhone, String note, Integer status, Date createDate, Date modifyDate, List<BillDetail> billDetails) {
+        this.id = id;
+        this.idAccount = idAccount;
+        this.receiverName = receiverName;
+        this.receiverAddress = receiverAddress;
+        this.receiverEmail = receiverEmail;
+        this.receiverPhone = receiverPhone;
+        this.note = note;
+        this.status = status;
+        this.createDate = createDate;
+        this.modifyDate = modifyDate;
+        this.billDetails = billDetails;
+    }
 
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Integer id) {
@@ -21,7 +46,7 @@ public class BillDTO {
     }
 
     public Integer getIdAccount() {
-        return this.idAccount;
+        return idAccount;
     }
 
     public void setIdAccount(Integer idAccount) {
@@ -29,7 +54,7 @@ public class BillDTO {
     }
 
     public String getReceiverName() {
-        return this.receiverName;
+        return receiverName;
     }
 
     public void setReceiverName(String receiverName) {
@@ -37,7 +62,7 @@ public class BillDTO {
     }
 
     public String getReceiverAddress() {
-        return this.receiverAddress;
+        return receiverAddress;
     }
 
     public void setReceiverAddress(String receiverAddress) {
@@ -45,7 +70,7 @@ public class BillDTO {
     }
 
     public String getReceiverEmail() {
-        return this.receiverEmail;
+        return receiverEmail;
     }
 
     public void setReceiverEmail(String receiverEmail) {
@@ -53,7 +78,7 @@ public class BillDTO {
     }
 
     public String getReceiverPhone() {
-        return this.receiverPhone;
+        return receiverPhone;
     }
 
     public void setReceiverPhone(String receiverPhone) {
@@ -61,7 +86,7 @@ public class BillDTO {
     }
 
     public String getNote() {
-        return this.note;
+        return note;
     }
 
     public void setNote(String note) {
@@ -69,26 +94,34 @@ public class BillDTO {
     }
 
     public Integer getStatus() {
-        return this.status;
+        return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public java.sql.Date getCreateDate() {
-        return this.createDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreateDate(java.sql.Date createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public java.sql.Date getModifyDate() {
-        return this.modifyDate;
+    public Date getModifyDate() {
+        return modifyDate;
     }
 
-    public void setModifyDate(java.sql.Date modifyDate) {
+    public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public List<BillDetail> getBillDetails() {
+        return billDetails;
+    }
+
+    public void setBillDetails(List<BillDetail> billDetails) {
+        this.billDetails = billDetails;
     }
 }

@@ -1,20 +1,17 @@
 package com.dotv.perfume.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "product")
@@ -87,4 +84,8 @@ public class Product {
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Cart> carts;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<BillDetail> billDetails;
 }

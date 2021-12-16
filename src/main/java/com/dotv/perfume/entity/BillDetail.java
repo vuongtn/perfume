@@ -1,8 +1,7 @@
 package com.dotv.perfume.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,14 +12,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "bill_detail")
-public class BillDetail implements Serializable {
-    @Id
-    @Column(name = "id_product")
-    private Integer idProduct;
-
-    @Id
-    @Column(name = "id_bill")
-    private Integer idBill;
+public class BillDetail{
+    @EmbeddedId
+    private BillId id;
 
     @Column(name = "amount")
     private Integer amount;
@@ -28,11 +22,15 @@ public class BillDetail implements Serializable {
     @Column(name = "currently_price")
     private BigDecimal currentlyPrice;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_product")
-//    private Product product;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "id_bill")
-//    private Bill bill;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("idProduct")
+    @JoinColumn(name = "id_product")
+    @JsonIgnore
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("idBill")
+    @JoinColumn(name = "id_bill")
+    @JsonIgnore
+    private Bill bill;
 }
