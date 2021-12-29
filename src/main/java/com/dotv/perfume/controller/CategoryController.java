@@ -64,21 +64,4 @@ public class CategoryController {
     }
 
 
-
-
-//    @GetMapping("/testApiClient")
-//    public Category testApiClient()  {
-//        RestTemplate restTemplate = new RestTemplate();
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("test","do");
-//        //HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
-//        //Category result = restTemplate.getForObject("http://localhost:8081/api/admin/categories", Category.class);
-//        //Category result = restTemplate.postForObject("http://localhost:8081/api/admin/categories");
-//        MultiValueMap<String,Integer> bodyTest= new LinkedMultiValueMap<>();
-//        bodyTest.add("id",1);
-//        HttpEntity<MultiValueMap<String,Integer>> request = new HttpEntity<>(bodyTest,headers);
-//        Category result = restTemplate.postForObject("http://localhost:8081/api/admin/category",request,Category.class);
-//        return result;
-//    }
-
 }

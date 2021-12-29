@@ -5,6 +5,7 @@ import com.dotv.perfume.repository.AccountRepository;
 import com.dotv.perfume.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -31,5 +32,28 @@ public class AccountServiceImpl implements AccountService {
         if(accountRepository.save(account)!=null)
             return "Cập nhật thành công";
         return "Cập nhật thất bại";
+    }
+
+    @Override
+    @Transactional
+    public String editStatus(int id, int status) {
+        int check=0;
+        if(status==1) {
+            check = accountRepository.editStatus(id, true);
+        }
+        else {
+            check = accountRepository.editStatus(id, false);
+        }
+        if(check!=0 && status==1)
+            return "Khôi phục tài khoản thành công";
+        if(check!=0 && status ==0)
+            return "Khóa tài khoản thành công";
+        return "Không thành công";
+    }
+
+    @Override
+    public String deleteAcc(int id) {
+        accountRepository.deleteById(id);
+        return "Xóa tài khoản thành công";
     }
 }
