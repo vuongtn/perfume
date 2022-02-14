@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/fragments/layout.html}"
+>
+<body>
+<div layout:fragment="order_acc">
+    <!-- MAIN-CONTENT-SECTION START -->
+    <section class="main-content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <!-- PRODUCT-LEFT-SIDEBAR START -->
+                    <div class="product-left-sidebar">
+                        <br>
+                        <br>
+                        <h2 class="left-title pro-g-page-title">Quản lý tài khoản</h2>
+
+
+
+                        <!-- SINGLE SIDEBAR SIZE START -->
+                        <div class="product-single-sidebar">
+                            <span class="sidebar-title">Xin chào, Trần Văn Độ</span>
+                            <ul>
+                                <li>
+                                    <a href="#">Thông tin tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="#">Cập nhật thông tin tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="#">Đơn hàng của bạn</a>
+                                </li>
+                                <li>
+                                    <a href="#">Đổi mật khẩu</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- SINGLE SIDEBAR SIZE END -->
+
+
+
+
+                    </div>
+                    <!-- PRODUCT-LEFT-SIDEBAR END -->
+
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div class="right-all-product">
+                        <!-- PRODUCT-CATEGORY-HEADER START -->
+
+
+                        <!-- PRODUCT-CATEGORY-HEADER END -->
+                        <div class="product-category-title">
+                            <!-- PRODUCT-CATEGORY-TITLE START -->
+                            <br>
+                            <h1 style="margin-bottom: 0px;">
+                                <span class="cat-name">Đơn hàng của bạn</span>
+                            </h1>
+                            <!-- PRODUCT-CATEGORY-TITLE END -->
+                        </div>
+
+                        <div class="product-shooting-area">
+                            <div class="product-shooting-bar">
+                                <!-- SHOORT-BY START -->
+                                <div class="shoort-by">
+                                    <label for="productShort">Lọc</label>
+                                    <div class="short-select-option">
+                                        <select name="sortby" id="productShort">
+                                            <option value="">Tất cả</option>
+                                            <option value="">Đang xử lý</option>
+                                            <option value="">Đang vận chuyển</option>
+                                            <option value="">Đã giao</option>
+                                            <option value="">Đã hủy</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- SHOORT-BY END -->
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ALL GATEGORY-PRODUCT START -->
+                    <div class="all-gategory-product">
+                        <div class="row" style="margin-left: 0px;">
+                            <div id="table-scroll" class="table-scroll">
+                                <table id="main-table" class="main-table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Mã đơn hàng</th>
+                                        <th scope="col">Ngày</th>
+                                        <th scope="col">Giá trị đơn hàng</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Chi tiết</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Left Column</th>
+                                        <td>Cell content</td>
+                                        <td>Cell content</td>
+                                        <td>Cell content longer</td>
+                                        <td>Đang giao</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
+                                    </tr>
+
+
+
+
+
+                                    </tbody>
+                                    <!-- <tfoot>
+                                      <tr>
+                                        <th>Footer 1</th>
+                                        <td>Footer 2</td>
+                                        <td>Footer 3</td>
+                                        <td>Footer 4</td>
+                                        <td>Footer 5</td>
+                                        <td>Footer 6</td>
+                                        <td>Footer 7</td>
+                                        <td>Footer 8</td>
+                                      </tr>
+                                    </tfoot> -->
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <!-- Thông tin chi tiết đơn hàng -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h2 class="modal-title">Chi tết đơn hàng</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <h3>Thông tin người nhận</h3>
+                                    <br>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Họ tên người nhận</td>
+                                            <td>Nguyễn Văn A</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>adf@sdf.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số điện thoại</td>
+                                            <td>0988777665</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Địa chỉ</td>
+                                            <td>Nhổn - Đại học Công Nghiệp Hà Nội</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hình thức thanh toán</td>
+                                            <td>Thanh toán khi nhân hàng</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tổng tiền thanh toán</td>
+                                            <td>14.000.000 VNĐ</td>
+                                        </tr>
+                                    </table>
+                                    <h3>Chi tiết sản phẩm</h3>
+                                    <br>
+                                    <div class="product">
+                                        <div class="product-image-cart">
+                                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+                                        </div>
+                                        <div class="product-details" style="width:80%">
+                                            <p class="product-description">Nước hoa abcdxyz</p>
+                                            <div class="product-title">Số lượng: 1</div>
+                                            <div class="product-title">Giá: 100.000đ</div>
+                                        </div>
+                                    </div>
+                                    <div class="product">
+                                        <div class="product-image-cart">
+                                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+                                        </div>
+                                        <div class="product-details" style="width:80%">
+                                            <p class="product-description">Nước hoa abcdxyz</p>
+                                            <div class="product-title">Số lượng: 1</div>
+                                            <div class="product-title">Giá: 100.000đ</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy đơn</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ALL GATEGORY-PRODUCT END -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- MAIN-CONTENT-SECTION END -->
+</div>
+</body>
+</html>

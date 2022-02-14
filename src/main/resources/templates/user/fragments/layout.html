@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">D.Perfume</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon
+    ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/user/img/favicon.png}">
+
+    <!-- FONTS
+    ============================================ -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <!-- animate CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/animate.css}">
+
+    <!-- FANCYBOX CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/jquery.fancybox.css}">
+
+    <!-- BXSLIDER CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/jquery.bxslider.css}">
+
+    <!-- MEANMENU CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/meanmenu.min.css}">
+
+    <!-- JQUERY-UI-SLIDER CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/jquery-ui-slider.css}">
+
+    <!-- NIVO SLIDER CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/nivo-slider.css}">
+
+    <!-- OWL CAROUSEL CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/owl.carousel.css}">
+
+    <!-- OWL CAROUSEL THEME CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/owl.theme.css}">
+
+    <!-- BOOTSTRAP CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}">
+
+    <!-- FONT AWESOME CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/font-awesome.min.css}">
+
+    <!-- NORMALIZE CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/normalize.css}">
+
+    <!-- MAIN CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/main.css}">
+
+    <!-- STYLE CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/style.css}">
+
+    <!-- RESPONSIVE CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/responsive.css}">
+
+    <!-- IE CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/user/css/ie.css}">
+
+    <!-- MODERNIZR JS
+    ============================================ -->
+    <script th:src="@{/user/js/vendor/modernizr-2.6.2.min.js}"></script>
+</head>
+<body>
+
+    <div th:replace="user/fragments/header::header"></div>
+    <div layout:fragment="home"></div>
+    <div layout:fragment="all_product"></div>
+    <div layout:fragment="news"></div>
+    <div layout:fragment="news_detail"></div>
+    <div layout:fragment="introduce"></div>
+    <div layout:fragment="news"></div>
+    <div layout:fragment="contact"></div>
+    <div layout:fragment="register"></div>
+    <div layout:fragment="register"></div>
+    <div layout:fragment="login"></div>
+    <div layout:fragment="cart"></div>
+    <div layout:fragment="details_product"></div>
+<!-- account -->
+    <div layout:fragment="manage_acc"></div>
+    <div layout:fragment="update_acc"></div>
+    <div layout:fragment="update_pass"></div>
+    <div layout:fragment="order_acc"></div>
+<!--bill-->
+    <div layout:fragment="bill"></div>
+    <div th:replace="user/fragments/footer::footer"></div>
+
+
+<!-- JS
+===============================================-->
+<!-- jquery js -->
+<script th:src="@{/user/js/vendor/jquery-1.11.3.min.js}"></script>
+
+<!-- fancybox js -->
+<script th:src="@{/user/js/jquery.fancybox.js}"></script>
+
+<!-- bxslider js -->
+<script th:src="@{/user/js/jquery.bxslider.min.js}"></script>
+
+<!-- meanmenu js -->
+<script th:src="@{/user/js/jquery.meanmenu.js}"></script>
+
+<!-- owl carousel js -->
+<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+<!-- nivo slider js -->
+<script th:src="@{/user/js/jquery.nivo.slider.js}"></script>
+
+<!-- jqueryui js -->
+<script th:src="@{/user/js/jqueryui.js}"></script>
+
+<!-- bootstrap js -->
+<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+<!-- wow js -->
+<script th:src="@{/user/js/wow.js}"></script>
+<script>
+    new WOW().init();
+</script>
+
+<!-- Google Map js -->
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script>
+    function initialize() {
+        var mapOptions = {
+            zoom: 8,
+            scrollwheel: false,
+            center: new google.maps.LatLng(35.149868, -90.046678)
+        };
+        var map = new google.maps.Map(document.getElementById('googleMap'),
+            mapOptions);
+        var marker = new google.maps.Marker({
+            position: map.getCenter(),
+            map: map
+        });
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<!-- main js -->
+<script th:src="@{/user/js/main.js}"></script>
+</body>
+
+
+</html>

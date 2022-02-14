@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/fragments/layout.html}"
+>
+<body>
+<div layout:fragment="cart">
+    <!-- MAIN-CONTENT-SECTION START -->
+    <section class="main-content-section">
+        <div class="container">
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- SHOPPING-CART SUMMARY START -->
+                    <h2 class="page-title">Giỏ hàng</h2>
+                    <!-- SHOPPING-CART SUMMARY END -->
+                </div>
+
+
+                <!-- start cart -->
+                <div class="shopping-cart">
+
+                    <div class="column-labels">
+                        <label class="product-image-cart">Image</label>
+                        <label class="product-details">Product</label>
+                        <label class="product-price">Giá</label>
+                        <label class="product-quantity">Số lượng</label>
+                        <label class="product-removal">Remove</label>
+                        <label class="product-line-price">Tổng tiền</label>
+                    </div>
+
+                    <div class="product">
+                        <div class="product-image-cart">
+                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+                        </div>
+                        <div class="product-details">
+                            <p class="product-description">Nước hoa abcdxyz</p>
+                            <div class="product-title">Thương hiệu: Gucci</div>
+                        </div>
+                        <div class="product-price">500.000</div>
+                        <div class="product-quantity">
+                            <input type="number" value="2" min="1">
+                        </div>
+                        <div class="product-removal">
+                            <button class="remove-product">
+                                Xóa
+                            </button>
+                        </div>
+                        <div class="product-line-price">500.000</div>
+                    </div>
+
+
+                    <div class="totals">
+                        <div class="totals-item">
+                            <label>Tổng tiền</label>
+                            <div class="totals-value" id="cart-subtotal">1.000.000</div>
+                        </div>
+
+                        <button class="checkout">Đặt hàng</button>
+
+                    </div>
+                    <!-- end cart -->
+
+                </div>
+            </div>
+    </section>
+    <!-- MAIN-CONTENT-SECTION END -->
+
+</div>
+</body>
+</html>

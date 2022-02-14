@@ -1,2 +1,0 @@
-Tạo một class abstract khi bạn đang cung cấp các hướng dẫn cho một class cụ thể.
-Tạo Interface khi chúng ta cung cấp các hành vi bổ sung cho class cụ thể và những hành vì này không bắt buộc đối với clas đó.

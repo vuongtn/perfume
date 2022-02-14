@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/fragments/layout.html}"
+>
+<body>
+<div layout:fragment="bill">
+    <!-- MAIN-CONTENT-SECTION START -->
+    <section class="main-content-section">
+        <div class="container">
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- SHOPPING-CART SUMMARY START -->
+                    <h2 class="page-title">Đặt hàng</h2>
+                    <!-- SHOPPING-CART SUMMARY END -->
+                </div>
+
+                <div class="row">
+                    <!-- Thông tin đặt hàng -->
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                        <div class="personal-infomation">
+                            <form class="primari-box personal-info-box" id="personalinfo" style="background: none; border: none; padding-top: 0;" method="post" action="#">
+                                <h3 class="title-buy">Thông tin mua hàng</h3>
+                                <div class="personal-info-content">
+                                    <div class="form-group p-info-group">
+                                        <label class="p_buy" for="firstname">Họ tên người nhận <sup></sup></label>
+                                        <input type="text" value="" name="firstname" id="firstname" class="form-control input-feild">
+                                    </div>
+                                    <div class="form-group p-info-group">
+                                        <label class="p_buy" for="lastname">Email <sup></sup></label>
+                                        <input type="text" value="" name="lastname" id="lastname" class="form-control input-feild">
+                                    </div>
+                                    <div class="form-group p-info-group">
+                                        <label class="p_buy" for="email">Số điện thoại<sup></sup></label>
+                                        <input type="email" value="" name="email" id="email" class="form-control input-feild">
+                                    </div>
+                                    <div class="form-group p-info-group">
+                                        <label class="p_buy" for="email">Địa chỉ<sup></sup></label>
+                                        <input type="email" value="" name="email" id="address" class="form-control input-feild">
+                                    </div>
+                                    <div class="form-group p-info-group">
+                                        <label class="p_buy" for="email">Ghi chú<sup></sup></label>
+                                        <textarea name="note" id="note" rows="5" class="form-control col-md-9"></textarea>
+                                    </div>
+
+                                    <!-- <div class="form-group primary-form-group p-info-group">
+                                        <label class="cheker">
+                                            <input type="checkbox" name="checkbox">
+                                            <span></span>
+                                        </label>
+                                        <a href="#">Sign up for our newsletter!</a>
+                                    </div>
+                                    <div class="submit-button p-info-submit-button">
+                                        <a href="checkout-address.html" id="SubmitCreate" class="btn main-btn">
+                                            <span>
+                                                Register
+                                                <i class="fa fa-chevron-right"></i>
+                                            </span>
+                                        </a>
+                                        <span class="required-field"><sup>*</sup>Required field</span>
+                                    </div> -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Vận chuyển -->
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <h3 class="title-buy">Thông tin mua hàng</h3>
+                        <input type="radio" name="tab" value="igotnone" onclick="show1();" />
+                        Thanh toán khi nhận hàng
+                        <br>
+                        <input type="radio" name="tab" value="igottwo" onclick="show2();" />
+                        Chuyển khoản qua ngân hàng
+
+
+                        <br>
+                        <div id="div1" class="content-buy">
+                            <p>Bước 1: Quý khách vui lòng thanh toán hóa đơn theo thông tin sau:</p>
+                            <p>- Ngân hàng BIDV</p>
+                            <p>- STK: 1234567</p>
+                            <p>- Chủ TK: Trần Thị Quỳnh</p>
+                            <p>- Nội dung CK: Họ Tên + SDT</p>
+                            <p>Bước 2: D.Perfume sẽ gọi điện thoại cho Quý khách để xác nhận thanh toán</p>
+                        </div>
+                    </div>
+
+                    <!-- Chi tiết sản phẩm -->
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <h3 class="title-buy">Chi tiết sản phẩm</h3>
+                        <div class="product">
+                            <div class="product-image-cart">
+                                <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+                            </div>
+                            <div class="product-details" style="width:80%">
+                                <p class="product-description">Nước hoa abcdxyz</p>
+                                <div class="product-title">Số lượng: 1</div>
+                                <div class="product-title">Giá: 100.000đ</div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-image-cart">
+                                <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+                            </div>
+                            <div class="product-details" style="width:80%">
+                                <p class="product-description">Nước hoa abcdxyz</p>
+                                <div class="product-title">Số lượng: 1</div>
+                                <div class="product-title">Giá: 100.000đ</div>
+                            </div>
+                        </div>
+                        <!-- Tổng tiền -->
+                        <div class="">
+                            <div class="">
+                                <h3 class="title-buy">Tổng tiền: 1.000.000đ</h3>
+                            </div>
+
+                            <button class="checkout"style="float:none; margin-top:5px;">Đặt hàng</button>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- MAIN-CONTENT-SECTION END -->
+</div>
+<script>
+
+    function show2(){
+        document.getElementById('div1').style.display = 'block';
+    }
+    function show1(){
+        document.getElementById('div1').style.display ='none';
+    }
+</script>
+
+</body>
+</html>
