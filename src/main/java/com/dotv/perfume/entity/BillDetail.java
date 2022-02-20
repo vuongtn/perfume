@@ -1,20 +1,19 @@
 package com.dotv.perfume.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "bill_detail")
-public class BillDetail{
-    @EmbeddedId
-    private BillId id;
+public class BillDetail implements Serializable {
+    @Id
+    @Column(name = "id_product")
+    private Integer idProduct;
+
+    @Id
+    @Column(name = "id_bill")
+    private Integer idBill;
 
     @Column(name = "amount")
     private Integer amount;
@@ -22,15 +21,35 @@ public class BillDetail{
     @Column(name = "currently_price")
     private BigDecimal currentlyPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idProduct")
-    @JoinColumn(name = "id_product")
-    @JsonIgnore
-    private Product product;
+    public Integer getIdProduct() {
+        return this.idProduct;
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idBill")
-    @JoinColumn(name = "id_bill")
-    @JsonIgnore
-    private Bill bill;
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public Integer getIdBill() {
+        return this.idBill;
+    }
+
+    public void setIdBill(Integer idBill) {
+        this.idBill = idBill;
+    }
+
+    public Integer getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getCurrentlyPrice() {
+        return this.currentlyPrice;
+    }
+
+    public void setCurrentlyPrice(BigDecimal currentlyPrice) {
+        this.currentlyPrice = currentlyPrice;
+    }
 }

@@ -10,13 +10,13 @@ import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill,Integer> {
-    List<Bill> findByIdAccountAndStatus(int idAcc, int status);
+//    List<Bill> findByIdAccountAndStatus(int idAcc, int status);
 
 //    @Modifying
 //    @Query("update Bill set status=:status where id=:idBill")
 //    int updateStatusBill(@Param("status") int status, @Param("idBill") int idBill);
 
-    @Modifying
-    @Query("update Bill b set b.status=?1 where b.id=?2")
-    int updateStatusBill(int status,int idBill);
+//    @Modifying
+//    @Query("update Bill b set b.status=?1 where b.id=?2")
+//    int updateStatusBill(int status,int idBill);
 }

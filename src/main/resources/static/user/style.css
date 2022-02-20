@@ -188,7 +188,7 @@ span.mobile-menu-title, .drodown-mega-menu .mega-menu-list ul li a, .new-mark-bo
 -------------------------*/
 .left-title-area{}
 h2.left-title{
-	/* border-top: 1px solid #b0b1b3; */
+	 border-top: 1px solid #b0b1b3;
 	color: #3a3d42;
 	display: block;
 	font-weight:400;
@@ -198,7 +198,7 @@ h2.left-title{
 	text-transform: uppercase;
 	margin-bottom:5px;
 }
-/* h2.left-title:before{
+h2.left-title:before{
 	border-top: 3px solid #3a3d42;
 	content: "";
 	display: block;
@@ -206,7 +206,7 @@ h2.left-title{
 	position: absolute;
 	top: 2px;
 	width: 80px;
-} */
+}
 h2.left-title a:hover{
 	color:#FF4F4F;
 }
@@ -765,7 +765,7 @@ input.search-form[placeholder]:-ms-input-placeholder {
 }
 .left-mega{}
 .drodown-mega-menu .mega-menu-list{
-	margin-top:25px;
+	margin-top:10px;
 }
 .drodown-mega-menu .mega-menu-list a.mega-menu-title{
 	font-size:16px;
@@ -4363,6 +4363,7 @@ span.large-btn:hover i{
 }
 .single-product-condition{}
 .single-product-condition p{
+	margin-top:10px;
 	margin-bottom:10px;
 }
 .single-product-condition p span{
@@ -5243,5 +5244,8 @@ tfoot th:first-child {
 	padding: 5px;
 }
 
-
+/* name single product */
+.name-single-product{
+	border-bottom: 1px solid #eee
+}
 

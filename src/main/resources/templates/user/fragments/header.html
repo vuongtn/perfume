@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<body>
     <div th:fragment="header">
+
         <!-- HEADER-TOP START -->
         <div class="header-top" >
             <div class="container">
@@ -17,7 +21,7 @@
                             <nav>
                                 <ul class="list-inline">
 
-                                    <li><a th:href="@{/register}">Đăng ký</a></li>
+                                    <li><a th:href="@{/templates/user/register}">Đăng ký</a></li>
                                     <li><a th:href="@{/login}">Đăng nhập</a></li>
 
                                 </ul>
@@ -108,53 +112,20 @@
                                     <li class="active"><a th:href="@{/}">Trang chủ</a></li>
 
                                     <li>
-                                        <a th:href="@{/all_product}">Thương hiệu</a>
+                                        <a th:href="@{/all_product}" onclick="showMenu()">Thương hiệu</a>
                                         <!-- DRODOWN-MEGA-MENU START -->
-                                        <div class="drodown-mega-menu">
-                                            <div class="left-mega col-xs-3">
-                                                <div class="mega-menu-list">
-                                                    <ul>
-                                                        <li><a href="shop-gird.html">T-shirts</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                        <li><a href="shop-gird.html">Delivery</a></li>
-                                                        <li><a href="shop-gird.html">T-shirts</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="right-mega col-xs-3">
-                                                <div class="mega-menu-list">
-                                                    <ul>
-                                                        <li><a href="shop-gird.html">T-shirts</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                        <li><a href="shop-gird.html">Delivery</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                        <li><a href="shop-gird.html">Delivery</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="right-mega col-xs-3">
-                                                <div class="mega-menu-list">
-                                                    <ul>
-                                                        <li><a href="shop-gird.html">T-shirts</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                        <li><a href="shop-gird.html">Delivery</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                        <li><a href="shop-gird.html">Delivery</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="right-mega col-xs-3">
-                                                <div class="mega-menu-list">
-                                                    <ul>
-                                                        <li><a href="shop-gird.html">T-shirts</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                        <li><a href="shop-gird.html">Delivery</a></li>
-                                                        <li><a href="shop-gird.html">clothing</a></li>
-                                                        <li><a href="shop-gird.html">Delivery</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                        <div class="drodown-mega-menu" id="list-trademark-test">
+<!--                                           list thương hiệu load từ ajax-->
+<!--                                            <div class="right-mega col-xs-3">-->
+<!--                                                <div class="mega-menu-list">-->
+<!--                                                    <ul>-->
+<!--                                                        <li><a href="shop-gird.html">T-shirts</a></li>-->
+<!--                                                        <li><a href="shop-gird.html">clothing</a></li>-->
+<!--                                                        <li><a href="shop-gird.html">Delivery</a></li>-->
+<!--                                                        <li><a href="shop-gird.html">clothing</a></li>-->
+<!--                                                        <li><a href="shop-gird.html">Delivery</a></li>-->
+<!--                                                    </ul>-->
+<!--                                                </div>-->
 
 
                                         </div>
@@ -173,7 +144,7 @@
                                     </li>
                                     <li><a th:href="@{/news}">Tin tức</a></li>
                                     <li><a th:href="@{/introduce}">Giới thiệu</a></li>
-                                    <li><a th:href="@{/contact}">Liên hệ</a></li>
+                                    <li id="test"><a th:href="@{/contact}">Liên hệ</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -209,3 +180,5 @@
         </header>
         <!-- MAIN-MENU-AREA END -->
     </div>
+</body>
+</html>

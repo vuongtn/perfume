@@ -1,47 +1,22 @@
 package com.dotv.perfume.entity;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "news")
+public class News {
     @Id
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_trademark")
-    private Integer idTrademark;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "origin")
-    private String origin;
-
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "fragrant")
-    private String fragrant;
-
-    @Column(name = "guarantee")
-    private Integer guarantee;
-
-    @Column(name = "price")
-    private BigDecimal price;
-
-    @Column(name = "image")
-    private String image;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "short_description")
     private String shortDescription;
 
     @Column(name = "detail_description")
     private String detailDescription;
-
-    @Column(name = "amount")
-    private Integer amount;
 
     @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
@@ -66,68 +41,12 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getIdTrademark() {
-        return this.idTrademark;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setIdTrademark(Integer idTrademark) {
-        this.idTrademark = idTrademark;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getOrigin() {
-        return this.origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getGender() {
-        return this.gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getFragrant() {
-        return this.fragrant;
-    }
-
-    public void setFragrant(String fragrant) {
-        this.fragrant = fragrant;
-    }
-
-    public Integer getGuarantee() {
-        return this.guarantee;
-    }
-
-    public void setGuarantee(Integer guarantee) {
-        this.guarantee = guarantee;
-    }
-
-    public BigDecimal getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getShortDescription() {
@@ -144,14 +63,6 @@ public class Product {
 
     public void setDetailDescription(String detailDescription) {
         this.detailDescription = detailDescription;
-    }
-
-    public Integer getAmount() {
-        return this.amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
     }
 
     public java.sql.Timestamp getCreatedDate() {

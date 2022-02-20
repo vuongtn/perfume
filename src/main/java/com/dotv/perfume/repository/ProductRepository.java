@@ -12,13 +12,13 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer> {
-    @Query(value = "select * from product p where p.id_category = :idCategory and p.status=true",nativeQuery = true)
-    Page<Product> getProductByIdCategory(@Param("idCategory") int idCategory, Pageable pageable);
-
-    @Query("select p from Product p where p.name like %?1%")
-    List<Product> getProductByName(String name);
-
-    @Query("select p from Product p where p.id=?1")
-    Product getProductById(int id);
+//    @Query(value = "select * from product p where p.id_category = :idCategory and p.status=true",nativeQuery = true)
+//    Page<Product> getProductByIdCategory(@Param("idCategory") int idCategory, Pageable pageable);
+//
+//    @Query("select p from Product p where p.name like %?1%")
+//    List<Product> getProductByName(String name);
+//
+//    @Query("select p from Product p where p.id=?1")
+//    Product getProductById(int id);
 
 }

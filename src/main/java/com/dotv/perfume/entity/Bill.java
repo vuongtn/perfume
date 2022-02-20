@@ -1,26 +1,16 @@
 package com.dotv.perfume.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "bill")
 public class Bill {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_account")
-    private Integer idAccount;
+    @Column(name = "id_user")
+    private Integer idUser;
 
     @Column(name = "receiver_name")
     private String receiverName;
@@ -37,17 +27,103 @@ public class Bill {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "created_date")
+    private java.sql.Timestamp createdDate;
+
+    @Column(name = "updated_date")
+    private java.sql.Timestamp updatedDate;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "create_date")
-    private LocalDate createDate;
+    public Integer getId() {
+        return this.id;
+    }
 
-    @Column(name = "modify_date")
-    private LocalDate modifyDate;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public Integer getIdUser() {
+        return this.idUser;
+    }
 
-    @OneToMany(mappedBy = "bill",cascade = CascadeType.ALL)
-//    @JsonIgnore
-    private List<BillDetail> billDetails;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getReceiverName() {
+        return this.receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverAddress() {
+        return this.receiverAddress;
+    }
+
+    public void setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
+    }
+
+    public String getReceiverEmail() {
+        return this.receiverEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
+    }
+
+    public String getReceiverPhone() {
+        return this.receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
+    }
+
+    public String getNote() {
+        return this.note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public java.sql.Timestamp getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public void setCreatedDate(java.sql.Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public java.sql.Timestamp getUpdatedDate() {
+        return this.updatedDate;
+    }
+
+    public void setUpdatedDate(java.sql.Timestamp updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

@@ -82,6 +82,7 @@
     <!-- MODERNIZR JS
     ============================================ -->
     <script th:src="@{/user/js/vendor/modernizr-2.6.2.min.js}"></script>
+
 </head>
 <body>
 
@@ -111,8 +112,9 @@
 <!-- JS
 ===============================================-->
 <!-- jquery js -->
-<script th:src="@{/user/js/vendor/jquery-1.11.3.min.js}"></script>
-
+<!--<script th:src="@{/user/js/vendor/jquery-1.11.3.min.js}"></script>-->
+    <script th:src="@{/user/js/vendor/jquery-3.6.0.min.js}"></script>
+<!--    <script th:src="@{/user/js/vendor/jquery-3.6.0.js}"></script>-->
 <!-- fancybox js -->
 <script th:src="@{/user/js/jquery.fancybox.js}"></script>
 
@@ -140,27 +142,13 @@
     new WOW().init();
 </script>
 
-<!-- Google Map js -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-<script>
-    function initialize() {
-        var mapOptions = {
-            zoom: 8,
-            scrollwheel: false,
-            center: new google.maps.LatLng(35.149868, -90.046678)
-        };
-        var map = new google.maps.Map(document.getElementById('googleMap'),
-            mapOptions);
-        var marker = new google.maps.Marker({
-            position: map.getCenter(),
-            map: map
-        });
+<!--    file js tự viết làm nghiệp vụ-->
+<script th:src="@{/user/script_user/menu.js}"></script>
 
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
-</script>
+<!--    -->
+
 <!-- main js -->
-<script th:src="@{/user/js/main.js}"></script>
+<script th:src="@{/user/js/main.js}" type="text/javascript"></script>
 </body>
 
 
