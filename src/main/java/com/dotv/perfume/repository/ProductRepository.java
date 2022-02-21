@@ -20,5 +20,15 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 //
 //    @Query("select p from Product p where p.id=?1")
 //    Product getProductById(int id);
+    Page<Product> findAllByIdTrademarkAndStatus(int idTrademark, Boolean status, Pageable pageable);
+
+    //Trả về list sản phẩm theo mã thương hiệu sắp xêp tăng dần theo giá
+    List<Product> findAllByIdTrademarkAndStatusOrderByPriceAsc(int idTrademark, Boolean status, Pageable pageable);
+
+    //Trả về list sản phẩm theo mã thương hiệu sắp xêp giảm dần theo giá
+    List<Product> findAllByIdTrademarkAndStatusOrderByPriceDesc(int idTrademark, Boolean status, Pageable pageable);
+
+    //Trả về list sản phẩm theo mã thương hiệu sắp xêp giảm dần theo tên
+    List<Product> findAllByIdTrademarkAndStatusOrderByNameAsc(int idTrademark, Boolean status, Pageable pageable);
 
 }

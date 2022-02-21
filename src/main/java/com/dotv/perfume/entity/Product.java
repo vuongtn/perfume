@@ -26,7 +26,7 @@ public class Product {
     private String fragrant;
 
     @Column(name = "guarantee")
-    private Integer guarantee;
+    private String guarantee;
 
     @Column(name = "price")
     private BigDecimal price;
@@ -56,7 +56,7 @@ public class Product {
     private String updatedBy;
 
     @Column(name = "status")
-    private Byte status;
+    private Boolean status;
 
     public Integer getId() {
         return this.id;
@@ -106,11 +106,11 @@ public class Product {
         this.fragrant = fragrant;
     }
 
-    public Integer getGuarantee() {
+    public String getGuarantee() {
         return this.guarantee;
     }
 
-    public void setGuarantee(Integer guarantee) {
+    public void setGuarantee(String guarantee) {
         this.guarantee = guarantee;
     }
 
@@ -186,11 +186,11 @@ public class Product {
         this.updatedBy = updatedBy;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return this.status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

@@ -187,7 +187,24 @@ select * from product;
 
 
 insert into product(id_trademark,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,status)
-values(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true)
+values
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
+(2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,false),
+
 
 
 

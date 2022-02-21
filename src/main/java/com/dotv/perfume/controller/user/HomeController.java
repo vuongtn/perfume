@@ -21,33 +21,17 @@ public class HomeController {
 
     @GetMapping("/")
     public String getHome(Model model){
-        List<Trademark> listTrademark = trademarkService.getTrademarkByStatus(true);
-        int amountTrademark=listTrademark.size()/5;
-        model.addAttribute("amountTrademark",amountTrademark);
-        for(int i=1; i<=listTrademark.size(); i++){
-            model.addAttribute(String.valueOf(i), listTrademark.stream().skip(i*5).limit(5).collect(Collectors.toList()));
-        }
+        model.addAttribute("amountTrademark",1);
         return "user/home/home";
     }
 
-//    @GetMapping("/getMenu")
-//    @ResponseBody
-//    public List<Trademark> getListTrademark(Model model){
-//        List<Trademark> listTrademark = trademarkService.getTrademarkByStatus(true);
-//        int amountTrademark=listTrademark.size()/5;
-//        //model.addAttribute("amountTrademark",amountTrademark);
-//        for(int i=1; i<=listTrademark.size(); i++){
-//            model.addAttribute(String.valueOf(i), listTrademark.stream().skip(i*5).limit(5).collect(Collectors.toList()));
-//        }
-//        return listTrademark;
-//    }
-
     @GetMapping("/getMenu")
-    @ResponseBody
+//    @ResponseBody
     public ResponseEntity<List<Trademark>> getListTrademark(){
        return ResponseEntity.ok(trademarkService.getTrademarkByStatus(true));
     }
 
+    //
 
 
 }
