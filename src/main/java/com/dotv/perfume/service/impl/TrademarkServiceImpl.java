@@ -18,4 +18,9 @@ public class TrademarkServiceImpl implements TrademarkService {
     public List<Trademark> getTrademarkByStatus(Boolean status) {
         return trademarkRepository.getTrademarkByStatus(true);
     }
+
+    @Override
+    public Trademark getTrademarkById(int id) {
+        return trademarkRepository.getById(id);
+    }
 }

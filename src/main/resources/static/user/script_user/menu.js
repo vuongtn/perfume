@@ -23,15 +23,13 @@ function showMenu() {
         dataType : 'json',
         // timeout : 100000,
         success : function(data) {
-            var amount=data.length;
-            console.log(amount);
            $.each(data,function (i,item){
-
+               // $('#list-trademark-test').empty();
                $('#list-trademark-test').append(
                    '<div class="right-mega col-xs-3">'+
                        '<div class="mega-menu-list">'+
                            '<ul>'+
-                               '<li><a href="">'+ item.name +'</a></li>'+
+                               '<li><a href="/products?sx=1&typeP=1&typeF=3&curPage=1&id='+item.id+'">'+ item.name +'</a></li>'+
                            '</ul>'+
                        '</div>'
                )

@@ -188,7 +188,7 @@ span.mobile-menu-title, .drodown-mega-menu .mega-menu-list ul li a, .new-mark-bo
 -------------------------*/
 .left-title-area{}
 h2.left-title{
-	 border-top: 1px solid #b0b1b3;
+	border-top: 1px solid #b0b1b3;
 	color: #3a3d42;
 	display: block;
 	font-weight:400;
@@ -703,9 +703,24 @@ input.search-form[placeholder]:-ms-input-placeholder {
 .mainmenu nav ul li.active a{
 	background:#494E55;
 }
+/* .mainmenu nav ul li .home-var-menu-trademark{ */
+/* left: 15px; */
+/* left: 260px; */
+/* position: absolute;
+min-width: 220px;
+z-index: 999999;
+opacity: 0;
+visibility: hidden;
+top: 100px;
+transition:0.3s;
+} */
+/* .cuon{
+	overflow-y:scroll;
+	max-height: 500px;
+} */
 .mainmenu nav ul li .home-var-menu{
 	/* left: 15px; */
-	left: 260px;
+	left: 280px;
 	position: absolute;
 	width: 220px;
 	z-index: 999999;
@@ -744,6 +759,11 @@ input.search-form[placeholder]:-ms-input-placeholder {
 	visibility: visible;
 	top: 55px;
 }
+/* .mainmenu nav ul li:hover .home-var-menu-trademark{
+	opacity: 1;
+	visibility: visible;
+	top: 55px;
+} */
 /*-----------------------
 3.4 mega menu
 -------------------------*/
@@ -4363,7 +4383,7 @@ span.large-btn:hover i{
 }
 .single-product-condition{}
 .single-product-condition p{
-	margin-top:10px;
+	 margin-top: 10px;
 	margin-bottom:10px;
 }
 .single-product-condition p span{
@@ -5248,4 +5268,3 @@ tfoot th:first-child {
 .name-single-product{
 	border-bottom: 1px solid #eee
 }
-

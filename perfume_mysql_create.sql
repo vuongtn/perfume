@@ -184,6 +184,7 @@ insert into trademark(name,status) values('Gucci',true);
 
 -- insert data product
 select * from product;
+select * from product where gender='nu';
 
 
 insert into product(id_trademark,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,status)
@@ -204,12 +205,33 @@ values
 (2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
 (2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
 (2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,false),
+(2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,false)
+;
 
 
+insert into product(id_trademark,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,created_date,status)
+values
+(2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-11-09',false),
+(2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-12-09',false),
+(2,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-01-09',false)
+;
 
+insert into product(id_trademark,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,created_date,status)
+values
+(3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Unisex','Hoa hồng','1 tháng',500000.00,'anh1.jpg','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-11-09',true),
+(3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Unisex','Hoa hồng','1 tháng',25000000.00,'anh1,jpg','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-12-09',true),
+(3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Unisex','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-01-09',true),
+(3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nữ','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-11-09',true),
+(3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nữ','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-12-09',true),
+(3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Unisex','Hoa hồng','1 tháng',2500000.00,'anh1','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-01-09',true)
+;
 
+SET SQL_SAFE_UPDATES = 0;
+update product 
+set image='anh1.jpg'
+where image='anh1.png';
 
-
+delete from product
 
 
 

@@ -1,3 +1,4 @@
+
 function showProductByTrademark(idTrade,typeFil,curPage) {
 
     // var name = $("#name").val();

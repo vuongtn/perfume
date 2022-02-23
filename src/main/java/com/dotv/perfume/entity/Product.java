@@ -1,5 +1,7 @@
 package com.dotv.perfume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,8 +12,8 @@ public class Product {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_trademark")
-    private Integer idTrademark;
+//    @Column(name = "id_trademark")
+//    private Integer idTrademark;
 
     @Column(name = "name")
     private String name;
@@ -58,6 +60,11 @@ public class Product {
     @Column(name = "status")
     private Boolean status;
 
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_trademark")
+    private Trademark trademark;
+
     public Integer getId() {
         return this.id;
     }
@@ -66,12 +73,21 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getIdTrademark() {
-        return this.idTrademark;
+//    public Integer getIdTrademark() {
+//        return this.idTrademark;
+//    }
+//
+//    public void setIdTrademark(Integer idTrademark) {
+//        this.idTrademark = idTrademark;
+//    }
+
+
+    public Trademark getTrademark() {
+        return trademark;
     }
 
-    public void setIdTrademark(Integer idTrademark) {
-        this.idTrademark = idTrademark;
+    public void setTrademark(Trademark trademark) {
+        this.trademark = trademark;
     }
 
     public String getName() {

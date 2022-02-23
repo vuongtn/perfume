@@ -5,7 +5,16 @@ import java.util.List;
 public class PageCustom<T>{
     private int curPage;
     private int totalPage;
+    private int typeFil;//Loại lọc
     List<T> data;
+
+    public int getTypeFil() {
+        return typeFil;
+    }
+
+    public void setTypeFil(int typeFil) {
+        this.typeFil = typeFil;
+    }
 
     public int getCurPage() {
         return curPage;

@@ -1,6 +1,9 @@
 package com.dotv.perfume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "trademark")
@@ -26,6 +29,21 @@ public class Trademark {
 
     @Column(name = "status")
     private Boolean status;
+
+//    @OneToMany
+//    @JoinColumn(name="id_trademark")
+//    private List<Product> products;
+    @OneToMany(mappedBy = "trademark",fetch =FetchType.LAZY)
+    @JsonIgnore
+    private List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public Integer getId() {
         return this.id;
@@ -82,4 +100,5 @@ public class Trademark {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
 }

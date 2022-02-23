@@ -5,7 +5,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${singleProduct.name}"></title>
 </head>
 <body>
     <div layout:fragment="details_product">
@@ -16,6 +16,14 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <br>
                         <br>
+                        <!-- BSTORE-BREADCRUMB START -->
+                        <!-- <div class="bstore-breadcrumb">
+                            <a href="index.html">HOMe<span><i class="fa fa-caret-right"></i> </span> </a>
+                            <span> <i class="fa fa-caret-right"> </i> </span>
+                            <a href="shop-gird.html"> women </a>
+                            <span> Faded Short Sleeves T-shirt </span>
+                        </div> -->
+                        <!-- BSTORE-BREADCRUMB END -->
                     </div>
                 </div>
                 <div class="row">
@@ -28,8 +36,8 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="thumbnail_1">
                                             <div class="single-product-image">
-                                                <img src="img/product/sale/1.jpg" alt="single-product-image" />
-                                                <!-- <a class="new-mark-box" href="#">new</a> -->
+                                                <img th:src="@{'uploads/product/'+${singleProduct.image}}" alt="single-product-image" />
+
 
                                             </div>
                                         </div>
@@ -40,20 +48,20 @@
                             </div>
                             <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
                                 <div class="single-product-descirption">
-                                    <h2 class="name-single-product">Nước hoa Boss 150ml</h2>
-                                    </div>
+
+                                    <h2 class="name-single-product" th:text="${singleProduct.name}">Nước hoa Boss 150ml</h2>
                                     <div class="single-product-condition">
-                                        <p>Thương hiệu: <span>Gucci</span></p>
-                                        <p>Xuất xứ: <span>Pháp</span></p>
-                                        <p>Mùi hương: <span>Hoa nhài</span></p>
-                                        <p>Giới tính: <span>Nam</span></p>
-                                        <p>Bảo hành: <span>1 tháng</span></p>
+                                        <p>Thương hiệu: <span th:text="${nameTrademark.name}">Gucci</span></p>
+                                        <p>Xuất xứ: <span th:text="${singleProduct.origin}">Pháp</span></p>
+                                        <p>Mùi hương: <span th:text="${singleProduct.fragrant}">Hoa nhài</span></p>
+                                        <p>Giới tính: <span th:text="${singleProduct.gender}">Nam</span></p>
+                                        <p>Bảo hành: <span th:text="${singleProduct.guarantee}">1 tháng</span></p>
                                     </div>
                                     <div class="single-product-price">
-                                        <h2>500.000₫</h2>
+                                        <h2 th:text="${#numbers.formatDecimal(singleProduct.price, 3, 'POINT', 0, 'POINT')}+'₫'">500.000₫</h2>
                                     </div>
                                     <div class="single-product-desc">
-                                        <p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
+                                        <p th:text="${singleProduct.shortDescription}">sorize with</p>
                                         <div class="product-in-stock">
                                             <!-- <p>300 Items<span>In stock</span></p> -->
                                         </div>
@@ -91,7 +99,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="moreinfo">
                                             <div class="tab-description">
-                                                <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
+                                                <p th:text="${singleProduct.detailDescription}">sories including shoes, hats, belts and more!</p>
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="datasheet">

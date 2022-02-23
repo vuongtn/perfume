@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface TrademarkService {
     List<Trademark> getTrademarkByStatus(Boolean status);
+    Trademark getTrademarkById(int id);
 }
 
