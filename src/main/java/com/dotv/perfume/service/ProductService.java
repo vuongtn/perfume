@@ -10,4 +10,6 @@ public interface ProductService {
     List<Product> getListNewProduct(int typeName,Boolean status);
     Product getProductById(int id);
     List<Product> getAllProductByTrademark(int id, Boolean status);
+    List<Product> getAllProductByStatus(Boolean status, int typeFilter, int curPage, int page);
+    List<Product> getAllProduct(Boolean status);
 }

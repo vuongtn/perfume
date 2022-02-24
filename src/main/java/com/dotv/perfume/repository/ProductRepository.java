@@ -35,6 +35,9 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query("select p from Product p join p.trademark t where t.id=?1 and p.status=?2")
     List<Product> getProductByTrademark(int id, boolean status);
 
+    //Trả về tất cả sản phẩm có status = true
+    List<Product> findAllByStatus(boolean status, Pageable pageable);
+
     ///////////Thương hiệu/////////////////////////////////////////////
 
     //Trả về list sản phẩm theo mã thương hiệu sắp xếp tăng dần theo giá
@@ -70,4 +73,19 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query("select p from Product p where p.gender=?1 and p.status=?2 order by p.name asc")
     List<Product> getProductByGenderkAscName(String gender,boolean status,Pageable pageable);
 
+    ////////////////////////Tất cả?////////////////////////////////////////////
+    //Trả về list sản phẩm tăng dần theo giá
+    @Query("select p from Product p where p.status=?1 order by p.price asc")
+    List<Product> getProductAscPrice(boolean status,Pageable pageable);
+
+    //Trả về list sản phẩm giảm dần theo giá
+    @Query("select p from Product p where p.status=?1 order by p.price desc")
+    List<Product> getProductDescPrice(boolean status,Pageable pageable);
+
+    //Trả về list sản phẩm theo name
+    @Query("select p from Product p where p.status=?1 order by p.name asc")
+    List<Product> getProductAscName(boolean status,Pageable pageable);
+
+    /////////////
+    List<Product> findAllByStatus(boolean status);
 }

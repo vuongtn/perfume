@@ -13,7 +13,6 @@
     <section class="main-content-section">
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="right-all-product">
                         <!-- PRODUCT-CATEGORY-HEADER START -->
@@ -22,26 +21,25 @@
                             <!-- PRODUCT-CATEGORY-TITLE START -->
                             <br>
                             <h1>
-                                <span class="cat-name" th:text="'Nước hoa '+${headName}">title</span>
+                                <span class="cat-name" th:text="${headName}">title</span>
                             </h1>
                             <!-- PRODUCT-CATEGORY-TITLE END -->
                         </div>
                         <div class="product-shooting-area">
                             <div class="product-shooting-bar-all-product">
                                 <form action="/products" method="get">
-                                    <input type="text" name="sx" th:value="${sex}">
-                                    <input type="text" name="id" th:value="${id}">
-                                    <input type="text" name="typeP" th:value="${typeP}">
-<!--                                    <input type="text" name="typeF" th:value="${typeF}">-->
-                                    <input type="text" name="curPage" th:value="${curPage}">
+                                    <input type="hidden" name="sx" th:value="${sex}">
+                                    <input type="hidden" name="id" th:value="${id}">
+                                    <input type="hidden" name="typeP" th:value="${typeP}">
+                                    <input type="hidden" name="curPage" th:value="1">
                                     <!-- SHOORT-BY START -->
                                     <div class="shoort-by">
                                         <label for="productShort">Xếp theo</label>
                                         <div class="short-select-option">
                                             <select name="typeF" id="productShort">
-                                                <option value="3" selected="selected">Tên nước hoa</option>
-                                                <option value="2">Giá tăng dần</option>
-                                                <option value="1">Giá giảm dần</option>
+                                                <option value="3" th:selected="${typeF==3} ? selected">Tên nước hoa</option>
+                                                <option value="1" th:selected="${typeF==1} ? selected">Giá tăng dần</option>
+                                                <option value="2" th:selected="${typeF==2} ? selected">Giá giảm dần</option>
                                             </select>
                                         </div>
                                     </div>
@@ -55,6 +53,9 @@
                     <!-- ALL GATEGORY-PRODUCT START -->
                     <div class="all-gategory-product">
                         <div class="row">
+                            <th:block th:if="${totalPage==0}">
+                                <h2 style="text-align: center; padding: 20px">Không có sản phẩm nào!</h2>
+                            </th:block>
                             <ul class="gategory-product" th:each="pro:${lstPro}">
                                 <!-- SINGLE ITEM START -->
                                 <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -84,6 +85,34 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- PRODUCT-SHOOTING-RESULT START -->
+                    <div class="product-shooting-result product-shooting-result-border">
+                        <div th:if="${totalPage != 1 && totalPage!=0}" class="form-group col-md-11 pagination-container" style="margin: 0px">
+                            <ul class="pagination">
+                                <li th:class="${curPage == 1} ? disabled">
+                                    <a class="pageLink" th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},curPage=1)}">&laquo;</a>
+                                </li>
+                                <li th:class="${curPage == 1} ? disabled">
+                                    <a class="pageLink" th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},curPage=${curPage - 1})}">&larr;</a>
+                                </li>
+                                <li th:class="${curPage == page} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                                    <a class="pageLink" th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},curPage=${page})}"
+                                       th:text="${page}"></a>
+                                </li>
+                                <li th:class="${curPage == totalPage} ? disabled">
+                                    <a class="pageLink"
+                                       th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},curPage=${curPage + 1})}">&rarr;</a>
+                                </li>
+                                <li th:class="${curPage == totalPage} ? disabled">
+                                    <a class="pageLink"
+                                       th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},curPage=${totalPage})}">&raquo;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- PRODUCT-SHOOTING-RESULT END -->
                 </div>
             </div>
         </div>

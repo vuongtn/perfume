@@ -228,13 +228,13 @@ values
 
 SET SQL_SAFE_UPDATES = 0;
 update product 
-set image='anh1.jpg'
-where image='anh1.png';
+set price=100
+where id=1;
 
-delete from product
+delete from product;
 
-
-
-
+select * from product where id_trademark=1 and status = true order by name asc;
+select * from product where id_trademark=1;
+select * from product where status=true;
 
 

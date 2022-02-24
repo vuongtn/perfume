@@ -5109,7 +5109,7 @@ a.write-review-btn{
 	grid-column-gap: 15px;
 	/* background: rgb(0 0 0 / 0%); */
 	background: white;
-	box-shadow: 0 0 5px rgb(0 0 0 / 30%);
+	/*box-shadow: 0 0 5px rgb(0 0 0 / 30%);*/
 	border-radius: 3px;
 	cursor: pointer;
 }
@@ -5267,4 +5267,23 @@ tfoot th:first-child {
 /* name single product */
 .name-single-product{
 	border-bottom: 1px solid #eee
+}
+
+/*Phân trang*/
+.pagination-container {
+	text-align: center;
+	padding-right: 0;
+}
+
+.page-select {
+	padding-left: 0;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.pointer-disabled {
+	pointer-events: none;
 }

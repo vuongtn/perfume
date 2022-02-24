@@ -85,5 +85,27 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getProductByTrademark(id,status);
     }
 
+    @Override
+    public List<Product> getAllProductByStatus(Boolean status, int typeFilter, int curPage, int page) {
+        //Sắp xếp theo tăng dần theo giá
+        if(typeFilter==1){
+            return productRepository.getProductAscPrice(status, PageRequest.of(curPage-1, page));
+        }
+        //Sắp xếp giảm dần theo giá
+        if(typeFilter==2){
+            return productRepository.getProductDescPrice(status, PageRequest.of(curPage-1, page));
+        }
+        //Sắp theo tên
+        if(typeFilter==3){
+            return productRepository.getProductAscName(status, PageRequest.of(curPage-1, page));
+        }
+        return null;
+    }
+
+    @Override
+    public List<Product> getAllProduct(Boolean status) {
+        return productRepository.findAllByStatus(status);
+    }
+
 
 }

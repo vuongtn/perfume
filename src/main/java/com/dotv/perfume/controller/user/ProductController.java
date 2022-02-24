@@ -1,12 +1,11 @@
 package com.dotv.perfume.controller.user;
 
-import antlr.StringUtils;
-import com.dotv.perfume.dto.PageCustom;
+import com.dotv.perfume.untils.PageCustom;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.entity.Trademark;
 import com.dotv.perfume.service.ProductService;
 import com.dotv.perfume.service.TrademarkService;
-import org.codehaus.groovy.util.StringUtil;
+import com.dotv.perfume.untils.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,16 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
 public class ProductController {
 
     //Số phần tử hiển thị 1 trang
-    private static final int PAGE = 4;
+    private static final int PAGE = 8;
+    private static final int BUTTONS_TO_SHOW = 5;
+    private static final String START_NAME = "Nước hoa ";
 
     @Autowired
     ProductService productService;
@@ -52,44 +51,56 @@ public class ProductController {
     //Kích vào một tên thương hiệu => load các sp của thương hiệu đó
     //typeP: 1 lấy sản phẩm theo thương hiệu, typeP: 2 lấy sản phẩm theo giới tính
     @GetMapping("/products")
-    public String getProductByTrade(@RequestParam int id,@RequestParam int sx, @RequestParam int typeP, @RequestParam int typeF, @RequestParam int curPage, Model model){
+    public String getProductByTradeOrGenderOrAll(@RequestParam int id,@RequestParam int sx, @RequestParam int typeP, @RequestParam int typeF, @RequestParam int curPage, Model model){
         List<Product> lstProduct=null;
+        int totalPage=0;
+        int totalElement;
+        Pager pager=null;
         if(typeP==1) {
             lstProduct=productService.getListProductByTrademark(id, true, typeF, curPage, PAGE);
-            int totalPage = productService.getAllProductByTrademark(id, true).size();
-            model.addAttribute("totalPage", totalPage);
-            model.addAttribute("curPage", curPage);
-            model.addAttribute("typeF", typeF);
-            model.addAttribute("typeP",typeP);
-            model.addAttribute("titleName", trademarkService.getTrademarkById(id));
-            model.addAttribute("id",id);
+            totalElement=productService.getAllProductByTrademark(id, true).size();
+            totalPage=(int)Math.ceil(totalElement/(float)PAGE);
+            pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
+            model.addAttribute("headName", START_NAME+trademarkService.getTrademarkById(id).getName());
         }
         if(typeP==2){
             //id:2,3,4 => Nam, Nữ, Unisex
-            int totalPage = productService.getListNewProduct(sx,true).size();
-            model.addAttribute("totalPage", totalPage);
-            model.addAttribute("curPage", curPage);
-            model.addAttribute("typeF", typeF);
-            model.addAttribute("typeP",typeP);
-            model.addAttribute("sex",sx);
+            totalElement = productService.getListNewProduct(sx,true).size();
+            totalPage=(int)Math.ceil(totalElement/(float)PAGE);
+            pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
             String gender="";
             if(sx==2) {
                 gender = "Nam";
-                model.addAttribute("headName", "Nam");
+                model.addAttribute("headName",START_NAME+"Nam");
             }
             if(sx==3) {
                 gender = "Nữ";
-                model.addAttribute("headName", "Nữ");
+                model.addAttribute("headName",START_NAME+ "Nữ");
             }
             if(sx==4) {
                 gender = "Unisex";
-                model.addAttribute("headName", "Unisex");
+                model.addAttribute("headName", START_NAME+"Unisex");
             }
             lstProduct = productService.getListProductByGender(gender, true, typeF, curPage, PAGE);
         }
+        if(typeP==3) {
+            lstProduct=productService.getAllProductByStatus(true, typeF,curPage,PAGE);
+            totalElement = productService.getAllProduct(true).size();
+            totalPage=(int)Math.ceil(totalElement/(float)PAGE);
+            pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
+            model.addAttribute("headName", "Tất cả sản phẩm");
+        }
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("typeF", typeF);
+        model.addAttribute("typeP",typeP);
+        model.addAttribute("id",id);
+        model.addAttribute("sex",sx);
+        model.addAttribute("pager",pager);
         model.addAttribute("lstPro", lstProduct);
         return "user/product/all_product";
     }
+
 
 
     @GetMapping("/single_product")

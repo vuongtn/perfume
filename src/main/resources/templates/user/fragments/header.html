@@ -112,7 +112,7 @@
                                     <li class="active"><a th:href="@{/}">Trang chủ</a></li>
 
                                     <li>
-                                        <a th:href="@{/products}">Thương hiệu</a>
+                                        <a th:href="@{/products(id=1,sx=1,typeP=3,typeF=3,curPage=1)}">Thương hiệu</a>
                                         <!-- DRODOWN-MEGA-MENU START -->
                                         <div class="drodown-mega-menu" id="list-trademark-test">
 <!--                                           list thương hiệu load từ ajax-->
@@ -131,13 +131,13 @@
                                         </div>
                                         <!-- DRODOWN-MEGA-MENU END -->
                                     </li>
-                                    <li><a th:href="@{/all_product}">Nước hoa</a>
+                                    <li><a th:href="@{/products(id=1,sx=1,typeP=3,typeF=3,curPage=1)}">Nước hoa</a>
                                         <!-- DROPDOWN MENU START -->
                                         <div class="home-var-menu">
                                             <ul class="home-menu">
-                                                <li><a href="index.html">Nam</a></li>
-                                                <li><a href="index-2.html">Nữ</a></li>
-                                                <li><a href="index-2.html">Unisex</a></li>
+                                                <li><a th:href="@{/products(id=1,sx=2,typeP=2,typeF=3,curPage=1)}">Nam</a></li>
+                                                <li><a th:href="@{/products(id=1,sx=3,typeP=2,typeF=3,curPage=1)}">Nữ</a></li>
+                                                <li><a th:href="@{/products(id=1,sx=4,typeP=2,typeF=3,curPage=1)}">Unisex</a></li>
                                             </ul>
                                         </div>
                                         <!-- DROPDOWN MENU END -->
