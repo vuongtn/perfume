@@ -1,11 +1,10 @@
 package com.dotv.perfume.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "cart")
-public class Cart implements Serializable {
+public class Cart {
     @Id
     @Column(name = "id_product")
     private Integer idProduct;

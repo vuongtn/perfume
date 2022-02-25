@@ -5,7 +5,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title th:text="${headName}">Title</title>
+    <title th:text="${query}">Title</title>
 </head>
 <body>
 <div layout:fragment="all_product">
@@ -20,42 +20,22 @@
                         <div class="product-category-title">
                             <!-- PRODUCT-CATEGORY-TITLE START -->
                             <br>
-                            <h1>
-                                <span class="cat-name" th:text="${headName}">title</span>
-                            </h1>
                             <!-- PRODUCT-CATEGORY-TITLE END -->
                         </div>
                         <div class="product-shooting-area">
                             <div class="product-shooting-bar-all-product">
-                                <form action="/products" method="get">
-                                    <input type="hidden" name="sx" th:value="${sex}">
-                                    <input type="hidden" name="id" th:value="${id}">
-                                    <input type="hidden" name="typeP" th:value="${typeP}">
-                                    <input type="hidden" name="typeM" th:value="${typeMenu}">
-                                    <input type="hidden" name="curPage" th:value="1">
-                                    <!-- SHOORT-BY START -->
-                                    <div class="shoort-by">
-                                        <label for="productShort">Xếp theo</label>
-                                        <div class="short-select-option">
-                                            <select name="typeF" id="productShort">
-                                                <option value="3" th:selected="${typeF==3} ? selected">Tên nước hoa</option>
-                                                <option value="1" th:selected="${typeF==1} ? selected">Giá tăng dần</option>
-                                                <option value="2" th:selected="${typeF==2} ? selected">Giá giảm dần</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- SHOORT-BY END -->
-                                    <button type="submit" class="btn btn-primary btn-sm">Sắp xếp</button>
-                                </form>
+                            <th:block th:if="${totalPro!=0}">
+                                <h2 style="text-align: center;" th:text="'Có '+${totalPro}+' kết quả tìm kiếm phù hợp.'"></h2>
+                            </th:block>
                             </div>
-
                         </div>
                     </div>
                     <!-- ALL GATEGORY-PRODUCT START -->
                     <div class="all-gategory-product">
                         <div class="row">
                             <th:block th:if="${totalPage==0}">
-                                <h2 style="text-align: center; padding: 20px">Không có sản phẩm nào!</h2>
+                                <h2 style="text-align: center; padding: 20px"
+                                th:text="'Không tìm thấy bất kỳ kết quả nào với từ khóa &quot;'+${query}+'&quot;'"></h2>
                             </th:block>
                             <ul class="gategory-product" th:each="pro:${lstPro}">
                                 <!-- SINGLE ITEM START -->
@@ -92,23 +72,23 @@
                         <div th:if="${totalPage != 1 && totalPage!=0}" class="form-group col-md-11 pagination-container" style="margin: 0px">
                             <ul class="pagination">
                                 <li th:class="${curPage == 1} ? disabled">
-                                    <a class="pageLink" th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},typeM=${typeMenu},curPage=1)}">&laquo;</a>
+                                    <a class="pageLink" th:href="@{/serch(query=${query},curPage=1)}">&laquo;</a>
                                 </li>
                                 <li th:class="${curPage == 1} ? disabled">
-                                    <a class="pageLink" th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},typeM=${typeMenu},curPage=${curPage - 1})}">&larr;</a>
+                                    <a class="pageLink" th:href="@{/serch(query=${query},curPage=${curPage - 1})}">&larr;</a>
                                 </li>
                                 <li th:class="${curPage == page} ? 'active pointer-disabled'"
                                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                                    <a class="pageLink" th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},typeM=${typeMenu},curPage=${page})}"
+                                    <a class="pageLink" th:href="@{/serch(query=${query},curPage=${page})}"
                                        th:text="${page}"></a>
                                 </li>
                                 <li th:class="${curPage == totalPage} ? disabled">
                                     <a class="pageLink"
-                                       th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},typeM=${typeMenu},curPage=${curPage + 1})}">&rarr;</a>
+                                       th:href="@{/serch(query=${query},curPage=${curPage + 1})}">&rarr;</a>
                                 </li>
                                 <li th:class="${curPage == totalPage} ? disabled">
                                     <a class="pageLink"
-                                       th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},typeM=${typeMenu},curPage=${totalPage})}">&raquo;</a>
+                                       th:href="@{/serch(query=${query},curPage=${totalPage})}">&raquo;</a>
                                 </li>
                             </ul>
                         </div>

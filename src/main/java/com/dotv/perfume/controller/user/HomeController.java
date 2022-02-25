@@ -35,6 +35,7 @@ public class HomeController {
         model.addAttribute("lstBoyProduct",listBoyProduct);
         model.addAttribute("lstGirlProduct",listGirlProduct);
         model.addAttribute("lstUnisexProduct",listUnisexProduct);
+        model.addAttribute("typeMenu",1);
         return "user/home/home";
     }
 

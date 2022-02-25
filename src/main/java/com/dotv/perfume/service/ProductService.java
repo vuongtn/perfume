@@ -12,4 +12,5 @@ public interface ProductService {
     List<Product> getAllProductByTrademark(int id, Boolean status);
     List<Product> getAllProductByStatus(Boolean status, int typeFilter, int curPage, int page);
     List<Product> getAllProduct(Boolean status);
+    List<Product> searchProductByName(String query,Boolean status);
 }

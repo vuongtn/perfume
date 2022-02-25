@@ -3,23 +3,14 @@ package com.dotv.perfume.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "review")
-public class Review {
+@Table(name = "introduce")
+public class Introduce {
     @Id
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "id_product")
-    private Integer idProduct;
-
-    @Column(name = "id_user")
-    private Integer idUser;
-
-    @Column(name = "content")
-    private String content;
-
-    @Column(name = "star")
-    private Integer star;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
@@ -44,36 +35,12 @@ public class Review {
         this.id = id;
     }
 
-    public Integer getIdProduct() {
-        return this.idProduct;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setIdProduct(Integer idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    public Integer getIdUser() {
-        return this.idUser;
-    }
-
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getStar() {
-        return this.star;
-    }
-
-    public void setStar(Integer star) {
-        this.star = star;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public java.sql.Timestamp getCreatedDate() {

@@ -3,6 +3,7 @@ package com.dotv.perfume.service.impl;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.repository.ProductRepository;
 import com.dotv.perfume.service.ProductService;
+import com.dotv.perfume.utils.PerfumeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    PerfumeUtils perfumeUtils;
 
 
 //    @Override
@@ -105,6 +108,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAllProduct(Boolean status) {
         return productRepository.findAllByStatus(status);
+    }
+
+    @Override
+    public List<Product> searchProductByName(String query,Boolean status) {
+        String name=perfumeUtils.convertToEnglish(query.trim());
+        return productRepository.getProductByName(true,name);
     }
 
 

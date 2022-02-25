@@ -1,4 +1,4 @@
-package com.dotv.perfume.untils;
+package com.dotv.perfume.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

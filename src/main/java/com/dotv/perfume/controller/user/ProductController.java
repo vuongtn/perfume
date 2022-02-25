@@ -1,11 +1,11 @@
 package com.dotv.perfume.controller.user;
 
-import com.dotv.perfume.untils.PageCustom;
+import com.dotv.perfume.utils.PageCustom;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.entity.Trademark;
 import com.dotv.perfume.service.ProductService;
 import com.dotv.perfume.service.TrademarkService;
-import com.dotv.perfume.untils.Pager;
+import com.dotv.perfume.utils.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -51,7 +52,7 @@ public class ProductController {
     //Kích vào một tên thương hiệu => load các sp của thương hiệu đó
     //typeP: 1 lấy sản phẩm theo thương hiệu, typeP: 2 lấy sản phẩm theo giới tính
     @GetMapping("/products")
-    public String getProductByTradeOrGenderOrAll(@RequestParam int id,@RequestParam int sx, @RequestParam int typeP, @RequestParam int typeF, @RequestParam int curPage, Model model){
+    public String getProductByTradeOrGenderOrAll(@RequestParam int id,@RequestParam int sx, @RequestParam int typeP, @RequestParam int typeF, @RequestParam int curPage,@RequestParam(required = false) String typeM, Model model){
         List<Product> lstProduct=null;
         int totalPage=0;
         int totalElement;
@@ -89,6 +90,7 @@ public class ProductController {
             totalPage=(int)Math.ceil(totalElement/(float)PAGE);
             pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
             model.addAttribute("headName", "Tất cả sản phẩm");
+            model.addAttribute("typeMenu",Integer.parseInt(typeM));
         }
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("curPage", curPage);
@@ -101,8 +103,6 @@ public class ProductController {
         return "user/product/all_product";
     }
 
-
-
     @GetMapping("/single_product")
     public String getProductById(@RequestParam int id, Model model){
         Product product = productService.getProductById(id);
@@ -110,5 +110,25 @@ public class ProductController {
         model.addAttribute("singleProduct",product);
         model.addAttribute("nameTrademark",trademark);
         return "user/product/details_product";
+    }
+
+    //Search product
+    @GetMapping("serch")
+    public String getProductByQuery(@RequestParam String query,@RequestParam(required = false) String curPage, Model model){
+        int currPage=1;
+        if(curPage!=null){
+            currPage=Integer.parseInt(curPage);
+        }
+        List<Product> totalPro=productService.searchProductByName(query,true);
+        List<Product> lstPro=totalPro.stream().skip((currPage-1)*PAGE).limit(PAGE).collect(Collectors.toList());
+        int totalPage=(int)Math.ceil(totalPro.size()/(float)PAGE);
+        Pager pager = new Pager(totalPage,currPage-1, BUTTONS_TO_SHOW);
+        model.addAttribute("totalPro",totalPro.size());
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("curPage", currPage);
+        model.addAttribute("lstPro",lstPro);
+        model.addAttribute("pager",pager);
+        model.addAttribute("query",query);
+        return "user/product/search_product";
     }
 }

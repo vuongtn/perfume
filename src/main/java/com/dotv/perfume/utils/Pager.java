@@ -1,4 +1,4 @@
-package com.dotv.perfume.untils;
+package com.dotv.perfume.utils;
 
 public class Pager {
     private int buttonsToShow = 5;

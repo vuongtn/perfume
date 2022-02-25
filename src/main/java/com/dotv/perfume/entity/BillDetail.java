@@ -1,12 +1,10 @@
 package com.dotv.perfume.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "bill_detail")
-public class BillDetail implements Serializable {
+public class BillDetail {
     @Id
     @Column(name = "id_product")
     private Integer idProduct;
