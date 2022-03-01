@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -43,7 +44,7 @@ public class User {
     private String updatedBy;
 
     @Column(name = "status")
-    private Byte status;
+    private Boolean status;
 
     public Integer getId() {
         return this.id;
@@ -141,11 +142,11 @@ public class User {
         this.updatedBy = updatedBy;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return this.status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

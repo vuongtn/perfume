@@ -1,41 +1,19 @@
-package com.dotv.perfume.entity;
+package com.dotv.perfume.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "role")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class UserDTO {
     private Integer id;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "password")
+    private String username;
     private String password;
-
-    @Column(name = "code")
-    private String code;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "created_date")
+    private String email;
+    private String fullName;
+    private String address;
+    private String phone;
+    private String avatar;
     private java.sql.Timestamp createdDate;
-
-    @Column(name = "updated_date")
     private java.sql.Timestamp updatedDate;
-
-    @Column(name = "created_by")
     private String createdBy;
-
-    @Column(name = "updated_by")
     private String updatedBy;
-
-    @Column(name = "status")
-    private Boolean status;
+    private Byte status;
 
     public Integer getId() {
         return this.id;
@@ -45,12 +23,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -61,20 +39,44 @@ public class Role {
         this.password = password;
     }
 
-    public String getCode() {
-        return this.code;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getFullName() {
+        return this.fullName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAvatar() {
+        return this.avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public java.sql.Timestamp getCreatedDate() {
@@ -109,11 +111,11 @@ public class Role {
         this.updatedBy = updatedBy;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return this.status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 }

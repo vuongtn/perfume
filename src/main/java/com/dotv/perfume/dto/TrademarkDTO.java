@@ -1,41 +1,13 @@
-package com.dotv.perfume.entity;
+package com.dotv.perfume.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "role")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class TrademarkDTO {
     private Integer id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "code")
-    private String code;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
-
-    @Column(name = "updated_date")
     private java.sql.Timestamp updatedDate;
-
-    @Column(name = "created_by")
     private String createdBy;
-
-    @Column(name = "updated_by")
     private String updatedBy;
-
-    @Column(name = "status")
-    private Boolean status;
+    private Byte status;
 
     public Integer getId() {
         return this.id;
@@ -51,30 +23,6 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public java.sql.Timestamp getCreatedDate() {
@@ -109,11 +57,11 @@ public class Role {
         this.updatedBy = updatedBy;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return this.status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 }

@@ -1,9 +1,10 @@
 package com.dotv.perfume.utils;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 @Configuration
@@ -45,5 +46,11 @@ public class PerfumeUtils {
             sb.setCharAt(i, removeAccent(sb.charAt(i)));
         }
         return sb.toString();
+    }
+    public Timestamp getDateNow(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        //System.out.println(dtf.format(now)); //2016-11-16 12:08:43
+        return Timestamp.valueOf(dtf.format(now));
     }
 }

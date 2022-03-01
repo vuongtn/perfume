@@ -1,28 +1,18 @@
-package com.dotv.perfume.entity;
+package com.dotv.perfume.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
-@Entity
-@Table(name = "contact")
-public class Contact {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class ContactDTO {
     private Integer id;
-
-    @Column(name = "full_name")
+    @NotBlank(message = "Họ và tên không được để trống.")
     private String fullName;
-
-    @Column(name = "email")
+//    @NotBlank(message = "Email không được để trống.")
+    @Pattern(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$",message = "Email không hợp lệ.")
     private String email;
-
-    @Column(name = "content")
+    @NotBlank(message = "Nội dung phản hồi không được để trống.")
     private String content;
-
-    @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
-
-    @Column(name = "status")
     private Boolean status;
 
     public Integer getId() {

@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                     <!-- SHOORT-BY END -->
-                                    <button type="submit" class="btn btn-primary btn-sm">Sắp xếp</button>
+                                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: #494E55">Sắp xếp</button>
                                 </form>
                             </div>
 
@@ -90,7 +90,7 @@
                     <!-- PRODUCT-SHOOTING-RESULT START -->
                     <div class="product-shooting-result product-shooting-result-border">
                         <div th:if="${totalPage != 1 && totalPage!=0}" class="form-group col-md-11 pagination-container" style="margin: 0px">
-                            <ul class="pagination">
+                            <ul class="pagination" style="margin: 0px">
                                 <li th:class="${curPage == 1} ? disabled">
                                     <a class="pageLink" th:href="@{/products(id=${id},sx=${sex},typeP=${typeP},typeF=${typeF},typeM=${typeMenu},curPage=1)}">&laquo;</a>
                                 </li>

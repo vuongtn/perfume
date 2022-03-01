@@ -70,7 +70,7 @@
                     <!-- PRODUCT-SHOOTING-RESULT START -->
                     <div class="product-shooting-result product-shooting-result-border">
                         <div th:if="${totalPage != 1 && totalPage!=0}" class="form-group col-md-11 pagination-container" style="margin: 0px">
-                            <ul class="pagination">
+                            <ul class="pagination" style="margin: 0px">
                                 <li th:class="${curPage == 1} ? disabled">
                                     <a class="pageLink" th:href="@{/serch(query=${query},curPage=1)}">&laquo;</a>
                                 </li>

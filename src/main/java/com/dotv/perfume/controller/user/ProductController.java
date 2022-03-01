@@ -113,7 +113,7 @@ public class ProductController {
     }
 
     //Search product
-    @GetMapping("serch")
+    @GetMapping("search")
     public String getProductByQuery(@RequestParam String query,@RequestParam(required = false) String curPage, Model model){
         int currPage=1;
         if(curPage!=null){

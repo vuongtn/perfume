@@ -1,70 +1,25 @@
-package com.dotv.perfume.entity;
+package com.dotv.perfume.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "product")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class ProductDTO {
     private Integer id;
-
-//    @Column(name = "id_trademark")
-//    private Integer idTrademark;
-
-    @Column(name = "name")
+    private Integer idTrademark;
     private String name;
-
-    @Column(name = "origin")
     private String origin;
-
-    @Column(name = "gender")
     private String gender;
-
-    @Column(name = "fragrant")
     private String fragrant;
-
-    @Column(name = "guarantee")
     private String guarantee;
-
-    @Column(name = "price")
     private BigDecimal price;
-
-    @Column(name = "image")
     private String image;
-
-    @Column(name = "short_description")
     private String shortDescription;
-
-    @Column(name = "detail_description")
     private String detailDescription;
-
-    @Column(name = "amount")
     private Integer amount;
-
-    @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
-
-    @Column(name = "updated_date")
     private java.sql.Timestamp updatedDate;
-
-    @Column(name = "created_by")
     private String createdBy;
-
-    @Column(name = "updated_by")
     private String updatedBy;
-
-    @Column(name = "status")
-    private Boolean status;
-
-    //@ManyToOne(fetch = FetchType.LAZY)
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_trademark")
-    private Trademark trademark;
+    private Byte status;
 
     public Integer getId() {
         return this.id;
@@ -74,21 +29,12 @@ public class Product {
         this.id = id;
     }
 
-//    public Integer getIdTrademark() {
-//        return this.idTrademark;
-//    }
-//
-//    public void setIdTrademark(Integer idTrademark) {
-//        this.idTrademark = idTrademark;
-//    }
-
-
-    public Trademark getTrademark() {
-        return trademark;
+    public Integer getIdTrademark() {
+        return this.idTrademark;
     }
 
-    public void setTrademark(Trademark trademark) {
-        this.trademark = trademark;
+    public void setIdTrademark(Integer idTrademark) {
+        this.idTrademark = idTrademark;
     }
 
     public String getName() {
@@ -159,9 +105,7 @@ public class Product {
         return this.detailDescription;
     }
 
-    public void setDetailDescription(String detailDescription) {
-        this.detailDescription = detailDescription;
-    }
+    public void setDetailDescription(String detailDescription) {this.detailDescription = detailDescription;}
 
     public Integer getAmount() {
         return this.amount;
@@ -203,11 +147,11 @@ public class Product {
         this.updatedBy = updatedBy;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return this.status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 }

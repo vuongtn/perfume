@@ -1,5 +1,6 @@
 package com.dotv.perfume.repository;
 
+import com.dotv.perfume.entity.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

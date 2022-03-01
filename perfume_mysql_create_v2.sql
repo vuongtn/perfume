@@ -123,10 +123,11 @@ CREATE TABLE `news` (
 	`title` varchar(255) NOT NULL,
 	`short_description` TEXT NOT NULL,
 	`detail_description` LONGTEXT NOT NULL,
+    `image` varchar(255) NOT NULL,
 	`created_date` DATETIME,
 	`updated_date` DATETIME,
 	`created_by` varchar(100),
-	`updated_by` varchar(100) NOT NULL,
+	`updated_by` varchar(100),
 	`status` BOOLEAN,
 	PRIMARY KEY (`id`)
 );
@@ -137,7 +138,7 @@ CREATE TABLE `introduce` (
 	`created_date` DATETIME,
 	`updated_date` DATETIME,
 	`created_by` varchar(100),
-	`updated_by` varchar(100) NOT NULL,
+	`updated_by` varchar(100),
 	`status` BOOLEAN,
 	PRIMARY KEY (`id`)
 );
@@ -172,9 +173,11 @@ ALTER TABLE `user_role` ADD CONSTRAINT `user_role_fk1` FOREIGN KEY (`id_role`) R
 -- sửa kiểu dữ liệu
 ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
-ALTER TABLE trademark DROP COLUMN updated_by;
+ALTER TABLE news DROP COLUMN updated_by;
 -- thêm cột
-ALTER TABLE trademark ADD COLUMN updated_by varchar(100);
+ALTER TABLE news ADD COLUMN updated_by varchar(100);
+
+drop table news;
 
 
 -- insert data trademark
@@ -235,7 +238,26 @@ values
 
 -- insert data introduce
 select * from introduce;
-insert into introduce(description,status) values(
+insert into introduce(description,status) values(" ĐỘ Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
+						",true);
+                        
+-- insert data news
+select * from news;
+insert into news(title,short_description,detail_description,image,created_date,status) values
+('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',true),
+('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',true),
+('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',true),
+('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',true),
+('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',true),
+('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',true);
+
 
 
 
@@ -253,7 +275,7 @@ select * from product where id_trademark=1;
 select * from product where status=true;
 select * from product where lower(name) like lower('%%');
 select lower(name) from product;
-
+select * from contact;
 ----------------------------------------------------------------------------
  
 

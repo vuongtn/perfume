@@ -3175,7 +3175,8 @@ form.error-ser-form .error-ser-btn:hover{
 	border: 1px solid #d6d4d4;
 	border-radius: 0;
 	box-shadow: none;
-	color:#9c9b9b;
+	/*color:#9c9b9b;*/
+	color: black;
 	height: 33px;
 	padding-left: 6px;
 }
@@ -5096,7 +5097,10 @@ a.write-review-btn{
 
 
 .albums {
-	padding: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	/*padding: 20px;*/
 	display: grid;
 	grid-gap: 20px;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -5109,7 +5113,7 @@ a.write-review-btn{
 	grid-column-gap: 15px;
 	/* background: rgb(0 0 0 / 0%); */
 	background: white;
-	/*box-shadow: 0 0 5px rgb(0 0 0 / 30%);*/
+	box-shadow: 0 0 5px rgb(0 0 0 / 30%);
 	border-radius: 3px;
 	cursor: pointer;
 }
@@ -5286,4 +5290,13 @@ tfoot th:first-child {
 
 .pointer-disabled {
 	pointer-events: none;
+}
+
+/* chuyển về mà đen*/
+.pagination>.active>a{
+	background-color: #222 !important;
+	border-color: #222 !important;
+}
+.pagination>li>a{
+	color: #222;
 }

@@ -1,43 +1,16 @@
-package com.dotv.perfume.entity;
+package com.dotv.perfume.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "bill")
-public class Bill {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class BillDTO {
     private Integer id;
-
-    @Column(name = "id_user")
     private Integer idUser;
-
-    @Column(name = "receiver_name")
     private String receiverName;
-
-    @Column(name = "receiver_address")
     private String receiverAddress;
-
-    @Column(name = "receiver_email")
     private String receiverEmail;
-
-    @Column(name = "receiver_phone")
     private String receiverPhone;
-
-    @Column(name = "note")
     private String note;
-
-    @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
-
-    @Column(name = "updated_date")
     private java.sql.Timestamp updatedDate;
-
-    @Column(name = "updated_by")
     private String updatedBy;
-
-    @Column(name = "status")
     private Integer status;
 
     public Integer getId() {
