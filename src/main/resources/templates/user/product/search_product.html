@@ -72,23 +72,23 @@
                         <div th:if="${totalPage != 1 && totalPage!=0}" class="form-group col-md-11 pagination-container" style="margin: 0px">
                             <ul class="pagination" style="margin: 0px">
                                 <li th:class="${curPage == 1} ? disabled">
-                                    <a class="pageLink" th:href="@{/serch(query=${query},curPage=1)}">&laquo;</a>
+                                    <a class="pageLink" th:href="@{/search(query=${query},curPage=1)}">&laquo;</a>
                                 </li>
                                 <li th:class="${curPage == 1} ? disabled">
-                                    <a class="pageLink" th:href="@{/serch(query=${query},curPage=${curPage - 1})}">&larr;</a>
+                                    <a class="pageLink" th:href="@{/search(query=${query},curPage=${curPage - 1})}">&larr;</a>
                                 </li>
                                 <li th:class="${curPage == page} ? 'active pointer-disabled'"
                                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                                    <a class="pageLink" th:href="@{/serch(query=${query},curPage=${page})}"
+                                    <a class="pageLink" th:href="@{/search(query=${query},curPage=${page})}"
                                        th:text="${page}"></a>
                                 </li>
                                 <li th:class="${curPage == totalPage} ? disabled">
                                     <a class="pageLink"
-                                       th:href="@{/serch(query=${query},curPage=${curPage + 1})}">&rarr;</a>
+                                       th:href="@{/search(query=${query},curPage=${curPage + 1})}">&rarr;</a>
                                 </li>
                                 <li th:class="${curPage == totalPage} ? disabled">
                                     <a class="pageLink"
-                                       th:href="@{/serch(query=${query},curPage=${totalPage})}">&raquo;</a>
+                                       th:href="@{/search(query=${query},curPage=${totalPage})}">&raquo;</a>
                                 </li>
                             </ul>
                         </div>

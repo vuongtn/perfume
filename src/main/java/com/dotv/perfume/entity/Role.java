@@ -1,6 +1,9 @@
 package com.dotv.perfume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -12,9 +15,6 @@ public class Role {
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "password")
-    private String password;
 
     @Column(name = "code")
     private String code;
@@ -37,6 +37,18 @@ public class Role {
     @Column(name = "status")
     private Boolean status;
 
+    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<UserRole> userRoles;
+
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
     public Integer getId() {
         return this.id;
     }
@@ -51,14 +63,6 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getCode() {

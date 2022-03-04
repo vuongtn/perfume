@@ -3,7 +3,6 @@ package com.dotv.perfume.dto;
 public class RoleDTO {
     private Integer id;
     private String name;
-    private String password;
     private String code;
     private String description;
     private java.sql.Timestamp createdDate;
@@ -26,14 +25,6 @@ public class RoleDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getCode() {

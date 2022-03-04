@@ -91,7 +91,6 @@ CREATE TABLE `contact` (
 CREATE TABLE `role` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL,
-	`password` varchar(100) NOT NULL,
 	`code` varchar(50) NOT NULL,
 	`description` varchar(255),
 	`created_date` DATETIME,
@@ -173,7 +172,7 @@ ALTER TABLE `user_role` ADD CONSTRAINT `user_role_fk1` FOREIGN KEY (`id_role`) R
 -- sửa kiểu dữ liệu
 ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
-ALTER TABLE news DROP COLUMN updated_by;
+ALTER TABLE role DROP COLUMN password;
 -- thêm cột
 ALTER TABLE news ADD COLUMN updated_by varchar(100);
 
@@ -259,6 +258,19 @@ insert into news(title,short_description,detail_description,image,created_date,s
 ('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',true);
 
 
+-- insert bảng role
+select * from role;
+insert into role(id,name,code,description,status) values
+(1,'Guest','G','Tài khoản khách hàng',true),
+(2,'ManageTrademark','MT','Quản lý thương hiệu',true),
+(3,'ManageProduct','MP','Quản lý sản phẩm',true),
+(4,'ManageNews','MN','Quản lý tin tức',true),
+(5,'ManageIntroduce','MI','Quản lý giới thiệu',true),
+(6,'ManageOrder','MO','Quản lý đơn hàng',true),
+(7,'ManageAccount','MA','Quản lý tài khoản',true),
+(8,'ManageContact','MC','Quản lý liên hệ (Chủ cửa hàng)',true),
+(9,'ManageReport','MR','Quản lý báo cáo (Chủ cửa hàng)',true);
+
 
 
 
@@ -277,6 +289,11 @@ select * from product where lower(name) like lower('%%');
 select lower(name) from product;
 select * from contact;
 ----------------------------------------------------------------------------
+ select * from user;
+ select * from role;
+ select * from user_role;
+ select * from bill_detail;
  
+ select * from role where code='G';
 
 

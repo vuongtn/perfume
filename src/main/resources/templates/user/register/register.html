@@ -21,34 +21,48 @@
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                         <!-- REGISTERED-ACCOUNT START -->
                         <div class="primari-box registered-account">
-                            <form class="new-account-box" id="accountLogin" method="post" action="#">
+                            <form class="new-account-box" th:object="${userDTO}" id="accountRegister" method="post" action="/verify_register">
                                 <h3 class="box-subheading">Đăng ký</h3>
                                 <div>
 
                                     <div class="form-content">
                                         <div class="form-group primary-form-group">
-                                            <label for="loginemail">Họ và tên</label>
-                                            <input type="text" value="" name="email" id="loginemail" class="form-control input-feild">
+                                            <label for="fullname">Họ và tên</label>
+                                            <input type="text" th:field="*{fullName}" name="fullname" id="fullname" class="form-control input-feild">
+                                            <span class="form-message"></span>
                                         </div>
                                         <div class="form-group primary-form-group">
-                                            <label for="password">Email</label>
-                                            <input type="password" value="" name="password" id="password" class="form-control input-feild">
+                                            <label for="email">Email</label>
+                                            <input type="text" th:field="*{email}" name="email" id="email" class="form-control input-feild">
+                                            <span class="form-message"></span>
+                                        </div>
+                                        <div class="form-group primary-form-group">
+                                            <label for="username">Tên đăng nhập</label>
+                                            <input type="text" th:field="*{username}" name="fullname" id="username" class="form-control input-feild">
+                                            <span class="form-message"></span>
                                         </div>
                                         <div class="form-group primary-form-group">
                                             <label for="password">Mật khẩu</label>
-                                            <input type="password" value="" name="password" id="password" class="form-control input-feild">
+                                            <input type="password" th:field="*{password}" name="password" id="password" class="form-control input-feild">
+                                            <span class="form-message"></span>
                                         </div>
+                                        <div class="form-group primary-form-group">
+                                            <label for="confirm-password">Nhập lại mật khẩu</label>
+                                            <input type="password" th:field="*{confirmPassword}" name="password" id="confirm-password" class="form-control input-feild">
+                                            <span class="form-message"></span>
+                                        </div>
+                                        <input type="text" name="password" id="code-sended" class="form-control input-feild">
                                         <div class="forget-password">
                                             <p><a href="#">Đăng nhập</a></p>
                                         </div>
-                                        <div class="submit-button">
-                                            <a href="my-account.html" id="signinCreate" class="btn main-btn">
-												<span>
-    <!--													<i class="fa fa-lock submit-icon"></i>-->
-													 Đăng ký
-												</span>
-                                            </a>
-                                        </div>
+<!--                                        <div onclick="sendCodeMail()" class="submit-button" data-toggle="modal" data-target="#myModal">-->
+<!--                                            <a id="signinCreate" class="btn main-btn">-->
+<!--												<span>-->
+<!--													 Đăng ký-->
+<!--												</span>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
+                                        <button onclick="sendCodeMail(1)" class="form-submit">Đăng ký</button>
                                     </div>
 
 
@@ -58,15 +72,222 @@
                         <!-- REGISTERED-ACCOUNT END -->
                     </div>
                 </div>
-
-
-
-
+                <!-- Modal virify-->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div id="wrapper">
+                            <div id="dialog">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <h5 id="title-verify" style="line-height: 25px;">Chúng tôi đã gửi mã xác nhận gồm 6 chữ số đến email của bạn. Vui lòng nhập
+                                    mã để xác nhận đăng ký.</h5>
+                                <!-- <span>(we want to make sure it's you before we contact our movers)</span> -->
+                                <div id="form-verify">
+                                    <input id="code1" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                    <input id="code2" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code3" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code4" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code5" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code6" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                    <span style="font-size: 15px;" class="text-danger">Sai mã xác thực</span>
+                                    <button class="btn btn-primary btn-embossed" onclick="checkCode()">Xác thực</button>
+                                    <span style="font-size: 15px;" class="text-info">Mã xác thực hết hạn trong:  <div id="ten-countdown"></div></span>
+<!--                                    <input type="text" id="code-sended" class="form-control input-feild">-->
+                                </div>
+                                <button onclick="sendCodeMail(2)" id="btn-reverify" style="display: none; text-align: center;" class="btn btn-success btn-embossed">Gửi lại mã xác nhận</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
     </section>
     <!-- MAIN-CONTENT-SECTION END -->
 </div>
+<script layout:fragment="register_js" th:inline="javascript">
+    //Định nghĩa form
+Validator({
+    form: '#accountRegister',
+    errorSelector: '.form-message',
+    rules: [
+        Validator.isRequired('#fullname'),//chạy hàm để nhận dữ liệu return trả về
+        Validator.isRequired('#email'),
+        Validator.isEmail('#email'),
+        Validator.isRequired('#username'),
+        Validator.minLength('#username',4,'Tên đăng nhập phải chứa ít nhất 4 kí tự'),
+        Validator.isRequired('#password'),
+        Validator.minLength('#password',6),
+        Validator.isConfirm('#confirm-password',function() {
+            return document.querySelector('#accountRegister #password').value;
+        }),
+    ],
+    // onSubmit: function(data) {
+    //   //Call API
+    //   console.log(data);
+    // }
+});
+
+    //verify code js
+    $(function() {
+        'use strict';
+        var body = $('#wrapper');
+
+        function goToNextInput(e) {
+            var key = e.which,
+                t = $(e.target),
+                sib = t.next('input');
+
+            if (key != 9 && (key < 48 || key > 57)) {
+                e.preventDefault();
+                return false;
+            }
+
+            if (key === 9) {
+                return true;
+            }
+
+            if (!sib || !sib.length) {
+                sib = body.find('input').eq(0);
+            }
+            sib.select().focus();
+        }
+
+        function onKeyDown(e) {
+            var key = e.which;
+
+            if (key === 9 || (key >= 48 && key <= 57)) {
+                return true;
+            }
+
+            e.preventDefault();
+            return false;
+        }
+
+        function onFocus(e) {
+            $(e.target).select();
+        }
+
+        body.on('keyup', 'input', goToNextInput);
+        body.on('keydown', 'input', onKeyDown);
+        body.on('click', 'input', onFocus);
+
+    })
+    //////////////////
+
+    //Countdown
+    function countdown( elementName, minutes, seconds )
+    {
+        var element, endTime, hours, mins, msLeft, time;
+
+        function twoDigits( n )
+        {
+            return (n <= 9 ? "0" + n : n);
+        }
+
+        function updateTimer()
+        {
+            msLeft = endTime - (+new Date);
+            if ( msLeft < 1000 ) {//Xử lý khi hết thời gian
+                // element.innerHTML = "Time is up!";
+                document.getElementById("form-verify").style.display = 'none';
+                document.getElementById("title-verify").innerText="Mã xác thực của bạn đã hết hạn!";
+                document.getElementById("btn-reverify").style.display='block';
+            } else {
+                time = new Date( msLeft );
+                hours = time.getUTCHours();
+                mins = time.getUTCMinutes();
+                element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
+                setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
+            }
+        }
+
+        element = document.getElementById( elementName );
+        endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+        updateTimer();
+    }
+
+    countdown( "ten-countdown", 0.08, 0 );
+    ///////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+    //sendMail
+    //Xác thực email
+    var check=[[${check}]];
+    if(check==1){
+        $('#myModal').modal('show');
+    }
+
+    function sendCodeMail(type){
+        var fullname=$("#fullname").val();
+        var email=$("#email").val();
+        if(type==2){
+            document.getElementById("title-verify").innerText="Đang gửi lại mã xác nhận...";
+            document.getElementById("btn-reverify").disabled = true;
+        }
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/send_code",
+            data: {
+                email: email,
+                fullname: fullname
+            },
+            // contentType: "application/json",
+            dataType : 'json',
+            timeout: 600000,
+            cache: false,
+            success: function (jsonResult) {
+                document.getElementById("form-verify").style.display = 'block';
+                document.getElementById("title-verify").innerText="Chúng tôi đã gửi mã xác nhận gồm 6 chữ số đến email của bạn. Vui lòng nhập mã để xác nhận đăng ký.";
+                document.getElementById("btn-reverify").style.display='none';
+                $("#code-sended").val(jsonResult.codeConfirm);
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+                document.getElementById("title-verify").innerText="Lỗi hệ thống.";
+                // document.getElementById("btn-reverify").disabled = true;
+            }
+        })
+    }
+
+    function checkCode(){
+        var code="";
+        for(var i=1; i<=6; i++){
+            code=code + document.getElementById('code'+i).value;
+        }
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/verify_code",
+            data: {
+                code: code
+            },
+            // contentType: "application/json",
+            dataType : 'json',
+            timeout: 600000,
+            cache: false,
+            success: function (jsonResult) {
+                // var obj=JSON.parse(jsonResult);
+                // var codeMail=obj.result;
+                if(jsonResult.result==true){
+                    alert("đúng");
+                }
+                else
+                    alert("sai");
+                // alert(code);
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+            }
+        })
+    }
+</script>
 </body>
 </html>

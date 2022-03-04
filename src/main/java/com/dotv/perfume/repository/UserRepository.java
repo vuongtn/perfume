@@ -17,5 +17,7 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 //    @Modifying
 //    @Query("update Account a set a.status=?2 where a.id=?1")
 //    int editStatus(int id, boolean status);
-
+    User findByUsernameAndStatus(String username, Boolean status);
+    User findByUsername(String username);
+    User findByEmail(String email);
 }

@@ -1,10 +1,10 @@
 package com.dotv.perfume.repository;
 
-import com.dotv.perfume.entity.BillDetail;
-import com.dotv.perfume.entity.BillId;
+import com.dotv.perfume.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BillDetailRepository extends JpaRepository<BillDetail, BillId> {
+public interface RoleRepository extends JpaRepository<Role,Integer> {
+    Role findByCode(String code);
 }

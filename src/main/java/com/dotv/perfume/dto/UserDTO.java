@@ -4,6 +4,7 @@ public class UserDTO {
     private Integer id;
     private String username;
     private String password;
+    private String confirmPassword;
     private String email;
     private String fullName;
     private String address;
@@ -13,7 +14,15 @@ public class UserDTO {
     private java.sql.Timestamp updatedDate;
     private String createdBy;
     private String updatedBy;
-    private Byte status;
+    private Boolean status;
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
     public Integer getId() {
         return this.id;
@@ -111,11 +120,11 @@ public class UserDTO {
         this.updatedBy = updatedBy;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return this.status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }
