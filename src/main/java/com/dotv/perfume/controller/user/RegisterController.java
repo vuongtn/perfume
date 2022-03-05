@@ -106,7 +106,7 @@ public class RegisterController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/rigister_account")
+    @PostMapping("/register_account")
     public ResponseEntity<JSONObject> registerAcc(@RequestBody UserDTO userDTO){
         JSONObject result = new JSONObject();
         try {

@@ -293,6 +293,8 @@ select * from contact;
  select * from role;
  select * from user_role;
  select * from bill_detail;
+ delete from user;
+ delete from user_role;
  
  select * from role where code='G';
 

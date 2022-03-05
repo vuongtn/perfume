@@ -90,7 +90,7 @@
                                     <input id="code1" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
                                     <input id="code2" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code3" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code4" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code5" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code6" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
                                     <span style="font-size: 15px; margin-top:10px" class="text-danger" id="error-verify"></span>
-                                    <button class="btn btn-primary btn-embossed" onclick="checkCode()">Xác thực</button>
+                                    <button style="margin-top:10px" class="btn btn-primary btn-embossed" onclick="checkCode()">Xác thực</button>
                                     <span style="font-size: 15px;" class="text-info">Mã xác thực hết hạn trong:  <div id="ten-countdown"></div></span>
                                     <input type="hidden" id="code-sended" class="form-control input-feild">
                                 </div>
@@ -193,6 +193,7 @@ Validator({
             if ( msLeft < 1000 ) {//Xử lý khi hết thời gian
                 // element.innerHTML = "Time is up!";
                 document.getElementById("btn-reverify").style.display='block';
+                document.getElementById("btn-reverify").disabled = false;
                 document.getElementById("form-verify").style.display = 'none';
                 document.getElementById("title-verify").innerText="Mã xác thực của bạn đã hết hạn!";
             } else {
@@ -284,32 +285,37 @@ Validator({
         var codeSend=$('#code-sended').val();//code đã gửi cho mail;
         if(code===codeSend){
             $('#error-verify').text('');
-            // $.ajax({
-            //     type: "POST",
-            //     enctype: 'multipart/form-data',
-            //     url: "/verify_code",
-            //     data: {
-            //         code: code
-            //     },
-            //     // contentType: "application/json",
-            //     dataType : 'json',
-            //     timeout: 600000,
-            //     cache: false,
-            //     success: function (jsonResult) {
-            //         // var obj=JSON.parse(jsonResult);
-            //         // var codeMail=obj.result;
-            //         if(jsonResult.result==true){
-            //             alert("đúng");
-            //         }
-            //         else
-            //             alert("sai");
-            //         // alert(code);
-            //     },
-            //     error: function (e) {
-            //         console.log("ERROR : ", e);
-            //     }
-            // })
-            alert('đúng');
+            var fullname= $('#fullname').val();
+            var email= $('#email').val();
+            var username= $('#username').val();
+            var password= $('#password').val();
+            var json={
+                "fullName":fullname,
+                "email":email,
+                "username":username,
+                "password":password
+            }
+            $.ajax({
+                type: "POST",
+                // enctype: 'multipart/form-data',
+                url: "/register_account",
+                data: JSON.stringify(json),
+                contentType: "application/json",
+                dataType : 'json',
+                timeout: 600000,
+                cache: false,
+                success: function (jsonResult) {
+                    if(jsonResult.message==true){
+                        $(location).attr('href', "/login");
+                    }
+                    else
+                        alert("Lưu thất bại");
+                    // alert(code);
+                },
+                error: function (e) {
+                    console.log("ERROR : ", e);
+                }
+            })
         }
         else{
             $('#error-verify').text('Mã xác thực không chính xác.');
