@@ -3,6 +3,7 @@ package com.dotv.perfume.controller.user;
 import com.dotv.perfume.dto.ContactDTO;
 import com.dotv.perfume.dto.UserDTO;
 import com.dotv.perfume.entity.User;
+import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.impl.UserRoleService;
 import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
@@ -35,6 +36,9 @@ public class RegisterController {
     @Autowired
     UserRoleService userRoleService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/register")
     public String getFormRegister(Model model){
         UserDTO user = new UserDTO();
@@ -44,8 +48,25 @@ public class RegisterController {
     }
     @PostMapping("/verify_register")
     public String getVerifyRegister(UserDTO userDTO, Model model){
+        if(userRepository.findByEmail(userDTO.getEmail()).size()!=0){
+            model.addAttribute("errorUser","Email đã tồn tại");
+            return "user/register/register";
+        }
+        if(userRepository.findByUsername(userDTO.getUsername()).size()!=0){
+            model.addAttribute("errorUser","Username đã tồn tại");
+            return "user/register/register";
+        }
+        try {
+            int code = sendCodeMail(userDTO.getEmail(), userDTO.getFullName());
+            model.addAttribute("codeSend",code);
+        }
+        catch (Exception ex){
+            model.addAttribute("errorUser","Lỗi hệ thống.");
+            return "user/register/register";
+        }
         model.addAttribute("check",1);
-
+        model.addAttribute("pass",userDTO.getPassword());
+        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
         return "user/register/register";
 
     }
@@ -67,7 +88,7 @@ public class RegisterController {
         message.setContent(htmlMsg, "text/html; charset=UTF-8");
         helper.setTo(emailReceiver);
         helper.setSubject("[D.Perfume] Xác thực tài khoản đăng ký.");
-
+        emailSender.send(message);
         return code;
     }
 
@@ -84,23 +105,6 @@ public class RegisterController {
         result.put("codeConfirm", code);
         return ResponseEntity.ok(result);
     }
-
-//    @PostMapping ("/verify_code")
-//    public ResponseEntity<JSONObject> verifyCode(HttpServletRequest request){
-//        JSONObject result = new JSONObject();
-//
-//        int code = Integer.parseInt(request.getParameter("code"));
-//        HttpSession session = request.getSession();
-//        int codeSend = (int) session.getAttribute("codeVerify");
-//        if(code==codeSend){
-//            result.put("result", Boolean.TRUE);
-//            //result.put("codeConfirm", code);
-//        }
-//        else{
-//            result.put("result", Boolean.FALSE);
-//        }
-//        return ResponseEntity.ok(result);
-//    }
 
     @PostMapping("/rigister_account")
     public ResponseEntity<JSONObject> registerAcc(@RequestBody UserDTO userDTO){

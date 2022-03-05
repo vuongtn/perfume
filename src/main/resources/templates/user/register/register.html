@@ -24,7 +24,11 @@
                             <form class="new-account-box" th:object="${userDTO}" id="accountRegister" method="post" action="/verify_register">
                                 <h3 class="box-subheading">Đăng ký</h3>
                                 <div>
-
+                                    <th:block th:if="${errorUser}">
+                                        <div id="error-user" class="alert alert-danger" role="alert" th:text="${errorUser}">
+                                           lỗi
+                                        </div>
+                                    </th:block>
                                     <div class="form-content">
                                         <div class="form-group primary-form-group">
                                             <label for="fullname">Họ và tên</label>
@@ -51,7 +55,7 @@
                                             <input type="password" th:field="*{confirmPassword}" name="password" id="confirm-password" class="form-control input-feild">
                                             <span class="form-message"></span>
                                         </div>
-                                        <input type="text" name="password" id="code-sended" class="form-control input-feild">
+<!--                                        <input type="text" name="password" id="code-sended" class="form-control input-feild">-->
                                         <div class="forget-password">
                                             <p><a href="#">Đăng nhập</a></p>
                                         </div>
@@ -62,7 +66,7 @@
 <!--												</span>-->
 <!--                                            </a>-->
 <!--                                        </div>-->
-                                        <button onclick="sendCodeMail(1)" class="form-submit">Đăng ký</button>
+                                        <button class="form-submit">Đăng ký</button>
                                     </div>
 
 
@@ -85,10 +89,10 @@
                                 <div id="form-verify">
                                     <input id="code1" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
                                     <input id="code2" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code3" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code4" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code5" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input id="code6" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
-                                    <span style="font-size: 15px;" class="text-danger">Sai mã xác thực</span>
+                                    <span style="font-size: 15px; margin-top:10px" class="text-danger" id="error-verify"></span>
                                     <button class="btn btn-primary btn-embossed" onclick="checkCode()">Xác thực</button>
                                     <span style="font-size: 15px;" class="text-info">Mã xác thực hết hạn trong:  <div id="ten-countdown"></div></span>
-<!--                                    <input type="text" id="code-sended" class="form-control input-feild">-->
+                                    <input type="hidden" id="code-sended" class="form-control input-feild">
                                 </div>
                                 <button onclick="sendCodeMail(2)" id="btn-reverify" style="display: none; text-align: center;" class="btn btn-success btn-embossed">Gửi lại mã xác nhận</button>
                             </div>
@@ -172,6 +176,8 @@ Validator({
     //////////////////
 
     //Countdown
+    var timeCountdown=0.5;
+
     function countdown( elementName, minutes, seconds )
     {
         var element, endTime, hours, mins, msLeft, time;
@@ -186,9 +192,9 @@ Validator({
             msLeft = endTime - (+new Date);
             if ( msLeft < 1000 ) {//Xử lý khi hết thời gian
                 // element.innerHTML = "Time is up!";
+                document.getElementById("btn-reverify").style.display='block';
                 document.getElementById("form-verify").style.display = 'none';
                 document.getElementById("title-verify").innerText="Mã xác thực của bạn đã hết hạn!";
-                document.getElementById("btn-reverify").style.display='block';
             } else {
                 time = new Date( msLeft );
                 hours = time.getUTCHours();
@@ -203,7 +209,7 @@ Validator({
         updateTimer();
     }
 
-    countdown( "ten-countdown", 0.08, 0 );
+    countdown( "ten-countdown", timeCountdown, 0 );//Gọi hàm đếm thời gian
     ///////////////////////////////
 
 
@@ -215,6 +221,12 @@ Validator({
 
 
 
+    //Gán pass cho input
+    $('#password').val([[${pass}]]);
+    $('#confirm-password').val([[${confirmPass}]]);
+
+    //Gán codeSend cho input để check
+    $('#code-sended').val([[${codeSend}]]);
 
 
     //sendMail
@@ -223,6 +235,7 @@ Validator({
     if(check==1){
         $('#myModal').modal('show');
     }
+
 
     function sendCodeMail(type){
         var fullname=$("#fullname").val();
@@ -245,48 +258,63 @@ Validator({
             cache: false,
             success: function (jsonResult) {
                 document.getElementById("form-verify").style.display = 'block';
+                for(var i=1; i<=6; i++){
+                    document.getElementById('code'+i).value='';
+                }
+                $('#error-verify').text('');
                 document.getElementById("title-verify").innerText="Chúng tôi đã gửi mã xác nhận gồm 6 chữ số đến email của bạn. Vui lòng nhập mã để xác nhận đăng ký.";
                 document.getElementById("btn-reverify").style.display='none';
+                countdown( "ten-countdown", timeCountdown, 0 );
                 $("#code-sended").val(jsonResult.codeConfirm);
             },
             error: function (e) {
                 console.log("ERROR : ", e);
                 document.getElementById("title-verify").innerText="Lỗi hệ thống.";
-                // document.getElementById("btn-reverify").disabled = true;
+                document.getElementById("btn-reverify").disabled = false;
             }
         })
     }
 
+    //nếu code đúng thì save thông tin người dùng vào db
     function checkCode(){
         var code="";
         for(var i=1; i<=6; i++){
             code=code + document.getElementById('code'+i).value;
         }
-        $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "/verify_code",
-            data: {
-                code: code
-            },
-            // contentType: "application/json",
-            dataType : 'json',
-            timeout: 600000,
-            cache: false,
-            success: function (jsonResult) {
-                // var obj=JSON.parse(jsonResult);
-                // var codeMail=obj.result;
-                if(jsonResult.result==true){
-                    alert("đúng");
-                }
-                else
-                    alert("sai");
-                // alert(code);
-            },
-            error: function (e) {
-                console.log("ERROR : ", e);
-            }
-        })
+        var codeSend=$('#code-sended').val();//code đã gửi cho mail;
+        if(code===codeSend){
+            $('#error-verify').text('');
+            // $.ajax({
+            //     type: "POST",
+            //     enctype: 'multipart/form-data',
+            //     url: "/verify_code",
+            //     data: {
+            //         code: code
+            //     },
+            //     // contentType: "application/json",
+            //     dataType : 'json',
+            //     timeout: 600000,
+            //     cache: false,
+            //     success: function (jsonResult) {
+            //         // var obj=JSON.parse(jsonResult);
+            //         // var codeMail=obj.result;
+            //         if(jsonResult.result==true){
+            //             alert("đúng");
+            //         }
+            //         else
+            //             alert("sai");
+            //         // alert(code);
+            //     },
+            //     error: function (e) {
+            //         console.log("ERROR : ", e);
+            //     }
+            // })
+            alert('đúng');
+        }
+        else{
+            $('#error-verify').text('Mã xác thực không chính xác.');
+        }
+
     }
 </script>
 </body>

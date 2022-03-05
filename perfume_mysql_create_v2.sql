@@ -38,7 +38,7 @@ CREATE TABLE `user` (
 	`email` varchar(100) NOT NULL,
 	`full_name` varchar(100) NOT NULL,
 	`address` varchar(255),
-	`phone` varchar(15) NOT NULL,
+	`phone` varchar(15),
 	`avatar` varchar(255),
 	`created_date` DATETIME,
 	`updated_date` DATETIME,
@@ -172,9 +172,9 @@ ALTER TABLE `user_role` ADD CONSTRAINT `user_role_fk1` FOREIGN KEY (`id_role`) R
 -- sửa kiểu dữ liệu
 ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
-ALTER TABLE role DROP COLUMN password;
+ALTER TABLE user DROP COLUMN phone;
 -- thêm cột
-ALTER TABLE news ADD COLUMN updated_by varchar(100);
+ALTER TABLE user ADD COLUMN phone varchar(15);
 
 drop table news;
 

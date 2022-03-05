@@ -4,6 +4,8 @@ import com.dotv.perfume.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer>{
 //    @Query("select a from Account a where a.userName=?1")
@@ -18,6 +20,6 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 //    @Query("update Account a set a.status=?2 where a.id=?1")
 //    int editStatus(int id, boolean status);
     User findByUsernameAndStatus(String username, Boolean status);
-    User findByUsername(String username);
-    User findByEmail(String email);
+    List<User> findByUsername(String username);
+    List<User> findByEmail(String email);
 }
