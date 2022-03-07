@@ -20,19 +20,19 @@
 
                         <!-- SINGLE SIDEBAR SIZE START -->
                         <div class="product-single-sidebar">
-                            <span class="sidebar-title">Xin chào, Trần Văn Độ</span>
+                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào, Trần Văn Độ</span>
                             <ul>
                                 <li>
-                                    <a href="#">Thông tin tài khoản</a>
+                                    <a href="/manage_acc">Thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Cập nhật thông tin tài khoản</a>
+                                    <a href="/update_acc">Cập nhật thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Đơn hàng của bạn</a>
+                                    <b><a href="/order_acc">Đơn hàng của bạn</a></b>
                                 </li>
                                 <li>
-                                    <a href="#">Đổi mật khẩu</a>
+                                    <a href="/update_pass">Đổi mật khẩu</a>
                                 </li>
                             </ul>
                         </div>
@@ -67,32 +67,25 @@
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <!-- REGISTERED-ACCOUNT START -->
                                 <div class="primari-box registered-account">
-                                    <form class="new-account-box" id="accountLogin" method="post" action="#">
+                                    <form class="new-account-box" id="update-pass" method="post" action="#">
 
                                         <div>
 
                                             <div class="form-content">
 
                                                 <div class="form-group primary-form-group">
-                                                    <label for="password">Mật khẩu cũ</label>
-                                                    <input type="password" value="" name="password" id="password" class="form-control input-feild">
+                                                    <label for="password-old">Mật khẩu cũ</label>
+                                                    <input type="password" value="" name="password" id="password-old" class="form-control input-feild">
                                                 </div>
                                                 <div class="form-group primary-form-group">
-                                                    <label for="password">Mật khẩu mới</label>
-                                                    <input type="password" value="" name="password" id="password" class="form-control input-feild">
+                                                    <label for="password-new">Mật khẩu mới</label>
+                                                    <input type="password" value="" name="password" id="password-new" class="form-control input-feild">
                                                 </div>
                                                 <div class="form-group primary-form-group">
-                                                    <label for="password">Xác nhận lại mật khẩu</label>
-                                                    <input type="password" value="" name="password" id="password" class="form-control input-feild">
+                                                    <label for="confirm-password">Xác nhận lại mật khẩu</label>
+                                                    <input type="password" value="" name="password" id="confirm-password" class="form-control input-feild">
                                                 </div>
-                                                <div class="submit-button">
-                                                    <a href="my-account.html" id="signinCreate" class="btn main-btn">
-                                                            <span>
-
-                                                                 Đổi mật khẩu
-                                                            </span>
-                                                    </a>
-                                                </div>
+                                                <button class="form-submit">Đổi mật khẩu</button>
                                             </div>
 
 
@@ -111,5 +104,22 @@
     </section>
     <!-- MAIN-CONTENT-SECTION END -->
 </div>
+<script th:fragment="update_pass_js" th:inline="javascript">
+    Validator({
+        form: '#update-pass',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#password'),
+            Validator.minLength('#password',6),
+            Validator.isConfirm('#confirm-password',function() {
+                return document.querySelector('#accountRegister #password').value;
+            }),
+        ],
+        // onSubmit: function(data) {
+        //   //Call API
+        //   console.log(data);
+        // }
+    });
+</script>
 </body>
 </html>

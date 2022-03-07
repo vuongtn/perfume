@@ -20,19 +20,19 @@
 
                         <!-- SINGLE SIDEBAR SIZE START -->
                         <div class="product-single-sidebar">
-                            <span class="sidebar-title">Xin chào, Trần Văn Độ</span>
+                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào, Trần Văn Độ</span>
                             <ul>
                                 <li>
-                                    <a href="#">Thông tin tài khoản</a>
+                                    <a href="/manage_acc">Thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Cập nhật thông tin tài khoản</a>
+                                    <a href="/update_acc">Cập nhật thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Đơn hàng của bạn</a>
+                                    <a href="/order_acc">Đơn hàng của bạn</a>
                                 </li>
                                 <li>
-                                    <a href="#">Đổi mật khẩu</a>
+                                    <b><a href="/update_pass">Đổi mật khẩu</a></b>
                                 </li>
                             </ul>
                         </div>

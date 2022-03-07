@@ -19,19 +19,22 @@
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="header-right-menu">
                             <nav>
-                                <ul class="list-inline">
+                                <th:block th:if="${isLogined==false}">
+                                    <ul class="list-inline">
+                                        <li><a th:href="@{/register}">Đăng ký</a></li>
+                                        <li><a th:href="@{/login.html}">Đăng nhập</a></li>
+                                    </ul>
+                                </th:block>
+                                <th:block th:if="${isLogined==true}">
+                                    <div class="dropdown">
+                                        <p class="nut_dropdown" th:text="'Xin chào, '+${userLogined.fullName}+ '▾'">Chào, Trần Văn Độ ▾</p>
+                                        <div class="noidung_dropdown">
+                                            <a href="/manage_acc">Tài khoản</a>
+                                            <a href="/logout.html">Đăng xuất</a>
+                                        </div>
+                                    </div>
+                                </th:block>
 
-                                    <li><a th:href="@{/templates/user/register}">Đăng ký</a></li>
-                                    <li><a th:href="@{/login}">Đăng nhập</a></li>
-
-                                </ul>
-<!--                                <div class="dropdown">-->
-<!--                                    <p class="nut_dropdown">Chào, Trần Văn Độ ▾</p>-->
-<!--                                    <div class="noidung_dropdown">-->
-<!--                                        <a href="#">Tài khoản</a>-->
-<!--                                        <a href="#">Đăng xuất</a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                             </nav>
                         </div>
                     </div>

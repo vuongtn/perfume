@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.user;
 
+import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.entity.Trademark;
 import com.dotv.perfume.service.ProductService;
@@ -9,13 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 //@RequestMapping("/")
-public class HomeController {
+public class HomeController extends BaseController {
     //load số sản phẩm mới
     private static final int AMOUNT_NEW_PRODUCT = 15;
     private static final int AMOUNT_GENDER_PRODUCT = 20;

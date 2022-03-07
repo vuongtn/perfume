@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.user;
 
+import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.News;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.service.NewsService;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Controller
 //@RequestMapping("/")
-public class NewsController {
+public class NewsController extends BaseController {
     //Số phần tử hiển thị 1 trang
     private static final int PAGE = 4;
     private static final int BUTTONS_TO_SHOW = 5;

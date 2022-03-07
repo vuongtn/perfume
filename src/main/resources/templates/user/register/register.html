@@ -115,7 +115,8 @@ Validator({
         Validator.isRequired('#email'),
         Validator.isEmail('#email'),
         Validator.isRequired('#username'),
-        Validator.minLength('#username',4,'Tên đăng nhập phải chứa ít nhất 4 kí tự'),
+        Validator.isUsername('#username'),
+        // Validator.minLength('#username',4,'Tên đăng nhập phải chứa ít nhất 4 kí tự'),
         Validator.isRequired('#password'),
         Validator.minLength('#password',6),
         Validator.isConfirm('#confirm-password',function() {
@@ -306,14 +307,16 @@ Validator({
                 cache: false,
                 success: function (jsonResult) {
                     if(jsonResult.message==true){
-                        $(location).attr('href', "/login");
+                        $(location).attr('href', "/login.html?type=1");
                     }
-                    else
-                        alert("Lưu thất bại");
-                    // alert(code);
+                    else{
+                        alert("Phiên làm việc đã hết hạn");
+                        $(location).attr('href', "/register");
+                    }
                 },
                 error: function (e) {
                     console.log("ERROR : ", e);
+                    alert("Lỗi hệ thống");
                 }
             })
         }

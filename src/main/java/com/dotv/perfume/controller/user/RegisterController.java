@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.user;
 
+import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.dto.ContactDTO;
 import com.dotv.perfume.dto.UserDTO;
 import com.dotv.perfume.entity.User;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.util.Random;
 
 @Controller
-public class RegisterController {
+public class RegisterController extends BaseController {
     @Autowired
     private JavaMailSender emailSender;
 
@@ -48,6 +49,8 @@ public class RegisterController {
     }
     @PostMapping("/verify_register")
     public String getVerifyRegister(UserDTO userDTO, Model model){
+        model.addAttribute("pass",userDTO.getPassword());
+        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
         if(userRepository.findByEmail(userDTO.getEmail()).size()!=0){
             model.addAttribute("errorUser","Email đã tồn tại");
             return "user/register/register";
@@ -65,8 +68,8 @@ public class RegisterController {
             return "user/register/register";
         }
         model.addAttribute("check",1);
-        model.addAttribute("pass",userDTO.getPassword());
-        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
+//        model.addAttribute("pass",userDTO.getPassword());
+//        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
         return "user/register/register";
 
     }
@@ -109,6 +112,10 @@ public class RegisterController {
     @PostMapping("/register_account")
     public ResponseEntity<JSONObject> registerAcc(@RequestBody UserDTO userDTO){
         JSONObject result = new JSONObject();
+        if(userRepository.findByEmail(userDTO.getEmail()).size()!=0||userRepository.findByUsername(userDTO.getUsername()).size()!=0){
+            result.put("message",Boolean.FALSE);
+            return ResponseEntity.ok(result);
+        }
         try {
             User user = modelMapper.map(userDTO,User.class);
             userRoleService.saveUser(user);

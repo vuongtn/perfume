@@ -13,22 +13,34 @@
         <div class="container">
             <br>
             <div class="row">
+                <th:block th:if="${type=='1'}">
+                    <div class=".myAlert-top alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Đăng ký tài khoản thành công!</strong> Mời bạn đăng nhập để trải nghiệm tốt hơn!
+                    </div>
+                </th:block>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h2 class="page-title">Đăng nhập</h2>
                 </div>
-
                 <div class=row style="display:flex; justify-content: center;">
+
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                         <!-- REGISTERED-ACCOUNT START -->
                         <div class="primari-box registered-account">
-                            <form class="new-account-box" id="accountLogin" method="post" action="#">
+                            <form class="new-account-box" id="accountLogin" method="post" action="/perform_login">
+<!--                                <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token}">-->
                                 <h3 class="box-subheading">Đăng nhập</h3>
                                 <div>
-
+                                    <th:block th:if="${login_error=='true'}">
+                                        <div class=".myAlert-top alert alert-danger" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <strong>Tên đăng nhập hoặc mật khẩu không chính xác.</strong>
+                                        </div>
+                                    </th:block>
                                     <div class="form-content">
                                         <div class="form-group primary-form-group">
                                             <label for="loginemail">Tên đăng nhập</label>
-                                            <input type="text" value="" name="email" id="loginemail" class="form-control input-feild">
+                                            <input type="text" value="" name="username" id="loginemail" class="form-control input-feild">
                                         </div>
                                         <div class="form-group primary-form-group">
                                             <label for="password">Mật khẩu</label>
@@ -40,14 +52,7 @@
                                         <div class="forget-password">
                                             <p><a href="#">Bạn chưa có tại khoản: Đăng ký</a></p>
                                         </div>
-                                        <div class="submit-button">
-                                            <a href="my-account.html" id="signinCreate" class="btn main-btn">
-													<span>
-<!--														<i class="fa fa-lock submit-icon"></i>-->
-														Đăng nhập
-													</span>
-                                            </a>
-                                        </div>
+                                        <button class="form-submit">Đăng nhập</button>
                                     </div>
 
 
@@ -62,6 +67,12 @@
     </section>
     <!-- MAIN-CONTENT-SECTION END -->
 </div>
-
+<script layout:fragment="login_js">
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 6000);
+</script>
 </body>
 </html>

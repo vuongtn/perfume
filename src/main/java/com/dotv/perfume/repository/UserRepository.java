@@ -2,6 +2,7 @@ package com.dotv.perfume.repository;
 
 import com.dotv.perfume.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,9 @@ public interface UserRepository extends JpaRepository<User,Integer>{
     User findByUsernameAndStatus(String username, Boolean status);
     List<User> findByUsername(String username);
     List<User> findByEmail(String email);
+
+    @Query("select u from User u where u.id<>?1 and u.phone=?2")
+    List<User> findByIdAndPhone(int id,String phone);
+    @Query("select u from User u where u.id<>?1 and u.username=?2")
+    List<User> findByIdAndUsername(int id, String username);
 }

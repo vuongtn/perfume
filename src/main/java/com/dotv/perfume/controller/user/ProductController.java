@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.user;
 
+import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.utils.PageCustom;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.entity.Trademark;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-public class ProductController {
+public class ProductController extends BaseController {
 
     //Số phần tử hiển thị 1 trang
     private static final int PAGE = 8;

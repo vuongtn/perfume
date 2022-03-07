@@ -113,7 +113,7 @@ Validator.minLength = function(selector,min,message) {
     return {
         selector: selector,
         test: function(value) {
-            return value.length>=min ? undefined : message||`Vui lòng nhập tối thiểu ${min} kí tự`;
+            return value.length>=min ? undefined : message||`Vui lòng nhập tối thiểu ${min} ký tự`;
         }
     };
 }
@@ -122,6 +122,24 @@ Validator.isConfirm = function(selector,getConfirmValue,message) {
         selector: selector,
         test: function(value) {
             return value===getConfirmValue() ? undefined : message||'Mật khẩu không trùng khớp';
+        }
+    };
+}
+Validator.isUsername = function(selector,message) {
+    return {
+        selector: selector,
+        test: function(value) {
+            var regex = /^[a-z0-9]{4,}$/;
+            return regex.test(value) ? undefined : message||'Tên đăng nhập chứa ít nhất 4 ký tự và không chứa ký tự đặc biệt và in hoa';
+        }
+    };
+}
+Validator.isPhone = function(selector,message) {
+    return {
+        selector: selector,
+        test: function(value) {
+            var regex = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
+            return regex.test(value) ? undefined : message||'Số điện thoại không hợp lệ';
         }
     };
 }

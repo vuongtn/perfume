@@ -1,12 +1,14 @@
 package com.dotv.perfume.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user_role")
-public class UserRole {
+public class UserRole implements GrantedAuthority {
     @EmbeddedId
     private UserRoleId id;
 
@@ -40,12 +42,12 @@ public class UserRole {
     @Column(name = "status")
     private Boolean status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idUser")
     @JoinColumn(name = "id_user")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idRole")
     @JoinColumn(name = "id_role")
     private Role role;
@@ -196,5 +198,10 @@ public class UserRole {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getRoleName(), getViewRole(), getInsertRole(), getUpdateRole(), getDeleteRole(), getCreatedDate(), getUpdatedDate(), getCreatedBy(), getUpdatedBy(), getStatus(), getUser(), getRole());
+    }
+
+    @Override
+    public String getAuthority() {
+        return roleName;
     }
 }

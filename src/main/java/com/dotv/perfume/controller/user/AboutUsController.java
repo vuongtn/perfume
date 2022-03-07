@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.user;
 
+import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.dto.ContactDTO;
 import com.dotv.perfume.service.ContactService;
 import com.dotv.perfume.service.IntroduceService;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 //@RequestMapping("/")
-public class AboutUsController {
+public class AboutUsController extends BaseController {
     @Autowired
     IntroduceService introduceService;
 

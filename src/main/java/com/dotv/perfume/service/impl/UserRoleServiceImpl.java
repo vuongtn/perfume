@@ -32,6 +32,7 @@ public class UserRoleServiceImpl implements UserRoleService{
     public UserRole saveUser(User user) {
         Timestamp timeNow = perfumeUtils.getDateNow();
         user.setCreatedDate(timeNow);
+        user.setCreatedBy(user.getFullName());
         user.setStatus(true);
         user.setPassword(new BCryptPasswordEncoder().encode((user.getPassword())));
         //lưu user vào db

@@ -20,19 +20,19 @@
 
                         <!-- SINGLE SIDEBAR SIZE START -->
                         <div class="product-single-sidebar">
-                            <span class="sidebar-title">Xin chào, Trần Văn Độ</span>
+                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào, Trần Văn Độ</span>
                             <ul>
                                 <li>
-                                    <a href="#">Thông tin tài khoản</a>
+                                    <a href="/manage_acc">Thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Cập nhật thông tin tài khoản</a>
+                                    <b><a href="/update_acc">Cập nhật thông tin tài khoản</a></b>
                                 </li>
                                 <li>
-                                    <a href="#">Đơn hàng của bạn</a>
+                                    <a href="/order_acc">Đơn hàng của bạn</a>
                                 </li>
                                 <li>
-                                    <a href="#">Đổi mật khẩu</a>
+                                    <a href="/update_pass">Đổi mật khẩu</a>
                                 </li>
                             </ul>
                         </div>
@@ -67,39 +67,44 @@
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <!-- REGISTERED-ACCOUNT START -->
                                 <div class="primari-box registered-account">
-                                    <form class="new-account-box" id="accountLogin" method="post" action="#">
+                                    <th:block th:if="${type==1}">
+                                        <div class=".myAlert-top alert alert-success" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <strong>Cập nhật tài khoản thành công!</strong>
+                                        </div>
+                                    </th:block>
+                                    <th:block th:if="${errorUser}">
+                                        <div id="error-user" class="alert alert-danger" role="alert" th:text="${errorUser}">
+                                            lỗi
+                                        </div>
+                                    </th:block>
+                                    <form class="new-account-box" th:object="${acc}" id="updateAcc" method="post" action="update_account">
 
                                         <div>
 
                                             <div class="form-content">
+                                                <input type="hidden" th:value="*{id}" th:field="*{id}" name="email" id="id" class="form-control input-feild">
                                                 <div class="form-group primary-form-group">
-                                                    <label for="loginemail">Tên đăng nhập</label>
-                                                    <input type="text" value="" name="email" id="loginemail" class="form-control input-feild">
-                                                </div>
-                                                <div class="form-group primary-form-group">
-                                                    <label for="loginemail">Họ và tên</label>
-                                                    <input type="text" value="" name="email" id="loginemail" class="form-control input-feild">
+                                                    <label for="username">Tên đăng nhập</label>
+                                                    <input type="text" th:value="*{username}" th:field="*{username}" name="email" id="username" class="form-control input-feild">
+                                                    <span class="form-message"></span>
                                                 </div>
                                                 <div class="form-group primary-form-group">
-                                                    <label for="password">Email</label>
-                                                    <input type="text" value="" name="password" id="password" class="form-control input-feild">
+                                                    <label for="fullName">Họ và tên</label>
+                                                    <input type="text" th:value="*{fullName}" th:field="*{fullName}" name="email" id="fullName" class="form-control input-feild">
+                                                    <span class="form-message"></span>
                                                 </div>
                                                 <div class="form-group primary-form-group">
-                                                    <label for="password">Số điện thoại</label>
-                                                    <input type="password" value="" name="password" id="password" class="form-control input-feild">
+                                                    <label for="phone">Số điện thoại</label>
+                                                    <input type="text" th:value="*{phone}" th:field="*{phone}" name="password" id="phone" class="form-control input-feild">
+                                                    <span class="form-message"></span>
                                                 </div>
                                                 <div class="form-group primary-form-group">
-                                                    <label for="password">Địa chỉ</label>
-                                                    <input type="password" value="" name="password" id="password" class="form-control input-feild">
+                                                    <label for="address">Địa chỉ</label>
+                                                    <input type="text" th:value="*{address}" th:field="*{address}" name="password" id="address" class="form-control input-feild">
+                                                    <span class="form-message"></span>
                                                 </div>
-                                                <div class="submit-button">
-                                                    <a href="my-account.html" id="signinCreate" class="btn main-btn">
-                                                            <span>
-
-                                                                 Cập nhật
-                                                            </span>
-                                                    </a>
-                                                </div>
+                                                <button class="form-submit">Cập nhật</button>
                                             </div>
 
 
@@ -116,7 +121,25 @@
             </div>
         </div>
     </section>
-    <!-- MAIN-CONTENT-SECTION END -->s
+    <!-- MAIN-CONTENT-SECTION END -->
 </div>
+<script th:fragment="update_acc_js" th:inline="javascript">
+    Validator({
+        form: '#updateAcc',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#username'),
+            Validator.isUsername('#username'),
+            Validator.isRequired('#fullName'),//chạy hàm để nhận dữ liệu return trả về
+            Validator.isRequired('#phone'),
+            Validator.isPhone('#phone'),
+            Validator.isRequired('#address'),
+        ],
+        // onSubmit: function(data) {
+        //   //Call API
+        //   console.log(data);
+        // }
+    });
+</script>
 </body>
 </html>

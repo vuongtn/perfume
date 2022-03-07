@@ -20,19 +20,19 @@
 
                         <!-- SINGLE SIDEBAR SIZE START -->
                         <div class="product-single-sidebar">
-                            <span class="sidebar-title">Xin chào, Trần Văn Độ</span>
+                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào, Trần Văn Độ</span>
                             <ul>
                                 <li>
-                                    <a href="#">Thông tin tài khoản</a>
+                                    <b><a href="/manage_acc">Thông tin tài khoản</a></b>
                                 </li>
                                 <li>
-                                    <a href="#">Cập nhật thông tin tài khoản</a>
+                                    <a href="/update_acc">Cập nhật thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Đơn hàng của bạn</a>
+                                    <a href="/order_acc">Đơn hàng của bạn</a>
                                 </li>
                                 <li>
-                                    <a href="#">Đổi mật khẩu</a>
+                                    <a href="/update_pass">Đổi mật khẩu</a>
                                 </li>
                             </ul>
                         </div>
@@ -65,27 +65,27 @@
                     <div class="all-gategory-product">
                         <div class="row" style="margin-left: 1px;">
                             <p class="acc">Tên đăng nhập:
-                                <span style="font-weight: normal;">
+                                <span style="font-weight: normal;" th:text="${acc.username}">
                                         dobn
                                     </span>
                             </p>
                             <p class="acc">Họ và tên:
-                                <span style="font-weight: normal;">
+                                <span style="font-weight: normal;" th:text="${acc.fullName}">
                                         Trần Văn Độ
                                     </span>
                             </p>
                             <p class="acc">Email:
-                                <span style="font-weight: normal;">
+                                <span style="font-weight: normal;" th:text="${acc.email}">
                                         trando@gmail.com
                                     </span>
                             </p>
                             <p class="acc">Số điện thoại:
-                                <span style="font-weight: normal;">
+                                <span style="font-weight: normal;" th:text="${acc.phone}">
                                         0385993661
                                     </span>
                             </p>
                             <p class="acc">Địa chỉ:
-                                <span style="font-weight: normal;">
+                                <span style="font-weight: normal;" th:text="${acc.address}">
                                         Lương Tài, Bắc Ninh
                                     </span>
                             </p>
