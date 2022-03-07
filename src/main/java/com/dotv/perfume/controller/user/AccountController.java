@@ -8,6 +8,7 @@ import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,13 +39,6 @@ public class AccountController extends BaseController {
         model.addAttribute("acc",user);
         return "user/account/update_acc";
     }
-
-//    @GetMapping("/update_acc_err")
-//    public String getUpdateAccError(Model model) throws Exception {
-//        User user = new User();
-//        model.addAttribute("acc",user);
-//        return "user/account/update_acc";
-//    }
 
     @PostMapping("/update_account")
     public String updateAcc(User user, Model model) throws Exception {
@@ -82,6 +76,23 @@ public class AccountController extends BaseController {
     public String getUpdatePass(Model model) throws Exception {
         User userLogin = getUserLogined();
         model.addAttribute("acc",userLogin);
+        return "user/account/update_pass";
+    }
+
+    @PostMapping("/update_password")
+    public String getUpdatePassword(UserDTO userDTO, Model model) throws Exception {
+        User userLogined = getUserLogined();
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        boolean isPass = bcrypt.matches(userDTO.getOldPassword(),userLogined.getPassword());//Kiểm tra pass có chính xác
+        if(!isPass){
+            model.addAttribute("errorUser","Mật khẩu cũ không chính xác!");
+        }
+        else {
+            userLogined.setPassword(new BCryptPasswordEncoder().encode((userDTO.getPassword())));
+            userService.saveOrUpdate(userLogined);
+            model.addAttribute("type", 1);
+        }
+        model.addAttribute("acc",userLogined);
         return "user/account/update_pass";
     }
 

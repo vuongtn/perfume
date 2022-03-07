@@ -4977,7 +4977,7 @@ a.write-review-btn{
 	font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
 }
 .product .product-details .product-description {
-	margin: 5px 20px 5px 0;
+	margin: 0px 20px 5px 0;
 	line-height: 1.4em;
 }
 .product .product-quantity input {

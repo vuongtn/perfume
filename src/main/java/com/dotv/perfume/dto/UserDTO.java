@@ -3,6 +3,7 @@ package com.dotv.perfume.dto;
 public class UserDTO {
     private Integer id;
     private String username;
+    private String oldPassword;
     private String password;
     private String confirmPassword;
     private String email;
@@ -15,6 +16,14 @@ public class UserDTO {
     private String createdBy;
     private String updatedBy;
     private Boolean status;
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
 
     public String getConfirmPassword() {
         return confirmPassword;
