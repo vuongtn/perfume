@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Random;
 

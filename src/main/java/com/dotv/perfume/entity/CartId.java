@@ -13,6 +13,14 @@ public class CartId implements Serializable{
     @Column(name = "id_user")
     private Integer idUser;
 
+    public CartId() {
+    }
+
+    public CartId(Integer idProduct, Integer idUser) {
+        this.idProduct = idProduct;
+        this.idUser = idUser;
+    }
+
     public Integer getIdProduct() {
         return idProduct;
     }
@@ -41,4 +49,6 @@ public class CartId implements Serializable{
     public int hashCode() {
         return Objects.hash(getIdProduct(), getIdUser());
     }
+
+
 }

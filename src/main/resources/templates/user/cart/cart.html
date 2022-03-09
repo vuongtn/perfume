@@ -6,67 +6,171 @@
 <body>
 <div layout:fragment="cart">
     <!-- MAIN-CONTENT-SECTION START -->
-    <section class="main-content-section">
-        <div class="container">
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <!-- SHOPPING-CART SUMMARY START -->
-                    <h2 class="page-title">Giỏ hàng</h2>
-                    <!-- SHOPPING-CART SUMMARY END -->
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!-- SHOPPING-CART SUMMARY START -->
+                <h2 class="page-title">Giỏ hàng</h2>
+                <!-- SHOPPING-CART SUMMARY END -->
+            </div>
+            <div style="text-align: center" th:if="${proInCart==1}">
+                <image th:src="@{/user/img/cart-empty.png}"></image>
+<!--                <button type="button" class="btn btn-success btn-lg">Large button</button>-->
+            </div>
+
+            <!-- start cart -->
+            <div class="shopping-cart" th:if="${proInCart!=1}">
+
+                <div class="column-labels">
+                    <label class="product-image-cart">Image</label>
+                    <label class="product-details">Product</label>
+                    <label class="product-price">Giá</label>
+                    <label class="product-quantity">Số lượng</label>
+                    <label class="product-removal">Remove</label>
+                    <label class="product-line-price">Tổng tiền</label>
                 </div>
-
-
-                <!-- start cart -->
-                <div class="shopping-cart">
-
-                    <div class="column-labels">
-                        <label class="product-image-cart">Image</label>
-                        <label class="product-details">Product</label>
-                        <label class="product-price">Giá</label>
-                        <label class="product-quantity">Số lượng</label>
-                        <label class="product-removal">Remove</label>
-                        <label class="product-line-price">Tổng tiền</label>
-                    </div>
-
+                <th:block th:each="pro:${lstPro}">
                     <div class="product">
                         <div class="product-image-cart">
-                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+                            <img th:src="@{'uploads/product/'+${pro.image}}">
                         </div>
                         <div class="product-details">
-                            <p class="product-description">Nước hoa abcdxyz</p>
-                            <div class="product-title">Thương hiệu: Gucci</div>
+                            <p class="product-description" th:text="${pro.name}">Nước hoa abcdxyz</p>
+                            <!--                        <div class="product-title">Thương hiệu: Gucci</div>-->
                         </div>
-                        <div class="product-price">500.000</div>
+                        <div class="product-price" th:text="${#numbers.formatDecimal(pro.price, 3, 'POINT', 0, 'POINT')}"></div>
                         <div class="product-quantity">
-                            <input type="number" value="2" min="1">
+                            <input type="number" th:id="amount-pro+${pro.id}" th:onchange="'updateCart(1,'+${pro.id}+')'" th:value="${pro.amount}" min="1">
                         </div>
                         <div class="product-removal">
-                            <button class="remove-product">
+                            <button th:onclick="'updateCart(2,'+${pro.id}+')'" class="remove-product">
                                 Xóa
                             </button>
                         </div>
-                        <div class="product-line-price">500.000</div>
+                        <div class="product-line-price" th:text="${#numbers.formatDecimal(pro.price*pro.amount, 3, 'POINT', 0, 'POINT')}"></div>
+                    </div>
+                </th:block>
+
+
+
+                <div class="totals">
+                    <div class="totals-item">
+                        <label>Tổng tiền</label>
+                        <div class="totals-value" id="cart-subtotal" th:text="${#numbers.formatDecimal(totalPrice, 3, 'POINT', 0, 'POINT')}"></div>
                     </div>
 
-
-                    <div class="totals">
-                        <div class="totals-item">
-                            <label>Tổng tiền</label>
-                            <div class="totals-value" id="cart-subtotal">1.000.000</div>
-                        </div>
-
-                        <button class="checkout">Đặt hàng</button>
-
-                    </div>
-                    <!-- end cart -->
+                    <button class="checkout">Đặt hàng</button>
 
                 </div>
+                <!-- end cart -->
+
             </div>
-    </section>
-    <!-- MAIN-CONTENT-SECTION END -->
+        </div>
+        <!-- MAIN-CONTENT-SECTION END -->
 
 </div>
+</div>
+
+<script layout:fragment="cart_js" th:inline="javascript">
+
+    /* Set rates + misc */
+    var taxRate = 0.05;
+    var shippingRate = 15.00;
+    var fadeTime = 300;
+
+
+    /* Assign actions */
+    $('.product-quantity input').change( function() {
+        updateQuantity(this);
+    });
+
+    $('.product-removal button').click( function() {
+        removeItem(this);
+    });
+
+
+    /* Recalculate cart */
+    function recalculateCart()
+    {
+        var subtotal = 0;
+
+        /* Sum up row totals */
+        $('.product').each(function () {
+            subtotal += parseFloat($(this).children('.product-line-price').text().replace(/\./g,''));
+        });
+
+        /* Calculate totals */
+        /* Update totals display */
+        $('.totals-value').fadeOut(fadeTime, function() {
+            $('#cart-subtotal').html(subtotal.toLocaleString({style : 'currency', currency : 'VND'}));
+
+            if(subtotal==0){
+                $('.checkout').fadeOut(fadeTime);
+            }else{
+                $('.checkout').fadeIn(fadeTime);
+            }
+            $('.totals-value').fadeIn(fadeTime);
+        });
+    }
+
+
+    /* Update quantity */
+    function updateQuantity(quantityInput)
+    {
+        /* Calculate line price */
+        var productRow = $(quantityInput).parent().parent();
+        var price=parseFloat(productRow.children('.product-price').text().replace(/\./g,''));
+        var quantity = $(quantityInput).val();
+        var linePrice = price * quantity;
+
+        /* Update line price display and recalc cart totals */
+        productRow.children('.product-line-price').each(function () {
+            $(this).fadeOut(fadeTime, function() {
+                $(this).text(linePrice.toLocaleString({style : 'currency', currency : 'VND'}));
+                recalculateCart();
+                $(this).fadeIn(fadeTime);
+            });
+        });
+    }
+
+    /* Remove item from cart */
+    function removeItem(removeButton)
+    {
+        /* Remove row from DOM and recalc cart total */
+        var productRow = $(removeButton).parent().parent();
+        productRow.slideUp(fadeTime, function() {
+            productRow.remove();
+            recalculateCart();
+        });
+    }
+
+
+    //ajax update giỏ hàng
+    function updateCart(type, idPro){
+        var amount = $("#amount-pro"+idPro).val();
+        $.ajax({
+            type : "post",
+            enctype: 'multipart/form-data',
+            url : "/update_cart",
+            data : {
+                type:type,
+                idPro:idPro,
+                amount:amount
+            },
+            dataType : 'json',
+            // timeout : 100000,
+            success : function(data) {
+
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+                alert("Lỗi hệ thống");
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

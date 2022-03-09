@@ -53,21 +53,21 @@
                             <a href="index.html"><img th:src="@{/user/img/logo.png}" alt="bstore logo" /></a>
                         </div>
 
-
-                        <a th:href="@{/product_cart}" class="a-cart">
-                            <div class="do-cart">
-                                <div id="ex3" >
-								<span class="p1 fa-stack fa-2x has-badge" data-count="5">
-								  <i class="p2 fa fa-circle fa-stack-2x"></i>
-								  <i class="p3 fa fa-shopping-cart fa-stack-1x fa-inverse" data-count="5"></i>
+                            <a th:href="@{/product_cart}" class="a-cart">
+                                <div class="do-cart">
+                                    <div id="ex3">
+								<span class="p1 fa-stack fa-2x has-badge" th:data-count="${totalProInCart}">
+								    <i class="p2 fa fa-circle fa-stack-2x"></i>
+                                    <i class="p3 fa fa-shopping-cart fa-stack-1x fa-inverse" data-count="5"></i>
 								</span>
-                                </div>
+                                    </div>
 
-                                <div id="ex1">
-                                    <i class="fa fa-envelope fa-5x fa-border icon-grey badge"></i>
+                                    <div id="ex1">
+                                        <i class="fa fa-envelope fa-5x fa-border icon-grey badge"></i>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+
 
                         <!-- HEADER-RIGHT-CALLUS END -->
                         <!-- CATEGORYS-PRODUCT-SEARCH START -->

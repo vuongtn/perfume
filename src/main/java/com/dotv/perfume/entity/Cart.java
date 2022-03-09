@@ -1,8 +1,24 @@
 package com.dotv.perfume.entity;
 
+import com.dotv.perfume.dto.ProductInCartDTO;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+@NamedNativeQuery(name = "ProductTest",
+        query = "select p.id, p.name, p.price, c.amount, p.image from cart c " +
+                "join product p on c.id_product = p.id " +
+                "and id_user=?1",
+        resultSetMapping = "CartMapping")
+@SqlResultSetMapping(name = "CartMapping",
+        classes = @ConstructorResult(targetClass = ProductInCartDTO.class,
+                columns = {
+                        @ColumnResult(name = "id"),
+                        @ColumnResult(name = "name"),
+                        @ColumnResult(name = "price"),
+                        @ColumnResult(name = "amount"),
+                        @ColumnResult(name = "image")
+                }))
 @Entity
 @Table(name = "cart")
 public class Cart {
@@ -40,5 +56,13 @@ public class Cart {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getAmount());
+    }
+
+    public Cart() {
+    }
+
+    public Cart(CartId id, Integer amount) {
+        this.id = id;
+        this.amount = amount;
     }
 }

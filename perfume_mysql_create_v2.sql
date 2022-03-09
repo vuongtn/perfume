@@ -271,7 +271,11 @@ insert into role(id,name,code,description,status) values
 (8,'ManageContact','MC','Quản lý liên hệ (Chủ cửa hàng)',true),
 (9,'ManageReport','MR','Quản lý báo cáo (Chủ cửa hàng)',true);
 
-
+-- insert bảng cart
+select * from cart;
+insert into cart values
+(1,29,2),
+(2,29,2);
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -295,7 +299,9 @@ select * from contact;
  select * from bill_detail;
  delete from user;
  delete from user_role;
+ select * from cart;
+ select * from product;
  
  select * from role where code='G';
-
+select * from user where username='dotv' and id!=28
 

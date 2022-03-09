@@ -41,3 +41,26 @@ function showMenu() {
         }
     });
 }
+
+function addProInCart(idPro){
+    $.ajax({
+        type : "post",
+        enctype: 'multipart/form-data',
+        url : "/update_cart",
+        data : {
+            type:3,
+            idPro:idPro,
+            amount:1
+        },
+        dataType : 'json',
+        // timeout : 100000,
+        success : function(data) {
+
+        },
+        error : function(e) {
+            console.log("ERROR: ", e);
+            alert("Lỗi hệ thống");
+        }
+    });
+}
+

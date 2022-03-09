@@ -1,5 +1,6 @@
 package com.dotv.perfume.repository;
 
+import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.Cart;
 import com.dotv.perfume.entity.CartId;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +15,6 @@ public interface CartRepository extends JpaRepository<Cart,CartId> {
 //            "join product p on c.id_product = p.id " +
 //            "join image i on p.id=i.id_product " +
 //            "and id_account=?1 and i.type='main'", nativeQuery = true)
-//    @Query(name = "ProductTest",nativeQuery = true)
-//    List<ProductInCartDTO> getProductInCart(int idAccount);
+    @Query(name = "ProductTest",nativeQuery = true)
+    List<ProductInCartDTO> getProductInCart(int idUser);
 }

@@ -4937,6 +4937,9 @@ a.write-review-btn{
 	zoom: 1;
 }
 .product .product-price:after, .product .product-line-price:after, .totals-value:after {
+	position: absolute;
+	margin-top: -2px;
+	font-size: 20px;
 	content: '₫';
 }
 /* body {
@@ -5004,12 +5007,12 @@ a.write-review-btn{
 .totals .totals-item label {
 	float: left;
 	clear: both;
-	width: 79%;
+	width: 83%;
 	text-align: right;
 }
 .totals .totals-item .totals-value {
 	float: right;
-	width: 21%;
+	width: 17%;
 	text-align: right;
 }
 .totals .totals-item-total {
