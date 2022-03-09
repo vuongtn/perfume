@@ -84,7 +84,8 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: 'Bitter', serif;
 }
 a{
-	color:#777;
+	/*color:#777;*/
+	color:#155946;
 }
 a:focus{
 	color:#777;
@@ -400,7 +401,7 @@ span.mobile-menu-title{
 3.1 header top
 -------------------------*/
 .header-top{
-	background:#363636;
+	background:#155946;
 	font-size:11px;
 	color:#adadad;
 }
@@ -498,7 +499,7 @@ span.mobile-menu-title{
 .header-right-menu nav{}
 .header-right-menu nav ul{}
 .header-right-menu nav ul li{
-	border-right:1px solid #555;
+	border-right:1px solid white;
 	padding-left:8px;
 	padding-right:9px;
 }
@@ -512,7 +513,7 @@ span.mobile-menu-title{
 	transition: all 0.3s ease 0s;
 }
 .header-right-menu nav ul li a:hover{
-	color:#ff4f4f;
+	color: #ff4f4f;
 }
 /*-----------------------
 3.2 header middle
@@ -613,7 +614,7 @@ input.search-form[placeholder]:-ms-input-placeholder {
 	font-size:14px;
 }
 .search-button{
-	background: #ff4f4f none repeat scroll 0 0;
+	background: #155946 none repeat scroll 0 0;
 	border: medium none;
 	color: #fff;
 	float: right;
@@ -673,12 +674,12 @@ input.search-form[placeholder]:-ms-input-placeholder {
 3.3 mainmenu
 -------------------------*/
 .main-menu-area{
-	background:#3A3D42;
+	background:#155946;
 	height:55px;
 	position:relative;
 }
 .mainmenu{
-	background:#3A3D42;
+	background:#155946;
 	padding-left:5px;
 
 }
@@ -769,7 +770,7 @@ transition:0.3s;
 -------------------------*/
 .drodown-mega-menu{
 	background: #fff none repeat scroll 0 0;
-	border-bottom: 3px solid #ff4f4f;
+	border-bottom: 3px solid #155946;
 	border-left: 1px solid #d7d7d7;
 	border-right: 1px solid #d7d7d7;
 	left: 15px;
@@ -1201,7 +1202,7 @@ div.nivo-controlNav a.active{
 	transition: all 300ms ease 0s;
 }
 .product-info a:hover{
-	color:#FF5858;
+	color:#155946;
 }
 .customar-comments-box{
 	margin:9px 0 5px;
@@ -1235,7 +1236,7 @@ div.nivo-controlNav a.active{
 }
 .price-box span{}
 .price-box span.price{
-	color: #ff5858;
+	color:#18795d;
 	margin-right: 11px;
 	font-size:18px;
 	line-height:20px;
@@ -1543,14 +1544,14 @@ div.client-carousel .owl-item img {
 9.1 footer top
 -------------------------*/
 .footer-top-area{
-	background:#2D3035;
+	background: #155946;
 }
 .footer-top-container{
-	background:#33363B;
+	background:#155946;
 }
 .footer-top-right-2{}
 .footer-top-left{
-	background:#393C41;
+	background:#364b36;
 	overflow: hidden;
 }
 .newsletter-area{
@@ -4399,7 +4400,7 @@ span.large-btn:hover i{
 	padding: 17px 0 11px;
 }
 .single-product-price h2{
-	color: #ff5858;
+	color:black;
 	font-family: 'Bitter', serif;
 	font-size: 25px;
 	font-weight: 700;
@@ -4569,7 +4570,7 @@ p.small-title{
 	margin-right:0;
 }
 .more-info-tab > li.active > a, .more-info-tab > li.active > a:focus, .more-info-tab > li.active > a:hover {
-	background-color: #ff4f4f;
+	background-color: #155946;
 	border-color: #ddd #ddd transparent;
 	border: none;
 	color: #fff;
@@ -5391,7 +5392,7 @@ tfoot th:first-child {
 
 .form-submit {
 	outline: none;
-	background-color: #1dbfaf;
+	background-color: #155946;
 	margin-top: 12px;
 	padding: 12px 16px;
 	font-weight: 600;
