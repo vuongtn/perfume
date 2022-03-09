@@ -13,6 +13,10 @@
 
         <!-- MAIN-CONTENT-SECTION START -->
         <section class="main-content-section">
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Đã thêm sản phẩm vào giỏ hàng!</strong>
+            </div>
             <div class="container">
                 <div class="row">
                     <!-- MAIN-SLIDER-AREA START -->
@@ -58,10 +62,9 @@
                                                         <a th:href="@{'/single_product?id='+${newPro.id}}"><img th:src="@{'uploads/product/'+${newPro.image}}" alt="product-image" /></a>
                                                         <div class="overlay-content">
                                                             <ul>
-                                                                <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+                                                                <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                                <li><a th:onclick="'addProInCart(1,'+${newPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                                <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -104,10 +107,9 @@
                                                             <a th:href="@{'/single_product?id='+${boyPro.id}}"><img th:src="@{'uploads/product/'+${boyPro.image}}" alt="product-image" /></a>
                                                             <div class="overlay-content">
                                                                 <ul>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                                    <li><a th:onclick="'addProInCart(1,'+${boyPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                                    <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -150,10 +152,9 @@
                                                             <a th:href="@{'/single_product?id='+${girlPro.id}}"><img th:src="@{'uploads/product/'+${girlPro.image}}" alt="product-image" /></a>
                                                             <div class="overlay-content">
                                                                 <ul>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+                                                                    <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                                    <li><a th:onclick="'addProInCart(1,'+${girlPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                                    <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -199,10 +200,9 @@
                                                     <a th:href="@{'/single_product?id='+${unisexPro.id}}"><img th:src="@{'uploads/product/'+${unisexPro.image}}" alt="product-image" /></a>
                                                     <div class="overlay-content">
                                                         <ul>
-                                                            <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                                            <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                                            <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                                            <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                            <li><a th:onclick="'addProInCart(1,'+${unisexPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                            <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

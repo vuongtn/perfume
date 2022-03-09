@@ -42,7 +42,11 @@ function showMenu() {
     });
 }
 
-function addProInCart(idPro){
+function addProInCart(type,idPro){
+    var amount=$('#amount-add-cart'+idPro).val();
+    if(type==1){
+        amount=1;
+    }
     $.ajax({
         type : "post",
         enctype: 'multipart/form-data',
@@ -50,12 +54,15 @@ function addProInCart(idPro){
         data : {
             type:3,
             idPro:idPro,
-            amount:1
+            amount:amount
         },
         dataType : 'json',
         // timeout : 100000,
         success : function(data) {
-
+            if(data.message==0){
+                var totalOld = parseInt($('#total-pro-cart').attr('data-count'));
+                $('#total-pro-cart').attr('data-count', totalOld+1);
+            }
         },
         error : function(e) {
             console.log("ERROR: ", e);

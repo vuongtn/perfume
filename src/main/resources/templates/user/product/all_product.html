@@ -65,10 +65,9 @@
                                             <a th:href="@{'/single_product?id='+${pro.id}}"><img th:src="@{'uploads/product/'+${pro.image}}" alt="product-image" /></a>
                                             <div class="overlay-content">
                                                 <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+                                                    <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                    <li><a th:onclick="'addProInCart(1,'+${pro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>

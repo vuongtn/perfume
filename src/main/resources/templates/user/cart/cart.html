@@ -162,7 +162,9 @@
             dataType : 'json',
             // timeout : 100000,
             success : function(data) {
-
+                if(type==2){
+                    $(location).attr('href', "/product_cart");
+                }
             },
             error : function(e) {
                 console.log("ERROR: ", e);
