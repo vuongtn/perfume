@@ -1,5 +1,7 @@
 package com.dotv.perfume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -16,6 +18,33 @@ public class BillDetail {
 
     @Column(name = "currently_price")
     private BigDecimal currentlyPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("idBill")
+    @JoinColumn(name = "id_bill")
+    @JsonIgnore
+    private Bill bill;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("idProduct")
+    @JoinColumn(name = "id_product")
+    private Product product;
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public BillId getId() {
         return id;

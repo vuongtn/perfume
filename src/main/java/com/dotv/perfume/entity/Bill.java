@@ -1,6 +1,9 @@
 package com.dotv.perfume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "bill")
@@ -9,9 +12,6 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
-    @Column(name = "id_user")
-    private Integer idUser;
 
     @Column(name = "receiver_name")
     private String receiverName;
@@ -28,6 +28,9 @@ public class Bill {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "payment")
+    private String payment;
+
     @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
 
@@ -40,20 +43,37 @@ public class Bill {
     @Column(name = "status")
     private Integer status;
 
+    @OneToMany(mappedBy = "bill",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+//    @JsonIgnore
+    private List<BillDetail> billDetails;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_user")
+    @JsonIgnore
+    private User user;
+
+    public List<BillDetail> getBillDetails() {
+        return billDetails;
+    }
+
+    public void setBillDetails(List<BillDetail> billDetails) {
+        this.billDetails = billDetails;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Integer getId() {
         return this.id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getIdUser() {
-        return this.idUser;
-    }
-
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
     }
 
     public String getReceiverName() {
@@ -126,5 +146,13 @@ public class Bill {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 }

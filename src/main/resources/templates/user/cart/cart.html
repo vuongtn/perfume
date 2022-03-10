@@ -163,7 +163,9 @@
             // timeout : 100000,
             success : function(data) {
                 if(type==2){
-                    $(location).attr('href', "/product_cart");
+                    // $(location).attr('href', "/product_cart");
+                    var totalOld = parseInt($('#total-pro-cart').attr('data-count'));
+                    $('#total-pro-cart').attr('data-count', totalOld-1);
                 }
             },
             error : function(e) {

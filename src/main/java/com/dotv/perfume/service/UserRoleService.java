@@ -1,4 +1,4 @@
-package com.dotv.perfume.service.impl;
+package com.dotv.perfume.service;
 
 import com.dotv.perfume.entity.User;
 import com.dotv.perfume.entity.UserRole;

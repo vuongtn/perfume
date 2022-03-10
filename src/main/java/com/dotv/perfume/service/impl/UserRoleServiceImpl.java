@@ -6,16 +6,18 @@ import com.dotv.perfume.entity.UserRole;
 import com.dotv.perfume.entity.UserRoleId;
 import com.dotv.perfume.repository.RoleRepository;
 import com.dotv.perfume.repository.UserRoleRepository;
+import com.dotv.perfume.service.UserRoleService;
 import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
 @Service
-public class UserRoleServiceImpl implements UserRoleService{
+public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     UserRoleRepository userRoleRepository;
 
@@ -29,6 +31,7 @@ public class UserRoleServiceImpl implements UserRoleService{
     RoleRepository roleRepository;
 
     @Override
+    @Transactional
     public UserRole saveUser(User user) {
         Timestamp timeNow = perfumeUtils.getDateNow();
         user.setCreatedDate(timeNow);

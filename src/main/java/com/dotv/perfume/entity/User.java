@@ -56,6 +56,10 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<UserRole> userRoles;
 
+    @OneToMany(mappedBy = "user",fetch =FetchType.LAZY)
+//    @JsonIgnore
+    private List<Bill> bills;
+
     public List<UserRole> getUserRoles() {
         return userRoles;
     }

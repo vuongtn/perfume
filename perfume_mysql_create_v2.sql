@@ -63,6 +63,7 @@ CREATE TABLE `bill` (
 	`receiver_email` varchar(50) NOT NULL,
 	`receiver_phone` varchar(15) NOT NULL,
 	`note` TEXT NOT NULL,
+    `payment` varchar(100) not null,
 	`created_date` DATETIME,
 	`updated_date` DATETIME,
 	`updated_by` varchar(100),
@@ -174,7 +175,7 @@ ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
 ALTER TABLE user DROP COLUMN phone;
 -- thêm cột
-ALTER TABLE user ADD COLUMN phone varchar(15);
+ALTER TABLE bill ADD COLUMN payment varchar(100);
 
 drop table news;
 
@@ -303,5 +304,10 @@ select * from contact;
  select * from product;
  
  select * from role where code='G';
-select * from user where username='dotv' and id!=28
+select * from user where username='dotv' and id!=28;
+
+select * from bill;
+select * from bill_detail;
+delete from bill_detail;
+delete from bill;
 

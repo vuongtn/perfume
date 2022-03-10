@@ -1,18 +1,16 @@
 package com.dotv.perfume.controller.user;
 
 import com.dotv.perfume.controller.BaseController;
-import com.dotv.perfume.dto.ContactDTO;
 import com.dotv.perfume.dto.UserDTO;
 import com.dotv.perfume.entity.User;
 import com.dotv.perfume.repository.UserRepository;
-import com.dotv.perfume.service.impl.UserRoleService;
+import com.dotv.perfume.service.UserRoleService;
 import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

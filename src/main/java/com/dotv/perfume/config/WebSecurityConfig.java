@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/update_pass").hasAnyAuthority("ADMIN_S", "GUEST")
                 .antMatchers("/order_acc").hasAnyAuthority("ADMIN_S", "GUEST")
                 .antMatchers("/product_cart").hasAnyAuthority("ADMIN_S", "GUEST")
+                .antMatchers("/buy").hasAnyAuthority("ADMIN_S", "GUEST")
+                .antMatchers("/update_cart").hasAnyAuthority("ADMIN_S", "GUEST")
                 /* .antMatchers("/admin/**").permitAll() */
                 .and()
 

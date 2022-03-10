@@ -90,4 +90,6 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     //Search sản phẩm theo tên sắp tăng dần theo tên
     @Query("select p from Product p where p.status=?1 and lower(p.name) like lower(concat('%',?2,'%')) order by p.name asc ")
     List<Product> getProductByName(boolean status, String name);
+
+    Product findById(int id);
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -66,6 +67,18 @@ public class Product {
     @JoinColumn(name="id_trademark")
     private Trademark trademark;
 
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<BillDetail> billDetails;
+
+    public List<BillDetail> getBillDetails() {
+        return billDetails;
+    }
+
+    public void setBillDetails(List<BillDetail> billDetails) {
+        this.billDetails = billDetails;
+    }
+
     public Integer getId() {
         return this.id;
     }
@@ -73,15 +86,6 @@ public class Product {
     public void setId(Integer id) {
         this.id = id;
     }
-
-//    public Integer getIdTrademark() {
-//        return this.idTrademark;
-//    }
-//
-//    public void setIdTrademark(Integer idTrademark) {
-//        this.idTrademark = idTrademark;
-//    }
-
 
     public Trademark getTrademark() {
         return trademark;

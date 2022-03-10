@@ -1124,6 +1124,7 @@ div.nivo-controlNav a.active{
 }
 .product-image img{
 	width:100%;
+	border: 1px solid #dbdbdb;
 }
 .product-image a{
 	display:block;
@@ -3149,7 +3150,7 @@ form.error-ser-form .error-ser-btn:hover{
 	margin-bottom: 10px;
 	/* margin-top: 18px; */
 	padding: 0 0 15px;
-	/* text-transform: uppercase; */
+	 /*text-transform: uppercase; */
 	/* căn giữa */
 	/* text-align: center; */
 }
@@ -3272,7 +3273,7 @@ form.error-ser-form .error-ser-btn:hover{
 	line-height: 18px;
 	margin-bottom: 5px;
 	margin-top: 5px;
-	text-transform: capitalize;
+	/*text-transform: capitalize;*/
 }
 .p-info-group span{
 	color: #333;
@@ -5247,9 +5248,10 @@ a.write-review-btn{
   z-index:4;
 } */
 
-a:focus {
-	background: red;
-} /* testing links*/
+/*a:focus {*/
+/*	background: red;*/
+/*} */
+/* testing links*/
 
 /* th:first-child {
   position: -webkit-sticky;
@@ -5437,3 +5439,7 @@ tfoot th:first-child {
 /*.alert{*/
 /*	display: none;*/
 /*}*/
+.error{
+	color:red;
+	font-weight: normal;
+}

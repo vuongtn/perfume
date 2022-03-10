@@ -65,8 +65,9 @@ function addProInCart(type,idPro){
             }
         },
         error : function(e) {
-            console.log("ERROR: ", e);
-            alert("Lỗi hệ thống");
+            $(location).attr('href', "/login.html");
+            //console.log("ERROR: ", e);
+            //alert("Lỗi hệ thống");
         }
     });
 }

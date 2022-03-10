@@ -30,6 +30,14 @@ public class BillId implements Serializable {
         this.idBill = idBill;
     }
 
+    public BillId() {
+    }
+
+    public BillId(Integer idProduct, Integer idBill) {
+        this.idProduct = idProduct;
+        this.idBill = idBill;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -20,7 +20,7 @@
 
                         <!-- SINGLE SIDEBAR SIZE START -->
                         <div class="product-single-sidebar">
-                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào, Trần Văn Độ</span>
+                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào, </span>
                             <ul>
                                 <li>
                                     <a href="/manage_acc">Thông tin tài khoản</a>
@@ -78,7 +78,7 @@
                                             lỗi
                                         </div>
                                     </th:block>
-                                    <form class="new-account-box" th:object="${acc}" id="updateAcc" method="post" action="update_account">
+                                    <form class="new-account-box" th:object="${acc}" id="updateAcc" method="post" action="/update_account">
 
                                         <div>
 

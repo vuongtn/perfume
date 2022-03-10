@@ -69,13 +69,4 @@ public class CartController extends BaseController {
         return ResponseEntity.ok(result);
     }
 
-
-//    @GetMapping("/total_pro_in_cart")
-//    public ResponseEntity<JSONObject> getTotalProInCart() throws Exception {
-//        JSONObject result = new JSONObject();
-//        int idUser = getUserLogined().getId();
-//        List<ProductInCartDTO> lstPro = cartService.getProductInCart(idUser);
-//        result.put("total",lstPro.size());
-//        return ResponseEntity.ok(result);
-//    }
 }

@@ -20,7 +20,7 @@
 
                         <!-- SINGLE SIDEBAR SIZE START -->
                         <div class="product-single-sidebar">
-                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào, Trần Văn Độ</span>
+                            <span class="sidebar-title" th:text="'Xin chào, '+${acc.fullName}">Xin chào</span>
                             <ul>
                                 <li>
                                     <a href="/manage_acc">Thông tin tài khoản</a>
@@ -29,10 +29,10 @@
                                     <a href="/update_acc">Cập nhật thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="/order_acc">Đơn hàng của bạn</a>
+                                    <b><a href="/order_acc">Đơn hàng của bạn</a></b>
                                 </li>
                                 <li>
-                                    <b><a href="/update_pass">Đổi mật khẩu</a></b>
+                                    <a href="/update_pass">Đổi mật khẩu</a>
                                 </li>
                             </ul>
                         </div>
@@ -63,23 +63,20 @@
                         <div class="product-shooting-area">
                             <div class="product-shooting-bar">
                                 <!-- SHOORT-BY START -->
-                                <div class="shoort-by">
-                                    <label for="productShort">Lọc</label>
-                                    <div class="short-select-option">
-                                        <select name="sortby" id="productShort">
-                                            <option value="">Tất cả</option>
-                                            <option value="">Đang xử lý</option>
-                                            <option value="">Đang vận chuyển</option>
-                                            <option value="">Đã giao</option>
-                                            <option value="">Đã hủy</option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="shoort-by">-->
+<!--                                    <label for="productShort">Lọc</label>-->
+<!--                                    <div class="short-select-option">-->
+<!--                                        <select name="sortby" id="productShort">-->
+<!--                                            <option value="">Tất cả</option>-->
+<!--                                            <option value="">Đang xử lý</option>-->
+<!--                                            <option value="">Đang vận chuyển</option>-->
+<!--                                            <option value="">Đã giao</option>-->
+<!--                                            <option value="">Đã hủy</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <!-- SHOORT-BY END -->
-
-
                             </div>
-
                         </div>
                     </div>
                     <!-- ALL GATEGORY-PRODUCT START -->

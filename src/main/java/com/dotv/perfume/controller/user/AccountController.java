@@ -2,17 +2,23 @@ package com.dotv.perfume.controller.user;
 
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.dto.UserDTO;
+import com.dotv.perfume.entity.Bill;
 import com.dotv.perfume.entity.User;
+import com.dotv.perfume.repository.BillRepository;
 import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 //@RequestMapping("/")
@@ -22,6 +28,11 @@ public class AccountController extends BaseController {
     UserService userService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    BillRepository billRepository;
+
+    @Autowired
+    BillRepository useRepository;
 
     @Autowired
     PerfumeUtils perfumeUtils;
@@ -97,8 +108,15 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping("/order_acc")
-    public String getOrderAcc(){
+    public String getOrderAcc(Model model) throws Exception {
+        User userLogin = getUserLogined();
+        model.addAttribute("acc",userLogin);
         return "user/account/order_acc";
     }
 
+    @GetMapping("/getBill")
+    public ResponseEntity<List<Bill>> getOrder() {
+        //return ResponseEntity.ok();
+        return null;
+    }
 }
