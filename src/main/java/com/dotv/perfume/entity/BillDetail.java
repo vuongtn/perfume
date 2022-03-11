@@ -25,7 +25,7 @@ public class BillDetail {
     @JsonIgnore
     private Bill bill;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idProduct")
     @JoinColumn(name = "id_product")
     private Product product;

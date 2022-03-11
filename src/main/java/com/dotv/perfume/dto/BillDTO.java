@@ -1,5 +1,7 @@
 package com.dotv.perfume.dto;
 
+import java.math.BigDecimal;
+
 public class BillDTO {
     private Integer id;
     private Integer idUser;
@@ -12,6 +14,15 @@ public class BillDTO {
     private java.sql.Timestamp updatedDate;
     private String updatedBy;
     private Integer status;
+    private BigDecimal totalPrice;
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public Integer getId() {
         return this.id;

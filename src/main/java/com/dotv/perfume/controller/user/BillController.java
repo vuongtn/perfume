@@ -1,10 +1,10 @@
 package com.dotv.perfume.controller.user;
 
 import com.dotv.perfume.controller.BaseController;
-import com.dotv.perfume.dto.OrderDTO;
 import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.Bill;
 import com.dotv.perfume.entity.User;
+import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.BillService;
 import com.dotv.perfume.service.CartService;
 import com.dotv.perfume.utils.PerfumeUtils;
@@ -30,6 +30,12 @@ public class BillController extends BaseController {
     @Autowired
     PerfumeUtils perfumeUtils;
 
+    @Autowired
+    UserRepository userRepository;
+
+    /*
+    * Trả về form thông tin đặt hàng và list sản phẩm trong giỏ hàng
+    * */
     @GetMapping("/buy")
     public String getFormBuy(Model model) throws Exception {
         User user = getUserLogined();
@@ -47,19 +53,33 @@ public class BillController extends BaseController {
         return "user/bill/bill";
     }
 
+
+    /*
+    * Submit form order lấy params save db
+    * */
     @PostMapping("/checkout")
     public String processBuy(@RequestParam Map<String,Object> params, Model model) throws Exception {
+        User user = getUserLogined();
+//        if(userRepository.findByIdAndPhone(user.getId(),((String) params.get("phone")).trim()).size()!=0) {
+//            model.addAttribute("errorUser", "Số điện thoại đã tồn tại!");
+//            return "user/bill/bill";
+//        }
         Bill bill = new Bill();
-        bill.setReceiverName((String)params.get("fullName"));
-        bill.setReceiverEmail((String)params.get("email"));
-        bill.setReceiverPhone((String)params.get("phone"));
-        bill.setReceiverAddress((String)params.get("address"));
-        bill.setNote((String)params.get("note"));
-        bill.setPayment((String)params.get("payment"));
+        bill.setReceiverName((String) params.get("fullName"));
+        bill.setReceiverEmail((String) params.get("email"));
+        bill.setReceiverPhone((String) params.get("phone"));
+        bill.setReceiverAddress((String) params.get("address"));
+        bill.setNote((String) params.get("note"));
+        if (Integer.parseInt((String) params.get("payment")) == 1) {
+            bill.setPayment("Thanh toán khi nhận hàng");
+        } else {
+            bill.setPayment("Chuyển khoản");
+        }
         bill.setCreatedDate(perfumeUtils.getDateNow());
         bill.setStatus(1);
-        bill.setUser(getUserLogined());
+        bill.setUser(user);
         billService.saveBill(bill);
-        return "user/bill/bill";
+        //Thành công chuyển hướng sang trang ql đơn hàng
+        return "redirect:/order_acc";
     }
 }

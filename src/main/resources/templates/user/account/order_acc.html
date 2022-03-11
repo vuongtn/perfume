@@ -87,131 +87,26 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">Mã đơn hàng</th>
-                                        <th scope="col">Ngày</th>
+                                        <th scope="col">Thời gian</th>
                                         <th scope="col">Giá trị đơn hàng</th>
-                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Người nhận</th>
                                         <th scope="col">Trạng thái</th>
-                                        <th scope="col">Chi tiết</th>
+                                        <th scope="col">Hoạt động</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody th:each="bill:${bills}">
                                     <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Xem</button></td>
+                                        <th th:text="${bill.id}"></th>
+                                        <td th:text="${#dates.format(bill.createdDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                                        <td th:text="${#numbers.formatDecimal(bill.totalPrice, 3, 'POINT', 0, 'POINT')}+'₫'"></td>
+                                        <td th:text="${bill.receiverName}"></td>
+                                        <th:block th:if="${bill.status==1}"><td>Đang xử lý</td></th:block>
+                                        <th:block th:if="${bill.status==2}"><td>Đã tiếp nhận</td></th:block>
+                                        <th:block th:if="${bill.status==3}"><td>Đang giao</td></th:block>
+                                        <th:block th:if="${bill.status==4}"><td>Giao thành công</td></th:block>
+                                        <th:block th:if="${bill.status==5}"><td>Đã hủy</td></th:block>
+                                        <td><button type="button" class="btn btn-primary btn-sm" onclick="">Xem</button></td>
                                     </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Left Column</th>
-                                        <td>Cell content</td>
-                                        <td>Cell content</td>
-                                        <td>Cell content longer</td>
-                                        <td>Đang giao</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm">Xem</button></td>
-                                    </tr>
-
-
-
-
-
                                     </tbody>
                                     <!-- <tfoot>
                                       <tr>

@@ -1,4 +1,4 @@
-CREATE TABLE `trademark` (
+CREATE TABLE `brand` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(255) NOT NULL,
 	`created_date` DATETIME,
@@ -11,7 +11,7 @@ CREATE TABLE `trademark` (
 
 CREATE TABLE `product` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`id_trademark` INT NOT NULL,
+	`id_brand` INT NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`origin` varchar(255),
 	`gender` varchar(10),
@@ -64,6 +64,7 @@ CREATE TABLE `bill` (
 	`receiver_phone` varchar(15) NOT NULL,
 	`note` TEXT NOT NULL,
     `payment` varchar(100) not null,
+    `total_price` DECIMAL NOT NULL,
 	`created_date` DATETIME,
 	`updated_date` DATETIME,
 	`updated_by` varchar(100),
@@ -106,10 +107,6 @@ CREATE TABLE `user_role` (
 	`id_user` INT NOT NULL,
 	`id_role` INT NOT NULL,
 	`role_name` varchar(50),
-	`view_role` BOOLEAN NOT NULL,
-	`insert_role` BOOLEAN NOT NULL,
-	`update_role` BOOLEAN NOT NULL,
-	`delete_role` BOOLEAN NOT NULL,
 	`created_date` DATETIME,
 	`updated_date` DATETIME,
 	`created_by` varchar(100),
@@ -143,7 +140,7 @@ CREATE TABLE `introduce` (
 	PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `product` ADD CONSTRAINT `product_fk0` FOREIGN KEY (`id_trademark`) REFERENCES `trademark`(`id`);
+ALTER TABLE `product` ADD CONSTRAINT `product_fk0` FOREIGN KEY (`id_brand`) REFERENCES `brand`(`id`);
 
 ALTER TABLE `cart` ADD CONSTRAINT `cart_fk0` FOREIGN KEY (`id_product`) REFERENCES `product`(`id`);
 
@@ -180,18 +177,16 @@ ALTER TABLE bill ADD COLUMN payment varchar(100);
 drop table news;
 
 
--- insert data trademark
-select * from trademark;
-insert into trademark(name,status) values('Gucci',true);
-insert into trademark(name,status) values('Chanel',true);
-insert into trademark(name,status) values('Luis vuiton',true);
-insert into trademark(name,status) values('Rạng đông',true);
-insert into trademark(name,status) values('hp',true);
-insert into trademark(name,status) values('hp',true);
-insert into trademark(name,status) values('hp',true);
-insert into trademark(name,status) values('hp',true);
-insert into trademark(name,status) values('hp',true);
-insert into trademark(name,status) values('hp',true);
+-- insert data brand
+select * from brand;
+insert into brand(name,status) values('Gucci',true);
+insert into brand(name,status) values('Chanel',true);
+insert into brand(name,status) values('Luis vuiton',true);
+insert into brand(name,status) values('Chanel',true);
+insert into brand(name,status) values('Chanel',true);
+insert into brand(name,status) values('Chanel',true);
+insert into brand(name,status) values('Chanel',true);
+
 
 
 
@@ -200,7 +195,7 @@ select * from product;
 select * from product where gender='nu';
 
 
-insert into product(id_trademark,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,status)
+insert into product(id_brand,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,status)
 values
 (1,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',2500000.00,'anh1.jpg','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
 (1,'Nước Hoa Versace Eros Man EDT 5ml','Pháp','Nam','Hoa hồng','1 tháng',1500000.00,'anh1.jpg','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,true),
@@ -221,11 +216,11 @@ values
 
 ;
 
-insert into product(id_trademark,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,created_date,status)
+insert into product(id_brand,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,created_date,status)
 values
 (3,'chanel pháp ','Pháp','Nam','Hoa hồng','1 tháng',100000000.00,'anh1.jpg','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-11-09',true);
 
-insert into product(id_trademark,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,created_date,status)
+insert into product(id_brand,name,origin,gender,fragrant,guarantee,price,image,short_description,detail_description,amount,created_date,status)
 values
 (3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Unisex','Hoa hồng','1 tháng',500000.00,'anh1.jpg','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-11-09',true),
 (3,'Nước Hoa Nam Versace Eros Man EDT 5ml','Pháp','Unisex','Hoa hồng','1 tháng',25000000.00,'anh1,jpg','Nước hoa rất ô xờ kê','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-12-09',true),
@@ -287,8 +282,8 @@ where image="anh1,jpg";
 
 delete from product where id=7;
 
-select * from product where id_trademark=1 and status = true order by name asc;
-select * from product where id_trademark=1;
+select * from product where id_brand=1 and status = true order by name asc;
+select * from product where id_brand=1;
 select * from product where status=true;
 select * from product where lower(name) like lower('%%');
 select lower(name) from product;

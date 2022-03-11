@@ -32,9 +32,9 @@
                         <div class="contact-form-center">
                             <h3 class="contact-subheading">Gửi thông tin</h3>
                             <th:block th:if="${checkSuccess==2}">
-                            <div class="alert alert-success" role="alert">
-                                Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi sẽ trả lời bạn sớm nhất có thể.
-                            </div>
+                                <div class="alert alert-success" role="alert">
+                                    Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi sẽ trả lời bạn sớm nhất có thể.
+                                </div>
                             </th:block>
                             <!-- CONTACT-FORM START -->
                             <form class="contact-form" id="contactForm" th:object="${contactDTO}" method="post" th:action="@{/add_contact}">

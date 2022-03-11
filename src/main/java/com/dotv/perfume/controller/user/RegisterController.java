@@ -48,12 +48,12 @@ public class RegisterController extends BaseController {
     public String getVerifyRegister(UserDTO userDTO, Model model){
         model.addAttribute("pass",userDTO.getPassword());
         model.addAttribute("confirmPass",userDTO.getConfirmPassword());
-        if(userRepository.findByEmail(userDTO.getEmail()).size()!=0){
+        if(userRepository.findByEmail(userDTO.getEmail().trim()).size()!=0){
             model.addAttribute("errorUser","Email đã tồn tại");
             return "user/register/register";
         }
-        if(userRepository.findByUsername(userDTO.getUsername()).size()!=0){
-            model.addAttribute("errorUser","Username đã tồn tại");
+        if(userRepository.findByUsername(userDTO.getUsername().trim()).size()!=0){
+            model.addAttribute("errorUser","Tên đăng nhập đã tồn tại");
             return "user/register/register";
         }
         try {

@@ -7,6 +7,7 @@ import com.dotv.perfume.entity.User;
 import com.dotv.perfume.repository.BillRepository;
 import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.UserService;
+import com.dotv.perfume.utils.Pager;
 import com.dotv.perfume.utils.PerfumeUtils;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONObject;
@@ -17,12 +18,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 //@RequestMapping("/")
 public class AccountController extends BaseController {
+    //Số phần tử hiển thị 1 trang
+    private static final int PAGE = 4;
+    private static final int BUTTONS_TO_SHOW = 5;
 
     @Autowired
     UserService userService;
@@ -67,6 +74,7 @@ public class AccountController extends BaseController {
         }
 
         User userBD = userService.getUserById(user.getId());
+        user.setPhone(user.getPhone().trim());
         user.setStatus(userBD.getStatus());
         user.setCreatedBy(userBD.getCreatedBy());
         user.setUpdatedBy(userBD.getFullName());
@@ -94,12 +102,12 @@ public class AccountController extends BaseController {
     public String getUpdatePassword(UserDTO userDTO, Model model) throws Exception {
         User userLogined = getUserLogined();
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-        boolean isPass = bcrypt.matches(userDTO.getOldPassword(),userLogined.getPassword());//Kiểm tra pass có chính xác
+        boolean isPass = bcrypt.matches(userDTO.getOldPassword().trim(),userLogined.getPassword());//Kiểm tra pass có chính xác
         if(!isPass){
             model.addAttribute("errorUser","Mật khẩu cũ không chính xác!");
         }
         else {
-            userLogined.setPassword(new BCryptPasswordEncoder().encode((userDTO.getPassword())));
+            userLogined.setPassword(new BCryptPasswordEncoder().encode((userDTO.getPassword().trim())));
             userService.saveOrUpdate(userLogined);
             model.addAttribute("type", 1);
         }
@@ -108,15 +116,29 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping("/order_acc")
-    public String getOrderAcc(Model model) throws Exception {
-        User userLogin = getUserLogined();
-        model.addAttribute("acc",userLogin);
+    public String getOrderAcc(@RequestParam int curPage,Model model) throws Exception {
+        User user=userService.getUserById(getUserLogined().getId());
+
+        //sắp xếp theo ngày mới nhất
+        List<Bill> bills = user.getBills().stream()
+                        .sorted(Comparator.nullsLast((e1, e2) -> e2.getCreatedDate().compareTo(e1.getCreatedDate())))
+                        .skip((curPage-1)*PAGE).limit(PAGE).collect(Collectors.toList());
+
+
+        int totalPage=(int)Math.ceil(user.getBills().size()/(float)PAGE);
+        Pager pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("pager",pager);
+        model.addAttribute("acc",user);
+        model.addAttribute("bills",bills);
         return "user/account/order_acc";
     }
 
     @GetMapping("/getBill")
-    public ResponseEntity<List<Bill>> getOrder() {
-        //return ResponseEntity.ok();
-        return null;
+    public ResponseEntity<List<Bill>> getOrder() throws Exception {
+        User user=userService.getUserById(29);
+        return ResponseEntity.ok(user.getBills());
+
     }
 }

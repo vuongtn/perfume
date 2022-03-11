@@ -2,15 +2,14 @@ package com.dotv.perfume.controller.user;
 
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.Product;
-import com.dotv.perfume.entity.Trademark;
+import com.dotv.perfume.entity.Brand;
 import com.dotv.perfume.service.ProductService;
-import com.dotv.perfume.service.TrademarkService;
+import com.dotv.perfume.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +22,7 @@ public class HomeController extends BaseController {
     private static final int AMOUNT_GENDER_PRODUCT = 20;
 
     @Autowired
-    TrademarkService trademarkService;
+    BrandService trademarkService;
     @Autowired
     ProductService productService;
 
@@ -45,7 +44,7 @@ public class HomeController extends BaseController {
     //list thương hiệu với status = true;
     @GetMapping("/getMenu")
 //    @ResponseBody
-    public ResponseEntity<List<Trademark>> getListTrademark(){
+    public ResponseEntity<List<Brand>> getListTrademark(){
        return ResponseEntity.ok(trademarkService.getTrademarkByStatus(true));
     }
 

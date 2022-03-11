@@ -3,9 +3,9 @@ package com.dotv.perfume.controller.user;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.utils.PageCustom;
 import com.dotv.perfume.entity.Product;
-import com.dotv.perfume.entity.Trademark;
+import com.dotv.perfume.entity.Brand;
 import com.dotv.perfume.service.ProductService;
-import com.dotv.perfume.service.TrademarkService;
+import com.dotv.perfume.service.BrandService;
 import com.dotv.perfume.utils.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class ProductController extends BaseController {
     @Autowired
     ProductService productService;
     @Autowired
-    TrademarkService trademarkService;
+    BrandService trademarkService;
 
 
     //Kích vào một tên thương hiệu => load các sp của thương hiệu đó
@@ -107,7 +107,7 @@ public class ProductController extends BaseController {
     @GetMapping("/single_product")
     public String getProductById(@RequestParam int id, Model model){
         Product product = productService.getProductById(id);
-        Trademark trademark = product.getTrademark();
+        Brand trademark = product.getTrademark();
         model.addAttribute("singleProduct",product);
         model.addAttribute("nameTrademark",trademark);
         return "user/product/details_product";

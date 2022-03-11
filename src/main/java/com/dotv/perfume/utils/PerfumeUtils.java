@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 
 @Configuration
@@ -52,5 +53,9 @@ public class PerfumeUtils {
         LocalDateTime now = LocalDateTime.now();
         //System.out.println(dtf.format(now)); //2016-11-16 12:08:43
         return Timestamp.valueOf(dtf.format(now));
+    }
+    public Timestamp converDate(Timestamp date){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return Timestamp.valueOf(dtf.format((TemporalAccessor) date));
     }
 }

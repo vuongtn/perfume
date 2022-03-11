@@ -286,10 +286,10 @@ Validator({
         var codeSend=$('#code-sended').val();//code đã gửi cho mail;
         if(code===codeSend){
             $('#error-verify').text('');
-            var fullname= $('#fullname').val();
-            var email= $('#email').val();
-            var username= $('#username').val();
-            var password= $('#password').val();
+            var fullname= $('#fullname').val().trim();
+            var email= $('#email').val().trim();
+            var username= $('#username').val().trim();
+            var password= $('#password').val().trim();
             var json={
                 "fullName":fullname,
                 "email":email,

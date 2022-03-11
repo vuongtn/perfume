@@ -14,9 +14,6 @@ public class Product {
     @Column(name = "id")
     private Integer id;
 
-//    @Column(name = "id_trademark")
-//    private Integer idTrademark;
-
     @Column(name = "name")
     private String name;
 
@@ -64,8 +61,8 @@ public class Product {
 
     //@ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_trademark")
-    private Trademark trademark;
+    @JoinColumn(name="id_brand")
+    private Brand brand;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonIgnore
@@ -87,12 +84,12 @@ public class Product {
         this.id = id;
     }
 
-    public Trademark getTrademark() {
-        return trademark;
+    public Brand getTrademark() {
+        return brand;
     }
 
-    public void setTrademark(Trademark trademark) {
-        this.trademark = trademark;
+    public void setTrademark(Brand trademark) {
+        this.brand = trademark;
     }
 
     public String getName() {

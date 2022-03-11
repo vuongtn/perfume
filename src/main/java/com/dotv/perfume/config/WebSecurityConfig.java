@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // các request kiểu: "/admin/" phải đăng nhập
 
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN_S")
+//                .antMatchers("/admin/**").hasAnyAuthority("ADMIN_S")
                 .antMatchers("/manage_acc").hasAnyAuthority("ADMIN_S", "GUEST")
                 .antMatchers("/update_acc").hasAnyAuthority("ADMIN_S", "GUEST")
                 .antMatchers("/update_pass").hasAnyAuthority("ADMIN_S", "GUEST")

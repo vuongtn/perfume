@@ -3,6 +3,7 @@ package com.dotv.perfume.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -31,6 +32,9 @@ public class Bill {
     @Column(name = "payment")
     private String payment;
 
+    @Column(name = "total_price")
+    private BigDecimal totalPrice;
+
     @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
 
@@ -43,7 +47,7 @@ public class Bill {
     @Column(name = "status")
     private Integer status;
 
-    @OneToMany(mappedBy = "bill",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bill",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //    @JsonIgnore
     private List<BillDetail> billDetails;
 
@@ -154,5 +158,13 @@ public class Bill {
 
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

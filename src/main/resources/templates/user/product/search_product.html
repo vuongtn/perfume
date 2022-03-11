@@ -24,9 +24,9 @@
                         </div>
                         <div class="product-shooting-area">
                             <div class="product-shooting-bar-all-product">
-                            <th:block th:if="${totalPro!=0}">
-                                <h2 style="text-align: center;" th:text="'Có '+${totalPro}+' kết quả tìm kiếm phù hợp.'"></h2>
-                            </th:block>
+                                <th:block th:if="${totalPro!=0}">
+                                    <h2 style="text-align: center;" th:text="'Có '+${totalPro}+' kết quả tìm kiếm phù hợp.'"></h2>
+                                </th:block>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <div class="row">
                             <th:block th:if="${totalPage==0}">
                                 <h2 style="text-align: center; padding: 20px"
-                                th:text="'Không tìm thấy bất kỳ kết quả nào với từ khóa &quot;'+${query}+'&quot;'"></h2>
+                                    th:text="'Không tìm thấy bất kỳ kết quả nào với từ khóa &quot;'+${query}+'&quot;'"></h2>
                             </th:block>
                             <ul class="gategory-product" th:each="pro:${lstPro}">
                                 <!-- SINGLE ITEM START -->

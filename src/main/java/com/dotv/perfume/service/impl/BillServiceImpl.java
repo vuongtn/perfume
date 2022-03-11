@@ -1,6 +1,5 @@
 package com.dotv.perfume.service.impl;
 
-import com.dotv.perfume.dto.OrderDTO;
 import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.Bill;
 import com.dotv.perfume.entity.BillDetail;
@@ -11,11 +10,11 @@ import com.dotv.perfume.repository.BillRepository;
 import com.dotv.perfume.service.BillService;
 import com.dotv.perfume.service.CartService;
 import com.dotv.perfume.service.ProductService;
-import com.dotv.perfume.utils.PerfumeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -37,6 +36,11 @@ public class BillServiceImpl implements BillService {
     public void saveBill(Bill bill) {
         //Lấy tất cả sản phẩm trong giỏ hàng theo idUser
         List<ProductInCartDTO> lstPro = cartService.getProductInCart(bill.getUser().getId());
+        double totalPrice=0;
+        for(ProductInCartDTO pro1:lstPro){
+            totalPrice = totalPrice + pro1.getAmount() * pro1.getPrice().doubleValue();
+        }
+        bill.setTotalPrice(BigDecimal.valueOf(totalPrice));
         billRepository.save(bill);
         for(ProductInCartDTO product:lstPro){
             BillDetail billDetail = new BillDetail();

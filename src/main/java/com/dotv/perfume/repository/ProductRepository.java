@@ -30,7 +30,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     //List<Product> findAllByIdTrademarkAndStatusOrderByNameAsc(int idTrademark, Boolean status, Pageable pageable);
 
     //Trả về list sản phẩm theo thương hiệu status=true
-    @Query("select p from Product p join p.trademark t where t.id=?1 and p.status=?2")
+    @Query("select p from Product p join p.brand t where t.id=?1 and p.status=?2")
     List<Product> getProductByTrademark(int id, boolean status);
 
     //Trả về tất cả sản phẩm có status = true
@@ -39,15 +39,15 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     ///////////Thương hiệu/////////////////////////////////////////////
 
     //Trả về list sản phẩm theo mã thương hiệu sắp xếp tăng dần theo giá
-    @Query("select p from Product p join p.trademark t where t.id=?1 and p.status=?2 order by p.price asc")
+    @Query("select p from Product p join p.brand t where t.id=?1 and p.status=?2 order by p.price asc")
     List<Product> getProductByTrademarkAscPrice(int id,boolean status,Pageable pageable);
 
     //Trả về list sản phẩm theo mã thương hiệu sắp xếp giảm dần dần theo giá
-    @Query("select p from Product p join p.trademark t where t.id=?1 and p.status=?2 order by p.price desc")
+    @Query("select p from Product p join p.brand t where t.id=?1 and p.status=?2 order by p.price desc")
     List<Product> getProductByTrademarkDescPrice(int id,boolean status,Pageable pageable);
 
     //Trả về list sản phẩm theo mã thương hiệu sắp xêp tăng dần theo tên
-    @Query("select p from Product p join p.trademark t where t.id=?1 and p.status=?2 order by p.name desc")
+    @Query("select p from Product p join p.brand t where t.id=?1 and p.status=?2 order by p.name desc")
     List<Product> getProductByTrademarkAscName(int id,boolean status,Pageable pageable);
 
     /////////////////////////////////////////////////////////////////////

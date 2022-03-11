@@ -28,7 +28,7 @@
                             <div class="img-wrapper"><img th:src="@{'uploads/product/'+${news.image}}" alt="img placeholder"></div>
                             <div class="album-info">
                                 <div class="title" th:text="${news.title}"></div>
-                                <div class="album-name" th:text="${news.createdDate}">11/04/2021</div>
+                                <div class="album-name" th:text="${#dates.format(news.createdDate, 'dd-MM-yyyy HH:mm:ss')}">11/04/2021</div>
                                 <div class="description" th:text="${news.shortDescription}"></div>
                             </div>
                         </div>

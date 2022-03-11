@@ -45,7 +45,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         //Tạo id user_role
         UserRoleId userRoleId = new UserRoleId(user.getId(),role.getId());
         //Tạo user_role
-        UserRole userRole = new UserRole(userRoleId,"GUEST",false,false,false,false,timeNow,true,user,role);
+        UserRole userRole = new UserRole(userRoleId,"GUEST",timeNow,true,user,role);
         //save userRole
         return userRoleRepository.save(userRole);
     }
