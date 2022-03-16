@@ -3,7 +3,10 @@
 
 <body>
 <div th:fragment="header">
+<!--    Thông báo-->
+    <div id="pageMessages">
 
+    </div>
     <!-- HEADER-TOP START -->
     <div class="header-top" >
         <div class="container">
@@ -50,7 +53,7 @@
                 <div class="col-sm-12">
                     <!-- LOGO START -->
                     <div class="logo">
-                        <a href="index.html"><img th:src="@{/user/img/logo.png}" alt="bstore logo" /></a>
+                        <a href="/"><img id="logo-perfume" th:src="@{/user/img/logo-perfume.png}" alt="bstore logo" /></a>
                     </div>
 
                     <a th:href="@{/product_cart}" class="a-cart">

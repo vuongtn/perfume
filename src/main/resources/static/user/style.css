@@ -504,7 +504,7 @@ span.mobile-menu-title{
 	padding-right:9px;
 }
 .header-right-menu nav ul li:last-child{
-	border-right:0px solid #555;
+	border-right:1px solid #555;
 	padding-right:0;
 }
 .header-right-menu nav ul li a{
@@ -528,6 +528,10 @@ span.mobile-menu-title{
 }
 .logo a{
 	display:block;
+}
+#logo-perfume{
+	width:380px;
+	height: 90px
 }
 .categorys-product-search{
 	float: right;
@@ -699,10 +703,10 @@ input.search-form[placeholder]:-ms-input-placeholder {
 	transition: all 300ms ease 0s;
 }
 .mainmenu nav ul li a:hover{
-	background:#494E55;
+	background:#364b36;
 }
 .mainmenu nav ul li.active a{
-	background:#494E55;
+	background:#364b36;
 }
 /* .mainmenu nav ul li .home-var-menu-trademark{ */
 /* left: 15px; */
@@ -749,11 +753,11 @@ transition:0.3s;
 }
 .mainmenu nav ul li ul.home-menu li a{
 	display:block;
-	background:#3A3D42;
+	background:#155946;
 	color:#fff;
 }
 .mainmenu nav ul li ul.home-menu li a:hover{
-	background:#494E55;
+	background:#364b36;
 }
 .mainmenu nav ul li:hover .home-var-menu{
 	opacity: 1;
@@ -1049,12 +1053,12 @@ div.nivo-controlNav a.nivo-control{
 	margin-right:10px;
 	border:1px solid #fff;
 }
-div.nivo-controlNav{
-	bottom: 0;
-	position: absolute;
-	right: 20px;
-	z-index:999999;
-}
+/*div.nivo-controlNav{*/
+/*	bottom: 0;*/
+/*	position: absolute;*/
+/*	right: 20px;*/
+/*	z-index:999999;*/
+/*}*/
 div.nivo-controlNav a.nivo-control:hover{
 	background:#FF4F4F;
 	border:1px solid #fff;
@@ -5447,9 +5451,10 @@ tfoot th:first-child {
 /**/
 #pageMessages {
 	  position: fixed;
-	  top: 300px;
+	  top: 20px;
 	  right: 15px;
 	  width: 30%;
+	z-index: 100;
   }
 
 .alert {

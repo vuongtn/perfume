@@ -59,6 +59,7 @@ public class CartController extends BaseController {
         //Xóa sản phẩm trong giỏ
         if(type==2){
             cartRepository.delete(cart);
+            result.put("totalPro", totalProInCart());
             result.put("message", Boolean.TRUE);
         }
         //Thêm sản phẩm vào giỏ

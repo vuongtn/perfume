@@ -83,7 +83,7 @@ function createAlert(title, summary, details, severity, dismissible, autoDismiss
 
 
 
-
+//render list thương hiệu
 $(document).ready(
     function (){
         showMenu();
@@ -128,6 +128,7 @@ function showMenu() {
     });
 }
 
+//Thêm sản phẩm vào giỏ
 function addProInCart(type,idPro){
     var amount=$('#amount-add-cart'+idPro).val();
     if(type==1){
@@ -148,7 +149,9 @@ function addProInCart(type,idPro){
             if(data.message==0){
                 var totalOld = parseInt($('#total-pro-cart').attr('data-count'));
                 $('#total-pro-cart').attr('data-count', totalOld+1);
+
             }
+            createAlert('','',' Thêm vào giỏ hàng thành công.','success',true,true,'pageMessages');
         },
         error : function(e) {
             $(location).attr('href', "/login.html");
