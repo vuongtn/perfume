@@ -1,11 +1,26 @@
 package com.dotv.perfume.entity;
 
+import com.dotv.perfume.dto.ProductInBillDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@NamedNativeQuery(name = "ProductInBill",
+        query = "select p.id, p.name, b.amount, b.currently_price, p.image from bill_detail b " +
+                "join product p on b.id_product = p.id " +
+                "and id_bill=?1",
+        resultSetMapping = "BillMapping")
+@SqlResultSetMapping(name = "BillMapping",
+        classes = @ConstructorResult(targetClass = ProductInBillDTO.class,
+                columns = {
+                        @ColumnResult(name = "id"),
+                        @ColumnResult(name = "name"),
+                        @ColumnResult(name = "amount"),
+                        @ColumnResult(name = "currently_price"),
+                        @ColumnResult(name = "image")
+                }))
 @Entity
 @Table(name = "bill_detail")
 public class BillDetail {

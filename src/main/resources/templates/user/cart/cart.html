@@ -61,7 +61,7 @@
                         <div class="totals-value" id="cart-subtotal" th:text="${#numbers.formatDecimal(totalPrice, 3, 'POINT', 0, 'POINT')}"></div>
                     </div>
 
-                    <button class="checkout">Đặt hàng</button>
+                    <a class="checkout" href="/buy">Đặt hàng</a>
 
                 </div>
                 <!-- end cart -->
@@ -166,6 +166,7 @@
                     // $(location).attr('href', "/product_cart");
                     var totalOld = parseInt($('#total-pro-cart').attr('data-count'));
                     $('#total-pro-cart').attr('data-count', totalOld-1);
+                    createAlert('','','Thêm vào giỏ hàng thành công.','success',true,true,'pageMessages');
                 }
             },
             error : function(e) {

@@ -29,7 +29,7 @@
                                     <a href="/update_acc">Cập nhật thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <b><a href="/order_acc">Đơn hàng của bạn</a></b>
+                                    <b><a href="/order_acc?curPage=1">Đơn hàng của bạn</a></b>
                                 </li>
                                 <li>
                                     <a href="/update_pass">Đổi mật khẩu</a>
@@ -101,11 +101,19 @@
                                         <td th:text="${#numbers.formatDecimal(bill.totalPrice, 3, 'POINT', 0, 'POINT')}+'₫'"></td>
                                         <td th:text="${bill.receiverName}"></td>
                                         <th:block th:if="${bill.status==1}"><td>Đang xử lý</td></th:block>
-                                        <th:block th:if="${bill.status==2}"><td>Đã tiếp nhận</td></th:block>
-                                        <th:block th:if="${bill.status==3}"><td>Đang giao</td></th:block>
-                                        <th:block th:if="${bill.status==4}"><td>Giao thành công</td></th:block>
-                                        <th:block th:if="${bill.status==5}"><td>Đã hủy</td></th:block>
-                                        <td><button type="button" class="btn btn-primary btn-sm" onclick="">Xem</button></td>
+<!--                                        <th:block th:if="${bill.status==2}"><td>Đã tiếp nhận</td></th:block>-->
+                                        <th:block th:if="${bill.status==2}"><td>Đang giao</td></th:block>
+                                        <th:block th:if="${bill.status==3}"><td>Giao thành công</td></th:block>
+                                        <th:block th:if="${bill.status==4}"><td>Đã hủy</td></th:block>
+<!--                                        <td><button type="button" class="btn btn-primary btn-sm" th:onclick="'getModal('+${bill.id}+','+${bill.receiverName}+','+${bill.receiverEmail}+','+${bill.receiverPhone}+','+${bill.receiverAddress}+','+${bill.payment}+','+${bill.totalPrice}+','+${bill.note}+')'">Xem</button></td>-->
+                                        <td>
+                                            <button th:id="id-bill+${bill.id}" type="button" class="btn btn-primary btn-sm"
+                                                    th:attr="name=${bill.receiverName},email=${bill.receiverEmail},phone=${bill.receiverPhone},address=${bill.receiverAddress},payment=${bill.payment},total=${bill.totalPrice},note=${bill.note}"
+                                                    th:onclick="|getModal(${bill.id},this.getAttribute('name'),this.getAttribute('email'),this.getAttribute('phone'),this.getAttribute('address'),this.getAttribute('payment'),this.getAttribute('total'),this.getAttribute('note'))|" >Xem</button>
+                                            <th:block th:if="${bill.status==1}">
+                                                <button type="button" class="btn btn-danger btn-sm">Hủy</button>
+                                            </th:block>
+                                        </td>
                                     </tr>
                                     </tbody>
                                     <!-- <tfoot>
@@ -128,7 +136,7 @@
 
                     <!-- Modal -->
                     <!-- Thông tin chi tiết đơn hàng -->
-                    <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal fade" id="myModalBill" role="dialog">
                         <div class="modal-dialog">
 
                             <!-- Modal content-->
@@ -137,62 +145,59 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h2 class="modal-title">Chi tết đơn hàng</h2>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body" >
                                     <h3>Thông tin người nhận</h3>
                                     <br>
                                     <table class="table table-bordered">
                                         <tr>
                                             <td>Họ tên người nhận</td>
-                                            <td>Nguyễn Văn A</td>
+                                            <td id="m_fullName">Nguyễn Văn A</td>
                                         </tr>
                                         <tr>
                                             <td>Email</td>
-                                            <td>adf@sdf.com</td>
+                                            <td id="m_emal">adf@sdf.com</td>
                                         </tr>
                                         <tr>
                                             <td>Số điện thoại</td>
-                                            <td>0988777665</td>
+                                            <td id="m_phone">0988777665</td>
                                         </tr>
                                         <tr>
                                             <td>Địa chỉ</td>
-                                            <td>Nhổn - Đại học Công Nghiệp Hà Nội</td>
+                                            <td id="m_address">Nhổn - Đại học Công Nghiệp Hà Nội</td>
                                         </tr>
                                         <tr>
                                             <td>Hình thức thanh toán</td>
-                                            <td>Thanh toán khi nhân hàng</td>
+                                            <td id="m_payment">Thanh toán khi nhân hàng</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ghi chú</td>
+                                            <td id="m_note">Gửi giờ hành chính</td>
                                         </tr>
                                         <tr>
                                             <td>Tổng tiền thanh toán</td>
-                                            <td>14.000.000 VNĐ</td>
+                                            <td id="m_total">14.000.000 VNĐ</td>
                                         </tr>
                                     </table>
                                     <h3>Chi tiết sản phẩm</h3>
                                     <br>
-                                    <div class="product">
-                                        <div class="product-image-cart">
-                                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
-                                        </div>
-                                        <div class="product-details" style="width:80%">
-                                            <p class="product-description">Nước hoa abcdxyz</p>
-                                            <div class="product-title">Số lượng: 1</div>
-                                            <div class="product-title">Giá: 100.000đ</div>
-                                        </div>
+                                    <div id="list-pro-bill">
+
                                     </div>
-                                    <div class="product">
-                                        <div class="product-image-cart">
-                                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
-                                        </div>
-                                        <div class="product-details" style="width:80%">
-                                            <p class="product-description">Nước hoa abcdxyz</p>
-                                            <div class="product-title">Số lượng: 1</div>
-                                            <div class="product-title">Giá: 100.000đ</div>
-                                        </div>
-                                    </div>
+<!--                                    <div class="product">-->
+<!--                                        <div class="product-image-cart">-->
+<!--                                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">-->
+<!--                                        </div>-->
+<!--                                        <div class="product-details" style="width:80%">-->
+<!--                                            <p class="product-description">Nước hoa abcdxyz</p>-->
+<!--                                            <div class="product-title">Số lượng: 1</div>-->
+<!--                                            <div class="product-title">Giá: 100.000đ</div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy đơn</button>
-                                </div>
+<!--                                <div class="modal-footer">-->
+<!--                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy đơn</button>-->
+<!--                                </div>-->
                             </div>
 
                         </div>
@@ -205,5 +210,54 @@
     </section>
     <!-- MAIN-CONTENT-SECTION END -->
 </div>
+<script layout:fragment="order_acc_js" th:inline="javascript">
+    //$('id-bill8').click();
+
+    function getModal(id,fullName,email,phone,address,payment,totalPrice,note){
+        var totalMoney=parseFloat(totalPrice).toLocaleString({style : 'currency', currency : 'VND'});
+        $('#m_fullName').text(fullName);
+        $('#m_emal').text(email);
+        $('#m_phone').text(phone);
+        $('#m_address').text(address);
+        $('#m_payment').text(payment);
+        $('#m_note').text(note);
+        $('#m_total').text(totalMoney+'đ');
+
+
+        $.ajax({
+            type : "post",
+            enctype: 'multipart/form-data',
+            url : "/product_in_bill",
+            data : {
+                idBill:id,
+            },
+            dataType : 'json',
+            // timeout : 100000,
+            success : function(data) {
+                $('#list-pro-bill').empty();
+                $.each(data,function (i,item){
+                        var total=item.currentlyPrice.toLocaleString({style : 'currency', currency : 'VND'});
+                        $('#list-pro-bill').append(
+                            '<div class="product">'+
+                                '<div class="product-image-cart">'+
+                                    '<img src="uploads/product/'+item.image+'">'+
+                                '</div>'+
+                                '<div class="product-details" style="width:80%">'+
+                                    '<p class="product-description">'+item.name+'</p>'+
+                                    '<div class="product-title">Số lượng: '+item.amount+'</div>'+
+                                    '<div class="product-title">Giá: '+total+'đ</div>'+
+                                '</div>'+
+                            '</div>'
+                        )
+                    }
+                )
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            }
+        });
+        $('#myModalBill').modal('show');
+    }
+</script>
 </body>
 </html>

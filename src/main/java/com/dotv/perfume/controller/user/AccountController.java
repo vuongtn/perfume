@@ -1,9 +1,11 @@
 package com.dotv.perfume.controller.user;
 
 import com.dotv.perfume.controller.BaseController;
+import com.dotv.perfume.dto.ProductInBillDTO;
 import com.dotv.perfume.dto.UserDTO;
 import com.dotv.perfume.entity.Bill;
 import com.dotv.perfume.entity.User;
+import com.dotv.perfume.repository.BillDetailRepository;
 import com.dotv.perfume.repository.BillRepository;
 import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.UserService;
@@ -43,6 +45,10 @@ public class AccountController extends BaseController {
 
     @Autowired
     PerfumeUtils perfumeUtils;
+
+    @Autowired
+    BillDetailRepository billDetailRepository;
+
 
     @GetMapping("/manage_acc")
     public String getAccManage(Model model) throws Exception {
@@ -135,10 +141,8 @@ public class AccountController extends BaseController {
         return "user/account/order_acc";
     }
 
-    @GetMapping("/getBill")
-    public ResponseEntity<List<Bill>> getOrder() throws Exception {
-        User user=userService.getUserById(29);
-        return ResponseEntity.ok(user.getBills());
-
+    @PostMapping("/product_in_bill")
+    public ResponseEntity<List<ProductInBillDTO>> getProInBill(@RequestParam int idBill) throws Exception {
+        return ResponseEntity.ok( billDetailRepository.getListProductInBill(idBill));
     }
 }
