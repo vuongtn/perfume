@@ -80,6 +80,6 @@ public class BillController extends BaseController {
         bill.setUser(user);
         billService.saveBill(bill);
         //Thành công chuyển hướng sang trang ql đơn hàng
-        return "redirect:/order_acc";
+        return "redirect:/order_acc?curPage=1";
     }
 }

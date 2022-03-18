@@ -34,8 +34,8 @@ public class User implements UserDetails {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "avatar")
-    private String avatar;
+    @Column(name = "permission")
+    private String permission;
 
     @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
@@ -158,11 +158,11 @@ public class User implements UserDetails {
     }
 
     public String getAvatar() {
-        return this.avatar;
+        return this.permission;
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        this.permission = avatar;
     }
 
     public java.sql.Timestamp getCreatedDate() {

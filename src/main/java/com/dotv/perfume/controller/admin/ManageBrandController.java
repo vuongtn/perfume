@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ManageBrandController {
     @GetMapping("/brand")
     public String getListBrand(){
-        return "admin/brand/list";
+        return "admin/brand/brand";
     }
 }

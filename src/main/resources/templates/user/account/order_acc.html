@@ -106,7 +106,7 @@
                                         <th:block th:if="${bill.status==1}"><td>Đang xử lý</td></th:block>
 <!--                                        <th:block th:if="${bill.status==2}"><td>Đã tiếp nhận</td></th:block>-->
                                         <th:block th:if="${bill.status==2}"><td>Đang giao</td></th:block>
-                                        <th:block th:if="${bill.status==3}"><td>Giao thành công</td></th:block>
+                                        <th:block th:if="${bill.status==3}"><td>Đã giao</td></th:block>
                                         <th:block th:if="${bill.status==4}"><td>Đã hủy</td></th:block>
 <!--                                        <td><button type="button" class="btn btn-primary btn-sm" th:onclick="'getModal('+${bill.id}+','+${bill.receiverName}+','+${bill.receiverEmail}+','+${bill.receiverPhone}+','+${bill.receiverAddress}+','+${bill.payment}+','+${bill.totalPrice}+','+${bill.note}+')'">Xem</button></td>-->
                                         <td>
@@ -136,7 +136,29 @@
 
                         </div>
                     </div>
-
+                    <div th:if="${totalPage != 1 && totalPage!=0}" class="form-group col-md-11 pagination-container" style="margin: 0px">
+                        <ul class="pagination" style="margin: 0px">
+                            <li th:class="${curPage == 1} ? disabled">
+                                <a class="pageLink" th:href="@{/order_acc(curPage=1)}">&laquo;</a>
+                            </li>
+                            <li th:class="${curPage == 1} ? disabled">
+                                <a class="pageLink" th:href="@{/order_acc(curPage=${curPage - 1})}">&larr;</a>
+                            </li>
+                            <li th:class="${curPage == page} ? 'active pointer-disabled'"
+                                th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                                <a class="pageLink" th:href="@{/order_acc(curPage=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li th:class="${curPage == totalPage} ? disabled">
+                                <a class="pageLink"
+                                   th:href="@{/order_acc(curPage=${curPage + 1})}">&rarr;</a>
+                            </li>
+                            <li th:class="${curPage == totalPage} ? disabled">
+                                <a class="pageLink"
+                                   th:href="@{/order_acc(curPage=${totalPage})}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
                     <!-- Modal -->
                     <!-- Thông tin chi tiết đơn hàng -->
                     <div class="modal fade" id="myModalBill" role="dialog">

@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 //@RequestMapping("/")
 public class AccountController extends BaseController {
     //Số phần tử hiển thị 1 trang
-    private static final int PAGE = 4;
+    private static final int PAGE = 1;
     private static final int BUTTONS_TO_SHOW = 5;
 
     @Autowired
@@ -122,7 +122,7 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping("/order_acc")
-    public String getOrderAcc(@RequestParam int curPage,Model model) throws Exception {
+    public String getOrderAcc(@RequestParam int curPage, Model model) throws Exception {
         User user=userService.getUserById(getUserLogined().getId());
 
         //sắp xếp theo ngày mới nhất

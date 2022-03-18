@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{admin/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý thương hiệu</title>
+</head>
+<body>
+<th:block id="main-content">
+    <main class="app-content">
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb side">
+                <li class="breadcrumb-item active"><a href="#"><b>Danh sách thương hiệu</b></a></li>
+            </ul>
+            <div id="clock"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="row element-button">
+                            <div class="col-sm-2">
+
+                                <a class="btn btn-add btn-sm" title="Thêm" data-toggle="modal"
+                                   data-target="#ModalUP"><i class="fas fa-plus"></i>
+                                    Thêm mới</a>
+                            </div>
+
+                        </div>
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                            <tr>
+                                <th>Mã thương hiệu</th>
+                                <th>Tên thương hiệu</th>
+                                <th>Trạng thái</th>
+                                <th>Chức năng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                                <td>71309005</td>
+                                <td>Bàn ăn gỗ Theresa</td>
+                                <td><span class="badge bg-success">Hiển thị</span></td>
+                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                </button>
+                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp1" data-toggle="modal"
+                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>71309005</td>
+                                <td>Bàn ăn gỗ Theresa</td>
+                                <td><span class="badge bg-danger">Ẩn</span></td>
+
+                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                </button>
+                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</th:block>
+
+
+<th:block id="js-resources">
+    <script>
+        function deleteRow(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("myTable").deleteRow(i);
+        }
+        jQuery(function () {
+            jQuery(".trash").click(function () {
+                swal({
+                    title: "Cảnh báo",
+                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
+                    buttons: ["Hủy bỏ", "Đồng ý"],
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Đã xóa thành công.!", {
+
+                            });
+                        }
+                    });
+            });
+        });
+    </script>
+</th:block>
+
+</body>
+</html>
