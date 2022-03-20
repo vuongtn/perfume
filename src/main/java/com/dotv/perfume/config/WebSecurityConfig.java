@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/update_acc").hasAnyAuthority( "GUEST")
                 .antMatchers("/update_pass").hasAnyAuthority("GUEST")
                 .antMatchers("/order_acc").hasAnyAuthority( "GUEST")
-                .antMatchers("/product_cart").hasRole( "GUEST")
+                .antMatchers("/product_cart").hasAnyAuthority( "GUEST")
                 .antMatchers("/buy").hasAnyAuthority( "GUEST")
                 .antMatchers("/update_cart").hasAnyAuthority( "GUEST")
                 .and()

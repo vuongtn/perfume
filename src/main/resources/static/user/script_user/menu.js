@@ -1,5 +1,4 @@
-
-//Tạo thông báo
+//thong bao
 function createAlert(title, summary, details, severity, dismissible, autoDismiss, appendToId) {
     var iconMap = {
         info: "fa fa-info-circle",
@@ -75,9 +74,10 @@ function createAlert(title, summary, details, severity, dismissible, autoDismiss
             setTimeout(function(){
                 msg.remove();
             },1000);
-        }, 5000);
+        }, 3000);
     }
 }
+
 
 
 

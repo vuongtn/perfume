@@ -71,7 +71,7 @@
                             <div class="col-sm-2">
 
                                 <a class="btn btn-add btn-sm" title="Thêm" data-toggle="modal"
-                                   data-target="#ModalUP"><i class="fas fa-plus"></i>
+                                   data-target="#modalBrand" onclick="reset()"><i class="fas fa-plus"></i>
                                     Thêm mới</a>
                             </div>
 
@@ -85,32 +85,39 @@
                                 <th>Chức năng</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <th:block th:each="lst:${lstBrand}">
-                                <tr>
-                                    <td th:text="${lst.id}">71309005</td>
-                                    <td th:text="${lst.name}">Bàn ăn gỗ Theresa</td>
-                                    <td>
-                                        <div class="onoffswitch-brand">
-                                            <input type="checkbox" name="onoffswitch-brand" class="onoffswitch-checkbox-brand" th:id="myonoffswitch-brand+${lst.id}" th:checked="${lst.status==true} ? 'checked'">
-                                            <label class="onoffswitch-label-brand" th:for="myonoffswitch-brand+${lst.id}">
-                                                <span class="onoffswitch-inner-brand"></span>
-                                                <span class="onoffswitch-switch-brand"></span>
-                                            </label>
-                                        </div>
-                                    </td>
+                            <tbody id="list-brand">
+<!--                            <th:block th:each="lst:${lstBrand}">-->
+<!--                                <tr>-->
+<!--                                    <td th:text="${lst.id}">71309005</td>-->
+<!--                                    <td th:text="${lst.name}">Bàn ăn gỗ Theresa</td>-->
+<!--                                    <td>-->
+<!--                                        <th:block th:if="${lst.status==true}">-->
+<!--                                            <span class="badge bg-success">Hiển thị</span>-->
+<!--                                        </th:block>-->
+<!--                                        <th:block th:if="${lst.status==false}">-->
+<!--                                            <span class="badge bg-danger">Ẩn</span>-->
+<!--                                        </th:block>-->
+<!--                                    </td>-->
 
-                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                    </button>
-
-                                    </td>
-                                </tr>
-                            </th:block>
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"-->
+<!--                                                onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>-->
+<!--                                        </button>-->
+<!--                                        <button th:attr="name=${lst.name},status=${lst.status}"-->
+<!--                                                class="btn btn-primary btn-sm edit" type="button" title="Sửa"-->
+<!--                                                data-toggle="modal"-->
+<!--                                                data-target="#modalBrand"-->
+<!--                                                th:onclick="|getModalBrand(${lst.id},this.getAttribute('name'),this.getAttribute('status'))|">-->
+<!--                                                <i class="fas fa-edit"></i>-->
+<!--                                        </button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </th:block>-->
 
 
                             </tbody>
                         </table>
+                        <div id="pagination-container"></div>
                     </div>
                 </div>
             </div>
@@ -121,7 +128,7 @@
     <!--
   MODAL
 -->
-    <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+    <div class="modal fade" id="modalBrand" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
          data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -130,15 +137,15 @@
                     <div class="row">
                         <div class="form-group  col-md-12">
           <span class="thong-tin-thanh-toan">
-            <h5>Thêm mới thương hiệu</h5>
+            <h5 id="title-brand">Thêm mới thương hiệu</h5>
           </span>
                         </div>
                     </div>
-                    <form method="post" action="/admin/save_brand">
-                    <div class="row">
+                    <form id="form-brand">
+                    <div class="row" id="update-brand">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Tên thương hiệu</label>
-                                <input name="name" class="form-control" type="text" required >
+                                <input id="name-brand" name="name" class="form-control" type="text">
                             </div>
                             <div class="form-group col-md-12 ">
                                 <label for="status-brand" class="control-label">Trạng thái</label>
@@ -169,7 +176,197 @@
 
 
 <th:block id="js-resources">
-    <script>
+<script th:inline="javascript">
+    //Phan trang load table
+
+
+    checkCurPage=1;
+
+    $(document).ready(
+        function (){
+            page(1);
+
+        }
+    )
+
+    function page(curPage){
+        $('#pagination-container').pagination({
+            dataSource: function(done) {
+                $.ajax({
+                    type: 'GET',
+                    contentType : "application/json",
+                    url: '/admin/lst_brand',
+                    dataType : 'json',
+                    success: function(response) {
+                        done(response);
+                    }
+                });
+            },
+            pageSize: 5,
+            pageNumber:curPage,
+            pageRage:1,
+            autoHidePrevious: true,
+            autoHideNext: true,
+            callback: function(data, pagination) {
+                var html = loadTable(data);
+                $('#list-brand').html(html);
+                checkCurPage=pagination.pageNumber;
+            }
+        })
+    }
+
+
+
+
+    //for load dữ liệu
+    function loadTable(data){
+        var html = '';
+        $.each(data, function(index, item){
+            html +=
+                '<tr>'+
+                '<td>'+item.id+'</td>'+
+                '<td>'+item.name+'</td>'+
+                '<td>';
+                if(item.status==true){
+                    html +='<span class="badge bg-success">Hiển thị</span>';
+                }
+                else{
+                    html +='<span class="badge bg-danger">Ẩn</span>';
+                }
+                html +=
+                '</td>'+
+                '<td>'+
+                    '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa"'+
+                            'onClick="myFunction(this)"><i class="fas fa-trash-alt"></i>'+
+                    '</button>'+
+
+                    '<button class="btn btn-primary btn-sm edit" type="button" title="Sửa"'+
+                            'data-toggle="modal"'+
+                            'data-target="#modalBrand"'+
+                            'onclick="getModalBrand('+item.id+',\'' + item.name + '\',\'' + item.status + '\')"'+
+                            '>'+
+                        '<i class="fas fa-edit"></i>'+
+                    '</button>'+
+                '</td>'+
+            '</tr>'
+        });
+        return html;
+    }
+
+
+
+
+//check xem update or insert
+    var check=true;
+<!--show modal-->
+    function getModalBrand(id,name,status){
+        check=false;
+        $('#title-brand').text('Chỉnh sửa thương hiệu');
+        $('#div-id-brand').remove();
+
+        $('#update-brand').prepend(
+            '<div class="form-group col-md-12" id="div-id-brand">'+
+                '<label class="control-label">Mã thương hiệu </label>'+
+                '<input id="id-brand" name="id" class="form-control" type="number" readonly>'+
+            '</div>'
+        )
+        $('#id-brand').val(id);
+        $('#name-brand').val(name);
+        if(status=="true"){
+            $('#status-brand').val("true");
+        }
+        else{
+            $('#status-brand').val("false");
+        }
+    //    hiển thị modal
+    //     $('#modalBrand').modal('show');
+    }
+
+//reset modal
+function reset(){
+    check=true;
+    $('#div-id-brand').remove();
+    $('#title-brand').text('Thêm mới thương hiệu');
+    $('#id-brand').val('');
+    $('#name-brand').val('');
+    $('#status-brand').val("true");
+}
+
+
+
+//validate api khi add or update thanh cong
+$("#form-brand").validate({
+    rules: {
+        name: "required",
+    },
+
+    messages: {
+        name: "Vui lòng nhập tên thương hiệu",
+    },
+    submitHandler: function (form1) {
+        var form = $('#form-brand')[0];
+        var data = new FormData(form);
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/admin/save_brand",
+            data: data,
+            processData: false, //prevent jQuery from automatically transforming the data into a query string
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                $('#modalBrand').modal('hide');
+                if(data.message==true&&check==true){
+                   messageSuccess('Thành công!', 'Thêm thương hiệu thành công');
+                   page(1);//về trang đầu tiên
+                }
+                if(data.message==true&&check==false){
+                    messageSuccess('Thành công!', 'Cập nhật thương hiệu thành công');
+                    page(checkCurPage);//về trang hiện tại
+                }
+                // $(location).attr('href', "/admin/brand?curPage=1");
+
+            },
+            error: function (e) {
+                messageError('Thất bại!','Lỗi hệ thống.')
+                console.log("ERROR : ", e);
+            }
+        });
+    }
+
+});
+// function addOrUpdate() {
+//     var form = $('#form-brand')[0];
+//     var data = new FormData(form);
+//     $.ajax({
+//         type: "POST",
+//         enctype: 'multipart/form-data',
+//         url: "/admin/save_brand",
+//         data: data,
+//         processData: false, //prevent jQuery from automatically transforming the data into a query string
+//         contentType: false,
+//         cache: false,
+//         timeout: 600000,
+//         success: function (data) {
+//             if(data.message==true&&check==true){
+//                 createAlert('', '', 'Thêm thương hiệu thành công.', 'success', true, true, 'pageMessages');
+//             }
+//             if(data.message==true&&check==false){
+//                 createAlert('', '', 'Cập nhật thương hiệu thành công.', 'success', true, true, 'pageMessages');
+//             }
+//             if(data.message==false){
+//                 createAlert('Thất bại!','','Còn sản phẩm thuộc thương hiệu này.','danger',true,false,'pageMessages');
+//             }
+//         },
+//         error: function (e) {
+//             createAlert('Lỗi hệ thống!','','','danger',true,false,'pageMessages');
+//             console.log("ERROR : ", e);
+//         }
+//     });
+// }
+
+
         function deleteRow(r) {
             var i = r.parentNode.parentNode.rowIndex;
             document.getElementById("myTable").deleteRow(i);

@@ -21,6 +21,11 @@
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.11/dist/summernote-bs4.min.css" rel="stylesheet">
 
+<!--   css message -->
+    <link rel="stylesheet" type="text/css" th:href="@{/utils/css/message.css}">
+<!--    phan trang css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/utils/css/pagination.css}">
+
     <th:block th:replace="${cssResources} ?: ~{}"></th:block>
 </head>
 <body class="app sidebar-mini rtl">
@@ -46,6 +51,15 @@
 <script type="text/javascript" th:src="@{/admin/js/plugins/chart.js}"></script>
 <!--===============================================================================================-->
 <script src="https://cdn.jsdelivr.net/npm/bs4-summernote@0.8.10/dist/summernote-bs4.min.js"></script>
+
+<!--validation-->
+<!--validate form-->
+<script th:src="@{/user/js/jquery.validate.min.js}"></script>
+<script th:src="@{/utils/js/validation.js}" type="text/javascript"></script>
+<!--message-->
+<script th:src="@{/utils/js/message.js}" type="text/javascript"></script>
+<!--phân trang-->
+<script th:src="@{/utils/js/pagination.min.js}" type="text/javascript"></script>
 
 <th:block th:replace="${jsResources} ?: ~{}"></th:block>
 </body>
