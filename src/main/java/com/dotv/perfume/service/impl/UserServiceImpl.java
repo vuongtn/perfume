@@ -19,6 +19,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getAdminByUsernameAndStatus(String username, Boolean status) {
+        User user = userRepository.findByUsernameAndStatus(username,status);
+        return user == null ? new User() : user;
+    }
+
+    @Override
     public User saveOrUpdate(User user) {
         return userRepository.save(user);
     }

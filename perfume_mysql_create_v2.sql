@@ -193,6 +193,7 @@ insert into brand(name,status) values('Test1',true);
 insert into brand(name,status) values('Test2',true);
 insert into brand(name,status) values('Test3',true);
 insert into brand(name,status) values('Test4',true);
+insert into brand(name,status) values('Test4',false);
 
 
 
@@ -277,7 +278,8 @@ insert into cart values
 (1,29,2),
 (2,29,2);
 
-
+-- insert admin bảng user
+select * from user;
 
 
 ----------------------------------------------------------------------------

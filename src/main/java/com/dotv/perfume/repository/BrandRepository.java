@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TrademarkRepository extends JpaRepository<Brand,Integer> {
+public interface BrandRepository extends JpaRepository<Brand,Integer> {
     @Query(value = "select c from Brand c where c.status=:status")
     List<Brand> getTrademarkByStatus(Boolean status);
 //    int updateStatusBill(@Param("status") int status, @Param("idBill") int idBill);
-
+    @Query(value = "select c from Brand c")
+    List<Brand> getAllBrand();
 }

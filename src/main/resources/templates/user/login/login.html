@@ -5,78 +5,6 @@
 >
 <head>
     <title>Đăng nhập</title>
-    <meta charset="utf-8">
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/user/img/favicon.png}">
-
-    <!-- FONTS
-    ============================================ -->
-    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-
-    <!-- animate CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/animate.css}">
-
-    <!-- FANCYBOX CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/jquery.fancybox.css}">
-
-    <!-- BXSLIDER CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/jquery.bxslider.css}">
-
-    <!-- MEANMENU CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/meanmenu.min.css}">
-
-    <!-- JQUERY-UI-SLIDER CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/jquery-ui-slider.css}">
-
-    <!-- NIVO SLIDER CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/nivo-slider.css}">
-
-    <!-- OWL CAROUSEL CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/owl.carousel.css}">
-
-    <!-- OWL CAROUSEL THEME CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/owl.theme.css}">
-
-    <!-- BOOTSTRAP CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}">
-
-    <!-- FONT AWESOME CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/font-awesome.min.css}">
-
-    <!-- NORMALIZE CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/normalize.css}">
-
-    <!-- MAIN CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/main.css}">
-
-    <!-- STYLE CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/style.css}">
-
-    <!-- RESPONSIVE CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/responsive.css}">
-
-    <!-- IE CSS
-    ============================================ -->
-    <link rel="stylesheet" th:href="@{/user/css/ie.css}">
-
-    <!-- MODERNIZR JS
-    ============================================ -->
-    <script th:src="@{/user/js/vendor/modernizr-2.6.2.min.js}"></script>
 
 </head>
 <body>
@@ -102,7 +30,7 @@
                         <!-- REGISTERED-ACCOUNT START -->
                         <div class="primari-box registered-account">
                             <form class="new-account-box" id="accountLogin" method="post" action="/perform_login">
-                                <!--                                <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token}">-->
+<!--                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
                                 <h3 class="box-subheading">Đăng nhập</h3>
                                 <div>
                                     <th:block th:if="${login_error=='true'}">

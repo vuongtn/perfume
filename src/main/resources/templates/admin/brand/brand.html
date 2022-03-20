@@ -1,24 +1,68 @@
 <!DOCTYPE html>
-<html lang="en"
+<html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{admin/layout/layout :: main-fragment(
                                                 ~{:: title},
+                                                ~{:: #css-resources},
                                                 ~{:: #js-resources},
                                                 ~{:: #main-content}
                                                )}">
->
 <head>
     <meta charset="UTF-8">
     <title>Quản lý thương hiệu</title>
+    <th:block id="css-resources">
+        <style>
+            .onoffswitch-brand {
+                position: relative; width: 94px;
+                -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+            }
+            .onoffswitch-checkbox-brand {
+                display: none;
+            }
+            .onoffswitch-label-brand {
+                display: block; overflow: hidden; cursor: pointer;
+                border: 2px solid #999999; border-radius: 20px;
+            }
+            .onoffswitch-inner-brand {
+                display: block; width: 200%; margin-left: -100%;
+                transition: margin 0.3s ease-in 0s;
+            }
+            .onoffswitch-inner-brand:before, .onoffswitch-inner-brand:after {
+                display: block; float: left; width: 50%; height: 20px; padding: 0; line-height: 20px;
+                font-size: 14px; color: white;
+                box-sizing: border-box;
+            }
+            .onoffswitch-inner-brand:before {
+                content: "Hiện";
+                padding-left: 12px;
+                background-color: green; color: #FFFFFF;
+            }
+            .onoffswitch-inner-brand:after {
+                content: "Ẩn";
+                padding-right: 17px;
+                background-color: red; color: #FFFFFF;
+                text-align: right;
+            }
+            .onoffswitch-switch-brand {
+                display: block; width: 46px; margin: 2px;
+                background: #FFFFFF;
+                position: absolute; top: 0; bottom: 0;
+                right: 44px;
+                border: 2px solid #999999; border-radius: 20px;
+                transition: all 0.3s ease-in 0s;
+            }
+            .onoffswitch-checkbox-brand:checked + .onoffswitch-label-brand .onoffswitch-inner-brand {
+                margin-left: 0;
+            }
+            .onoffswitch-checkbox-brand:checked + .onoffswitch-label-brand .onoffswitch-switch-brand {
+                right: 0px;
+            }
+        </style>
+    </th:block>
 </head>
 <body>
 <th:block id="main-content">
     <main class="app-content">
-        <div class="app-title">
-            <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách thương hiệu</b></a></li>
-            </ul>
-            <div id="clock"></div>
-        </div>
+        <h4 style="margin-top:10px; margin-bottom:10px">Danh sách thương hiệu</h4>
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
@@ -42,31 +86,28 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <th:block th:each="lst:${lstBrand}">
+                                <tr>
+                                    <td th:text="${lst.id}">71309005</td>
+                                    <td th:text="${lst.name}">Bàn ăn gỗ Theresa</td>
+                                    <td>
+                                        <div class="onoffswitch-brand">
+                                            <input type="checkbox" name="onoffswitch-brand" class="onoffswitch-checkbox-brand" th:id="myonoffswitch-brand+${lst.id}" th:checked="${lst.status==true} ? 'checked'">
+                                            <label class="onoffswitch-label-brand" th:for="myonoffswitch-brand+${lst.id}">
+                                                <span class="onoffswitch-inner-brand"></span>
+                                                <span class="onoffswitch-switch-brand"></span>
+                                            </label>
+                                        </div>
+                                    </td>
 
-                                <td>71309005</td>
-                                <td>Bàn ăn gỗ Theresa</td>
-                                <td><span class="badge bg-success">Hiển thị</span></td>
-                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                </button>
-                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp1" data-toggle="modal"
-                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>71309005</td>
-                                <td>Bàn ăn gỗ Theresa</td>
-                                <td><span class="badge bg-danger">Ẩn</span></td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                                onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                    </button>
 
-                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                </button>
-                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                            </th:block>
 
-                                </td>
-                            </tr>
 
                             </tbody>
                         </table>
@@ -75,6 +116,55 @@
             </div>
         </div>
     </main>
+
+
+    <!--
+  MODAL
+-->
+    <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+         data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
+          <span class="thong-tin-thanh-toan">
+            <h5>Thêm mới thương hiệu</h5>
+          </span>
+                        </div>
+                    </div>
+                    <form method="post" action="/admin/save_brand">
+                    <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Tên thương hiệu</label>
+                                <input name="name" class="form-control" type="text" required >
+                            </div>
+                            <div class="form-group col-md-12 ">
+                                <label for="status-brand" class="control-label">Trạng thái</label>
+                                <select class="form-control" name="status" id="status-brand">
+                                    <option value=true>Hiển thị</option>
+                                    <option value=false>Ẩn</option>
+                                </select>
+                            </div>
+                    </div>
+
+                    <BR>
+                    <BR>
+                    <BR>
+                    <button class="btn btn-save" type="submit">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    </form>
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    MODAL
+    -->
 </th:block>
 
 
@@ -100,6 +190,17 @@
                     });
             });
         });
+
+
+    //    sử lý công tắc
+        document.getElementById('myonoffswitch').onclick = function(e){
+            if (this.checked){
+                alert("Bạn vừa bật hiển");
+            }
+            else{
+                alert("Bạn vừa ẩn");
+            }
+        };
     </script>
 </th:block>
 

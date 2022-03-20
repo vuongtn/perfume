@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:fragment="main-fragment(title, jsResources, mainContent)">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="main-fragment(title,cssResources, jsResources, mainContent)">
 <head>
     <meta charset="UTF-8">
     <title th:replace="${title}"></title>
@@ -18,8 +18,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.11/dist/summernote-bs4.min.css" rel="stylesheet">
+
+    <th:block th:replace="${cssResources} ?: ~{}"></th:block>
 </head>
-<body>
+<body class="app sidebar-mini rtl">
 <!-- MENU -->
 <th:block th:replace="~{/admin/fragments/menu :: ${menu}}"></th:block>
 
@@ -41,6 +45,7 @@
 <!--===============================================================================================-->
 <script type="text/javascript" th:src="@{/admin/js/plugins/chart.js}"></script>
 <!--===============================================================================================-->
+<script src="https://cdn.jsdelivr.net/npm/bs4-summernote@0.8.10/dist/summernote-bs4.min.js"></script>
 
 <th:block th:replace="${jsResources} ?: ~{}"></th:block>
 </body>

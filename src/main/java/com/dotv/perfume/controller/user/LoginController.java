@@ -24,7 +24,7 @@ public class LoginController extends BaseController {
         if ("GUEST".equals(user.getUserRoles().get(0).getRoleName())) {
             return "redirect:/";
         } else {
-            return "redirect:/contact";
+            return "redirect:/admin/brand";
         }
     }
 }

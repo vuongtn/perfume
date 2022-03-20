@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sản phẩm</title>
+    <th:block id="css-resources">
+        <style>
+            .Choicefile {
+                display: block;
+                background: #14142B;
+                border: 1px solid #fff;
+                color: #fff;
+                width: 150px;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 5px 0px;
+                border-radius: 5px;
+                font-weight: 500;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .Choicefile:hover {
+                text-decoration: none;
+                color: white;
+            }
+
+            #uploadfile,
+            .removeimg {
+                display: none;
+            }
+
+            #thumbbox {
+                position: relative;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .removeimg {
+                height: 25px;
+                position: absolute;
+                background-repeat: no-repeat;
+                top: 5px;
+                left: 5px;
+                background-size: 25px;
+                width: 25px;
+                /* border: 3px solid red; */
+                border-radius: 50%;
+
+            }
+
+            .removeimg::before {
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                content: '';
+                border: 1px solid red;
+                background: red;
+                text-align: center;
+                display: block;
+                margin-top: 11px;
+                transform: rotate(45deg);
+            }
+
+            .removeimg::after {
+                /* color: #FFF; */
+                /* background-color: #DC403B; */
+                content: '';
+                background: red;
+                border: 1px solid red;
+                text-align: center;
+                display: block;
+                transform: rotate(-45deg);
+                margin-top: -2px;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+<th:block id="main-content">
+    <main class="app-content">
+<!--        <div class="app-title">-->
+<!--            <ul class="app-breadcrumb breadcrumb side">-->
+<!--                <li class="breadcrumb-item active"><a href="#"><b>Danh sách sản phẩm</b></a></li>-->
+<!--            </ul>-->
+<!--            <div id="clock"></div>-->
+<!--        </div>-->
+        <h4 style="margin-top:10px; margin-bottom:10px">Danh sách sản phẩm</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="row element-button">
+                            <div class="col-sm-2">
+
+                                <a class="btn btn-add btn-sm" title="Thêm" data-toggle="modal"
+                                   data-target="#ModalUP"><i class="fas fa-plus"></i>
+                                    Thêm mới</a>
+                            </div>
+                        </div>
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                            <tr>
+
+                                <th>Mã nước hoa</th>
+                                <th>Tên nước hoa</th>
+                                <th>Ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Trạng thái</th>
+                                <th>Giá tiền</th>
+                                <th>Thương hiệu</th>
+                                <th>Chức năng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                                <td>71309005</td>
+                                <td>Bàn ăn gỗ Theresa</td>
+                                <td><img src="/img-sanpham/theresa.jpg" alt="" width="100px;"></td>
+                                <td>40</td>
+                                <td><span class="badge bg-success">Còn hàng</span></td>
+                                <td>5.600.000 đ</td>
+                                <td>Bàn ăn</td>
+                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                </button>
+                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--
+  MODAL
+-->
+    <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+         data-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
+          <span class="thong-tin-thanh-toan">
+            <h5>Chỉnh sửa thông tin sản phẩm</h5>
+          </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Mã sản phẩm </label>
+                            <input class="form-control" type="number" value="71309005">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Tên sản phẩm</label>
+                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleSelect1" class="control-label">Thương hiệu</label>
+                            <select class="form-control" id="exampleSelect1">
+                                <option>Bàn ăn</option>
+                                <option>Bàn thông minh</option>
+                                <option>Tủ</option>
+                                <option>Ghế gỗ</option>
+                                <option>Ghế sắt</option>
+                                <option>Giường người lớn</option>
+                                <option>Giường trẻ em</option>
+                                <option>Bàn trang điểm</option>
+                                <option>Giá đỡ</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Xuất xứ</label>
+                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleSelect1" class="control-label">Giới tính</label>
+                            <select class="form-control" id="exampleSelect2">
+                                <option>Nam</option>
+                                <option>Nữ</option>
+                                <option>Unisex</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Mùi hương</label>
+                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Bảo hành</label>
+                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Giá bán</label>
+                            <input class="form-control" type="text" value="5.600.000">
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <label class="control-label">Số lượng</label>
+                            <input class="form-control" type="number" required value="20">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleSelect1" class="control-label">Trạng thái</label>
+                            <select class="form-control" id="exampleSelect3">
+                                <option>Hiển thị</option>
+                                <option>Ẩn</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Ảnh sản phẩm</label>
+                            <div id="myfileupload">
+                                <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                            </div>
+                            <div id="thumbbox">
+                                <img height="200" width="200" alt="Thumb image" id="thumbimage" style="display: none" />
+                                <a class="removeimg" href="javascript:"></a>
+                            </div>
+                            <div id="boxchoice">
+                                <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                                <p style="clear:both"></p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Mô tả ngắn</label>
+                            <textarea class="form-control" name="mota" id="mota"></textarea>
+                            <script>CKEDITOR.replace('mota');</script>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Mô chỉ tiết</label>
+                            <div id="do"></div>
+                        </div>
+                    </div>
+                    <BR>
+                    <BR>
+                    <BR>
+                    <button class="btn btn-save" type="button">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    MODAL
+    -->
+</th:block>
+
+<th:block id="js-resources">
+<script>
+    $(document).ready(function() {
+        $('#do').summernote({
+            height: 200,   //set editable area's height
+
+        });
+    });
+
+    //Hiển thị ảnh
+    function readURL(input, thumbimage) {
+        if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#thumbimage").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        else { // Sử dụng cho IE
+            $("#thumbimage").attr('src', input.value);
+
+        }
+        $("#thumbimage").show();
+        $('.filename').text($("#uploadfile").val());
+        $('.Choicefile').css('background', '#14142B');
+        $('.Choicefile').css('cursor', 'default');
+        $(".removeimg").show();
+        $(".Choicefile").unbind('click');
+
+    }
+    $(document).ready(function () {
+        $(".Choicefile").bind('click', function () {
+            $("#uploadfile").click();
+
+        });
+        $(".removeimg").click(function () {
+            $("#thumbimage").attr('src', '').hide();
+            $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+            $(".removeimg").hide();
+            $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+            });
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'pointer');
+            $(".filename").text("");
+        });
+    })
+
+    //aler thông báo
+    function deleteRow(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("myTable").deleteRow(i);
+    }
+    jQuery(function () {
+        jQuery(".trash").click(function () {
+            swal({
+                title: "Cảnh báo",
+                text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
+                buttons: ["Hủy bỏ", "Đồng ý"],
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Đã xóa thành công.!", {
+
+                        });
+                    }
+                });
+        });
+    });
+    oTable = $('#sampleTable').dataTable();
+    $('#all').click(function (e) {
+        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+        e.stopImmediatePropagation();
+    });
+</script>
+
+</th:block>
+</body>
+</html>
