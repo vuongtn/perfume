@@ -20,6 +20,9 @@ public class Product {
     @Column(name = "origin")
     private String origin;
 
+    @Column(name = "manufacture_year")
+    private Integer manufactureYear;
+
     @Column(name = "gender")
     private String gender;
 
@@ -210,5 +213,13 @@ public class Product {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Integer getManufactureYear() {
+        return manufactureYear;
+    }
+
+    public void setManufactureYear(Integer manufactureYear) {
+        this.manufactureYear = manufactureYear;
     }
 }

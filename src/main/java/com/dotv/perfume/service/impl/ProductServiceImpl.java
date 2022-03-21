@@ -119,8 +119,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getListProduct(String search) {
+        String query=perfumeUtils.convertToEnglish(search.trim());
         if(!search.equals("all"))
-            return productRepository.getProductBySearch(search);
+            return productRepository.getProductBySearch(query);
         if(search.equals("all")){
             return productRepository.findAll();
         }

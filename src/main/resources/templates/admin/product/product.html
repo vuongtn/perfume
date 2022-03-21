@@ -40,7 +40,7 @@
             #thumbbox {
                 position: relative;
                 width: 100%;
-                margin-bottom: 20px;
+                /*margin-bottom: 20px;*/
             }
 
             .removeimg {
@@ -106,12 +106,12 @@
                         </div>
                         <div style="margin-bottom:6px">
                             <label><b>Tìm kiếm:</b></label>
-                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onchange="searchProduct()" type="text" name="search-product" id="search-product">
+                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onkeyup="searchProduct()" type="text" name="search-product" id="search-product">
                         </div>
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                             <tr>
-                                <th>Mã nước hoa</th>
+                                <th>Mã</th>
                                 <th>Tên nước hoa</th>
                                 <th>Ảnh</th>
                                 <th>Số lượng</th>
@@ -163,93 +163,98 @@
                         </span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label class="control-label">Mã sản phẩm </label>
-                            <input class="form-control" type="number" value="71309005">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="control-label">Tên sản phẩm</label>
-                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleSelect1" class="control-label">Thương hiệu</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>Bàn ăn</option>
-                                <option>Bàn thông minh</option>
-                                <option>Tủ</option>
-                                <option>Ghế gỗ</option>
-                                <option>Ghế sắt</option>
-                                <option>Giường người lớn</option>
-                                <option>Giường trẻ em</option>
-                                <option>Bàn trang điểm</option>
-                                <option>Giá đỡ</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Xuất xứ</label>
-                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleSelect1" class="control-label">Giới tính</label>
-                            <select class="form-control" id="exampleSelect2">
-                                <option>Nam</option>
-                                <option>Nữ</option>
-                                <option>Unisex</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Mùi hương</label>
-                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Bảo hành</label>
-                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Giá bán</label>
-                            <input class="form-control" type="text" value="5.600.000">
-                        </div>
-                        <div class="form-group  col-md-6">
-                            <label class="control-label">Số lượng</label>
-                            <input class="form-control" type="number" required value="20">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleSelect1" class="control-label">Trạng thái</label>
-                            <select class="form-control" id="exampleSelect3">
-                                <option>Hiển thị</option>
-                                <option>Ẩn</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="control-label">Ảnh sản phẩm</label>
-                            <div id="myfileupload">
-                                <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                    <form id="form-product" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Mã sản phẩm </label>
+                                <input name="id" class="form-control" type="number" readonly>
                             </div>
-                            <div id="thumbbox">
-                                <img height="200" width="200" alt="Thumb image" id="thumbimage" style="display: none" />
-                                <a class="removeimg" href="javascript:"></a>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Tên sản phẩm</label>
+                                <input name="name" class="form-control" type="text">
                             </div>
-                            <div id="boxchoice">
-                                <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
-                                <p style="clear:both"></p>
+                            <div class="form-group col-md-6">
+                                <label for="lst-brand" class="control-label">Thương hiệu</label>
+                                <select name="brand" class="form-control" id="lst-brand">
+                                    <option>Bàn ăn</option>
+                                    <option>Bàn thông minh</option>
+                                    <option>Tủ</option>
+                                    <option>Ghế gỗ</option>
+                                    <option>Ghế sắt</option>
+                                    <option>Giường người lớn</option>
+                                    <option>Giường trẻ em</option>
+                                    <option>Bàn trang điểm</option>
+                                    <option>Giá đỡ</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Xuất xứ</label>
+                                <input name="origin" class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Năm sản xuất</label>
+                                <input name="manufactureYear" class="form-control" type="number">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="sex" class="control-label">Giới tính</label>
+                                <select name="sex" class="form-control" id="sex">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                    <option>Unisex</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Mùi hương</label>
+                                <input name="fragrant" class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Bảo hành</label>
+                                <input name="guarantee" class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Giá bán</label>
+                                <input name="price" class="form-control" type="number">
+                            </div>
+                            <div class="form-group  col-md-6">
+                                <label class="control-label">Số lượng</label>
+                                <input name="amount" class="form-control" type="number">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="status" class="control-label">Trạng thái</label>
+                                <select name="status" class="form-control" id="status">
+                                    <option value=true>Hiển thị</option>
+                                    <option value=false>Ẩn</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Ảnh sản phẩm</label>
+                                <div id="myfileupload">
+                                    <input type="file" id="uploadfile" name="fileImage" accept="image/png, image/jpeg, image/jpg" onchange="readURL(this);" />
+                                </div>
+                                <div id="thumbbox">
+                                    <img height="200" width="200" alt="Thumb image" id="thumbimage" style="display: none" />
+                                    <a class="removeimg" href="javascript:"></a>
+                                </div>
+                                <div id="boxchoice">
+                                    <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                                    <p style="clear:both"></p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Mô tả ngắn</label>
+                                <textarea name="shortDescription" class="form-control" id="mota"></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Mô chỉ tiết</label>
+                                <textarea id="detail" name="detailDescription" required="required"></textarea>
                             </div>
                         </div>
-                        <div class="form-group col-md-12">
-                            <label class="control-label">Mô tả ngắn</label>
-                            <textarea class="form-control" name="mota" id="mota"></textarea>
-                            <script>CKEDITOR.replace('mota');</script>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="control-label">Mô chỉ tiết</label>
-                            <div id="do"></div>
-                        </div>
-                    </div>
-                    <BR>
-                    <BR>
-                    <BR>
-                    <button class="btn btn-save" type="button">Lưu lại</button>
-                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
+                        <BR>
+                        <BR>
+                        <button class="btn btn-save" type="submit" onclick="test()">Lưu lại</button>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    </form>
                     <BR>
                 </div>
                 <div class="modal-footer">
@@ -267,22 +272,31 @@
 
     checkCurPage=1;
     //text editor
+
+    // $(document).ready(function() {
+    //     page(1,'all');
+    //     $('#detail').summernote();
+    // });
     $(document).ready(function() {
-        page(1,'/admin/lst_product');
-        $('#do').summernote({
-            height: 200,   //set editable area's height
+        page(1,'all');
+        $('#detail').summernote({
+            height: 100,
+            focus: true,
 
         });
     });
 
 
-    function page(curPage,url){
+    function page(curPage,search){
         $('#pagination-container').pagination({
             dataSource: function(done) {
                 $.ajax({
                     type: 'GET',
                     contentType : "application/json",
-                    url: url,
+                    url: '/admin/lst_product',
+                    data:{
+                        search:search,
+                    },
                     dataType : 'json',
                     success: function(response) {
                         done(response);
@@ -291,7 +305,6 @@
             },
             pageSize: 5,
             pageNumber:curPage,
-            pageRage:1,
             autoHidePrevious: true,
             autoHideNext: true,
             callback: function(data, pagination) {
@@ -312,7 +325,7 @@
                 '<tr>'+
                     '<td>'+item.id+'</td>'+
                     '<td>'+item.name+'</td>'+
-                    '<td><img src="uploads/product/'+item.image+'" alt="" width="100px;"></td>'+
+                    '<td><img src="/uploads/product/'+item.image+'" alt="" width="80px;"></td>'+
                     '<td>'+item.amount+'</td>'+
                     '<td>'+item.brand.name+'</td>'+
                     '<td>'+total+'đ</td>'+
@@ -338,16 +351,88 @@
     }
 
     //search
-    // function searchProduct(){
-    //     var query = $('#search-product').val();
-    //     alert(query);
-    //     var url='/admin/lst_product?search='+query;
-    //     page(1,url);
-    // }
+    function searchProduct(){
+        var data = $('#search-product').val().trim();
+        if(data!=''){
+            page(1,data);
+        }
+        if(data==''){
+            page(1,'all');
+        }
+    }
 
 
+    //add-or-update
+    //validate api khi add or update thanh cong
+    $("#form-product").validate({
+        rules: {
+            name: "required",
+            fileImage:"required",
+            // fileImage: {
+            //     required: function () {
+            //         if ($('#uploadfile').val()!=null){
+            //             alert($('#uploadfile').val())
+            //             return false;
+            //         }
+            //         return true;
+            //     }
+            // },
+            origin: "required",
+            fragrant: "required",
+            guarantee:"required",
+            price: "required",
+            manufactureYear: "required",
+            detailDescription: "required",
+            amount:"required",
+        },
 
+        messages: {
+            name: "Vui lòng nhập tên",
+            fileImage: "Vui lòng chọn ảnh",
+            origin: "Vui lòng nhập xuất xứ",
+            fragrant: "Vui lòng nhập mùi hương",
+            guarantee:"Vui lòng nhập bảo hành",
+            price: "Vui lòng nhập giá",
+            manufactureYear: "Vui lòng nhập năm sản xuất",
+            detailDescription: "Vui lòng nhập chi tiết sản phẩm",
+            amount:"Vui lòng nhập số lượng",
+        },
+        submitHandler: function (form1) {
+            var form = $('#form-product')[0];
+            var data = new FormData(form);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/admin/save_product",
+                data: data,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    // $('#modalBrand').modal('hide');
+                    // if(data.message==true&&check==true){
+                    //     messageSuccess('Thành công!', 'Thêm thương hiệu thành công');
+                    //     page(1);//về trang đầu tiên
+                    // }
+                    // if(data.message==true&&check==false){
+                    //     messageSuccess('Thành công!', 'Cập nhật thương hiệu thành công');
+                    //     page(checkCurPage);//về trang hiện tại
+                    // }
+                    // $(location).attr('href', "/admin/brand?curPage=1");
 
+                },
+                error: function (e) {
+                    messageError('Thất bại!','Lỗi hệ thống.')
+                    console.log("ERROR : ", e);
+                }
+            });
+        }
+        });
+
+        // function test(){
+        //     alert($('#uploadfile').val());
+        // }
 
 
     //Hiển thị ảnh

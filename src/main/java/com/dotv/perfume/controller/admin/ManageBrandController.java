@@ -5,12 +5,14 @@ import com.dotv.perfume.entity.Brand;
 import com.dotv.perfume.service.BrandService;
 import com.dotv.perfume.service.ProductService;
 import com.dotv.perfume.utils.Pager;
+import com.dotv.perfume.utils.PerfumeUtils;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
@@ -44,8 +46,17 @@ public class ManageBrandController extends BaseController {
     }
 
     @PostMapping("/save_brand")
-    public ResponseEntity<JSONObject> saveBrand(@ModelAttribute Brand brand){
+    public ResponseEntity<JSONObject> saveBrand(@ModelAttribute Brand brand) throws Exception {
         JSONObject result = new JSONObject();
+        PerfumeUtils perfumeUtils = new PerfumeUtils();
+        if(brand.getId()==null){
+            brand.setCreatedDate(perfumeUtils.getDateNow());
+//            brand.setCreatedBy(getUserLogined().getFullName());
+        }
+        else{
+//            brand.setUpdatedBy(getUserLogined().getFullName());
+            brand.setUpdatedDate(perfumeUtils.getDateNow());
+        }
         brandService.saveOrUpdateBrand(brand);
         result.put("message", Boolean.TRUE);
         return ResponseEntity.ok(result);

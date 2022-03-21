@@ -14,6 +14,7 @@ CREATE TABLE `product` (
 	`id_brand` INT NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`origin` varchar(255),
+    `manufacture_year` int,
 	`gender` varchar(10),
 	`fragrant` varchar(255),
 	`guarantee` varchar(30),
@@ -174,10 +175,10 @@ ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
 ALTER TABLE user DROP COLUMN phone;
 -- thêm cột
-ALTER TABLE bill ADD COLUMN payment varchar(100);
+ALTER TABLE product ADD COLUMN manufacture_year int;
 
 drop table news;
-
+select * from product;
 
 
 

@@ -1,10 +1,12 @@
 package com.dotv.perfume.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 
 public class ProductDTO {
     private Integer id;
-    private Integer idTrademark;
+    private Integer idBrand;
     private String name;
     private String origin;
     private String gender;
@@ -12,6 +14,7 @@ public class ProductDTO {
     private String guarantee;
     private BigDecimal price;
     private String image;
+    private MultipartFile fileImage;
     private String shortDescription;
     private String detailDescription;
     private Integer amount;
@@ -19,7 +22,24 @@ public class ProductDTO {
     private java.sql.Timestamp updatedDate;
     private String createdBy;
     private String updatedBy;
-    private Byte status;
+    private Boolean status;
+    private Integer manufactureYear;
+
+    public MultipartFile getFileImage() {
+        return fileImage;
+    }
+
+    public void setFileImage(MultipartFile fileImage) {
+        this.fileImage = fileImage;
+    }
+
+    public Integer getManufactureYear() {
+        return manufactureYear;
+    }
+
+    public void setManufactureYear(Integer manufactureYear) {
+        this.manufactureYear = manufactureYear;
+    }
 
     public Integer getId() {
         return this.id;
@@ -29,12 +49,12 @@ public class ProductDTO {
         this.id = id;
     }
 
-    public Integer getIdTrademark() {
-        return this.idTrademark;
+    public Integer getIdBrand() {
+        return this.idBrand;
     }
 
-    public void setIdTrademark(Integer idTrademark) {
-        this.idTrademark = idTrademark;
+    public void setIdBrand(Integer idBrand) {
+        this.idBrand = idBrand;
     }
 
     public String getName() {
@@ -147,11 +167,11 @@ public class ProductDTO {
         this.updatedBy = updatedBy;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return this.status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }
