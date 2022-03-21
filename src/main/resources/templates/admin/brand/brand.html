@@ -102,6 +102,7 @@
                             <div class="form-group col-md-12">
                                 <label class="control-label">Tên thương hiệu</label>
                                 <input id="name-brand" name="name" class="form-control" type="text">
+                                <span class="form-message"></span>
                             </div>
                             <div class="form-group col-md-12 ">
                                 <label for="status-brand" class="control-label">Trạng thái</label>
@@ -115,7 +116,7 @@
                     <BR>
                     <BR>
                     <button class="btn btn-save" type="submit">Lưu lại</button>
-                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <a class="btn btn-cancel"  id="cancel-modal" data-dismiss="modal" href="#">Hủy bỏ</a>
                     </form>
                     <BR>
                 </div>
@@ -247,50 +248,54 @@ function reset(){
     $('#status-brand').val("true");
 }
 
-
+//close modal
+    $( "#cancel-modal" ).click(function() {
+        $('.form-group').removeClass('invalid');
+        $('.form-message').text('');
+    });
 
 //validate api khi add or update thanh cong
-$("#form-brand").validate({
-    rules: {
-        name: "required",
-    },
+    Validator({
+        form: '#form-brand',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#name-brand'),
+        ],
+        onSubmit: function (form1) {
+            var form = $('#form-brand')[0];
+            var data = new FormData(form);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/admin/save_brand",
+                data: data,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    $('#modalBrand').modal('hide');
+                    if(data.message==true&&check==true){
+                        messageSuccess('Thành công!', 'Thêm thương hiệu thành công');
+                        page(1);//về trang đầu tiên
+                    }
+                    if(data.message==true&&check==false){
+                        messageSuccess('Thành công!', 'Cập nhật thương hiệu thành công');
+                        page(checkCurPage);//về trang hiện tại
+                    }
+                    // $(location).attr('href', "/admin/brand?curPage=1");
 
-    messages: {
-        name: "Vui lòng nhập tên thương hiệu",
-    },
-    submitHandler: function (form1) {
-        var form = $('#form-brand')[0];
-        var data = new FormData(form);
-        $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "/admin/save_brand",
-            data: data,
-            processData: false, //prevent jQuery from automatically transforming the data into a query string
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function (data) {
-                $('#modalBrand').modal('hide');
-                if(data.message==true&&check==true){
-                   messageSuccess('Thành công!', 'Thêm thương hiệu thành công');
-                   page(1);//về trang đầu tiên
+                },
+                error: function (e) {
+                    messageError('Thất bại!','Lỗi hệ thống.')
+                    console.log("ERROR : ", e);
                 }
-                if(data.message==true&&check==false){
-                    messageSuccess('Thành công!', 'Cập nhật thương hiệu thành công');
-                    page(checkCurPage);//về trang hiện tại
-                }
-                // $(location).attr('href', "/admin/brand?curPage=1");
+            });
+        }
+    });
 
-            },
-            error: function (e) {
-                messageError('Thất bại!','Lỗi hệ thống.')
-                console.log("ERROR : ", e);
-            }
-        });
-    }
 
-});
+
 
     //delete brand
     function deleteBrand(id){

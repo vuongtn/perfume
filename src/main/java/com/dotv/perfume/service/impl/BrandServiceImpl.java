@@ -30,11 +30,13 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    @Transactional
     public Brand saveOrUpdateBrand(Brand brand) {
         return brandRepository.save(brand);
     }
 
     @Override
+    @Transactional
     public void deleteBrand(int id) {
         brandRepository.deleteById(id);
     }

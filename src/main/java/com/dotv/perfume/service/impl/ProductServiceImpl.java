@@ -1,13 +1,24 @@
 package com.dotv.perfume.service.impl;
 
+import com.dotv.perfume.dto.ProductDTO;
+import com.dotv.perfume.entity.Brand;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.repository.ProductRepository;
+import com.dotv.perfume.service.BrandService;
 import com.dotv.perfume.service.ProductService;
 import com.dotv.perfume.utils.PerfumeUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +28,13 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
     @Autowired
     PerfumeUtils perfumeUtils;
+    @Autowired
+    ModelMapper modelMapper;
+    @Autowired
+    BrandService brandService;
+
+    @Value("${upload.path}")
+    private String fileUpload;
 
 
 //    @Override
@@ -126,6 +144,26 @@ public class ProductServiceImpl implements ProductService {
             return productRepository.findAll();
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public Product saveOrUpdate(ProductDTO productDTO) throws IOException {
+        if(productDTO.getId()==null) {
+            productDTO.setCreatedDate(perfumeUtils.getDateNow());
+        }
+        Product product = modelMapper.map(productDTO,Product.class);
+        product.setImage(productDTO.getFileImage().getOriginalFilename());
+        Brand brand = brandService.getTrademarkById(productDTO.getIdBrand());
+        product.setBrand(brand);
+
+        //Lưu file
+        MultipartFile fileImage=productDTO.getFileImage();
+        byte[] bytes = fileImage.getBytes();
+        Path path = Paths.get(fileUpload +"product//"+ fileImage.getOriginalFilename());
+        Files.write(path, bytes);
+
+        return productRepository.save(product);
     }
 
 
