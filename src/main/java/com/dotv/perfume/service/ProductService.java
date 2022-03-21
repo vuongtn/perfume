@@ -14,4 +14,8 @@ public interface ProductService {
     List<Product> getAllProductByStatus(Boolean status, int typeFilter, int curPage, int page);
     List<Product> getAllProduct(Boolean status);
     List<Product> searchProductByName(String query,Boolean status);
+
+    //admin
+    //get all product or search
+    List<Product> getListProduct(String search);
 }

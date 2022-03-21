@@ -84,12 +84,12 @@ public class Product {
         this.id = id;
     }
 
-    public Brand getTrademark() {
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setTrademark(Brand trademark) {
-        this.brand = trademark;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public String getName() {

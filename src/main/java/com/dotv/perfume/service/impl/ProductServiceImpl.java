@@ -117,5 +117,15 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getProductByName(true,name);
     }
 
+    @Override
+    public List<Product> getListProduct(String search) {
+        if(!search.equals("all"))
+            return productRepository.getProductBySearch(search);
+        if(search.equals("all")){
+            return productRepository.findAll();
+        }
+        return null;
+    }
+
 
 }

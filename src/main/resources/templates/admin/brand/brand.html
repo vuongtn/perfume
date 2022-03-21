@@ -11,51 +11,7 @@
     <title>Quản lý thương hiệu</title>
     <th:block id="css-resources">
         <style>
-            .onoffswitch-brand {
-                position: relative; width: 94px;
-                -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-            }
-            .onoffswitch-checkbox-brand {
-                display: none;
-            }
-            .onoffswitch-label-brand {
-                display: block; overflow: hidden; cursor: pointer;
-                border: 2px solid #999999; border-radius: 20px;
-            }
-            .onoffswitch-inner-brand {
-                display: block; width: 200%; margin-left: -100%;
-                transition: margin 0.3s ease-in 0s;
-            }
-            .onoffswitch-inner-brand:before, .onoffswitch-inner-brand:after {
-                display: block; float: left; width: 50%; height: 20px; padding: 0; line-height: 20px;
-                font-size: 14px; color: white;
-                box-sizing: border-box;
-            }
-            .onoffswitch-inner-brand:before {
-                content: "Hiện";
-                padding-left: 12px;
-                background-color: green; color: #FFFFFF;
-            }
-            .onoffswitch-inner-brand:after {
-                content: "Ẩn";
-                padding-right: 17px;
-                background-color: red; color: #FFFFFF;
-                text-align: right;
-            }
-            .onoffswitch-switch-brand {
-                display: block; width: 46px; margin: 2px;
-                background: #FFFFFF;
-                position: absolute; top: 0; bottom: 0;
-                right: 44px;
-                border: 2px solid #999999; border-radius: 20px;
-                transition: all 0.3s ease-in 0s;
-            }
-            .onoffswitch-checkbox-brand:checked + .onoffswitch-label-brand .onoffswitch-inner-brand {
-                margin-left: 0;
-            }
-            .onoffswitch-checkbox-brand:checked + .onoffswitch-label-brand .onoffswitch-switch-brand {
-                right: 0px;
-            }
+
         </style>
     </th:block>
 </head>
@@ -237,7 +193,7 @@
                 '</td>'+
                 '<td>'+
                     '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa"'+
-                            'onClick="myFunction(this)"><i class="fas fa-trash-alt"></i>'+
+                            'onclick="deleteBrand('+item.id+')"><i class="fas fa-trash-alt"></i>'+
                     '</button>'+
 
                     '<button class="btn btn-primary btn-sm edit" type="button" title="Sửa"'+
@@ -336,68 +292,48 @@ $("#form-brand").validate({
     }
 
 });
-// function addOrUpdate() {
-//     var form = $('#form-brand')[0];
-//     var data = new FormData(form);
-//     $.ajax({
-//         type: "POST",
-//         enctype: 'multipart/form-data',
-//         url: "/admin/save_brand",
-//         data: data,
-//         processData: false, //prevent jQuery from automatically transforming the data into a query string
-//         contentType: false,
-//         cache: false,
-//         timeout: 600000,
-//         success: function (data) {
-//             if(data.message==true&&check==true){
-//                 createAlert('', '', 'Thêm thương hiệu thành công.', 'success', true, true, 'pageMessages');
-//             }
-//             if(data.message==true&&check==false){
-//                 createAlert('', '', 'Cập nhật thương hiệu thành công.', 'success', true, true, 'pageMessages');
-//             }
-//             if(data.message==false){
-//                 createAlert('Thất bại!','','Còn sản phẩm thuộc thương hiệu này.','danger',true,false,'pageMessages');
-//             }
-//         },
-//         error: function (e) {
-//             createAlert('Lỗi hệ thống!','','','danger',true,false,'pageMessages');
-//             console.log("ERROR : ", e);
-//         }
-//     });
-// }
 
-
-        function deleteRow(r) {
-            var i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("myTable").deleteRow(i);
-        }
-        jQuery(function () {
-            jQuery(".trash").click(function () {
-                swal({
-                    title: "Cảnh báo",
-                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                    buttons: ["Hủy bỏ", "Đồng ý"],
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Đã xóa thành công.!", {
-
-                            });
+    //delete brand
+    function deleteBrand(id){
+        Swal.fire({
+            title: 'Xác nhận xóa!',
+            text: "Bạn có chắc chắn muốn xóa thương hiệu này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'green',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText:'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/admin/delete_brand",
+                    data: {
+                        id:id,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.message==true){
+                            messageSuccess('Thành công!', 'Xóa thương hiệu thành công.');
+                            page(checkCurPage);//về trang hiện tại
                         }
-                    });
-            });
-        });
+                        if(data.message==false){
+                            messageError('Thất bại!', 'Còn sản phẩm thuộc thương hiệu.');
+                            page(checkCurPage);//về trang hiện tại
+                        }
+                        // $(location).attr('href', "/admin/brand?curPage=1");
 
-
-    //    sử lý công tắc
-        document.getElementById('myonoffswitch').onclick = function(e){
-            if (this.checked){
-                alert("Bạn vừa bật hiển");
+                    },
+                    error: function (e) {
+                        messageError('Thất bại!','Lỗi hệ thống.')
+                        console.log("ERROR : ", e);
+                    }
+                });
             }
-            else{
-                alert("Bạn vừa ẩn");
-            }
-        };
+        })
+    }
     </script>
 </th:block>
 

@@ -32,18 +32,6 @@ public class ManageBrandController extends BaseController {
 
     @GetMapping("/brand")
     public String getBrand(){
-//        List<Brand> lstBrand=brandService.getAllBrand();
-//        List<Brand> lstBrand1=brandService.getAllBrand().stream()
-//                        .sorted(Comparator.nullsLast((e1, e2) -> e2.getId().compareTo(e1.getId())))
-//                .skip((curPage-1)*PAGE).limit(PAGE).collect(Collectors.toList());
-//
-//        model.addAttribute("lstBrand",lstBrand1);
-//        int totalPage=(int)Math.ceil(lstBrand.size()/(float)PAGE);
-//        Pager pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
-//        model.addAttribute("totalPage", totalPage);
-//        model.addAttribute("curPage", curPage);
-//        model.addAttribute("pager",pager);
-
         return "admin/brand/brand";
     }
     @GetMapping("/lst_brand")
@@ -60,11 +48,21 @@ public class ManageBrandController extends BaseController {
         JSONObject result = new JSONObject();
         brandService.saveOrUpdateBrand(brand);
         result.put("message", Boolean.TRUE);
-//        int sizeTrue = productService.getAllProductByTrademark(brand.getId(),true).size();
-//        int sizeFalse = productService.getAllProductByTrademark(brand.getId(),false).size();
-//        if(sizeFalse!=0||sizeTrue!=0){
-//            result.put("message", Boolean.FALSE);
-//        }
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping("/delete_brand")
+    public ResponseEntity<JSONObject> deleteBrand(@RequestParam int id){
+        JSONObject result = new JSONObject();
+        result.put("message", Boolean.TRUE);
+        int sizeTrue = productService.getAllProductByTrademark(id,true).size();
+        int sizeFalse = productService.getAllProductByTrademark(id,false).size();
+        if(sizeFalse!=0||sizeTrue!=0){
+            result.put("message", Boolean.FALSE);
+            return ResponseEntity.ok(result);
+        }
+        brandService.deleteBrand(id);
+        return ResponseEntity.ok(result);
+    }
+
 }

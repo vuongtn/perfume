@@ -10,5 +10,6 @@ public interface BrandService {
     List<Brand> getAllBrand();
     Brand getTrademarkById(int id);
     Brand saveOrUpdateBrand(Brand brand);
+    void deleteBrand(int id);
 }
 

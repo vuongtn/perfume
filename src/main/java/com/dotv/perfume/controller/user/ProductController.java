@@ -107,7 +107,7 @@ public class ProductController extends BaseController {
     @GetMapping("/single_product")
     public String getProductById(@RequestParam int id, Model model){
         Product product = productService.getProductById(id);
-        Brand trademark = product.getTrademark();
+        Brand trademark = product.getBrand();
         model.addAttribute("singleProduct",product);
         model.addAttribute("nameTrademark",trademark);
         return "user/product/details_product";

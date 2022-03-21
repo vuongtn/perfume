@@ -104,41 +104,43 @@
                                     Thêm mới</a>
                             </div>
                         </div>
+                        <div style="margin-bottom:6px">
+                            <label><b>Tìm kiếm:</b></label>
+                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onchange="searchProduct()" type="text" name="search-product" id="search-product">
+                        </div>
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                             <tr>
-
                                 <th>Mã nước hoa</th>
                                 <th>Tên nước hoa</th>
                                 <th>Ảnh</th>
                                 <th>Số lượng</th>
-                                <th>Trạng thái</th>
-                                <th>Giá tiền</th>
                                 <th>Thương hiệu</th>
+                                <th>Giá tiền</th>
+                                <th>Trang thái</th>
                                 <th>Chức năng</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-
-                                <td>71309005</td>
-                                <td>Bàn ăn gỗ Theresa</td>
-                                <td><img src="/img-sanpham/theresa.jpg" alt="" width="100px;"></td>
-                                <td>40</td>
-                                <td><span class="badge bg-success">Còn hàng</span></td>
-                                <td>5.600.000 đ</td>
-                                <td>Bàn ăn</td>
-                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                </button>
-                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>
-
-                                </td>
-                            </tr>
+                            <tbody id="lst-product">
+<!--                            <tr>-->
+<!--                                <td>71309005</td>-->
+<!--                                <td>Bàn ăn gỗ Theresa</td>-->
+<!--                                <td><img src="/img-sanpham/theresa.jpg" alt="" width="100px;"></td>-->
+<!--                                <td>40</td>-->
+<!--                                <td>Bàn ăn</td>-->
+<!--                                <td>5.600.000 đ</td>-->
+<!--                                <td><span class="badge bg-success">Hiện</span></td>-->
+<!--                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"-->
+<!--                                            onclick="deleteBrand()"><i class="fas fa-trash-alt"></i>-->
+<!--                                </button>-->
+<!--                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"-->
+<!--                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>-->
+<!--                                </td>-->
+<!--                            </tr>-->
 
                             </tbody>
                         </table>
+                        <div id="pagination-container"></div>
                     </div>
                 </div>
             </div>
@@ -156,9 +158,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group  col-md-12">
-          <span class="thong-tin-thanh-toan">
-            <h5>Chỉnh sửa thông tin sản phẩm</h5>
-          </span>
+                        <span class="thong-tin-thanh-toan">
+                            <h5>Chỉnh sửa thông tin sản phẩm</h5>
+                        </span>
                         </div>
                     </div>
                     <div class="row">
@@ -262,12 +264,91 @@
 
 <th:block id="js-resources">
 <script>
+
+    checkCurPage=1;
+    //text editor
     $(document).ready(function() {
+        page(1,'/admin/lst_product');
         $('#do').summernote({
             height: 200,   //set editable area's height
 
         });
     });
+
+
+    function page(curPage,url){
+        $('#pagination-container').pagination({
+            dataSource: function(done) {
+                $.ajax({
+                    type: 'GET',
+                    contentType : "application/json",
+                    url: url,
+                    dataType : 'json',
+                    success: function(response) {
+                        done(response);
+                    }
+                });
+            },
+            pageSize: 5,
+            pageNumber:curPage,
+            pageRage:1,
+            autoHidePrevious: true,
+            autoHideNext: true,
+            callback: function(data, pagination) {
+                var html = loadTable(data);
+                $('#lst-product').html(html);
+                checkCurPage=pagination.pageNumber;
+            }
+        })
+    }
+
+
+    //for load dữ liệu
+    function loadTable(data){
+        var html = '';
+        $.each(data, function(index, item){
+            var total=item.price.toLocaleString({style : 'currency', currency : 'VND'});
+            html +=
+                '<tr>'+
+                    '<td>'+item.id+'</td>'+
+                    '<td>'+item.name+'</td>'+
+                    '<td><img src="uploads/product/'+item.image+'" alt="" width="100px;"></td>'+
+                    '<td>'+item.amount+'</td>'+
+                    '<td>'+item.brand.name+'</td>'+
+                    '<td>'+total+'đ</td>'+
+                    '<td>';
+            if(item.status==true){
+                html +='<span class="badge bg-success">Hiển thị</span>';
+            }
+            else{
+                html +='<span class="badge bg-danger">Ẩn</span>';
+            }
+            html +=
+                '</td>'+
+                '<td>'+
+                    '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa" onClick="deleteBrand()">'+
+                    '<i class="fas fa-trash-alt"></i>'+
+                    '</button>'+
+                    '<button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" '+
+                    'data-toggle="modal" '+
+                    'data-target="#ModalUP"><i class="fas fa-edit"></i></button>'+
+                '</td>'
+        });
+        return html;
+    }
+
+    //search
+    // function searchProduct(){
+    //     var query = $('#search-product').val();
+    //     alert(query);
+    //     var url='/admin/lst_product?search='+query;
+    //     page(1,url);
+    // }
+
+
+
+
+
 
     //Hiển thị ảnh
     function readURL(input, thumbimage) {
@@ -308,32 +389,7 @@
         });
     })
 
-    //aler thông báo
-    function deleteRow(r) {
-        var i = r.parentNode.parentNode.rowIndex;
-        document.getElementById("myTable").deleteRow(i);
-    }
-    jQuery(function () {
-        jQuery(".trash").click(function () {
-            swal({
-                title: "Cảnh báo",
-                text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                buttons: ["Hủy bỏ", "Đồng ý"],
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Đã xóa thành công.!", {
 
-                        });
-                    }
-                });
-        });
-    });
-    oTable = $('#sampleTable').dataTable();
-    $('#all').click(function (e) {
-        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-        e.stopImmediatePropagation();
-    });
 </script>
 
 </th:block>

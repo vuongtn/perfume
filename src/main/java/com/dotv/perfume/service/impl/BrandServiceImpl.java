@@ -5,6 +5,7 @@ import com.dotv.perfume.repository.BrandRepository;
 import com.dotv.perfume.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,5 +32,10 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand saveOrUpdateBrand(Brand brand) {
         return brandRepository.save(brand);
+    }
+
+    @Override
+    public void deleteBrand(int id) {
+        brandRepository.deleteById(id);
     }
 }
