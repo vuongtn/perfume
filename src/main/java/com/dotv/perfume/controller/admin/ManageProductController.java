@@ -1,10 +1,10 @@
 package com.dotv.perfume.controller.admin;
 
+import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.service.ProductService;
 import org.json.simple.JSONObject;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
-public class ManageProductController {
+public class ManageProductController extends BaseController {
     @Autowired
     ProductService productService;
 
@@ -42,14 +42,15 @@ public class ManageProductController {
     public ResponseEntity<JSONObject> saveOrUpdateProduct(@ModelAttribute ProductDTO productDTO) throws IOException {
         JSONObject result = new JSONObject();
         try{
-            productService.saveOrUpdate(productDTO);
-            if(productDTO.getId()!=null) {
+            if(productDTO.getId()==null) {
+//                productDTO.setCreatedBy(getUserLogined().getUsername());
                 result.put("message", 1);
             }
             else{//update
+//                productDTO.setCreatedBy(getUserLogined().getUsername());
                 result.put("message", 2);
             }
-
+            productService.saveOrUpdate(productDTO);
         }
         catch (Exception e){
             result.put("message", 3);

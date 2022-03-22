@@ -422,11 +422,11 @@
                     $('#modalBrand').modal('hide');
                     if(data.message==1){
                         messageSuccess('Thành công!', 'Thêm sản phẩm thành công');
-                        page(1);//về trang đầu tiên
+                        page(1,'all');//về trang đầu tiên
                     }
                     if(data.message==2){
                         messageSuccess('Thành công!', 'Cập nhật sản phẩm thành công');
-                        page(checkCurPage);//về trang hiện tại
+                        page(checkCurPage,'all');//về trang hiện tại
                     }
                     if(data.message==3){
                         messageError('Thất bại!','Lỗi hệ thống.')

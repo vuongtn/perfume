@@ -35,10 +35,9 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="thumbnail_1">
-                                            <div class="single-product-image">
+                                            <div class="single-product-image" >
+<!--                                                th:style="|background-image: url(@{'uploads/product/'+${singleProduct.image}})|"-->
                                                 <img th:src="@{'uploads/product/'+${singleProduct.image}}" alt="single-product-image" />
-
-
                                             </div>
                                         </div>
 

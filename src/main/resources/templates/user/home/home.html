@@ -35,158 +35,146 @@
                 </div>
                 <!-- MAIN-SLIDER-AREA END -->
             </div>
-            <!-- TOW-COLUMN-PRODUCT START -->
-            <div class="row tow-column-product">
-
-                <div class="row">
-                    <!-- BESTSELLER-PRODUCTS-AREA START -->
-                    <div class="bestseller-products-area">
-                        <div class="center-title-area">
-                            <h2 class="center-title">SẢN PHẨM MỚI</h2>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="row">
-                                <!-- BESTSELLER-CAROUSEL START -->
-                                <div class="bestseller-carousel">
-                                    <!-- BESTSELLER-SINGLE-ITEM START -->
-                                    <th:block th:each="newPro : ${lstNewProduct}">
-                                        <div class="item">
-                                            <div class="single-product-item">
-                                                <div class="product-image" >
-                                                    <a th:href="@{'/single_product?id='+${newPro.id}}"><img th:src="@{'uploads/product/'+${newPro.image}}" alt="product-image" /></a>
-                                                    <div class="overlay-content">
-                                                        <ul>
-                                                            <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                                                            <li><a th:onclick="'addProInCart(1,'+${newPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                                                            <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <div class="customar-comments-box">
-                                                    </div>
-                                                    <a th:href="@{'/single_product?id='+${newPro.id}}" th:text="${newPro.name}"></a>
-                                                    <div class="price-box">
-                                                        <span class="price" th:text="${#numbers.formatDecimal(newPro.price, 3, 'POINT', 0, 'POINT')}+'₫'"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </th:block>
-                                    <!-- BESTSELLER-SINGLE-ITEM END -->
-                                </div>
-                                <!-- BESTSELLER-CAROUSEL END -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- BESTSELLER-PRODUCTS-AREA END -->
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <!-- NEW-PRODUCT-AREA START -->
-                    <div class="new-product-area">
-                        <div class="left-title-area">
-                            <h2 class="left-title">NAM</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="row">
-                                    <!-- NEW-PRO-CAROUSEL START -->
-                                    <div class="new-pro-carousel">
-                                        <!-- NEW-PRODUCT-SINGLE-ITEM START -->
-                                        <th:block th:each="boyPro : ${lstBoyProduct}">
-                                            <div class="item">
-                                                <div class="single-product-item">
-                                                    <div class="product-image" >
-                                                        <a th:href="@{'/single_product?id='+${boyPro.id}}"><img th:src="@{'uploads/product/'+${boyPro.image}}" alt="product-image" /></a>
-                                                        <div class="overlay-content">
-                                                            <ul>
-                                                                <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                                                                <li><a th:onclick="'addProInCart(1,'+${boyPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                                                                <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <div class="customar-comments-box">
-                                                        </div>
-                                                        <a th:href="@{'/single_product?id='+${boyPro.id}}" th:text="${boyPro.name}"></a>
-                                                        <div class="price-box">
-                                                            <span class="price" th:text="${#numbers.formatDecimal(boyPro.price, 3, 'POINT', 0, 'POINT')}+'₫'"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </th:block>
-                                        <!-- BESTSELLER-SINGLE-ITEM END -->
-                                    </div>
-                                    <!-- NEW-PRO-CAROUSEL END -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- NEW-PRODUCT-AREA END -->
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <!-- SALE-PRODUCTS START -->
-                    <div class="Sale-Products">
-                        <div class="left-title-area">
-                            <h2 class="left-title">NỮ</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="row">
-                                    <!-- SALE-CAROUSEL START -->
-                                    <div class="sale-carousel">
-                                        <!-- SALE-PRODUCTS-SINGLE-ITEM START -->
-                                        <th:block th:each="girlPro : ${lstGirlProduct}">
-                                            <div class="item">
-                                                <div class="single-product-item">
-                                                    <div class="product-image" >
-                                                        <a th:href="@{'/single_product?id='+${girlPro.id}}"><img th:src="@{'uploads/product/'+${girlPro.image}}" alt="product-image" /></a>
-                                                        <div class="overlay-content">
-                                                            <ul>
-                                                                <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                                                                <li><a th:onclick="'addProInCart(1,'+${girlPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                                                                <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <div class="customar-comments-box">
-                                                        </div>
-                                                        <a th:href="@{'/single_product?id='+${girlPro.id}}" th:text="${girlPro.name}"></a>
-                                                        <div class="price-box">
-                                                            <span class="price" th:text="${#numbers.formatDecimal(girlPro.price, 3, 'POINT', 0, 'POINT')}+'₫'"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </th:block>
-                                        <!-- SALE-PRODUCTS-SINGLE-ITEM END -->
-                                    </div>
-                                    <!-- SALE-CAROUSEL END -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- SALE-PRODUCTS END -->
-                </div>
-            </div>
-            <!-- TOW-COLUMN-PRODUCT END -->
             <div class="row">
-            </div>
-            <div class="row">
-                <!-- FEATURED-PRODUCTS-AREA START -->
-                <div class="featured-products-area">
+                <!-- BESTSELLER-PRODUCTS-AREA START -->
+                <div class="bestseller-products-area">
                     <div class="center-title-area">
-                        <h2 class="center-title">UNISEX</h2>
+                        <h2 class="center-title">SẢN PHẨM MỚI</h2>
                     </div>
                     <div class="col-xs-12">
                         <div class="row">
-                            <!-- FEARTURED-CAROUSEL START -->
-                            <div class="feartured-carousel">
-                                <!-- SINGLE-PRODUCT-ITEM START -->
+                            <!-- BESTSELLER-CAROUSEL START -->
+                            <div class="bestseller-carousel">
+                                <!-- BESTSELLER-SINGLE-ITEM START -->
+                                <th:block th:each="newPro : ${lstNewProduct}">
+                                    <div class="item">
+                                        <div class="single-product-item">
+                                            <div class="product-image">
+                                                <a th:href="@{'/single_product?id='+${newPro.id}}"><img th:src="@{'uploads/product/'+${newPro.image}}" alt="product-image" /></a>
+                                                <div class="overlay-content">
+                                                    <ul>
+                                                        <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                        <li><a th:onclick="'addProInCart(1,'+${newPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="customar-comments-box">
+                                                </div>
+                                                <a th:href="@{'/single_product?id='+${newPro.id}}" th:text="${newPro.name}"></a>
+                                                <div class="price-box">
+                                                    <span class="price" th:text="${#numbers.formatDecimal(newPro.price, 3, 'POINT', 0, 'POINT')}+'₫'"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <!-- BESTSELLER-SINGLE-ITEM END -->
+                            </div>
+                            <!-- BESTSELLER-CAROUSEL END -->
+                        </div>
+                    </div>
+                </div>
+                <!-- BESTSELLER-PRODUCTS-AREA END -->
+            </div>
+            <div class="row">
+                <!-- BESTSELLER-PRODUCTS-AREA START -->
+                <div class="bestseller-products-area">
+                    <div class="center-title-area">
+                        <h2 class="center-title">NAM</h2>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <!-- BESTSELLER-CAROUSEL START -->
+                            <div class="bestseller-carousel">
+                                <!-- BESTSELLER-SINGLE-ITEM START -->
+                                <th:block th:each="boyPro : ${lstBoyProduct}">
+                                    <div class="item">
+                                        <div class="single-product-item">
+                                            <div class="product-image" >
+                                                <a th:href="@{'/single_product?id='+${boyPro.id}}"><img th:src="@{'uploads/product/'+${boyPro.image}}" alt="product-image" /></a>
+                                                <div class="overlay-content">
+                                                    <ul>
+                                                        <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                        <li><a th:onclick="'addProInCart(1,'+${boyPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="customar-comments-box">
+                                                </div>
+                                                <a th:href="@{'/single_product?id='+${boyPro.id}}" th:text="${boyPro.name}"></a>
+                                                <div class="price-box">
+                                                    <span class="price" th:text="${#numbers.formatDecimal(boyPro.price, 3, 'POINT', 0, 'POINT')}+'₫'"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <!-- BESTSELLER-SINGLE-ITEM END -->
+                            </div>
+                            <!-- BESTSELLER-CAROUSEL END -->
+                        </div>
+                    </div>
+                </div>
+                <!-- BESTSELLER-PRODUCTS-AREA END -->
+            </div>
+            <div class="row">
+                <!-- BESTSELLER-PRODUCTS-AREA START -->
+                <div class="bestseller-products-area">
+                    <div class="center-title-area">
+                        <h2 class="center-title">NỮ</h2>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <!-- BESTSELLER-CAROUSEL START -->
+                            <div class="bestseller-carousel">
+                                <!-- BESTSELLER-SINGLE-ITEM START -->
+                                <th:block th:each="girlPro : ${lstGirlProduct}">
+                                    <div class="item">
+                                        <div class="single-product-item">
+                                            <div class="product-image" >
+                                                <a th:href="@{'/single_product?id='+${girlPro.id}}"><img th:src="@{'uploads/product/'+${girlPro.image}}" alt="product-image" /></a>
+                                                <div class="overlay-content">
+                                                    <ul>
+                                                        <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
+                                                        <li><a th:onclick="'addProInCart(1,'+${girlPro.id}+')'" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="customar-comments-box">
+                                                </div>
+                                                <a th:href="@{'/single_product?id='+${girlPro.id}}" th:text="${girlPro.name}"></a>
+                                                <div class="price-box">
+                                                    <span class="price" th:text="${#numbers.formatDecimal(girlPro.price, 3, 'POINT', 0, 'POINT')}+'₫'"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <!-- BESTSELLER-SINGLE-ITEM END -->
+                            </div>
+                            <!-- BESTSELLER-CAROUSEL END -->
+                        </div>
+                    </div>
+                </div>
+                <!-- BESTSELLER-PRODUCTS-AREA END -->
+            </div>
+            <div class="row">
+                <!-- BESTSELLER-PRODUCTS-AREA START -->
+                <div class="bestseller-products-area">
+                    <div class="center-title-area">
+                        <h2 class="center-title">Unisex</h2>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <!-- BESTSELLER-CAROUSEL START -->
+                            <div class="bestseller-carousel">
+                                <!-- BESTSELLER-SINGLE-ITEM START -->
                                 <th:block th:each="unisexPro : ${lstUnisexProduct}">
                                     <div class="item">
                                         <div class="single-product-item">
@@ -211,16 +199,14 @@
                                         </div>
                                     </div>
                                 </th:block>
-                                <!-- SINGLE-PRODUCT-ITEM END -->
+                                <!-- BESTSELLER-SINGLE-ITEM END -->
                             </div>
-                            <!-- FEARTURED-CAROUSEL END -->
+                            <!-- BESTSELLER-CAROUSEL END -->
                         </div>
                     </div>
                 </div>
-                <!-- FEATURED-PRODUCTS-AREA END -->
+                <!-- BESTSELLER-PRODUCTS-AREA END -->
             </div>
-
-
         </div>
     </section>
     <!-- MAIN-CONTENT-SECTION END -->

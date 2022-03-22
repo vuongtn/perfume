@@ -14,4 +14,7 @@ public interface BrandRepository extends JpaRepository<Brand,Integer> {
 //    int updateStatusBill(@Param("status") int status, @Param("idBill") int idBill);
     @Query(value = "select c from Brand c")
     List<Brand> getAllBrand();
+
+    @Query(value = "select c from Brand c where c.id=?1")
+    Brand getBrandById(int id);
 }

@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand getTrademarkById(int id) {
-        return brandRepository.getById(id);
+        return brandRepository.getBrandById(id);
     }
 
     @Override
