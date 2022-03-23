@@ -1,11 +1,42 @@
 package com.dotv.perfume.dto;
 
 public class FilterProductDTO {
+    Integer type;
+    String idBrand;
+    String sex;
     String search;
     String sortBy;
     String gender;
-    String prices[];
-    String brands[];
+    Integer prices[];
+    Integer brands[];
+
+    public FilterProductDTO() {
+
+    }
+
+    public String getIdBrand() {
+        return idBrand;
+    }
+
+    public void setIdBrand(String idBrand) {
+        this.idBrand = idBrand;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getSearch() {
         return search;
@@ -31,19 +62,19 @@ public class FilterProductDTO {
         this.gender = gender;
     }
 
-    public String[] getPrices() {
+    public Integer[] getPrices() {
         return prices;
     }
 
-    public void setPrices(String[] prices) {
+    public void setPrices(Integer[] prices) {
         this.prices = prices;
     }
 
-    public String[] getBrands() {
+    public Integer[] getBrands() {
         return brands;
     }
 
-    public void setBrands(String[] brands) {
+    public void setBrands(Integer[] brands) {
         this.brands = brands;
     }
 }

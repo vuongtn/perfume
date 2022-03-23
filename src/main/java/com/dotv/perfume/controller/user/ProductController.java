@@ -8,6 +8,7 @@ import com.dotv.perfume.entity.Brand;
 import com.dotv.perfume.service.ProductService;
 import com.dotv.perfume.service.BrandService;
 import com.dotv.perfume.utils.Pager;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -146,15 +147,21 @@ public class ProductController extends BaseController {
     * type=4: Sản phẩm theo từ khóa search
     * */
     @GetMapping("/products1")
-    public String getPro(@RequestParam int type, Model model){
+    public String getPro(@RequestParam int type, @RequestParam(required = false) String query, @RequestParam(required = false) String id,@RequestParam(required = false) String se, Model model){
         model.addAttribute("type",type);
+        model.addAttribute("idBrand","");
+        if(StringUtils.isNotBlank(id)) {
+            model.addAttribute("idBrand", Integer.valueOf(id));
+        }
+        model.addAttribute("sex",se);
+        model.addAttribute("search",query);
         return "user/product/all_product";
     }
 
     //api get list product and filter
-    @PostMapping("list_pro_filter")
+    @PostMapping("/list_pro_filter")
     public ResponseEntity<List<Product>> getAllProFilter(@ModelAttribute FilterProductDTO filterProductDTO){
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(productService.getListProductByFilter(filterProductDTO));
     }
 
 

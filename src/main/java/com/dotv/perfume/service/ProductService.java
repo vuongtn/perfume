@@ -1,4 +1,5 @@
 package com.dotv.perfume.service;
+import com.dotv.perfume.dto.FilterProductDTO;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Product;
 
@@ -18,9 +19,13 @@ public interface ProductService {
     List<Product> getAllProduct(Boolean status);
     List<Product> searchProductByName(String query,Boolean status);
 
+    //filter product
+    List<Product> getListProductByFilter(FilterProductDTO f);
+
     //admin
     //get all product or search
     List<Product> getListProduct(String search);
     Product saveOrUpdate(ProductDTO productDTO) throws IOException;
+
 
 }

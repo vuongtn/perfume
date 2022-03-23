@@ -29,9 +29,9 @@
               <span class="sidebar-title">Xếp theo</span>
               <div class="short-select-option">
                 <select name="sortBy" id="input-sort">
-                  <option value="">Tên</option>
-                  <option value="">Giá giảm dần</option>
-                  <option value="">Giá tăng dần</option>
+                  <option value="name">Tên</option>
+                  <option value="price1">Giá tăng dần</option>
+                  <option value="price2">Giá giảm dần</option>
                 </select>
               </div>
               <br>
@@ -41,6 +41,7 @@
               <span class="sidebar-title">Giới tính</span>
               <div class="short-select-option">
                 <select name="gender" id="input-gender">
+                  <option value="">--Tất cả--</option>
                   <option value="Name">Nam</option>
                   <option value="Nữ">Nữ</option>
                   <option value="Unisex">Unisex</option>
@@ -48,42 +49,52 @@
               </div>
               <br>
             </div>
-
+              <input name="type" type="hidden" th:value="${type}">
+              <input name="search" type="hidden" th:value="${search}">
+              <input name="idBrand" type="hidden" th:value="${idBrand}">
+              <input name="sex" type="hidden" th:value="${sex}">
             <!-- SINGLE SIDEBAR MANUFACTURER START -->
             <div class="product-single-sidebar">
               <span class="sidebar-title">Giá sản phẩm</span>
               <ul>
                 <li>
                   <label class="cheker">
-                    <input class="input-price" type="checkbox" name="prices"/>
+                    <input value=1 class="input-price" type="checkbox" name="prices"/>
                     <span></span>
                   </label>
                   <p>Dưới 200.000đ</p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input class="input-price" type="checkbox" name="prices"/>
+                    <input value=2 class="input-price" type="checkbox" name="prices"/>
                     <span></span>
                   </label>
-                  <p>200.000 - 500.000đ</p>
+                  <p>200.000 - 400.000đ</p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input class="input-price" type="checkbox" name="prices"/>
+                    <input value=3 class="input-price" type="checkbox" name="prices"/>
                     <span></span>
                   </label>
-                  <p>500.000 - 800.000đ</p>
+                  <p>400.000 - 600.000đ</p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input class="input-price" type="checkbox" name="prices"/>
+                    <input value=4 class="input-price" type="checkbox" name="prices"/>
+                    <span></span>
+                  </label>
+                  <p>600.000 - 800.000đ</p>
+                </li>
+                <li>
+                  <label class="cheker">
+                    <input value=5 class="input-price" type="checkbox" name="prices"/>
                     <span></span>
                   </label>
                   <p>800.000 - 1.000.000đ</p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input class="input-price" type="checkbox" name="prices"/>
+                    <input value=6 class="input-price" type="checkbox" name="prices"/>
                     <span></span>
                   </label>
                   <p>Trên 1.000.000đ</p>
@@ -476,7 +487,7 @@
           html+=
           '<li>'+
             '<label class="cheker">'+
-              '<input class="input-brand" type="checkbox" name="brands" value="'+item.id+'"/>'+
+              '<input class="input-brand" value='+item.id+' type="checkbox" name="brands" />'+
               '<span></span>'+
             '</label>'+
             '<p>'+item.name+'</p>'+
@@ -492,54 +503,52 @@
 
   //Khi thay đổi loại sắp xếp
   $("#input-sort").change(function () {
-    alert('Sắp theo');
+    loadPro();
   });
 
   //Khi thay đổi giới tính
   $("#input-gender").change(function () {
-    alert('Giới tính');
+    loadPro();
   });
 
   //Khi kích vào 1 loại giá tiền
   $(document).on('click','.input-price', function(){
-
-    alert('Giá tiền');
+    loadPro();
 
   });
 
   //Khi kích vào 1 thương hiệu
   $(document).on('click','.input-brand', function(){
-
-    alert('Thương hiệu');
-
+    loadPro();
   });
 
 
-  function test(){
-    var form = $('#form-product')[0];
+  function loadPro(){
+    var form = $('#form-filter')[0];
     var data = new FormData(form);
     $.ajax({
       type: "POST",
       enctype: 'multipart/form-data',
-      url: "/admin/save_product",
+      url: "/list_pro_filter",
       data: data,
       processData: false, //prevent jQuery from automatically transforming the data into a query string
       contentType: false,
       cache: false,
-      timeout: 600000,
+      // timeout: 600000,
       success: function (data) {
-        $('#modalBrand').modal('hide');
-        if(data.message==1){
-          messageSuccess('Thành công!', 'Thêm sản phẩm thành công');
-          page(1,'all');//về trang đầu tiên
-        }
-        if(data.message==2){
-          messageSuccess('Thành công!', 'Cập nhật sản phẩm thành công');
-          page(checkCurPage,'all');//về trang hiện tại
-        }
-        if(data.message==3){
-          messageError('Thất bại!','Lỗi hệ thống.')
-        }
+        alert('tesst');
+        // $('#modalBrand').modal('hide');
+        // if(data.message==1){
+        //   messageSuccess('Thành công!', 'Thêm sản phẩm thành công');
+        //   page(1,'all');//về trang đầu tiên
+        // }
+        // if(data.message==2){
+        //   messageSuccess('Thành công!', 'Cập nhật sản phẩm thành công');
+        //   page(checkCurPage,'all');//về trang hiện tại
+        // }
+        // if(data.message==3){
+        //   messageError('Thất bại!','Lỗi hệ thống.')
+        // }
         // $(location).attr('href', "/admin/brand?curPage=1");
 
       },

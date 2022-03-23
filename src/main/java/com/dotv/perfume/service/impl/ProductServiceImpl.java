@@ -1,5 +1,6 @@
 package com.dotv.perfume.service.impl;
 
+import com.dotv.perfume.dto.FilterProductDTO;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Brand;
 import com.dotv.perfume.entity.Product;
@@ -7,10 +8,14 @@ import com.dotv.perfume.repository.ProductRepository;
 import com.dotv.perfume.service.BrandService;
 import com.dotv.perfume.service.ProductService;
 import com.dotv.perfume.utils.PerfumeUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +24,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -32,6 +39,8 @@ public class ProductServiceImpl implements ProductService {
     ModelMapper modelMapper;
     @Autowired
     BrandService brandService;
+    @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${upload.path}")
     private String fileUpload;
@@ -133,6 +142,125 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchProductByName(String query,Boolean status) {
         String name=perfumeUtils.convertToEnglish(query.trim());
         return productRepository.getProductByName(true,name);
+    }
+
+    public StringBuilder getFilterPrice(StringBuilder sqlBuilder, FilterProductDTO f){
+        if(ArrayUtils.isNotEmpty(f.getPrices())){
+            sqlBuilder.append("and(  ");
+            for(int i=0; i<f.getPrices().length; i++){
+                if(i!=0){
+                    sqlBuilder.append("or  ");
+                }
+                switch (f.getPrices()[i]) {
+                    case 1:
+                        sqlBuilder.append("p.price < 200000  ");
+                        break;
+                    case 2:
+                        sqlBuilder.append("p.price >= 200000 and p.price <=400000  ");
+                        break;
+                    case 3:
+                        sqlBuilder.append("p.price >= 400000 and p.price <=600000  ");
+                        break;
+                    case 4:
+                        sqlBuilder.append("p.price >= 600000 and p.price <=800000  ");
+                        break;
+                    case 5:
+                        sqlBuilder.append("p.price >= 800000 and p.price <=1000000  ");
+                        break;
+                    case 6:
+                        sqlBuilder.append("p.price > 1000000  ");
+                        break;
+                }
+            }
+            sqlBuilder.append(")  ");
+        }
+        return sqlBuilder;
+    }
+
+    public StringBuilder getFilterSort(StringBuilder sqlBuilder, FilterProductDTO f) {
+        if(StringUtils.isNotBlank(f.getSortBy())){
+            switch (f.getSortBy()) {
+                case "name":
+                    sqlBuilder.append("order by p.name asc  ");
+                    break;
+                case "price1":
+                    sqlBuilder.append("order by p.price asc  ");
+                    break;
+                case "price2":
+                    sqlBuilder.append("order by p.price desc  ");
+                    break;
+            }
+        }
+        return sqlBuilder;
+    }
+
+    public StringBuilder getFilterBrand(StringBuilder sqlBuilder, FilterProductDTO f, Map<String, Object> parameters) {
+        if(ArrayUtils.isNotEmpty(f.getBrands())){
+            sqlBuilder.append("and(  ");
+           for(int i=0; i<f.getBrands().length; i++){
+               if(i!=0){
+                   sqlBuilder.append("or  ");
+               }
+               sqlBuilder.append("p.id_brand=:idBrand  ");
+               parameters.put("idBrand", f.getBrands()[i]);
+           }
+            sqlBuilder.append(")  ");
+        }
+        return sqlBuilder;
+    }
+
+
+    @Override
+    public List<Product> getListProductByFilter(FilterProductDTO f) {
+        Map<String, Object> parameters = new HashMap<>();
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("select * from product p inner join brand b on p.id_brand= b.id  ");
+        sqlBuilder.append("where 1=1 and b.status=true and p.status=true  ");
+
+        //Tất cả sản phẩm
+        if(f.getType()==1){
+            if(StringUtils.isNotBlank(f.getGender())){
+                sqlBuilder.append("and p.gender=:gender  ");
+                parameters.put("gender", f.getGender());
+            }
+            getFilterPrice(sqlBuilder,f);
+            getFilterBrand(sqlBuilder,f,parameters);
+            getFilterSort(sqlBuilder,f);
+        }
+        //product theo thương hiệu
+        if(f.getType()==2 && StringUtils.isNotBlank(f.getIdBrand())){
+            sqlBuilder.append("and b.id=:idBrand  ");
+            parameters.put("idBrand", f.getIdBrand());
+            if(StringUtils.isNotBlank(f.getGender())){
+                sqlBuilder.append("and p.gender=:gender  ");
+                parameters.put("gender", f.getGender());
+            }
+            getFilterPrice(sqlBuilder,f);
+            getFilterSort(sqlBuilder,f);
+        }
+        //product theo giới tính
+        if(f.getType()==3 && StringUtils.isNotBlank(f.getSex())) {
+            sqlBuilder.append("and p.gender=:gender  ");
+            parameters.put("gender", f.getSex());
+            getFilterPrice(sqlBuilder, f);
+            getFilterBrand(sqlBuilder, f, parameters);
+            getFilterSort(sqlBuilder, f);
+        }
+
+        //Tìm kiếm sản phẩm
+        if(f.getType()==4 && StringUtils.isNotBlank(f.getSearch())){
+            sqlBuilder.append("and lower(p.name) like lower(:query)  ");
+            parameters.put("query", perfumeUtils.convertToEnglish(f.getSearch().trim()));
+            if(StringUtils.isNotBlank(f.getGender())){
+                sqlBuilder.append("and p.gender=:gender  ");
+                parameters.put("gender", f.getGender());
+            }
+            getFilterPrice(sqlBuilder,f);
+            getFilterBrand(sqlBuilder,f,parameters);
+            getFilterSort(sqlBuilder,f);
+        }
+        List<Product> lstProduct = namedParameterJdbcTemplate.query(sqlBuilder.toString(), parameters, BeanPropertyRowMapper.newInstance(Product.class));
+        return lstProduct;
     }
 
     @Override
