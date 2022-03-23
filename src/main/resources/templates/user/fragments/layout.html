@@ -83,6 +83,10 @@
     ============================================ -->
     <script th:src="@{/user/js/vendor/modernizr-2.6.2.min.js}"></script>
 
+<!--   Pavigation-->
+    <link rel="stylesheet" type="text/css" th:href="@{/utils/css/pagination.css}">
+
+
 </head>
 <body>
 
@@ -136,7 +140,8 @@
 <!-- main js -->
 <script th:src="@{/user/js/main.js}" type="text/javascript"></script>
 
-
+<!--pavigation-->
+<script th:src="@{/utils/js/pagination.min.js}" type="text/javascript"></script>
 
 
 
@@ -144,6 +149,7 @@
 <div th:replace="user/fragments/header::header"></div>
 <div layout:fragment="home"></div>
 <div layout:fragment="all_product"></div>
+<div layout:fragment="all_product_js"></div>
 <div layout:fragment="news"></div>
 <div layout:fragment="news_detail"></div>
 <div layout:fragment="introduce"></div>

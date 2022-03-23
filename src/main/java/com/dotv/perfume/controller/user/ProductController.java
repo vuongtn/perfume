@@ -1,6 +1,7 @@
 package com.dotv.perfume.controller.user;
 
 import com.dotv.perfume.controller.BaseController;
+import com.dotv.perfume.dto.FilterProductDTO;
 import com.dotv.perfume.utils.PageCustom;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.entity.Brand;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -32,11 +35,6 @@ public class ProductController extends BaseController {
     BrandService trademarkService;
 
 
-    //Kích vào một tên thương hiệu => load các sp của thương hiệu đó
-//    @GetMapping("/products")
-//    public String getAllProduct(){
-//        return "user/product/all_product";
-//    }
 
     //Kích vào một tên thương hiệu => load các sp của thương hiệu đó
     @GetMapping("/product-by-trademark")
@@ -101,7 +99,7 @@ public class ProductController extends BaseController {
         model.addAttribute("sex",sx);
         model.addAttribute("pager",pager);
         model.addAttribute("lstPro", lstProduct);
-        return "user/product/all_product";
+        return "all_product_test";
     }
 
     @GetMapping("/single_product")
@@ -130,6 +128,34 @@ public class ProductController extends BaseController {
         model.addAttribute("lstPro",lstPro);
         model.addAttribute("pager",pager);
         model.addAttribute("query",query);
-        return "user/product/search_product";
+        return "search_product_test";
     }
+
+    //list thương hiệu với status = true;
+    @GetMapping("/all_brand")
+    public ResponseEntity<List<Brand>> getListBrand(){
+        return ResponseEntity.ok(trademarkService.getTrademarkByStatus(true));
+    }
+
+
+    /*
+    * Trả về trang tất cả sản phẩm
+    * type=1: Tất cả sản phẩm
+    * type=2: Sản phẩm theo brand
+    * type=3: Sản phẩm theo giới tính
+    * type=4: Sản phẩm theo từ khóa search
+    * */
+    @GetMapping("/products1")
+    public String getPro(@RequestParam int type, Model model){
+        model.addAttribute("type",type);
+        return "user/product/all_product";
+    }
+
+    //api get list product and filter
+    @PostMapping("list_pro_filter")
+    public ResponseEntity<List<Product>> getAllProFilter(@ModelAttribute FilterProductDTO filterProductDTO){
+        return ResponseEntity.ok(null);
+    }
+
+
 }
