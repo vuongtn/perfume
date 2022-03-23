@@ -75,8 +75,9 @@
                     <!-- HEADER-RIGHT-CALLUS END -->
                     <!-- CATEGORYS-PRODUCT-SEARCH START -->
                     <div class="categorys-product-search">
-                        <form th:action="@{/search}" method="get" class="search-form-cat">
+                        <form th:action="@{/products}" method="get" class="search-form-cat">
                             <div class="search-product form-group">
+                                <input type="hidden" name="type" value="4">
                                 <input type="text" class="form-control search-form" name="query" placeholder="Tìm kiếm sản phẩm... " />
                                 <button class="search-button" type="submit">
                                     <i class="fa fa-search"></i>
@@ -103,7 +104,7 @@
                                 <li th:class="${typeMenu==1}?active"><a th:href="@{/}">Trang chủ</a></li>
 
                                 <li th:class="${typeMenu==2}?active">
-                                    <a th:href="@{/products(id=1,sx=1,typeP=3,typeF=3,curPage=1,typeM=2)}">Thương hiệu</a>
+                                    <a th:href="@{/products(type=1,menu=2)}">Thương hiệu</a>
                                     <!-- DRODOWN-MEGA-MENU START -->
                                     <div class="drodown-mega-menu" id="list-trademark-test">
                                         <!--                                           list thương hiệu load từ ajax-->
@@ -122,13 +123,13 @@
                                     </div>
                                     <!-- DRODOWN-MEGA-MENU END -->
                                 </li>
-                                <li  th:class="${typeMenu==3} ? active"><a th:href="@{/products(id=1,sx=1,typeP=3,typeF=3,curPage=1,typeM=3)}">Nước hoa</a>
+                                <li  th:class="${typeMenu==3} ? active"><a th:href="@{/products(type=1,menu=3)}">Nước hoa</a>
                                     <!-- DROPDOWN MENU START -->
                                     <div class="home-var-menu">
                                         <ul class="home-menu">
-                                            <li><a th:href="@{/products(id=1,sx=2,typeP=2,typeF=3,curPage=1)}">Nam</a></li>
-                                            <li><a th:href="@{/products(id=1,sx=3,typeP=2,typeF=3,curPage=1)}">Nữ</a></li>
-                                            <li><a th:href="@{/products(id=1,sx=4,typeP=2,typeF=3,curPage=1)}">Unisex</a></li>
+                                            <li><a href="/products?type=3&se=Nam&menu=3">Nam</a></li>
+                                            <li><a href="/products?type=3&se=Nữ&menu=3">Nữ</a></li>
+                                            <li><a href="/products?type=3&se=Unisex&menu=3">Unisex</a></li>
                                         </ul>
                                     </div>
                                     <!-- DROPDOWN MENU END -->

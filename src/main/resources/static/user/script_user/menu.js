@@ -115,7 +115,7 @@ function showMenu() {
                    '<div class="right-mega col-xs-3">'+
                        '<div class="mega-menu-list">'+
                            '<ul>'+
-                               '<li><a href="/products?sx=1&typeP=1&typeF=3&curPage=1&id='+item.id+'">'+ item.name +'</a></li>'+
+                               '<li><a href="/products?type=2&menu=2&id='+item.id+'">'+ item.name +'</a></li>'+
                            '</ul>'+
                        '</div>'
                )

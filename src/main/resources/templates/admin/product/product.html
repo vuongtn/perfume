@@ -336,6 +336,7 @@
             pageNumber:curPage,
             autoHidePrevious: true,
             autoHideNext: true,
+            hideWhenLessThanOnePage:true,
             callback: function(data, pagination) {
                 var html = loadTable(data);
                 $('#lst-product').html(html);

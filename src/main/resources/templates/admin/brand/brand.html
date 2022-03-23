@@ -163,6 +163,7 @@
             pageRage:1,
             autoHidePrevious: true,
             autoHideNext: true,
+            hideWhenLessThanOnePage:true,
             callback: function(data, pagination) {
                 var html = loadTable(data);
                 $('#list-brand').html(html);

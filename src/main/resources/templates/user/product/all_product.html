@@ -42,7 +42,7 @@
               <div class="short-select-option">
                 <select name="gender" id="input-gender">
                   <option value="">--Tất cả--</option>
-                  <option value="Name">Nam</option>
+                  <option value="Nam">Nam</option>
                   <option value="Nữ">Nữ</option>
                   <option value="Unisex">Unisex</option>
                 </select>
@@ -50,9 +50,9 @@
               <br>
             </div>
               <input name="type" type="hidden" th:value="${type}">
-              <input name="search" type="hidden" th:value="${search}">
+              <input name="search" type="hidden" id="query-search" th:value="${search}">
               <input name="idBrand" type="hidden" th:value="${idBrand}">
-              <input name="sex" type="hidden" th:value="${sex}">
+              <input name="sex" type="hidden" id="sex-filter" th:value="${sex}">
             <!-- SINGLE SIDEBAR MANUFACTURER START -->
             <div class="product-single-sidebar">
               <span class="sidebar-title">Giá sản phẩm</span>
@@ -128,13 +128,13 @@
               <!-- PRODUCT-CATEGORY-TITLE START -->
               <br>
               <h1>
-                <span class="cat-name">Nước hoa nam</span>
+                <span class="cat-name" id="title-pro"></span>
               </h1>
               <!-- PRODUCT-CATEGORY-TITLE END -->
             </div>
             <div class="product-shooting-area">
               <div class="product-shooting-bar-all-product">
-                <h2 style="text-align: center;">Có 10 kết quả tìm kiếm phù hợp</h2>
+                <h2 style="text-align: center;" id="message-search"></h2>
               </div>
 
             </div>
@@ -142,302 +142,16 @@
           <!-- ALL GATEGORY-PRODUCT START -->
           <div class="all-gategory-product">
             <div class="row">
-              <ul class="gategory-product">
-
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-product-item">
-                    <div class="product-image-all" style="">
-                      <a><img class="image-all" src="/uploads/product/anh1.jpg" alt="product-image" /></a>
-                      <div class="overlay-content">
-                        <ul>
-                          <li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>
-                          <li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>
-                          <li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <div class="customar-comments-box">
-                      </div>
-                      <a href="#" >Tên sản phẩm</a>
-                      <div class="price-box">
-                        <span class="price">₫16.51</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-
-
-
+              <ul class="gategory-product" id="list-product-user">
+<!--                  list sản phẩm-->
               </ul>
             </div>
           </div>
           <!-- ALL GATEGORY-PRODUCT END -->
           <!-- PRODUCT-SHOOTING-RESULT START -->
           <div class="product-shooting-result product-shooting-result-border">
-
-            <div class="showing-item">
-              <span>Showing 1 - 12 of 13 items</span>
-            </div>
-            <div class="showing-next-prev">
-              <ul class="pagination-bar">
-                <li class="disabled">
-                  <a href="#" ><i class="fa fa-chevron-left"></i>Previous</a>
-                </li>
-                <li class="active">
-                  <span><a class="pagi-num" href="#">1</a></span>
-                </li>
-                <li>
-                  <span><a class="pagi-num" href="#">2</a></span>
-                </li>
-                <li>
-                  <a href="#" >Next<i class="fa fa-chevron-right"></i></a>
-                </li>
-              </ul>
-
-            </div>
+            <h2 style="text-align: center;" id="message-pro"></h2>
+            <div id="pagination-container"></div>
           </div>
           <!-- PRODUCT-SHOOTING-RESULT END -->
         </div>
@@ -448,6 +162,12 @@
 </div>
 
 <script layout:fragment="all_product_js" th:inline="javascript">
+  $(document).ready(function() {
+    page();
+  });
+
+
+
   var type=[[${type}]]
 
   //lấy tất cả sp || lấy sản phẩm theo query
@@ -503,61 +223,112 @@
 
   //Khi thay đổi loại sắp xếp
   $("#input-sort").change(function () {
-    loadPro();
+    page();
   });
 
   //Khi thay đổi giới tính
   $("#input-gender").change(function () {
-    loadPro();
+    page();
   });
 
   //Khi kích vào 1 loại giá tiền
   $(document).on('click','.input-price', function(){
-    loadPro();
-
+    page();
   });
 
   //Khi kích vào 1 thương hiệu
   $(document).on('click','.input-brand', function(){
-    loadPro();
+    page();
   });
 
 
-  function loadPro(){
-    var form = $('#form-filter')[0];
-    var data = new FormData(form);
-    $.ajax({
-      type: "POST",
-      enctype: 'multipart/form-data',
-      url: "/list_pro_filter",
-      data: data,
-      processData: false, //prevent jQuery from automatically transforming the data into a query string
-      contentType: false,
-      cache: false,
-      // timeout: 600000,
-      success: function (data) {
-        alert('tesst');
-        // $('#modalBrand').modal('hide');
-        // if(data.message==1){
-        //   messageSuccess('Thành công!', 'Thêm sản phẩm thành công');
-        //   page(1,'all');//về trang đầu tiên
-        // }
-        // if(data.message==2){
-        //   messageSuccess('Thành công!', 'Cập nhật sản phẩm thành công');
-        //   page(checkCurPage,'all');//về trang hiện tại
-        // }
-        // if(data.message==3){
-        //   messageError('Thất bại!','Lỗi hệ thống.')
-        // }
-        // $(location).attr('href', "/admin/brand?curPage=1");
+  //load san pham
+    function page(){
+      $('#pagination-container').pagination({
+        dataSource:  function (done){
+          var form = $('#form-filter')[0];
+          var dataForm = new FormData(form);
+          $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/list_pro_filter",
+            data: dataForm,
+            processData: false,
+            contentType: false,
+            cache: false,
+            // timeout: 600000,
+            success: function (data) {
+              done(data);
+            },
+          });
+        },
+        pageSize: 12,
+        pageNumber:1,
+        // pageRage:1,
+        autoHidePrevious: true,
+        autoHideNext: true,
+        hideWhenLessThanOnePage:true,
+        callback: function(data, pagination) {
+          $('#message-pro').text('');
+          $('#message-search').text('');
+          var html = loadTable(data);
+          $('#list-product-user').html(html);
+          $("html, body").animate({ scrollTop: 0 }, "slow");
+          if(type==1){
+            $('#title-pro').text('Tất cả sản phẩm');
+          }
+          if(type==2){
+            $('#title-pro').text('Nước hoa thương hiệu '+[[${nameBrand}]]);
+          }
+          if(type==3){
+            $('#title-pro').text('Nước hoa '+$('#sex-filter').val());
+          }
+          if(type==4){
+            $('#title-pro').text('');
+            var query = $('#query-search').val()
+            $('#message-search').text('Kết quả tìm kiếm với từ khóa "'+query+'"');
+          }
+          if(data.length==0){
+            $('#message-pro').text('Không có sản phẩm nào!');
+          }
 
-      },
-      error: function (e) {
-        // messageError('Thất bại!','Lỗi hệ thống.')
-        console.log("ERROR : ", e);
-      }
+          // $(window).scrollTop(0);
+        }
+      })
+    }
+  //for load dữ liệu
+  function loadTable(data){
+    var html = '';
+    $.each(data, function(index, item){
+      var total=item.price.toLocaleString({style : 'currency', currency : 'VND'});
+      html +=
+              '<li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">'+
+                '<div class="single-product-item">'+
+                  '<div class="product-image-all" style="">'+
+                    '<a><img class="image-all" src="/uploads/product/'+item.image+'" alt="product-image"/></a>'+
+                    '<div class="overlay-content">'+
+                      '<ul>'+
+                        '<li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>'+
+                        '<li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>'+
+                        '<li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>'+
+                      '</ul>'+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="product-info">'+
+                    '<div class="customar-comments-box">'+
+                    '</div>'+
+                    '<a href="#">'+item.name+'</a>'+
+                    '<div class="price-box">'+
+                      '<span class="price">'+total+'đ</span>'+
+                    '</div>'+
+                  '</div>'+
+                '</div>'+
+              '</li>'
+
     });
+    return html;
   }
+
 </script>
 </body>
 </html>

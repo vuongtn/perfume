@@ -323,9 +323,14 @@ delete from bill_detail;
 delete from bill;
 
 -- filter
-select * from product p inner join brand b on p.id_brand= b.id
+select p from product p inner join brand b on p.id_brand= b.id
 where 1=1 and b.status=true
 and (p.id_brand=1 or p.id_brand=4)
 and p.gender='nam'
 and (p.price >=200000 and p.price <=350000 or p.price =500000 or p.price =1000000)
 order by price asc;
+
+select * from product;
+select * from brand;
+select p.id id, p.name name, p.price, p.image image  from product p inner join brand b on p.id_brand= b.id  where 1=1 and b.status=true and p.status=true  and(  p.id_brand=1  or  p.id_brand=2  )  order by p.name asc;
+select p.id id, p.name name, p.price, p.image image  from product p inner join brand b on p.id_brand= b.id  where 1=1 and b.status=true and p.status=true  and p.gender='Unisex'  and(  p.id_brand=1  )  order by p.price desc 

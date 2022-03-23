@@ -201,8 +201,8 @@ public class ProductServiceImpl implements ProductService {
                if(i!=0){
                    sqlBuilder.append("or  ");
                }
-               sqlBuilder.append("p.id_brand=:idBrand  ");
-               parameters.put("idBrand", f.getBrands()[i]);
+               sqlBuilder.append("p.id_brand=:idBrand"+i+"  ");
+               parameters.put("idBrand"+i, f.getBrands()[i]);
            }
             sqlBuilder.append(")  ");
         }
@@ -214,7 +214,8 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getListProductByFilter(FilterProductDTO f) {
         Map<String, Object> parameters = new HashMap<>();
         StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("select * from product p inner join brand b on p.id_brand= b.id  ");
+        sqlBuilder.append("select p.id id, p.name name, p.price, p.image image  ");
+        sqlBuilder.append("from product p inner join brand b on p.id_brand= b.id  ");
         sqlBuilder.append("where 1=1 and b.status=true and p.status=true  ");
 
         //Tất cả sản phẩm
@@ -249,7 +250,7 @@ public class ProductServiceImpl implements ProductService {
 
         //Tìm kiếm sản phẩm
         if(f.getType()==4 && StringUtils.isNotBlank(f.getSearch())){
-            sqlBuilder.append("and lower(p.name) like lower(:query)  ");
+            sqlBuilder.append("and lower(p.name) like lower(concat('%',:query,'%'))  ");
             parameters.put("query", perfumeUtils.convertToEnglish(f.getSearch().trim()));
             if(StringUtils.isNotBlank(f.getGender())){
                 sqlBuilder.append("and p.gender=:gender  ");
