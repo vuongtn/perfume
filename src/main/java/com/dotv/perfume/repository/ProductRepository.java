@@ -10,25 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer> {
-//    @Query(value = "select * from product p where p.id_category = :idCategory and p.status=true",nativeQuery = true)
-//    Page<Product> getProductByIdCategory(@Param("idCategory") int idCategory, Pageable pageable);
 //
-//    @Query("select p from Product p where p.name like %?1%")
-//    List<Product> getProductByName(String name);
-//
-//    @Query("select p from Product p where p.id=?1")
-//    Product getProductById(int id);
-    //Page<Product> findAllByIdTrademarkAndStatus(int idTrademark, Boolean status, Pageable pageable);
-
-    //Trả về list sản phẩm theo mã thương hiệu sắp xêp tăng dần theo giá
-    //List<Product> findAllByIdTrademarkAndStatusOrderByPriceAsc(int idTrademark, Boolean status, Pageable pageable);
-
-    //Trả về list sản phẩm theo mã thương hiệu sắp xêp giảm dần theo giá
-    //List<Product> findAllByIdTrademarkAndStatusOrderByPriceDesc(int idTrademark, Boolean status, Pageable pageable);
-
-    //Trả về list sản phẩm theo mã thương hiệu sắp xêp giảm dần theo tên
-    //List<Product> findAllByIdTrademarkAndStatusOrderByNameAsc(int idTrademark, Boolean status, Pageable pageable);
-
     //Trả về list sản phẩm theo thương hiệu status=true
     @Query("select p from Product p join p.brand t where t.id=?1 and p.status=?2")
     List<Product> getProductByTrademark(int id, boolean status);
@@ -91,6 +73,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query("select p from Product p where p.status=?1 and lower(p.name) like lower(concat('%',?2,'%')) order by p.name asc ")
     List<Product> getProductByName(boolean status, String name);
 
+    @Query("select p from Product p where p.id=?1")
     Product findById(int id);
 
     //admin

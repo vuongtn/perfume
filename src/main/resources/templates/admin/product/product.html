@@ -167,7 +167,7 @@
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Mã sản phẩm </label>
-                                <input name="id" class="form-control" type="number" readonly>
+                                <input name="id" id="id-pro" class="form-control" type="number" readonly>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Tên sản phẩm</label>
@@ -234,7 +234,7 @@
                                 </div>
                                 <div id="thumbbox">
                                     <img height="200" width="200" alt="Thumb image" id="thumbimage" style="display: none" />
-                                    <a class="removeimg" href="javascript:"></a>
+                                    <a id="cancel-image" class="removeimg" href="javascript:"></a>
                                 </div>
                                 <div id="boxchoice">
                                     <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
@@ -287,7 +287,6 @@
         $('#detail').summernote({
             height: 100,
             focus: true,
-
         });
     });
 
@@ -361,10 +360,10 @@
                     '<td>'+total+'đ</td>'+
                     '<td>';
             if(item.status==true){
-                html +='<span class="badge bg-success">Hiển thị</span>';
+                html +='<span>Hiển thị</span>';
             }
             else{
-                html +='<span class="badge bg-danger">Ẩn</span>';
+                html +='<span>Ẩn</span>';
             }
             html +=
                 '</td>'+
@@ -374,7 +373,9 @@
                     '</button>'+
                     '<button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" '+
                     'data-toggle="modal" '+
-                    'data-target="#ModalUP"><i class="fas fa-edit"></i></button>'+
+                    'data-target="#ModalUP"' +
+                    'onclick="getModalProduct('+item.id+')"'+
+                    '><i class="fas fa-edit"></i></button>'+
                 '</td>'
         });
         return html;
@@ -483,6 +484,49 @@
         });
     })
 
+//    update product
+    function getModalProduct(id){
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/admin/get_product_id",
+            data : {
+               id:id,
+            },
+            dataType : 'json',
+            // timeout : 100000,
+            success : function(data) {
+                    $('#id-pro').val(data.id);
+                    $('#name-pro').val(data.name);
+                    $('#lst-brand').val(data.brand.id);
+                    $('#sex').val(data.gender);
+                    $('#origin-pro').val(data.origin);
+                    $('#year-pro').val(data.manufactureYear);
+                    $('#frag-pro').val(data.fragrant);
+                    $('#gua-pro').val(data.guarantee);
+                    $('#price-pro').val(data.price);
+                    $('#amount-pro').val(data.amount);
+                    $('#uploadfile').val(data.image);
+
+
+                    $('#thumbimage').show();
+                    $('#cancel-image').css('display','inline');
+                    $("#thumbimage").attr('src','/uploads/product/'+data.image);
+
+                    $('#short-detail').val(data.shortDescription);
+                    // $('#detail').val(data.detailDescription);
+                    //$('.note-editable').html(data.detailDescription);
+                var html = 'Hello World!!';
+                    $('#detail').summernote('code',html);
+                // $('#detail').summernote({
+                //     code:data.detailDescription,
+                // });
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
 
 </script>
 

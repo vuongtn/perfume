@@ -60,4 +60,10 @@ public class ManageProductController extends BaseController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/get_product_id")
+    public ResponseEntity<Product> saveOrUpdateProduct(@RequestParam int id) {
+        productService.getProductById(id);
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+
 }

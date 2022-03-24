@@ -58,7 +58,7 @@
                             <!-- PRODUCT-CATEGORY-TITLE START -->
                             <br>
                             <h1 style="margin-bottom: 0px;">
-                                <span class="cat-name">Đơn hàng của bạn</span>
+                                <span class="cat-name" style="margin-bottom: 0px">Đơn hàng của bạn</span>
                             </h1>
                             <!-- PRODUCT-CATEGORY-TITLE END -->
                         </div>
@@ -103,18 +103,18 @@
                                         <td th:text="${#dates.format(bill.createdDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
                                         <td th:text="${#numbers.formatDecimal(bill.totalPrice, 3, 'POINT', 0, 'POINT')}+'₫'"></td>
                                         <td th:text="${bill.receiverName}"></td>
-                                        <th:block th:if="${bill.status==1}"><td>Đang xử lý</td></th:block>
+                                        <th:block th:if="${bill.status==1}"><td th:id="status+${bill.id}">Đang xử lý</td></th:block>
 <!--                                        <th:block th:if="${bill.status==2}"><td>Đã tiếp nhận</td></th:block>-->
-                                        <th:block th:if="${bill.status==2}"><td>Đang giao</td></th:block>
-                                        <th:block th:if="${bill.status==3}"><td>Đã giao</td></th:block>
-                                        <th:block th:if="${bill.status==4}"><td>Đã hủy</td></th:block>
+                                        <th:block th:if="${bill.status==2}"><td th:id="status+${bill.id}">Đang giao</td></th:block>
+                                        <th:block th:if="${bill.status==3}"><td th:id="status+${bill.id}">Đã giao</td></th:block>
+                                        <th:block th:if="${bill.status==4}"><td th:id="status+${bill.id}">Đã hủy</td></th:block>
 <!--                                        <td><button type="button" class="btn btn-primary btn-sm" th:onclick="'getModal('+${bill.id}+','+${bill.receiverName}+','+${bill.receiverEmail}+','+${bill.receiverPhone}+','+${bill.receiverAddress}+','+${bill.payment}+','+${bill.totalPrice}+','+${bill.note}+')'">Xem</button></td>-->
                                         <td>
                                             <button th:id="id-bill+${bill.id}" type="button" class="btn btn-primary btn-sm"
-                                                    th:attr="name=${bill.receiverName},email=${bill.receiverEmail},phone=${bill.receiverPhone},address=${bill.receiverAddress},payment=${bill.payment},total=${bill.totalPrice},note=${bill.note}"
-                                                    th:onclick="|getModal(${bill.id},this.getAttribute('name'),this.getAttribute('email'),this.getAttribute('phone'),this.getAttribute('address'),this.getAttribute('payment'),this.getAttribute('total'),this.getAttribute('note'))|" >Xem</button>
+                                                    th:attr="name=${bill.receiverName},email=${bill.receiverEmail},phone=${bill.receiverPhone},address=${bill.receiverAddress},payment=${bill.payment},total=${bill.totalPrice},note=${bill.note},status=${bill.status}"
+                                                    th:onclick="|getModal(${bill.id},this.getAttribute('name'),this.getAttribute('email'),this.getAttribute('phone'),this.getAttribute('address'),this.getAttribute('payment'),this.getAttribute('total'),this.getAttribute('note'),this.getAttribute('status'))|" >Xem</button>
                                             <th:block th:if="${bill.status==1}">
-                                                <button type="button" class="btn btn-danger btn-sm">Hủy</button>
+                                                <button th:onclick="|cancelBill(${bill.id})|" th:id="btn-cancel+${bill.id}" type="button" class="btn btn-danger btn-sm">Hủy</button>
                                             </th:block>
                                         </td>
                                     </tr>
@@ -168,7 +168,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h2 class="modal-title">Chi tết đơn hàng</h2>
+                                    <h3 class="modal-title">Đơn hàng:#<span id="id-bill">1</span> - <span id="status-bill">Đã hủy</span></h3>
                                 </div>
                                 <div class="modal-body" >
                                     <h3>Thông tin người nhận</h3>
@@ -236,10 +236,32 @@
     <!-- MAIN-CONTENT-SECTION END -->
 </div>
 <script layout:fragment="order_acc_js" th:inline="javascript">
-    //$('id-bill8').click();
+    var idBuy=[[${idBuy}]];
+    $(document).ready(
+        function (){
+            if(idBuy!=null) {
+                $('#id-bill' + idBuy).click();
+                messageSuccess("Thành công!", "Đặt hàng thành công.")
+            }
+        }
+    )
+    //
 
-    function getModal(id,fullName,email,phone,address,payment,totalPrice,note){
+    function getModal(id,fullName,email,phone,address,payment,totalPrice,note,status){
         var totalMoney=parseFloat(totalPrice).toLocaleString({style : 'currency', currency : 'VND'});
+        $('#id-bill').text(id);
+        if(status==1){
+            $('#status-bill').text('Đang xử lý');
+        }
+        if(status==2){
+            $('#status-bill').text('Đang giao');
+        }
+        if(status==3){
+            $('#status-bill').text('Đã giao');
+        }
+        if(status==4){
+            $('#status-bill').text('Đã hủy');
+        }
         $('#m_fullName').text(fullName);
         $('#m_emal').text(email);
         $('#m_phone').text(phone);
@@ -282,6 +304,50 @@
             }
         });
         $('#myModalBill').modal('show');
+    }
+
+
+
+    function cancelBill(id){
+        Swal.fire({
+            title: 'Xác nhận xóa!',
+            text: "Bạn có chắc chắn muốn hủy đơn hàng này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'green',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hủy',
+            cancelButtonText:'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/update-status-bill",
+                    data: {
+                        id:id,
+                        status:4,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.message==true){
+                            messageSuccess('Thành công!', 'Hủy đơn hàng thành công.');
+                            $('#status'+id).text('Đã hủy');
+                            $('#btn-cancel'+id).remove();
+                        }
+                        if(data.message==false){
+                            messageError('Thất bại!', 'Hủy đơn hàng thất bại.');
+                        }
+                        // $(location).attr('href', "/admin/brand?curPage=1");
+
+                    },
+                    error: function (e) {
+                        messageError('Thất bại!','Lỗi hệ thống.')
+                        console.log("ERROR : ", e);
+                    }
+                });
+            }
+        })
     }
 </script>
 </body>

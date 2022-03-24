@@ -4583,6 +4583,7 @@ p.small-title{
 	position: relative;
 	text-transform: uppercase;
 	transition: all 300ms ease 0s;
+	cursor: pointer;
 }
 .add-cart-text:hover{
 	background: #FF4F4F none repeat scroll 0 0;

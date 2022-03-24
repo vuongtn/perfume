@@ -12,6 +12,7 @@ import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.Pager;
 import com.dotv.perfume.utils.PerfumeUtils;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 //@RequestMapping("/")
 public class AccountController extends BaseController {
     //Số phần tử hiển thị 1 trang
-    private static final int PAGE = 1;
+    private static final int PAGE = 5;
     private static final int BUTTONS_TO_SHOW = 5;
 
     @Autowired
@@ -122,9 +123,9 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping("/order_acc")
-    public String getOrderAcc(@RequestParam int curPage, Model model) throws Exception {
+    public String getOrderAcc(@RequestParam int curPage, @RequestParam(required = false) String id, Model model) throws Exception {
         User user=userService.getUserById(getUserLogined().getId());
-
+        model.addAttribute("idBuy",id);
         //sắp xếp theo ngày mới nhất
         List<Bill> bills = user.getBills().stream()
                         .sorted(Comparator.nullsLast((e1, e2) -> e2.getCreatedDate().compareTo(e1.getCreatedDate())))

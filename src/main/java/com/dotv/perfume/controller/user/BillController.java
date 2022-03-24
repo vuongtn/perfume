@@ -8,7 +8,10 @@ import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.BillService;
 import com.dotv.perfume.service.CartService;
 import com.dotv.perfume.utils.PerfumeUtils;
+import org.json.simple.JSONObject;
+import org.junit.validator.PublicClassValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,6 +83,15 @@ public class BillController extends BaseController {
         bill.setUser(user);
         billService.saveBill(bill);
         //Thành công chuyển hướng sang trang ql đơn hàng
-        return "redirect:/order_acc?curPage=1";
+        return "redirect:/order_acc?curPage=1&id="+bill.getId();
+    }
+
+    @PostMapping("/update-status-bill")
+    public ResponseEntity<JSONObject> updateStatusBill(@RequestParam int id,@RequestParam int status){
+        JSONObject result = new JSONObject();
+        result.put("message", Boolean.FALSE);
+        if(billService.updateSatatusBill(status,id)>0)
+            result.put("message", Boolean.TRUE);
+        return ResponseEntity.ok(result);
     }
 }

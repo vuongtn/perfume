@@ -273,7 +273,7 @@
           $('#message-search').text('');
           var html = loadTable(data);
           $('#list-product-user').html(html);
-          $("html, body").animate({ scrollTop: 0 }, "slow");
+          $("html, body").animate({ scrollTop: 250 }, "slow");
           if(type==1){
             $('#title-pro').text('Tất cả sản phẩm');
           }
@@ -305,11 +305,11 @@
               '<li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">'+
                 '<div class="single-product-item">'+
                   '<div class="product-image-all" style="">'+
-                    '<a><img class="image-all" src="/uploads/product/'+item.image+'" alt="product-image"/></a>'+
+                    '<a href="/single_product?id='+item.id+'"><img class="image-all" src="/uploads/product/'+item.image+'" alt="product-image"/></a>'+
                     '<div class="overlay-content">'+
                       '<ul>'+
                         '<li><a href="#" title="Tìm kiếm"><i class="fa fa-search"></i></a></li>'+
-                        '<li><a th:onclick="" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>'+
+                        '<li><a onclick="addProInCart(1,'+item.id+')" title="Thêm vào giỏ"><i class="fa fa-shopping-cart"></i></a></li>'+
                         '<li><a href="#" title="Tải lại"><i class="fa fa-retweet"></i></a></li>'+
                       '</ul>'+
                     '</div>'+
@@ -317,7 +317,7 @@
                   '<div class="product-info">'+
                     '<div class="customar-comments-box">'+
                     '</div>'+
-                    '<a href="#">'+item.name+'</a>'+
+                    '<a href="/single_product?id='+item.id+'">'+item.name+'</a>'+
                     '<div class="price-box">'+
                       '<span class="price">'+total+'đ</span>'+
                     '</div>'+

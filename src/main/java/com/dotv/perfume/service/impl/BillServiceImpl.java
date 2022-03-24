@@ -59,4 +59,10 @@ public class BillServiceImpl implements BillService {
     public List<Bill> getBillByUser(int idUser) {
         return null;
     }
+
+    @Override
+    @Transactional
+    public int updateSatatusBill(int status, int idBill) {
+        return billRepository.updateStatusBill(status,idBill);
+    }
 }

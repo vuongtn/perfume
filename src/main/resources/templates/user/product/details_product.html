@@ -67,10 +67,10 @@
                                         </div>
                                     </div>
                                     <div class="single-product-quantity">
-                                        <p style="color: black;">Số lượng</p>
+                                        <p style="color: black; padding-top:5px; margin-right: 3.5%; ">Số lượng</p>
                                         <div class="cart-quantity">
                                             <div class="cart-plus-minus-button single-qty-btn">
-                                                <input class="cart-plus-minus sing-pro-qty" type="text" th:id="amount-add-cart+${singleProduct.id}" name="qtybutton" value="1" min="1">
+                                                <input class="cart-plus-minus sing-pro-qty" type="number" th:id="amount-add-cart+${singleProduct.id}" name="qtybutton" value="1" min="1">
                                             </div>
                                         </div>
                                     </div>
@@ -92,65 +92,15 @@
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs more-info-tab">
                                         <li class="active"><a href="#moreinfo" data-toggle="tab">Thông tin sản phẩm</a></li>
-                                        <!-- <li><a href="#datasheet" data-toggle="tab">data sheet</a></li> -->
-                                        <li><a href="#review" data-toggle="tab">Đánh giá</a></li>
                                     </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="moreinfo">
-                                            <div class="tab-description">
-                                                <p th:text="${singleProduct.detailDescription}">sories including shoes, hats, belts and more!</p>
+                                            <div class="tab-description" id="detail-product">
+<!--                                                <p th:text="${singleProduct.detailDescription}">sories including shoes, hats, belts and more!</p>-->
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="datasheet">
-                                            <div class="deta-sheet">
-                                                <table class="table-data-sheet">
-                                                    <tbody>
-                                                    <tr class="odd">
-                                                        <td>Compositions</td>
-                                                        <td>Cotton</td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td class="td-bg">Styles</td>
-                                                        <td class="td-bg">Casual</td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>Properties</td>
-                                                        <td>Short Sleeve</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane" id="review">
-                                            <div class="row tab-review-row">
-                                                <div class="col-xs-5 col-sm-4 col-md-4 col-lg-3 padding-5">
-                                                    <div class="tab-rating-box">
-                                                        <span>Grade</span>
-                                                        <div class="rating-box">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-half-empty"></i>
-                                                        </div>
-                                                        <div class="review-author-info">
-                                                            <strong>write A REVIEW</strong>
-                                                            <span>06/22/2015</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-7 col-sm-8 col-md-8 col-lg-9 padding-5">
-                                                    <div class="write-your-review">
-                                                        <p><strong>write A REVIEW</strong></p>
-                                                        <p>write A REVIEW</p>
-                                                        <span class="usefull-comment">Was this comment useful to you? <span>Yes</span><span>No</span></span>
-                                                        <a href="#">Report abuse </a>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="write-review-btn">Write your review!</a>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -166,4 +116,7 @@
         <!-- MAIN-CONTENT-SECTION END -->
     </div>
 </body>
+<script layout:fragment="details_product_js" th:inline="javascript">
+    $('#detail-product').html([[${singleProduct.detailDescription}]])
+</script>
 </html>

@@ -12,7 +12,7 @@ function messageError(title,message){
         loader: true,
         loaderBg: '#fff',
         showHideTransition: 'plain',
-        hideAfter: 3000,
+        hideAfter: 2000,
         position: {
             right: 80,
             top: 40
@@ -28,7 +28,7 @@ function messageSuccess(title,message){
         loader: true,
         loaderBg: '#fff',
         showHideTransition: 'fade',
-        hideAfter: 3000,
+        hideAfter: 1500,
         allowToastClose: false,
         position: {
             right:80,
