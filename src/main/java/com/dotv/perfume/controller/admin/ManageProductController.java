@@ -66,4 +66,17 @@ public class ManageProductController extends BaseController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+    @PostMapping("/delete_product")
+    public ResponseEntity<JSONObject> deleteBrand(@RequestParam int id){
+        JSONObject result = new JSONObject();
+        result.put("message", Boolean.TRUE);
+        try {
+            productService.deleteProduct(id);
+        }
+        catch (Exception e){
+            result.put("message", Boolean.FALSE);
+        }
+        return ResponseEntity.ok(result);
+    }
+
 }

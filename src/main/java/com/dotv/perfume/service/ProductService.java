@@ -26,6 +26,7 @@ public interface ProductService {
     //get all product or search
     List<Product> getListProduct(String search);
     Product saveOrUpdate(ProductDTO productDTO) throws IOException;
+    void deleteProduct(int id);
 
 
 }

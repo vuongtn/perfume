@@ -99,14 +99,14 @@
                         <div class="row element-button">
                             <div class="col-sm-2">
 
-                                <a class="btn btn-add btn-sm" title="Thêm" data-toggle="modal"
+                                <a class="btn btn-add btn-sm" title="Thêm" data-toggle="modal" id="insert-product"
                                    data-target="#ModalUP"><i class="fas fa-plus"></i>
                                     Thêm mới</a>
                             </div>
                         </div>
                         <div style="margin-bottom:6px">
                             <label><b>Tìm kiếm:</b></label>
-                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onkeyup="searchProduct()" type="text" name="search-product" id="search-product">
+                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onkeyup="searchProduct(1)" type="text" name="search-product" id="search-product">
                         </div>
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
@@ -210,7 +210,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="control-label">Giá bán</label>
-                                <input name="price" id="price-pro" class="form-control" type="number">
+                                <input name="price" id="price-pro" class="form-control" type="text" onchange="format_curency(this);">
                                 <span class="form-message"></span>
                             </div>
                             <div class="form-group  col-md-6">
@@ -310,19 +310,30 @@
     //
     // })
 
+
+    //format giá tiền
+    function format_curency(a) {
+        a.value = a.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    }
+
     checkCurPage=1;
     //text editor
 
-    // $(document).ready(function() {
-    //     page(1,'all');
-    //     $('#detail').summernote();
-    // });
     $(document).ready(function() {
         page(1,'all');
         loadBrand();
         $('#detail').summernote({
             height: 100,
             focus: true,
+        });
+
+
+        $('#summernote').summernote({
+            callbacks: {
+                onChange: function() {
+                    $('#mess-detail').text('');
+                }
+            }
         });
     });
 
@@ -344,10 +355,31 @@
     }
 
 
+    function removeData(){
+        $('#id-pro').val('');
+        $('#name-pro').val('');
+        //$('#lst-brand').val(data.brand.id);
+        $('#sex').val('Nam');
+        $('#origin-pro').val('');
+        $('#year-pro').val('');
+        $('#frag-pro').val('');
+        $('#gua-pro').val('');
+        $('#price-pro').val('');
+        $('#amount-pro').val('');
+        $('#name-image').val('');
+        $('#show-image').empty();
+        $('#short-detail').val('');
+        $('#detail').summernote('code','');
+    }
     //close modal
     $( "#cancel-modal" ).click(function() {
         $('.form-group').removeClass('invalid');
         $('.form-message').text('');
+    });
+
+    //Clich thêm
+    $( "#insert-product" ).click(function() {
+       removeData();
     });
 
 
@@ -404,7 +436,7 @@
             html +=
                 '</td>'+
                 '<td>'+
-                    '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa" onClick="deleteBrand()">'+
+                    '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa" onClick="deleteProduct('+item.id+')">'+
                     '<i class="fas fa-trash-alt"></i>'+
                     '</button>'+
                     '<button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" '+
@@ -418,13 +450,13 @@
     }
 
     //search
-    function searchProduct(){
+    function searchProduct(curPage){
         var data = $('#search-product').val().trim();
         if(data!=''){
-            page(1,data);
+            page(curPage,data);
         }
         if(data==''){
-            page(1,'all');
+            page(curPage,'all');
         }
     }
 
@@ -432,13 +464,7 @@
 
 
     //validate
-    $('#summernote').summernote({
-        callbacks: {
-            onChange: function() {
-                $('#mess-detail').text('');
-            }
-        }
-    });
+
     Validator({
         form: '#form-product',
         errorSelector: '.form-message',
@@ -467,7 +493,8 @@
                 cache: false,
                 timeout: 600000,
                 success: function (data) {
-                    $('#modalBrand').modal('hide');
+                    $('#ModalUP').modal('hide');
+                    removeData();
                     if(data.message==1){
                         messageSuccess('Thành công!', 'Thêm sản phẩm thành công');
                         page(1,'all');//về trang đầu tiên
@@ -489,46 +516,6 @@
             });
         }
     });
-
-
-    //Hiển thị ảnh
-    function readURL(input, thumbimage) {
-        if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#thumbimage").attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-        else { // Sử dụng cho IE
-            $("#thumbimage").attr('src', input.value);
-
-        }
-        $("#thumbimage").show();
-        $('.filename').text($("#uploadfile").val());
-        $('.Choicefile').css('background', '#14142B');
-        $('.Choicefile').css('cursor', 'default');
-        $(".removeimg").show();
-        $(".Choicefile").unbind('click');
-
-    }
-    $(document).ready(function () {
-        $(".Choicefile").bind('click', function () {
-            $("#uploadfile").click();
-
-        });
-        $(".removeimg").click(function () {
-            $("#thumbimage").attr('src', '').hide();
-            $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
-            $(".removeimg").hide();
-            $(".Choicefile").bind('click', function () {
-                $("#uploadfile").click();
-            });
-            $('.Choicefile').css('background', '#14142B');
-            $('.Choicefile').css('cursor', 'pointer');
-            $(".filename").text("");
-        });
-    })
 
 //    update product
     function getModalProduct(id){
@@ -564,6 +551,47 @@
         });
     }
 
+
+    //delete product
+    function deleteProduct(id){
+        Swal.fire({
+            title: 'Xác nhận xóa!',
+            text: "Bạn có chắc chắn muốn xóa sản phẩm này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'green',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText:'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/admin/delete_product",
+                    data: {
+                        id:id,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.message==true){
+                            messageSuccess('Thành công!', 'Xóa sản phẩm thành công.');
+                            searchProduct(checkCurPage);
+                        }
+                        if(data.message==false){
+                            messageError('Thất bại!', 'Không thể xóa sản phẩm này.');
+                            searchProduct(checkCurPage);
+                        }
+
+                    },
+                    error: function (e) {
+                        messageError('Thất bại!','Lỗi hệ thống.')
+                        console.log("ERROR : ", e);
+                    }
+                });
+            }
+        })
+    }
 </script>
 
 </th:block>
