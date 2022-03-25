@@ -227,19 +227,37 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Ảnh sản phẩm</label>
+                                <br>
+                                <div id="show-image">
 
-                                <div id="myfileupload">
-                                    <input type="file" id="uploadfile" name="fileImage" accept="image/png, image/jpeg, image/jpg" onchange="readURL(this);" />
-                                    <span style="color: red" class="form-message"></span>
                                 </div>
-                                <div id="thumbbox">
-                                    <img height="200" width="200" alt="Thumb image" id="thumbimage" style="display: none" />
-                                    <a id="cancel-image" class="removeimg" href="javascript:"></a>
-                                </div>
-                                <div id="boxchoice">
-                                    <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
-                                    <p style="clear:both"></p>
-                                </div>
+                                <br>
+                                <input type="hidden" name="image" id="name-image"/>
+                                <input id="check-image" type="hidden" value="check"/>
+                                <p><label class="Choicefile" for="ufile" style="cursor: pointer; padding-top:5px">Chọn file ảnh</label></p>
+                                <input name="fileImage" id="ufile" type="file" style="display: none;" accept="image/*" onchange="loadFile(event)" />
+                                <span style="color: red" class="form-message"></span>
+
+
+<!--                               <p><label for="ufile" class="au-input au-input&#45;&#45;full font-weight-bold text-center"-->
+<!--                               style="background-color: rgb(41, 167, 248);"><span style="color:white">Chọn Ảnh</span></label></p>-->
+<!--                                <input type="file" id="inputFile" path="inputFile" multiple="multiple"-->
+<!--                                       name="Icon" class="form-control" style="display:none" accept="image/*" />-->
+
+
+
+<!--                                <div id="myfileupload">-->
+<!--                                    <input type="file" id="uploadfile" name="fileImage" accept="image/png, image/jpeg, image/jpg" onchange="readURL(this);" />-->
+<!--                                    <span style="color: red" class="form-message"></span>-->
+<!--                                </div>-->
+<!--                                <div id="thumbbox">-->
+<!--                                    <img height="200" width="200" alt="Thumb image" id="thumbimage" style="display: none" />-->
+<!--                                    <a id="cancel-image" class="removeimg" href="javascript:"></a>-->
+<!--                                </div>-->
+<!--                                <div id="boxchoice">-->
+<!--                                    <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>-->
+<!--                                    <p style="clear:both"></p>-->
+<!--                                </div>-->
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Mô tả ngắn</label>
@@ -250,7 +268,7 @@
                                 <label class="control-label">Mô chỉ tiết</label>
 
                                 <textarea id="detail" class="form-control" name="detailDescription"></textarea>
-                                <span class="form-message"></span>
+                                <span id="mess-detail" class="form-message"></span>
                             </div>
                         </div>
                         <BR>
@@ -273,6 +291,24 @@
 
 <th:block id="js-resources">
 <script>
+    var loadFile = function (event) {
+        var file = $('#ufile')[0].files[0];
+        if(file!=null) {
+            $('#show-image').html('<img id="output" class="img-rounded" alt="Ảnh" width="150" height="150" />');
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+    };
+    // $("#inputFile").change( () => {
+    //     let file = $('#inputFile')[0].files[0];
+    //     if (file == null) {
+    //         $('#error_image').show();
+    //         $('#error_image').text("Ảnh danh mục không được để trống");
+    //     } else {
+    //         $('#error_image').hide();
+    //     }
+    //
+    // })
 
     checkCurPage=1;
     //text editor
@@ -393,6 +429,16 @@
     }
 
 
+
+
+    //validate
+    $('#summernote').summernote({
+        callbacks: {
+            onChange: function() {
+                $('#mess-detail').text('');
+            }
+        }
+    });
     Validator({
         form: '#form-product',
         errorSelector: '.form-message',
@@ -404,7 +450,7 @@
             Validator.isRequired('#gua-pro'),
             Validator.isRequired('#price-pro'),
             Validator.isRequired('#amount-pro'),
-            Validator.isRequired('#uploadfile','Vui lòng chọn ảnh'),
+            Validator.isImage('#ufile',document.getElementById('name-image')),
             Validator.isRequired('#short-detail'),
             Validator.isRequired('#detail'),
         ],
@@ -506,21 +552,11 @@
                     $('#gua-pro').val(data.guarantee);
                     $('#price-pro').val(data.price);
                     $('#amount-pro').val(data.amount);
-                    $('#uploadfile').val(data.image);
-
-
-                    $('#thumbimage').show();
-                    $('#cancel-image').css('display','inline');
-                    $("#thumbimage").attr('src','/uploads/product/'+data.image);
-
+                    $('#name-image').val(data.image);
+                    $('#show-image').html('<img id="output" class="img-rounded" alt="Ảnh" width="150" height="150" src="/uploads/product/'+data.image+'" />');
+                    // $('#ufile').val('/uploads/product/'+data.image);
                     $('#short-detail').val(data.shortDescription);
-                    // $('#detail').val(data.detailDescription);
-                    //$('.note-editable').html(data.detailDescription);
-                var html = 'Hello World!!';
-                    $('#detail').summernote('code',html);
-                // $('#detail').summernote({
-                //     code:data.detailDescription,
-                // });
+                    $('#detail').summernote('code',data.detailDescription);
             },
             error : function(e) {
                 console.log("ERROR: ", e);

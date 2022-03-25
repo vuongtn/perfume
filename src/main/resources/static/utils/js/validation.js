@@ -143,3 +143,14 @@ Validator.isPhone = function(selector,message) {
         }
     };
 }
+
+Validator.isImage = function(selector,fileName,message) {
+    return {
+        selector: selector,
+        test: function(value) {
+            console.log(fileName);
+            console.log(value);
+            return (fileName.value==''&&value.trim()=='') ? message||'Vui lòng chọn ảnh': undefined
+        }
+    };
+}

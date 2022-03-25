@@ -282,15 +282,18 @@ public class ProductServiceImpl implements ProductService {
             productDTO.setCreatedDate(perfumeUtils.getDateNow());
         }
         Product product = modelMapper.map(productDTO,Product.class);
-        product.setImage(productDTO.getFileImage().getOriginalFilename());
+        product.setImage(productDTO.getImage());
         Brand brand = brandService.getTrademarkById(productDTO.getIdBrand());
         product.setBrand(brand);
 
         //Lưu file
-        MultipartFile fileImage=productDTO.getFileImage();
-        byte[] bytes = fileImage.getBytes();
-        Path path = Paths.get(fileUpload +"product//"+ fileImage.getOriginalFilename());
-        Files.write(path, bytes);
+        if(!productDTO.getFileImage().isEmpty()) {
+            product.setImage(productDTO.getFileImage().getOriginalFilename());
+            MultipartFile fileImage = productDTO.getFileImage();
+            byte[] bytes = fileImage.getBytes();
+            Path path = Paths.get(fileUpload + "product//" + fileImage.getOriginalFilename());
+            Files.write(path, bytes);
+        }
 
         return productRepository.save(product);
     }
