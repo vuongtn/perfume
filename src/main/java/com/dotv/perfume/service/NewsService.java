@@ -7,4 +7,5 @@ import java.util.List;
 public interface NewsService {
     List<News> getListNew(int status);
     News getNewsById(int id);
+    News saveNews(News news);
 }

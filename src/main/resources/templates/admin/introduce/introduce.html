@@ -13,28 +13,75 @@
 <body>
 <th:block id="main-content">
   <main class="app-content">
-    <div class="app-title">
-      <ul class="app-breadcrumb breadcrumb side">
-        <li class="breadcrumb-item active"><a href="#"><b>Thông tin giới thiệu</b></a></li>
-      </ul>
-      <div id="clock"></div>
-    </div>
+    <h4 style="margin-top:10px; margin-bottom:10px">Thông tin giới thiệu</h4>
     <div class="row">
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
+            <form method="post" id="form-intro">
             <div class="form-group col-md-12">
               <label class="control-label">Thông tin giới thiệu</label>
-              <div id="do"></div>
+              <input name="id" id="id-introduce" type="hidden"/>
+              <textarea name="detailDescription" id="detail"></textarea>
             </div>
             <div class="form-group col-md-12">
-              <button class="btn btn-save" type="button">Lưu</button>
+              <button class="btn btn-save" type="button" onclick="saveIntro()">Lưu</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </main>
+</th:block>
+
+<th:block id="js-resources">
+<script th:inline="javascript">
+  $(document).ready(function() {
+    $('#detail').summernote({
+      height: 500,
+      focus: true,
+    });
+
+    $('#detail').summernote('code',[[${introduce}]]);
+    $('#id-introduce').val([[${idIntroduce}]]);
+
+  });
+
+
+
+  function saveIntro() {
+    var form = $('#form-intro')[0];
+    var data = new FormData(form);
+    $.ajax({
+      type: "POST",
+      enctype: 'multipart/form-data',
+      url: "/admin/save_introduce",
+      data: data,
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 600000,
+      success: function (data) {
+        if(data.message==true){
+          messageSuccess('Thành công!', 'Cập nhật giới thiệu thành công');
+        }
+        if(data.message==false){
+          messageError('Thành công!', 'Cập nhật thương hiệu thất bại');
+        }
+
+      },
+      error: function (e) {
+        messageError('Thất bại!','Lỗi hệ thống.')
+        console.log("ERROR : ", e);
+      }
+    });
+  }
+
+
+
+
+</script>
 </th:block>
 </body>
 </html>

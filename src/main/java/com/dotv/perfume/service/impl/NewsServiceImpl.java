@@ -22,4 +22,9 @@ public class NewsServiceImpl implements NewsService {
     public News getNewsById(int id) {
         return newsRepository.getById(id);
     }
+
+    @Override
+    public News saveNews(News news) {
+        return newsRepository.save(news);
+    }
 }
