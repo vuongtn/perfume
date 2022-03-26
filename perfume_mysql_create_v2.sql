@@ -118,28 +118,18 @@ CREATE TABLE `user_role` (
 
 CREATE TABLE `news` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`title` varchar(255) NOT NULL,
-	`short_description` TEXT NOT NULL,
+	`title` varchar(255),
+	`short_description` TEXT,
 	`detail_description` LONGTEXT NOT NULL,
-    `image` varchar(255) NOT NULL,
+    `image` varchar(255),
 	`created_date` DATETIME,
 	`updated_date` DATETIME,
 	`created_by` varchar(100),
 	`updated_by` varchar(100),
-	`status` BOOLEAN,
+	`status` int,
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `introduce` (
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`description` LONGTEXT NOT NULL,
-	`created_date` DATETIME,
-	`updated_date` DATETIME,
-	`created_by` varchar(100),
-	`updated_by` varchar(100),
-	`status` BOOLEAN,
-	PRIMARY KEY (`id`)
-);
 
 ALTER TABLE `product` ADD CONSTRAINT `product_fk0` FOREIGN KEY (`id_brand`) REFERENCES `brand`(`id`);
 
@@ -237,27 +227,16 @@ values
 (4,'DOLCE SHINE','Pháp','Unisex','Hoa hồng','1 tháng',2000000,'anh9.jpg','Nước hoa hương thơm ngào ngạt','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-11-09',true),
 (4,'DOLCE GABBANA FLOWER EDP','Pháp','Unisex','Hoa hồng','1 tháng',2200000,'anh10.jpg','Nước hoa hương thơm ngào ngạt','dfasdfasdfasfdasfdasfdasfdasfasfasfdasfasfasfasfasfasfasfasfasfasfdasf',100,'2021-11-09',true);
 
--- insert data introduce
-select * from introduce;
-insert into introduce(description,status) values(" ĐỘ Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-						",true);
                         
 -- insert data news
 select * from news;
 insert into news(title,short_description,detail_description,image,created_date,status) values
-('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',true),
-('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',true),
-('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',true),
-('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',true),
-('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',true),
-('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',true);
+('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',0),
+('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',1),
+('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',1),
+('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',1),
+('Nước hoa pháp mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddd','anh1.jpg','2021-12-09',1),
+('Nước hoa mỹ mới ra mắt năm 2022','dfddddddddddddddddddddddddddddddddddddddddddddd','độdfddddddddddddddddddddddddddddddddddddddddddddddf','anh1.jpg','2019-12-09',1);
 
 
 -- insert bảng role

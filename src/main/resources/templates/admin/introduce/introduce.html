@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý giới thiệu</title>
+</head>
+<body>
+<th:block id="main-content">
+  <main class="app-content">
+    <div class="app-title">
+      <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Thông tin giới thiệu</b></a></li>
+      </ul>
+      <div id="clock"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tile">
+          <div class="tile-body">
+            <div class="form-group col-md-12">
+              <label class="control-label">Thông tin giới thiệu</label>
+              <div id="do"></div>
+            </div>
+            <div class="form-group col-md-12">
+              <button class="btn btn-save" type="button">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</th:block>
+</body>
+</html>

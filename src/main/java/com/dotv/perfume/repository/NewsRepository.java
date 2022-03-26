@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface NewsRepository extends JpaRepository<News,Integer> {
 //    sắp xếp theo tín tức mới nhất
-    List<News> findAllByStatusOrderByCreatedDateDesc(Boolean status);
+    List<News> findAllByStatusOrderByCreatedDateDesc(int status);
 }

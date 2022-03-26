@@ -19,26 +19,17 @@
                     </div>
                     <!-- BSTORE-BREADCRUMB END -->
                     <!--                    <h2 >D.Perfume</h2>-->
-                    <p th:text="${news.detailDescription}">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa ratione magnam cupiditate! Eum deleniti quam amet praesentium voluptatum ipsa veritatis necessitatibus! Amet placeat illo repellat sint quasi officia sed!
-                    </p>
+                    <div id="detail-news">
+
+                    </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </section>
     <!-- MAIN-CONTENT-SECTION END -->
-
 </div>
+<script layout:fragment="news_detail_js" th:inline="javascript">
+    $('#detail-news').html([[${news.detailDescription}]]);
+</script>
 </body>
 </html>

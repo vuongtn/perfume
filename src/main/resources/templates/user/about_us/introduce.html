@@ -19,7 +19,10 @@
                     </div>
                     <!-- BSTORE-BREADCRUMB END -->
                     <!--                    <h3>D.Perfume</h3>-->
-                    <p th:text="${introduce.description}"></p>
+                    <div id="introduce">
+
+                    </div>
+
                 </div>
 
             </div>
@@ -30,5 +33,8 @@
     </section>
     <!-- MAIN-CONTENT-SECTION END -->
 </div>
+<script layout:fragment="introduce_js" th:inline="javascript">
+    $('#introduce').html([[${introduce}]]);
+</script>
 </body>
 </html>

@@ -35,7 +35,7 @@ public class News {
     private String updatedBy;
 
     @Column(name = "status")
-    private Boolean status;
+    private Integer status;
 
     public Integer getId() {
         return this.id;
@@ -101,11 +101,11 @@ public class News {
         this.updatedBy = updatedBy;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return this.status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

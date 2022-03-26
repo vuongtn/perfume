@@ -27,7 +27,7 @@ public class NewsController extends BaseController {
 
     @GetMapping("/news")
     public String getAllNews(@RequestParam int curPage, Model model){
-        List<News> allNews=newsService.getListNew(true);
+        List<News> allNews=newsService.getListNew(1);
         List<News> lstNews=allNews.stream().skip((curPage-1)*PAGE).limit(PAGE).collect(Collectors.toList());
         int totalPage=(int)Math.ceil(allNews.size()/(float)PAGE);
 

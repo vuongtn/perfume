@@ -14,7 +14,7 @@ public class NewsServiceImpl implements NewsService {
     NewsRepository newsRepository;
 
     @Override
-    public List<News> getListNew(Boolean status) {
+    public List<News> getListNew(int status) {
         return newsRepository.findAllByStatusOrderByCreatedDateDesc(status);
     }
 
