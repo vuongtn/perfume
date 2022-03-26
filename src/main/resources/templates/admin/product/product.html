@@ -165,9 +165,9 @@
                     </div>
                     <form id="form-product" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-12" id="div-id">
                                 <label class="control-label">Mã sản phẩm </label>
-                                <input name="id" id="id-pro" class="form-control" type="number" readonly>
+                                <input name="id" id="id-pro" class="form-control" type="number" readonly placeholder="Tự tăng">
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Tên sản phẩm</label>
@@ -291,6 +291,41 @@
 
 <th:block id="js-resources">
 <script>
+    //format price khi nhap
+    $('#price-pro').on( "keyup", function( event ) {
+        // When user select text in the document, also abort.
+        // var selection = window.getSelection().toString();
+        // if (selection !== '') {
+        //     return;
+        // }
+        // When the arrow keys are pressed, abort.
+        if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
+            return;
+        }
+        var $this = $(this);
+        // Get the value.
+        var input = $this.val();
+        var input = input.replace(/[\D\s\._\-]+/g, "");
+        input = input ? parseInt(input, 10) : 0;
+        $this.val(function () {
+            return (input === 0) ? "" : input.toLocaleString({style : 'currency', currency : 'VND'});
+        });
+    });
+
+    //Khi nhap so am
+    $('#amount-pro').on( "keyup", function() {
+        var $this = $(this);
+        if($this.val()<=0){
+            $this.val('');
+        }
+    });
+    $('#year-pro').on( "keyup", function() {
+        var $this = $(this);
+        if($this.val()<=0){
+            $this.val('');
+        }
+    });
+
     var loadFile = function (event) {
         var file = $('#ufile')[0].files[0];
         if(file!=null) {
@@ -312,9 +347,9 @@
 
 
     //format giá tiền
-    function format_curency(a) {
-        a.value = a.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-    }
+    // function format_curency(a) {
+    //     a.value = a.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    // }
 
     checkCurPage=1;
     //text editor
@@ -379,6 +414,7 @@
 
     //Clich thêm
     $( "#insert-product" ).click(function() {
+        $('#div-id').hide();
        removeData();
     });
 
@@ -483,6 +519,7 @@
         onSubmit: function (form1) {
             var form = $('#form-product')[0];
             var data = new FormData(form);
+            data.set('price',data.get('price').replace(/\./g,''));
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
@@ -501,7 +538,7 @@
                     }
                     if(data.message==2){
                         messageSuccess('Thành công!', 'Cập nhật sản phẩm thành công');
-                        page(checkCurPage,'all');//về trang hiện tại
+                        searchProduct(checkCurPage);//về trang hiện tại
                     }
                     if(data.message==3){
                         messageError('Thất bại!','Lỗi hệ thống.')
@@ -519,6 +556,7 @@
 
 //    update product
     function getModalProduct(id){
+        $('#div-id').show();
         $.ajax({
             type : "GET",
             contentType : "application/json",
@@ -537,7 +575,7 @@
                     $('#year-pro').val(data.manufactureYear);
                     $('#frag-pro').val(data.fragrant);
                     $('#gua-pro').val(data.guarantee);
-                    $('#price-pro').val(data.price);
+                    $('#price-pro').val(data.price.toLocaleString({style : 'currency', currency : 'VND'}));
                     $('#amount-pro').val(data.amount);
                     $('#name-image').val(data.image);
                     $('#show-image').html('<img id="output" class="img-rounded" alt="Ảnh" width="150" height="150" src="/uploads/product/'+data.image+'" />');
