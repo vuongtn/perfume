@@ -48,7 +48,7 @@ public class Bill {
     private Integer status;
 
     @OneToMany(mappedBy = "bill",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//    @JsonIgnore
+    @JsonIgnore
     private List<BillDetail> billDetails;
 
     @ManyToOne(fetch = FetchType.LAZY)

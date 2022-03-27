@@ -65,4 +65,9 @@ public class BillServiceImpl implements BillService {
     public int updateSatatusBill(int status, int idBill) {
         return billRepository.updateStatusBill(status,idBill);
     }
+
+    @Override
+    public List<Bill> getBillByStatus(int status) {
+        return billRepository.findAllByStatus(status);
+    }
 }

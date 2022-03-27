@@ -20,4 +20,5 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
     @Query("update Bill b set b.status=?1 where b.id=?2")
     int updateStatusBill(int status,int idBill);
 
+    List<Bill> findAllByStatus(int status);
 }
