@@ -43,12 +43,12 @@
 
                                         <div class="form-group primary-form-group">
                                             <label>Họ và tên</label>
-                                            <input oninput="closeError(1)" type="text" class="form-control input-feild" id="contactEmail" th:field="*{fullName}">
+                                            <input oninput="closeError(1)" type="text" class="form-control input-feild" id="contact-name" th:field="*{fullName}">
                                             <span id="closeErr1" class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">*sdsd</span>
                                         </div>
                                         <div class="form-group primary-form-group">
                                             <label>Địa chỉ email</label>
-                                            <input oninput="closeError(2)" type="text" class="form-control input-feild" id="contactEmail1" th:field="*{email}"  >
+                                            <input oninput="closeError(2)" type="text" class="form-control input-feild" id="contact-email" th:field="*{email}"  >
                                             <span id="closeErr2" class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">*sdsd</span>
                                         </div>
 
@@ -60,7 +60,7 @@
                                         <div class="type-of-text">
                                             <div class="form-group primary-form-group">
                                                 <label>Nội dung</label>
-                                                <textarea oninput="closeError(3)" class="contact-text" th:field="*{content}"></textarea>
+                                                <textarea oninput="closeError(3)" class="contact-text" id="contact-note" th:field="*{content}"></textarea>
                                             </div>
                                             <span id="closeErr3" class="text-danger closeErr" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">*sdsd</span>
                                         </div>
@@ -81,6 +81,11 @@
     function closeError(stt) {
         var x = document.getElementById("closeErr"+stt);
         x.remove();
+    }
+    if([[${checkSuccess}]]==2){
+        $('#contact-name').val('');
+        $('#contact-email').val('');
+        $('#contact-note').val('');
     }
 </script>
 </body>

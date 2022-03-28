@@ -1,6 +1,7 @@
 package com.dotv.perfume.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "contact")
@@ -22,8 +23,30 @@ public class Contact {
     @Column(name = "created_date")
     private java.sql.Timestamp createdDate;
 
+    @Column(name = "updated_date")
+    private java.sql.Timestamp updatedDate;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
     @Column(name = "status")
     private Boolean status;
+
+    public Timestamp getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Timestamp updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
     public Integer getId() {
         return this.id;

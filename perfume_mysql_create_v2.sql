@@ -87,6 +87,8 @@ CREATE TABLE `contact` (
 	`email` varchar(50) NOT NULL,
 	`content` TEXT NOT NULL,
 	`created_date` DATETIME,
+    `updated_date` DATETIME,
+	`updated_by` varchar(100),
 	`status` BOOLEAN,
 	PRIMARY KEY (`id`)
 );
@@ -165,8 +167,9 @@ ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
 ALTER TABLE user DROP COLUMN phone;
 -- thêm cột
-ALTER TABLE product ADD COLUMN manufacture_year int;
-
+ALTER TABLE contact ADD COLUMN updated_by varchar(100);
+ `updated_date` DATETIME,
+	`updated_by` varchar(100),
 drop table news;
 select * from product;
 

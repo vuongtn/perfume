@@ -8,9 +8,219 @@
                                                )}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quản lý liên hệ</title>
 </head>
 <body>
+<th:block id="main-content">
+<main class="app-content">
+    <h4 style="margin-top:10px; margin-bottom:10px">Danh sách liên hệ</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row element-button">
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm nhap-tu-file" type="button" onclick="page(1,1)">Tất cả</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-excel btn-sm" type="button" onclick="page(1,2)">Đã liên hệ</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm pdf-file" type="button" onclick="page(1,3)">Chưa liên hệ</a>
+                        </div>
 
+                    </div>
+                    <h5 id="title-contact">Đơn hàng</h5>
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Họ và tên</th>
+                            <th>Email</th>
+                            <th>Nội dung liên hệ</th>
+                            <th>Thời gian</th>
+                            <th>Người liên hệ</th>
+                            <th>Trạng thái</th>
+                            <th>Xóa</th>
+                        </tr>
+                        </thead>
+                        <tbody id="lst-contact">
+
+
+                        </tbody>
+                    </table>
+                    <div id="pagination-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</th:block>
+<th:block id="js-resources">
+    <script th:inline="javascript">
+        $(document).ready(
+            function (){
+                page(1,1);
+
+            }
+        )
+
+        var checkCurPage=1;
+        var checkTypeContact=1;
+        //load contact
+        function page(curPage,type){
+            $('#pagination-container').pagination({
+                dataSource: function(done) {
+                    $.ajax({
+                        type: 'GET',
+                        contentType : "application/json",
+                        url: '/admin/lst_contact',
+                        data:{
+                            type:type,
+                        },
+                        dataType : 'json',
+                        success: function(response) {
+                            done(response);
+                        }
+                    });
+                },
+                pageSize: 5,
+                pageNumber:curPage,
+                pageRage:1,
+                autoHidePrevious: true,
+                autoHideNext: true,
+                hideWhenLessThanOnePage:true,
+                callback: function(data, pagination) {
+                    $('#personCancel').hide();
+                    checkTypeContact=type;
+                    if(type==1){
+                        $('#title-contact').text('Tất cả liên hệ');
+                    }
+                    if(type==2){
+                        $('#title-contact').text('Đã liên hệ');
+                    }
+                    if(type==3){
+                        $('#title-contact').text('Chưa liên hệ');
+                    }
+                    var html = loadTable(data);
+                    $('#lst-contact').html(html);
+                    checkCurPage=pagination.pageNumber;
+                }
+            })
+        }
+
+        function formatDate(dateTime){
+            var date = new Date(dateTime);
+            var dateStr =
+                ("00" + date.getDate()).slice(-2) + "/" +
+                ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+                date.getFullYear() + " " +
+                ("00" + date.getHours()).slice(-2) + ":" +
+                ("00" + date.getMinutes()).slice(-2) + ":" +
+                ("00" + date.getSeconds()).slice(-2);
+            return dateStr;
+        }
+
+        //for load dữ liệu
+        function loadTable(data){
+            var html = '';
+            $.each(data, function(index, item) {
+                var person='';
+                if(item.updatedBy!=null){
+                    person=item.updatedBy;
+                }
+                html+=
+                    '<tr>'+
+                        '<td>'+item.id+'</td>'+
+                        '<td>'+item.fullName+'</td>'+
+                        '<td>'+item.email+'</td>'+
+                        '<td>'+item.content+'</td>'+
+                        '<td>'+formatDate(item.createdDate)+'</td>'+
+                        '<td>'+person+'</td>';
+                    if(item.status==true){
+                        html+='<td><span onclick="updateStatus('+item.id+',false)" style="cursor: pointer" class="badge bg-success">Đã liên hệ</span></td>';
+                    }
+                    if(item.status==false){
+                        html+='<td><span onclick="updateStatus('+item.id+',true)" style="cursor: pointer" class="badge bg-danger">Chưa liên hệ</span></td>';
+                    }
+                    html+='<td>'+
+                            '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa"'+
+                                    'onclick="deleteContact('+item.id+')"><i class="fas fa-trash-alt"></i>'+
+                            '</button>'+
+                        '</td>'+
+                    '</tr>';
+            })
+            return html;
+        }
+
+        //update status contact
+        function updateStatus(id,status){
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/admin/update_status_contact",
+                data: {
+                    id:id,
+                    status:status,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if(data.message==true){
+                        page(checkCurPage,checkTypeContact);
+                        messageSuccess('Thành công!', 'Cập nhật trạng thái liên hệ thành công.');
+                    }
+                    if(data.message==false){
+                        messageError('Thất bại!', 'Cập nhật trạng thái liên hệ thất bại.');
+                    }
+
+                },
+                error: function (e) {
+                    messageError('Thất bại!','Lỗi hệ thống.')
+                    console.log("ERROR : ", e);
+                }
+            });
+        };
+
+        //Xóa liên hệ
+        function deleteContact(id){
+            Swal.fire({
+                title: 'Xác nhận xóa!',
+                text: "Bạn có chắc chắn muốn xóa liên hệ này?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'green',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa',
+                cancelButtonText:'Hủy',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: "/admin/delete_contact",
+                        data: {
+                            id:id,
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if(data.message==true){
+                                page(checkCurPage,1);
+                                messageSuccess('Thành công!', 'Xóa liên hệ thành công.');
+                            }
+                            if(data.message==false){
+                                messageError('Thất bại!', 'Xóa liên hệ thất bại.');
+                            }
+
+                        },
+                        error: function (e) {
+                            messageError('Thất bại!','Lỗi hệ thống.')
+                            console.log("ERROR : ", e);
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+</th:block>
 </body>
 </html>
