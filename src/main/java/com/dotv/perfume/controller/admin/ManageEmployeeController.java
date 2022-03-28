@@ -1,7 +1,8 @@
 package com.dotv.perfume.controller.admin;
 
+import com.dotv.perfume.controller.BaseController;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ManageEmployeeController {
+public class ManageEmployeeController extends BaseController {
 }

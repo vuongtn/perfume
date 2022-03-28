@@ -62,8 +62,8 @@ public class BillServiceImpl implements BillService {
 
     @Override
     @Transactional
-    public int updateSatatusBill(int status, int idBill) {
-        return billRepository.updateStatusBill(status,idBill);
+    public int updateSatatusBill(Bill bill) {
+        return billRepository.updateStatusBill(bill.getStatus(),bill.getUpdatedBy(),bill.getUpdatedDate(),bill.getId());
     }
 
     @Override

@@ -89,9 +89,18 @@ public class BillController extends BaseController {
     @PostMapping("/update-status-bill")
     public ResponseEntity<JSONObject> updateStatusBill(@RequestParam int id,@RequestParam int status){
         JSONObject result = new JSONObject();
-        result.put("message", Boolean.FALSE);
-        if(billService.updateSatatusBill(status,id)>0)
+        try {
+            Bill bill = new Bill();
+            bill.setStatus(status);
+            bill.setId(id);
+            bill.setUpdatedDate(perfumeUtils.getDateNow());
+            bill.setUpdatedBy("Khách hàng");
+            billService.updateSatatusBill(bill);
             result.put("message", Boolean.TRUE);
+        }
+        catch (Exception e){
+            result.put("message", Boolean.FALSE);
+        }
         return ResponseEntity.ok(result);
     }
 }

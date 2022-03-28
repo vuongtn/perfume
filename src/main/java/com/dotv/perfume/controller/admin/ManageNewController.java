@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.admin;
 
+import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.News;
 import com.dotv.perfume.service.NewsService;
 import com.dotv.perfume.utils.PerfumeUtils;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class ManageNewController {
+public class ManageNewController extends BaseController {
     @Autowired
     NewsService newsService;
 

@@ -8,7 +8,7 @@
                                                )}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quản lý đơn hàng</title>
 </head>
 <body>
 <th:block id="main-content">
@@ -42,6 +42,7 @@
                                 <th>Giá trị</th>
                                 <th>Ngày đặt</th>
                                 <th>Tình trạng</th>
+                                <th id="personCancel" style="display: none">Người hủy</th>
                                 <th>Chức năng</th>
                             </tr>
                             </thead>
@@ -71,7 +72,78 @@
                 </div>
             </div>
         </div>
+
     </main>
+    <!-- Modal -->
+    <!-- Thông tin chi tiết đơn hàng -->
+    <div class="modal fade" id="myModalBill" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div style="padding: 15px 0px 10px 17px; border-bottom: 1px solid #e5e5e5; ">
+                    <h5 class="modal-title">Đơn hàng:#<span id="id-bill">1</span> - <span id="status-bill">Đã hủy</span></h5>
+                </div>
+                <div class="modal-body" >
+                    <h5 style="margin-top:10px">Thông tin người nhận</h5>
+                    <br>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Họ tên người nhận</td>
+                            <td id="m_fullName">Nguyễn Văn A</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td id="m_emal">adf@sdf.com</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại</td>
+                            <td id="m_phone">0988777665</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td id="m_address">Nhổn - Đại học Công Nghiệp Hà Nội</td>
+                        </tr>
+                        <tr>
+                            <td>Hình thức thanh toán</td>
+                            <td id="m_payment">Thanh toán khi nhân hàng</td>
+                        </tr>
+                        <tr>
+                            <td>Ghi chú</td>
+                            <td id="m_note">Gửi giờ hành chính</td>
+                        </tr>
+                        <tr>
+                            <td>Tổng tiền thanh toán</td>
+                            <td id="m_total">14.000.000 VNĐ</td>
+                        </tr>
+                    </table>
+                    <h5>Chi tiết sản phẩm</h5>
+                    <br>
+                    <div id="list-pro-bill">
+
+                    </div>
+                    <!--                                    <div class="product">-->
+                    <!--                                        <div class="product-image-cart">-->
+                    <!--                                            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">-->
+                    <!--                                        </div>-->
+                    <!--                                        <div class="product-details" style="width:80%">-->
+                    <!--                                            <p class="product-description">Nước hoa abcdxyz</p>-->
+                    <!--                                            <div class="product-title">Số lượng: 1</div>-->
+                    <!--                                            <div class="product-title">Giá: 100.000đ</div>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+
+                </div>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-cancel" id="cancel-modal" data-dismiss="modal" href="#">Đóng</a>
+                                                </div>
+                <br>
+            </div>
+
+        </div>
+    </div>
+    <!-- ALL GATEGORY-PRODUCT END -->
+
 </th:block>
 
 <th:block id="js-resources">
@@ -84,6 +156,7 @@
         )
 
         var checkCurPage=1;
+        var checkTypeOrder=1;
         //load bill
         function page(curPage,status){
             $('#pagination-container').pagination({
@@ -108,6 +181,8 @@
                 autoHideNext: true,
                 hideWhenLessThanOnePage:true,
                 callback: function(data, pagination) {
+                    $('#personCancel').hide();
+                    checkTypeOrder=status;
                     if(status==1){
                         $('#title-order').text('Đơn hàng đang xử lý');
                     }
@@ -118,6 +193,7 @@
                         $('#title-order').text('Đơn hàng đã giao');
                     }
                     if(status==4){
+                        $('#personCancel').show();
                         $('#title-order').text('Đơn hàng đã hủy');
                     }
                     var html = loadTable(data,status);
@@ -153,14 +229,14 @@
                         '<td>';
                             if(status==1){
                                 html+=
-                                    '<select id="" style="width:90px">'+
+                                    '<select id="status-order" style="width:90px" onchange="updateStatus('+item.id+')">'+
                                     '<option value="1">Đang xử lý</option>'+
                                     '<option value="2">Đang giao</option>'+
                                     '</select>';
                             }
                             if(status==2){
                                 html+=
-                                    '<select id="" style="width:90px">'+
+                                    '<select id="status-order" style="width:90px" onchange="updateStatus('+item.id+')">'+
                                     '<option value="2">Đang giao</option>'+
                                     '<option value="3">Đã giao</option>'+
                                     '</select>';
@@ -173,18 +249,157 @@
                                 html+='Đã hủy';
                             }
                         html+=
-                        '</td>'+
+                        '</td>';
+                            if(status==4){
+                                html+='<td>'+item.updatedBy+'</td>';
+                            }
+                        html+=
                         '<td>';
                             if(status==1){
                                 html+=
-                                    '<button class="btn btn-primary btn-sm trash" type="button" title="Hủy"><i class="fas fa-trash-alt"></i></button>';
+                                    '<button class="btn btn-primary btn-sm trash" type="button" title="Hủy" onclick="cancelBill('+item.id+')"><i class="fas fa-trash-alt"></i></button>';
                             }
                             html+=
-                            '<button class="btn btn-primary btn-sm edit" type="button" title="Xem"><i class="fa fa-edit"></i></button>'+
+                            '<button class="btn btn-primary btn-sm edit" type="button" title="Xem"' +
+                            'onclick="getModal('+item.id+',\''+item.receiverName+'\',\''+item.receiverEmail+'\',\''+item.receiverPhone+'\',\''+item.receiverAddress+'\',\''+item.payment+'\',\''+item.totalPrice+'\',\''+item.note+'\','+item.status+')"'+
+                            '>' +
+                            '<i class="fa fa-edit"></i></button>'+
                         '</td>'+
                     '</tr>'
             });
             return html;
+        }
+
+
+        //Cập nhật trạng thái đơn hàng
+        function updateStatus(id){
+            var status=$('#status-order').val();
+            console.log(status);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/admin/update_status_order",
+                data: {
+                    id:id,
+                    status:status,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if(data.message==true){
+                        page(checkCurPage,checkTypeOrder);
+                        messageSuccess('Thành công!', 'Cập nhật trạng thái đơn hàng thành công.');
+                    }
+                    if(data.message==false){
+                        messageError('Thất bại!', 'Cập nhật trạng thái đơn hàng thất bại.');
+                    }
+
+                },
+                error: function (e) {
+                    messageError('Thất bại!','Lỗi hệ thống.')
+                    console.log("ERROR : ", e);
+                }
+            });
+        };
+
+        //Hủy đơn hàng
+        function cancelBill(id){
+            Swal.fire({
+                title: 'Xác nhận hủy đơn!',
+                text: "Bạn có chắc chắn muốn hủy đơn hàng này?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'green',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText:'Hủy',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: "/admin/update_status_bill",
+                        data: {
+                            id:id,
+                            status:4,
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if(data.message==true){
+                                page(checkCurPage,1);
+                                messageSuccess('Thành công!', 'Hủy đơn hàng thành công.');
+                            }
+                            if(data.message==false){
+                                messageError('Thất bại!', 'Hủy đơn hàng thất bại.');
+                            }
+
+                        },
+                        error: function (e) {
+                            messageError('Thất bại!','Lỗi hệ thống.')
+                            console.log("ERROR : ", e);
+                        }
+                    });
+                }
+            })
+        }
+
+        //show bill
+        function getModal(id,fullName,email,phone,address,payment,totalPrice,note,status){
+            var totalMoney=parseFloat(totalPrice).toLocaleString({style : 'currency', currency : 'VND'});
+            $('#id-bill').text(id);
+            if(status==1){
+                $('#status-bill').text('Đang xử lý');
+            }
+            if(status==2){
+                $('#status-bill').text('Đang giao');
+            }
+            if(status==3){
+                $('#status-bill').text('Đã giao');
+            }
+            if(status==4){
+                $('#status-bill').text('Đã hủy');
+            }
+            $('#m_fullName').text(fullName);
+            $('#m_emal').text(email);
+            $('#m_phone').text(phone);
+            $('#m_address').text(address);
+            $('#m_payment').text(payment);
+            $('#m_note').text(note);
+            $('#m_total').text(totalMoney+'đ');
+
+
+            $.ajax({
+                type : "post",
+                enctype: 'multipart/form-data',
+                url : "/product_in_bill",
+                data : {
+                    idBill:id,
+                },
+                dataType : 'json',
+                // timeout : 100000,
+                success : function(data) {
+                    $('#list-pro-bill').empty();
+                    $.each(data,function (i,item){
+                            var total=item.currentlyPrice.toLocaleString({style : 'currency', currency : 'VND'});
+                            $('#list-pro-bill').append(
+                                '<div class="product" >'+
+                                '<div class="product-image-cart">'+
+                                '<img src="/uploads/product/'+item.image+'">'+
+                                '</div>'+
+                                '<div class="product-details">'+
+                                '<p class="product-description">'+item.name+'</p>'+
+                                '<div class="product-title">Số lượng: '+item.amount+'</div>'+
+                                '<div class="product-title">Giá: '+total+'đ</div>'+
+                                '</div>'+
+                                '</div>'
+                            )
+                        }
+                    )
+                },
+                error : function(e) {
+                    console.log("ERROR: ", e);
+                }
+            });
+            $('#myModalBill').modal('show');
         }
     </script>
 </th:block>

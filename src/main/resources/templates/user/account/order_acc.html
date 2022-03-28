@@ -310,13 +310,13 @@
 
     function cancelBill(id){
         Swal.fire({
-            title: 'Xác nhận xóa!',
+            title: 'Xác nhận hủy đơn!',
             text: "Bạn có chắc chắn muốn hủy đơn hàng này?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: 'green',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Hủy',
+            confirmButtonText: 'Đồng ý',
             cancelButtonText:'Hủy',
         }).then((result) => {
             if (result.isConfirmed) {

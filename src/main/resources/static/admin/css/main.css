@@ -1,9 +1,9 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,400i,700);
-@import url(https://fonts.googleapis.com/css?family=Niconne);
-@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');*/
+/*@import url(https://fonts.googleapis.com/css?family=Lato:300,400,400i,700);*/
+/*@import url(https://fonts.googleapis.com/css?family=Niconne);*/
+/*@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');*/
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -15727,4 +15727,77 @@ td, th {
 
 .form-group.invalid .form-message {
   color: #f33a58;
+}
+
+/*list product in bill*/
+.product-image-cart {
+  float: left;
+  width: 20%;
+}
+.product-details {
+  float: left;
+  width: 80%;
+}
+.product-price {
+  float: left;
+  width: 12%;
+}
+.product-quantity {
+  float: left;
+  width: 10%;
+}
+.product-removal {
+  float: left;
+  width: 9%;
+}
+.product-line-price {
+  float: left;
+  width: 12%;
+  text-align: right;
+}
+.group:before, .shopping-cart:before, .column-labels:before, .product:before, .totals-item:before, .group:after, .shopping-cart:after, .column-labels:after, .product:after, .totals-item:after {
+  content: '';
+  display: table;
+}
+.group:after, .shopping-cart:after, .column-labels:after, .product:after, .totals-item:after {
+  clear: both;
+}
+.group, .shopping-cart, .column-labels, .product, .totals-item {
+  zoom: 1;
+}
+.product .product-price:after, .product .product-line-price:after, .totals-value:after {
+  position: absolute;
+  margin-top: -2px;
+  font-size: 20px;
+  content: '₫';
+}
+.shopping-cart {
+  margin-top: -45px;
+}
+.column-labels label {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+.column-labels .product-image-cart, .column-labels .product-details, .column-labels .product-removal {
+  text-indent: -9999px;
+}
+.product {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.product .product-image-cart {
+  text-align: center;
+}
+.product .product-image-cart img {
+  width: 100px;
+}
+.product .product-details .product-title {
+  margin-right: 20px;
+  font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+}
+.product .product-details .product-description {
+  margin: 0px 20px 5px 0;
+  line-height: 1.4em;
 }
