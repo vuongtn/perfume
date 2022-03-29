@@ -1,5 +1,6 @@
 package com.dotv.perfume.service.impl;
 
+import com.dotv.perfume.dto.UserDTO;
 import com.dotv.perfume.entity.Role;
 import com.dotv.perfume.entity.User;
 import com.dotv.perfume.entity.UserRole;
@@ -9,6 +10,7 @@ import com.dotv.perfume.repository.UserRoleRepository;
 import com.dotv.perfume.service.UserRoleService;
 import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.PerfumeUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,9 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
     @Transactional
     public UserRole saveUser(User user) {
@@ -48,5 +53,56 @@ public class UserRoleServiceImpl implements UserRoleService {
         UserRole userRole = new UserRole(userRoleId,"GUEST",timeNow,true,user,role);
         //save userRole
         return userRoleRepository.save(userRole);
+    }
+
+    @Override
+    @Transactional
+    public void saveEmployee(UserDTO userDTO) {
+        Timestamp timeNow = perfumeUtils.getDateNow();
+        User user = modelMapper.map(userDTO,User.class);
+        user.setCreatedDate(timeNow);
+        user.setPassword(new BCryptPasswordEncoder().encode(("Admin@123")));
+        String permiss="Quản lý ";
+        for(int i=0; i<userDTO.getPermiss().length; i++){
+            if(i!=0){
+                permiss+=", ";
+            }
+            switch(userDTO.getPermiss()[i]) {
+                case "MB":
+                    permiss+="thương hiệu";
+                    break;
+                case "MP":
+                    permiss+="sản phẩm";
+                    break;
+                case "MN":
+                    permiss+="tin tức";
+                    break;
+                case "MI":
+                    permiss+="giới thiệu";
+                    break;
+                case "ME":
+                    permiss+="nhân viên";
+                    break;
+                case "MU":
+                    permiss+="khách hàng";
+                    break;
+                case "MC":
+                    permiss+="liên hệ";
+                    break;
+            }
+        }
+        user.setPermission(permiss);
+        //lưu user vào db
+        userService.saveOrUpdate(user);
+        //for tìm các role
+        for(int i=0; i<userDTO.getPermiss().length; i++){
+            Role role = roleRepository.findByCode(userDTO.getPermiss()[i]);
+            //Tạo id user_role
+            UserRoleId userRoleId = new UserRoleId(user.getId(),role.getId());
+            //Tạo user_role
+            UserRole userRole = new UserRole(userRoleId,"ADMIN_S",timeNow,true,user,role);
+            //save userRole
+            userRoleRepository.save(userRole);
+        }
     }
 }

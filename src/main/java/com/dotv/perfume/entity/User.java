@@ -205,5 +205,11 @@ public class User implements UserDetails {
         this.status = status;
     }
 
+    public String getPermission() {
+        return permission;
+    }
 
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 }

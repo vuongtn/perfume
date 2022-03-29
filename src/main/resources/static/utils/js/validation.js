@@ -148,9 +148,17 @@ Validator.isImage = function(selector,fileName,message) {
     return {
         selector: selector,
         test: function(value) {
-            console.log(fileName);
-            console.log(value);
             return (fileName.value==''&&value.trim()=='') ? message||'Vui lòng chọn ảnh': undefined
+        }
+    };
+}
+
+Validator.isCheckBox = function(selector,checkBox,message) {
+    return {
+        selector: selector,
+        test: function(value) {
+            console.log(value);
+            return value>0 ? undefined : message||'Vui lòng chọn quyền';
         }
     };
 }

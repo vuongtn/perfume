@@ -10,12 +10,21 @@ public class UserDTO {
     private String fullName;
     private String address;
     private String phone;
-    private String avatar;
+    private String permission;
     private java.sql.Timestamp createdDate;
     private java.sql.Timestamp updatedDate;
     private String createdBy;
     private String updatedBy;
     private Boolean status;
+    private String permiss[];
+
+    public String[] getPermiss() {
+        return permiss;
+    }
+
+    public void setPermiss(String[] permiss) {
+        this.permiss = permiss;
+    }
 
     public String getOldPassword() {
         return oldPassword;
@@ -89,12 +98,12 @@ public class UserDTO {
         this.phone = phone;
     }
 
-    public String getAvatar() {
-        return this.avatar;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public java.sql.Timestamp getCreatedDate() {

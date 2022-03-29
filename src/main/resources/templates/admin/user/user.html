@@ -8,9 +8,73 @@
                                                )}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quản lý tài khoản khách hàng</title>
 </head>
 <body>
+<th:block id="main-content">
+    <main class="app-content">
+        <h4 style="margin-top:10px; margin-bottom:10px">Danh sách tài khoản khách hàng</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="row element-button">
+                            <div class="col-sm-2">
+<!--                                thêm bộ lọc-->
+                            </div>
+                        </div>
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                            <tr>
 
+                                <th>Mã KH</th>
+                                <th>Tên KH</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Trạng thái</th>
+                                <th>Chức năng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>71309</td>
+                                <td>Trần Văn Độ</td>
+                                <td>dotv</td>
+                                <td>trandobn@gmail.com</td>
+                                <td>0385993661</td>
+                                <td>Lai Hạ, Lương Tài, Bắc Ninh</td>
+                                <td>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <!-- <td><a><span class="badge bg-success">Hoạt động</span></td> -->
+                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                </button>
+
+
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</th:block>
+<th:block id="js-resources">
+    <script th:inline="javascript">
+
+    </script>
+</th:block>
 </body>
 </html>
