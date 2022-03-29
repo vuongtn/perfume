@@ -21,11 +21,18 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 //    @Query("update Account a set a.status=?2 where a.id=?1")
 //    int editStatus(int id, boolean status);
     User findByUsernameAndStatus(String username, Boolean status);
+    List<User> findAllByType(String roleName);
     List<User> findByUsername(String username);
+
+    List<User> findByPhone(String phone);
     List<User> findByEmail(String email);
+    List<User> findAllByTypeAndUsername(String type, String username);
 
     @Query("select u from User u where u.id<>?1 and u.phone=?2")
     List<User> findByIdAndPhone(int id,String phone);
-    @Query("select u from User u where u.id<>?1 and u.username=?2")
-    List<User> findByIdAndUsername(int id, String username);
+    @Query("select u from User u where u.id<>?1 and u.email=?2")
+    List<User> findByIdAndEmail(int id,String email);
+    @Query("select u from User u where u.id<>?1 and u.username=?2 and u.type=?3")
+    List<User> findByIdAndUsernameAndType(int id, String username, String type);
+
 }

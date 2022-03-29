@@ -52,8 +52,11 @@ public class User implements UserDetails {
     @Column(name = "status")
     private Boolean status;
 
+    @Column(name = "type")
+    private String type;
+
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JsonIgnore
+    //@JsonIgnore
     private List<UserRole> userRoles;
 
     @OneToMany(mappedBy = "user",fetch =FetchType.LAZY)
@@ -112,6 +115,7 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return userRoles;
@@ -211,5 +215,13 @@ public class User implements UserDetails {
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

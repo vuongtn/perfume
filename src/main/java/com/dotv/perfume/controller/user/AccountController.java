@@ -69,7 +69,7 @@ public class AccountController extends BaseController {
     public String updateAcc(User user, Model model) throws Exception {
         User userLogin = getUserLogined();
         model.addAttribute("acc",userLogin);
-        if(userRepository.findByIdAndUsername(user.getId(),user.getUsername()).size()!=0){
+        if(userRepository.findByIdAndUsernameAndType(user.getId(),user.getUsername(),user.getType()).size()!=0){
             model.addAttribute("errorUser","Tên đăng nhập đã tồn tại!");
             model.addAttribute("acc",user);
             return "user/account/update_acc";

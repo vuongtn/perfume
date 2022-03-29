@@ -1,5 +1,6 @@
 package com.dotv.perfume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class UserRole implements GrantedAuthority {
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idUser")
     @JoinColumn(name = "id_user")
+    @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)

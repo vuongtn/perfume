@@ -37,24 +37,12 @@
                                 <th>Chức năng</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>71309</td>
-                                <td>Trần Văn Độ</td>
-                                <td>dotv</td>
-                                <td>Quản lý sản phẩm</td>
-                                <td>Mở</td>
-                                <!-- <td><a><span class="badge bg-success">Hoạt động</span></td> -->
-                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                </button>
-                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                            data-target="#ModalUP"><i class="fas fa-edit"></i></button>
-                                </td>
-                            </tr>
+                            <tbody id="list-employee">
+
 
                             </tbody>
                         </table>
+                        <div id="pagination-container"></div>
                     </div>
                 </div>
             </div>
@@ -79,7 +67,7 @@
                     </div>
                     <form action="post" id="form-employee">
                     <div class="row">
-                        <div class="form-group col-md-12">
+                        <div style="display: none" id="div-id" class="form-group col-md-12">
                             <label class="control-label">Mã tài khoản</label>
                             <input name="id" id="id-acc" class="form-control" type="number" readonly>
                         </div>
@@ -88,12 +76,12 @@
                             <input name="fullName" id="fullName-acc" class="form-control" type="text">
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label class="control-label">Tên đăng nhập</label>
                             <input name="username" id="username-acc" class="form-control" type="text">
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12" id="div-pass">
                             <label class="control-label">Mật khẩu (Mặc định)</label>
                             <input name="password" id="pass-acc" class="form-control" type="text" readonly value="Admin@123">
                             <span class="form-message"></span>
@@ -132,31 +120,31 @@
                                 </tr>
                                 <tr>
                                     <td>Quản lý thương hiệu</td>
-                                    <td><input class="check-pemison" type="checkbox" name="permiss" value="MB"></td>
+                                    <td><input class="check-pemison" type="checkbox" id="MB" name="permiss" value="MB"></td>
                                 </tr>
                                 <tr>
                                     <td>Quản lý sản phẩm</td>
-                                    <td><input class="check-pemison" type="checkbox" name="permiss" value="MP"></td>
+                                    <td><input class="check-pemison" type="checkbox" id="MP" name="permiss" value="MP"></td>
                                 </tr>
                                 <tr>
                                     <td>Quản lý đơn hàng</td>
-                                    <td><input class="check-pemison" type="checkbox" name="permiss" value="MO"></td>
+                                    <td><input class="check-pemison" type="checkbox" id="MO" name="permiss" value="MO"></td>
                                 </tr>
                                 <tr>
                                     <td>Quản lý khách hàng</td>
-                                    <td><input class="check-pemison" type="checkbox" name="permiss" value="MU"></td>
+                                    <td><input class="check-pemison" type="checkbox" id="MU" name="permiss" value="MU"></td>
                                 </tr>
                                 <tr>
                                     <td>Quản lý tin tức</td>
-                                    <td><input class="check-pemison" type="checkbox" name="permiss" value="MN"></td>
+                                    <td><input class="check-pemison" type="checkbox" id="MN" name="permiss" value="MN"></td>
                                 </tr>
                                 <tr>
                                     <td>Quản lý giới thiệu</td>
-                                    <td><input class="check-pemison" type="checkbox" name="permiss" value="MI"></td>
+                                    <td><input class="check-pemison" type="checkbox" id="MI" name="permiss" value="MI"></td>
                                 </tr>
                                 <tr>
                                     <td>Quản lý liên hệ</td>
-                                    <td><input class="check-pemison" type="checkbox" name="permiss" value="MC"></td>
+                                    <td><input class="check-pemison" type="checkbox" id="MC" name="permiss" value="MC"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -181,10 +169,16 @@
 </th:block>
 <th:block id="js-resources">
     <script th:inline="javascript">
+        $(document).ready(
+            function (){
+                page(1);
 
+            }
+        )
             $("#all-pemison").click(function () {
                 $('#mess-pe').text('');
                 $(".check-pemison").prop("checked", this.checked);
+                $('#check-pe').val($('.check-pemison:checked').length);
             });
 
             $('.check-pemison').click(function () {
@@ -237,28 +231,178 @@
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                        $('#ModalUP').modal('hide');
-                        remove();
-                        if(data.message==true){
+                        if(data.message==1){
+                            $('#ModalUP').modal('hide');
+                            remove();
                             messageSuccess('Thành công!', 'Thêm sản tài khoản thành công.');
-                            //page(1,'all');//về trang đầu tiên
+                            page(1);//về trang đầu tiên
                         }
-                        if(data.message==false){
-                            messageError('Thành công!', 'Thêm tài khoản thất bại.');
-                            //searchProduct(checkCurPage);//về trang hiện tại
+                        if(data.message==2){
+                            $('#ModalUP').modal('hide');
+                            remove();
+                            messageSuccess('Thành công!', 'Cập nhật tài khoản thành công.');
+                            page(checkCurPage);//về trang đầu tiên
                         }
                         if(data.message==3){
-                            messageError('Thất bại!','Lỗi hệ thống.')
+                            messageError('Cảnh báo!', 'Tên tài khoản đã tồn tại.');
+                        }
+                        if(data.message==4){
+                            messageError('Cảnh báo!', 'Email đã tồn tại.');
+                        }
+                        if(data.message==5){
+                            messageError('Cảnh báo!', 'Số điện thoại đã tồn tại.');
+                        }
+                        if(data.message==false){
+                            messageError('Thất bại!', '');
+                            //searchProduct(checkCurPage);//về trang hiện tại
                         }
 
                     },
                     error: function (e) {
-                        messageError('Thành công!', 'Thêm tài khoản thất bại.');
+                        messageError('Thất bại!', 'Lỗi hệ thống.');
                         console.log("ERROR : ", e);
                     }
                 });
             }
         });
+
+
+          //load dữ liệu
+        var checkCurPage=1;
+        function page(curPage){
+                $('#pagination-container').pagination({
+                    dataSource: function(done) {
+                        $.ajax({
+                            type: 'GET',
+                            contentType : "application/json",
+                            url: '/admin/lst_user',
+                            data:{
+                                type:'ADMIN_S',
+                            },
+                            dataType : 'json',
+                            success: function(response) {
+                                done(response);
+                            }
+                        });
+                    },
+                    pageSize: 5,
+                    pageNumber:curPage,
+                    pageRage:1,
+                    autoHidePrevious: true,
+                    autoHideNext: true,
+                    hideWhenLessThanOnePage:true,
+                    callback: function(data, pagination) {
+                        var html = loadTable(data);
+                        $('#list-employee').html(html);
+                        checkCurPage=pagination.pageNumber;
+                    }
+                })
+            }
+
+            //for load dữ liệu
+            function loadTable(data){
+                var html = '';
+                $.each(data, function(index, item){
+                    //lấy các code các quyền
+                    var roleName='';
+                    for(var i=0; i<item.userRoles.length; i++){
+                        if(i!=0){
+                            roleName+=',';
+                        }
+                        roleName+=item.userRoles[i].role.code;
+                    }
+                    var sta='Khóa';
+                    if(item.status==true){
+                        sta='Mở';
+                    }
+                    html+=
+                        '<tr>'+
+                            '<td>'+item.id+'</td>'+
+                            '<td>'+item.fullName+'</td>'+
+                            '<td>'+item.username+'</td>'+
+                            '<td>'+item.permission+'</td>'+
+                            '<td>'+sta+'</td>'+
+                            '<td>'+
+                                '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa"'+
+                                        'onclick="deleteUser('+item.id+')">'+
+                                        '<i class="fas fa-trash-alt"></i>'+
+                                '</button>'+
+                                '<button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"'+
+                                        'onclick="editUser('+item.id+',\''+item.fullName+'\',\''+item.username+'\',\''+item.email+'\',\''+item.phone+'\',\''+item.status+'\',\''+roleName+'\')"' +
+                                        'data-toggle="modal"'+
+                                        'data-target="#ModalUP"><i class="fas fa-edit"></i></button>'+
+                            '</td>'+
+                        '</tr>'
+                });
+                return html;
+            }
+
+            function editUser(id,fullName,username,email,phone,status,userRoles){
+                $('#div-pass').hide();
+                $('#div-id').show();
+                $('#title-employee').text('Cập nhật tài khoản nhân viên');
+                $('#id-acc').val(id);
+                $('#fullName-acc').val(fullName);
+                $('#username-acc').val(username);
+                $('#email-acc').val(email);
+                $('#phone-acc').val(phone);
+                $('#status-acc').val(status);
+
+                //mảng các quyền
+                var roleName = userRoles.split(',');
+                $('#check-pe').val(roleName.length);
+                if(roleName.length==7){
+                    $('#all-pemison').prop('checked', true);
+                    $(".check-pemison").prop("checked", true);
+                }
+                else{
+                    for(var i=0; i<roleName.length; i++){
+                        $('#' + roleName[i]).prop('checked', true);
+                    }
+                }
+            }
+
+            //delete user
+            function deleteUser(id){
+                Swal.fire({
+                    title: 'Xác nhận xóa!',
+                    text: "Bạn có chắc chắn muốn xóa tài khoản này?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: 'green',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText:'Hủy',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            enctype: 'multipart/form-data',
+                            url: "/admin/delete_user",
+                            data: {
+                                id:id,
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                if(data.message==true){
+                                    messageSuccess('Thành công!', 'Xóa tài khoản thành công.');
+                                    page(checkCurPage);//về trang hiện tại
+                                }
+                                if(data.message==false){
+                                    messageError('Thất bại!', 'Không thể xóa tài khoản này.');
+                                    page(checkCurPage);//về trang hiện tại
+                                }
+
+                            },
+                            error: function (e) {
+                                messageError('Thất bại!','Lỗi hệ thống.')
+                                console.log("ERROR : ", e);
+                            }
+                        });
+                    }
+                })
+            }
+
     </script>
 </th:block>
 </body>

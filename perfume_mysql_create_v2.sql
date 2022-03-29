@@ -167,9 +167,7 @@ ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
 ALTER TABLE user DROP COLUMN phone;
 -- thêm cột
-ALTER TABLE contact ADD COLUMN updated_by varchar(100);
- `updated_date` DATETIME,
-	`updated_by` varchar(100),
+ALTER TABLE user ADD COLUMN type varchar(100);
 drop table news;
 select * from product;
 

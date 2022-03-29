@@ -43,6 +43,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         user.setCreatedBy(user.getFullName());
         user.setStatus(true);
         user.setPassword(new BCryptPasswordEncoder().encode((user.getPassword())));
+        user.setType("GUEST");
         //lưu user vào db
         userService.saveOrUpdate(user);
         //Tìm role là khách hàng
@@ -80,8 +81,8 @@ public class UserRoleServiceImpl implements UserRoleService {
                 case "MI":
                     permiss+="giới thiệu";
                     break;
-                case "ME":
-                    permiss+="nhân viên";
+                case "MO":
+                    permiss+="đơn hàng";
                     break;
                 case "MU":
                     permiss+="khách hàng";
@@ -92,6 +93,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             }
         }
         user.setPermission(permiss);
+        user.setType("ADMIN_S");
         //lưu user vào db
         userService.saveOrUpdate(user);
         //for tìm các role
