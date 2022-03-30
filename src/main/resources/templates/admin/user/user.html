@@ -23,48 +23,28 @@
 <!--                                thêm bộ lọc-->
                             </div>
                         </div>
+                        <div style="margin-bottom:6px">
+                            <label><b>Tìm kiếm:</b></label>
+                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onkeyup="page(1,this.value)" placeholder="Nhập tên đăng nhập" type="text" name="search-user" id="search-user">
+                        </div>
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                             <tr>
-
-                                <th>Mã KH</th>
+                                <th>Mã</th>
                                 <th>Tên KH</th>
                                 <th>Tên đăng nhập</th>
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
                                 <th>Địa chỉ</th>
                                 <th>Trạng thái</th>
-                                <th>Chức năng</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>71309</td>
-                                <td>Trần Văn Độ</td>
-                                <td>dotv</td>
-                                <td>trandobn@gmail.com</td>
-                                <td>0385993661</td>
-                                <td>Lai Hạ, Lương Tài, Bắc Ninh</td>
-                                <td>
-                                    <div class="onoffswitch">
-                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                                        <label class="onoffswitch-label" for="myonoffswitch">
-                                            <span class="onoffswitch-inner"></span>
-                                            <span class="onoffswitch-switch"></span>
-                                        </label>
-                                    </div>
-                                </td>
-                                <!-- <td><a><span class="badge bg-success">Hoạt động</span></td> -->
-                                <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                </button>
+                            <tbody id="list-user">
 
-
-                                </td>
-                            </tr>
 
                             </tbody>
                         </table>
+                        <div id="pagination-container"></div>
                     </div>
                 </div>
             </div>
@@ -73,7 +53,102 @@
 </th:block>
 <th:block id="js-resources">
     <script th:inline="javascript">
+        $(document).ready(
+            function (){
+                page(1,'');
+            }
+        );
 
+        //load dữ liệu
+        var checkCurPage=1;
+        function page(curPage,query){
+            $('#pagination-container').pagination({
+                dataSource: function(done) {
+                    $.ajax({
+                        type: 'GET',
+                        contentType : "application/json",
+                        url: '/admin/lst_user',
+                        data:{
+                            type:'GUEST',
+                            search:query,
+                        },
+                        dataType : 'json',
+                        success: function(response) {
+                            done(response);
+                        }
+                    });
+                },
+                pageSize: 5,
+                pageNumber:curPage,
+                pageRage:1,
+                autoHidePrevious: true,
+                autoHideNext: true,
+                hideWhenLessThanOnePage:true,
+                callback: function(data, pagination) {
+                    var html = loadTable(data);
+                    $('#list-user').html(html);
+                    checkCurPage=pagination.pageNumber;
+                }
+            })
+        }
+
+        //for load dữ liệu
+        function loadTable(data){
+            var html = '';
+            $.each(data, function(index, item){
+                var phone=item.phone;
+                var address=item.address;
+                if(item.phone==null){
+                    phone="";
+                }
+                if(item.address==null){
+                    address="";
+                }
+                html+=
+                    '<tr>'+
+                        '<td>'+item.id+'</td>'+
+                        '<td>'+item.fullName+'</td>'+
+                        '<td>'+item.username+'</td>'+
+                        '<td>'+item.email+'</td>'+
+                        '<td>'+phone+'</td>'+
+                        '<td>'+address+'</td>';
+                        if(item.status==true){
+                            html+='<td><span onclick="updateStatus('+item.id+',false)" style="cursor: pointer" class="badge bg-success">Mở</span></td>';
+                        }
+                        if(item.status==false){
+                            html+='<td><span onclick="updateStatus('+item.id+',true)" style="cursor: pointer" class="badge bg-danger">Khóa</span></td>';
+                        }
+                     html+= '</tr>'
+            });
+            return html;
+        }
+
+        function updateStatus(id,status){
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/admin/update_status_user",
+                data: {
+                    id:id,
+                    status:status,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if(data.message==true){
+                        page(checkCurPage,$('#search-user').val().trim());
+                        messageSuccess('Thành công!', 'Cập nhật trạng thái tài khoản thành công.');
+                    }
+                    if(data.message==false){
+                        messageError('Thất bại!', 'Cập nhật trạng thái tài khoản thất bại.');
+                    }
+
+                },
+                error: function (e) {
+                    messageError('Thất bại!','Lỗi hệ thống.')
+                    console.log("ERROR : ", e);
+                }
+            });
+        }
     </script>
 </th:block>
 </body>

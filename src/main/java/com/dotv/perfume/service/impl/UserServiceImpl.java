@@ -4,9 +4,11 @@ import com.dotv.perfume.entity.User;
 import com.dotv.perfume.exception.EntityNotFoundCustomException;
 import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.UserService;
+import com.dotv.perfume.utils.PerfumeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,8 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Autowired
+    PerfumeUtils perfumeUtils;
 
     @Override
     public User getUserByUsernameAndStatus(String username, Boolean status) {
@@ -47,8 +51,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUserBySearch(String roleName, String search) {
+        String query=perfumeUtils.convertToEnglish(search.trim());
+        return userRepository.getUserByTypeAndSearch(roleName,search);
+    }
+
+    @Override
     public void deleteUser(int id) {
          userRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public int updateStatusUser(Boolean status, int id) {
+        return userRepository.updateStatus(status,id);
     }
 
 //    @Override

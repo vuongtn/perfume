@@ -30,7 +30,7 @@ public class ManageProductController extends BaseController {
     @GetMapping("/lst_product")
     public ResponseEntity<List<Product>> getListProduct(@RequestParam(required = false) String search){
         if(!search.equals("all")){
-           return ResponseEntity.ok(productService.getListProduct(search));
+           return ResponseEntity.ok(productService.getListProduct(search.trim()));
         }
         List<Product> lstPro=productService.getListProduct("all").stream()
                 .sorted(Comparator.nullsLast((e1, e2) -> e2.getId().compareTo(e1.getId())))

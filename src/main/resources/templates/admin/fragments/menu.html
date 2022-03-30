@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
 <th:block th:fragment="menu">
     <header class="app-header">
         <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
@@ -46,26 +50,28 @@
         </div>
         <hr>
         <ul class="app-menu">
-            <li><a class="app-menu__item active" href="index.html"><span
+            <li><a class="app-menu__item" href="/admin/dash"><span
                     class="app-menu__label">Bảng điều khiển</span></a></li>
-            <li><a class="app-menu__item" href="table-data-product.html"><span class="app-menu__label">Quản lý thương hiệu</span></a>
+            <li><a class="app-menu__item active" href="/admin/brand"><span class="app-menu__label">Quản lý thương hiệu</span></a>
             </li>
-            <li><a class="app-menu__item" href="table-data-product.html"><span class="app-menu__label">Quản lý sản phẩm</span></a>
+            <li><a class="app-menu__item" href="/admin/product"><span class="app-menu__label">Quản lý sản phẩm</span></a>
             </li>
-            <li><a class="app-menu__item " href="table-data-table.html"> <span
+            <li><a class="app-menu__item " href="/admin/order"> <span
                     class="app-menu__label">Quản lý đơn hàng</span></a></li>
-            <li><a class="app-menu__item" href="#"><span
+            <li><a class="app-menu__item" href="/admin/news"><span
                     class="app-menu__label">Quản lý tin tức</span></a></li>
 
-            <li><a class="app-menu__item" href="table-data-oder.html"><span
+            <li><a class="app-menu__item" href="/admin/user"><span
                     class="app-menu__label">Quản lý khách hàng</span></a></li>
-            <li><a class="app-menu__item" href="table-data-banned.html"><span
+            <li><a class="app-menu__item" href="/admin/employee"><span
                     class="app-menu__label">Quản lý nhân viên
           </span></a></li>
-            <li><a class="app-menu__item" href="table-data-money.html"><span
+            <li><a class="app-menu__item" href="/admin/contact"><span
                     class="app-menu__label">Quản lý liên hệ</span></a></li>
-            <li><a class="app-menu__item" href="page-calendar.html"><span
+            <li><a class="app-menu__item" href="/admin/introduce"><span
                     class="app-menu__label">Quản lý giới thiệu </span></a></li>
         </ul>
     </aside>
 </th:block>
+</body>
+</html>

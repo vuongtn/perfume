@@ -1,10 +1,13 @@
 package com.dotv.perfume.repository;
 
+import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -34,5 +37,13 @@ public interface UserRepository extends JpaRepository<User,Integer>{
     List<User> findByIdAndEmail(int id,String email);
     @Query("select u from User u where u.id<>?1 and u.username=?2 and u.type=?3")
     List<User> findByIdAndUsernameAndType(int id, String username, String type);
+
+
+    @Query("select u from User u where u.type=?1 and lower(u.username) like lower(concat('%',?2,'%')) order by u.id asc")
+    List<User> getUserByTypeAndSearch(String type,String search);
+
+    @Modifying
+    @Query("update User u set u.status=?1 where u.id=?2")
+    int updateStatus(Boolean status, int id);
 
 }

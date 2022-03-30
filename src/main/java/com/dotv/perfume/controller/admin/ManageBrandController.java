@@ -33,7 +33,8 @@ public class ManageBrandController extends BaseController {
     ProductService productService;
 
     @GetMapping("/brand")
-    public String getBrand(){
+    public String getBrand(Model model){
+        model.addAttribute("typeMenu",2);
         return "admin/brand/brand";
     }
     @GetMapping("/lst_brand")
