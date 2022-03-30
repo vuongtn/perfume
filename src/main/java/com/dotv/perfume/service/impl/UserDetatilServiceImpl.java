@@ -18,7 +18,7 @@ public class UserDetatilServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            return userService.getUserByUsernameAndStatus(username, true);
+            return userService.getUserByUsernameAndType(username,"GUEST");
         } catch (Exception e) {
             return new User();
         }

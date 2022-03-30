@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"/>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Đăng nhập trang quản trị</title>
+    <link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}">
     <style>
         *,
         *::before,
@@ -230,7 +231,19 @@
         <div class="col-right">
             <div class="login-form">
                 <h2>Đăng nhập</h2>
-                <form method="post" action="/perform_login1">
+                <th:block th:if="${login_error=='true'&&type!='2'}">
+                    <div class=".myAlert-top alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Tên đăng nhập hoặc mật khẩu không chính xác.</strong>
+                    </div>
+                </th:block>
+                <th:block th:if="${type=='2'}">
+                    <div class=".myAlert-top alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Tài khoản của bạn đã bị khóa.</strong>
+                    </div>
+                </th:block>
+                <form method="post" action="/admin/perform_login1">
 <!--                    <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}">-->
                     <p>
                         <label>Tên đăng nhập<span>*</span></label>
@@ -254,5 +267,14 @@
         Designed by Trần Văn Độ
     </div>
 </div>
+
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 4000);
+</script>
 </body>
 </html>

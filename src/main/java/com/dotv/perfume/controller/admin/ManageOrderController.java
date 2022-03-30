@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.admin;
 
+import com.dotv.perfume.controller.BaseAdminController;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.Bill;
 import com.dotv.perfume.service.BillService;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
-public class ManageOrderController extends BaseController {
+public class ManageOrderController extends BaseAdminController {
     @Autowired
     BillService billService;
 

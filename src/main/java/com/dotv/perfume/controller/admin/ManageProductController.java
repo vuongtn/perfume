@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.admin;
 
+import com.dotv.perfume.controller.BaseAdminController;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Product;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
-public class ManageProductController extends BaseController {
+public class ManageProductController extends BaseAdminController {
     @Autowired
     ProductService productService;
 

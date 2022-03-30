@@ -1,46 +1,31 @@
 package com.dotv.perfume.controller;
 
-import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.User;
-import com.dotv.perfume.service.CartService;
 import com.dotv.perfume.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-
-@Controller
-public abstract class BaseController {
-    @Autowired
-    CartService cartService;
+public class BaseAdminController {
 
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("totalProInCart")
-    public int totalProInCart() throws Exception {
-        if(isLogined()==true){
-            int idUser = getUserLogined().getId();
-            return cartService.getProductInCart(idUser).size();
-        }
-        return 0;
-    }
-
-    @ModelAttribute("isLogined")
+    @ModelAttribute("isLoginedAdmin")
     public boolean isLogined() throws Exception {
         boolean isLogined = false;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            if(getUserLogined().getType().equals("GUEST")) {
+            if(getUserLogined().getType().equals("ADMIN_S")
+            ||getUserLogined().getType().equals("ADMIN_D")) {
                 isLogined = true;
             }
         }
         return isLogined;
     }
 
-    @ModelAttribute("userLogined")
+    @ModelAttribute("userLoginedAdmin")
     public User getUserLogined() throws Exception {
         Object userLogined = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userLogined != null && userLogined instanceof UserDetails) {

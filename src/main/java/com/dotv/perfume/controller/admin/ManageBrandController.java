@@ -1,5 +1,6 @@
 package com.dotv.perfume.controller.admin;
 
+import com.dotv.perfume.controller.BaseAdminController;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.Brand;
 import com.dotv.perfume.service.BrandService;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
-public class ManageBrandController extends BaseController {
+public class ManageBrandController extends BaseAdminController {
     //Số phần tử hiển thị 1 trang
     private static final int PAGE = 5;
     private static final int BUTTONS_TO_SHOW = 5;

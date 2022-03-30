@@ -6,32 +6,34 @@ import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Autowired
     PerfumeUtils perfumeUtils;
 
     @Override
-    public User getUserByUsernameAndStatus(String username, Boolean status) {
-        User user = userRepository.findByUsernameAndStatus(username,status);
+    public User getUserByUsernameAndType(String username, String type) {
+        User user = userRepository.findByUsernameAndType(username,type);
         return user == null ? new User() : user;
     }
 
     @Override
-    public User getAdminByUsernameAndStatus(String username, Boolean status) {
-        User user = userRepository.findByUsernameAndStatus(username,status);
+    public User getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        return user == null ? new User() : user;
+    }
+
+    @Override
+    public User getAdminByUsernameAndType(String username, String type1, String type2) {
+        User user = userRepository.getAdminByUsernameAndType(username,type1,type2);
         return user == null ? new User() : user;
     }
 

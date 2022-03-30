@@ -1,9 +1,10 @@
 package com.dotv.perfume.controller.admin;
 
+import com.dotv.perfume.controller.BaseAdminController;
 import com.dotv.perfume.controller.BaseController;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ManageDashBoardController extends BaseController {
+public class ManageDashBoardController extends BaseAdminController {
 
 }

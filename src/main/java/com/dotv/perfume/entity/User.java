@@ -161,14 +161,6 @@ public class User implements UserDetails {
         this.phone = phone;
     }
 
-    public String getAvatar() {
-        return this.permission;
-    }
-
-    public void setAvatar(String avatar) {
-        this.permission = avatar;
-    }
-
     public java.sql.Timestamp getCreatedDate() {
         return this.createdDate;
     }

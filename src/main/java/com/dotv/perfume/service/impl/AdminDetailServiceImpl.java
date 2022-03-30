@@ -18,7 +18,7 @@ public class AdminDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            return userService.getAdminByUsernameAndStatus(username, true);
+            return userService.getAdminByUsernameAndType(username, "ADMIN_S","ADMIN_D");
         } catch (Exception e) {
             return new User();
         }

@@ -109,7 +109,7 @@ public class RegisterController extends BaseController {
     @PostMapping("/register_account")
     public ResponseEntity<JSONObject> registerAcc(@RequestBody UserDTO userDTO){
         JSONObject result = new JSONObject();
-        if(userRepository.findByEmail(userDTO.getEmail()).size()!=0||userRepository.findByUsername(userDTO.getUsername()).size()!=0){
+        if(userRepository.findByEmail(userDTO.getEmail()).size()!=0||userRepository.findAllByUsername(userDTO.getUsername()).size()!=0){
             result.put("message",Boolean.FALSE);
             return ResponseEntity.ok(result);
         }

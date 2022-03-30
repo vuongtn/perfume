@@ -5,7 +5,6 @@
 >
 <head>
     <title>Đăng nhập</title>
-
 </head>
 <body>
 
@@ -33,10 +32,16 @@
 <!--                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
                                 <h3 class="box-subheading">Đăng nhập</h3>
                                 <div>
-                                    <th:block th:if="${login_error=='true'}">
+                                    <th:block th:if="${login_error=='true'&&type!='2'}">
                                         <div class=".myAlert-top alert alert-danger" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <strong>Tên đăng nhập hoặc mật khẩu không chính xác.</strong>
+                                        </div>
+                                    </th:block>
+                                    <th:block th:if="${type=='2'}">
+                                        <div class=".myAlert-top alert alert-danger" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <strong>Tài khoản của bạn đã bị khóa.</strong>
                                         </div>
                                     </th:block>
                                     <div class="form-content">

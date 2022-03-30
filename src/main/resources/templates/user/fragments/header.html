@@ -32,7 +32,7 @@
                                 <div class="dropdown">
                                     <p class="nut_dropdown" th:text="'Xin chào, '+${userLogined.fullName}+ '▾'">Chào, Trần Văn Độ ▾</p>
                                     <div class="noidung_dropdown">
-                                        <a href="/manage_acc">Tài khoản</a>
+                                        <a href="/per/manage_acc">Tài khoản</a>
                                         <a href="/logout.html">Đăng xuất</a>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                         <a href="/"><img id="logo-perfume" th:src="@{/user/img/logo-perfume.png}" alt="bstore logo" /></a>
                     </div>
 
-                    <a th:href="@{/product_cart}" class="a-cart">
+                    <a th:href="@{/per/product_cart}" class="a-cart">
                         <div class="do-cart">
                             <div id="ex3">
 								<span class="p1 fa-stack fa-2x has-badge" id="total-pro-cart" th:data-count="${totalProInCart}">
