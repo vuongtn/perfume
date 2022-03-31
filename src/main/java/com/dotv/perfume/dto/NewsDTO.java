@@ -1,16 +1,19 @@
 package com.dotv.perfume.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NewsDTO {
     private Integer id;
     private String title;
     private String shortDescription;
     private String detailDescription;
     private String image;
+    private MultipartFile fileImage;
     private java.sql.Timestamp createdDate;
     private java.sql.Timestamp updatedDate;
     private String createdBy;
     private String updatedBy;
-    private Byte status;
+    private Integer status;
 
     public Integer getId() {
         return this.id;
@@ -76,11 +79,19 @@ public class NewsDTO {
         this.updatedBy = updatedBy;
     }
 
-    public Byte getStatus() {
-        return this.status;
+    public MultipartFile getFileImage() {
+        return fileImage;
     }
 
-    public void setStatus(Byte status) {
+    public void setFileImage(MultipartFile fileImage) {
+        this.fileImage = fileImage;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

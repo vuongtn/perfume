@@ -25,18 +25,21 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(adminDetailsServiceImpl).passwordEncoder(new BCryptPasswordEncoder(4));
     }
-
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/manage/**","/uploads/**","/user/**","/utils/**");
+//    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/admin/**")
                 .authorizeRequests()
+                //.antMatchers("/manage/**","/uploads/**","/user/**","/utils/**").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN_S","ADMIN_D")
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
                 .and()
 
                 // cấu hình trang đăng nhập
-
                 .formLogin().loginPage("/admin/login_admin.html")//trang đăng nhập tùy chỉnh
                 .loginProcessingUrl("/admin/perform_login1")//url submit username, pass
                 .defaultSuccessUrl("/admin/brand", true)//Trang đích sau khi đăng nhập thành công

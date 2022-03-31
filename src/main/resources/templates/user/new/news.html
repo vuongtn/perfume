@@ -25,7 +25,7 @@
                     <th:block th:each="news:${lstNews}">
                     <a th:href="@{/single_news(id=${news.id})}">
                         <div class="album">
-                            <div class="img-wrapper"><img th:src="@{'uploads/product/'+${news.image}}" alt="img placeholder"></div>
+                            <div class="img-wrapper"><img th:src="@{'uploads/news/'+${news.image}}" alt="img placeholder"></div>
                             <div class="album-info">
                                 <div class="title" th:text="${news.title}"></div>
                                 <div class="album-name" th:text="${#dates.format(news.createdDate, 'dd-MM-yyyy HH:mm:ss')}">11/04/2021</div>

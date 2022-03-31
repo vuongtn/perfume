@@ -404,7 +404,7 @@
                 '<tr>'+
                     '<td>'+item.id+'</td>'+
                     '<td>'+item.name+'</td>'+
-                    '<td><img src="/uploads/product/'+item.image+'" alt="" width="80px;"></td>'+
+                    '<td><img src="/uploads/product/'+item.image+'" alt="" height="80px" width="80px;"></td>'+
                     '<td>'+item.amount+'</td>'+
                     '<td>'+item.brand.name+'</td>'+
                     '<td>'+total+'đ</td>'+
@@ -475,25 +475,27 @@
                 contentType: false,
                 cache: false,
                 timeout: 600000,
-                success: function (data) {
-                    $('#ModalUP').modal('hide');
-                    removeData();
-                    if(data.message==1){
+                success: function (result) {
+                    if(result.message==1){
                         messageSuccess('Thành công!', 'Thêm sản phẩm thành công');
                         page(1,'all');//về trang đầu tiên
+                        $('#ModalUP').modal('hide');
+                        removeData();
                     }
-                    if(data.message==2){
+                    if(result.message==2){
                         messageSuccess('Thành công!', 'Cập nhật sản phẩm thành công');
                         searchProduct(checkCurPage);//về trang hiện tại
+                        $('#ModalUP').modal('hide');
+                        removeData();
                     }
-                    if(data.message==3){
+                    if(result.message==3){
                         messageError('Thất bại!','Lỗi hệ thống.')
                     }
                     // $(location).attr('href', "/admin/brand?curPage=1");
 
                 },
                 error: function (e) {
-                    // messageError('Thất bại!','Lỗi hệ thống.')
+                    messageError('Thất bại!','Lỗi hệ thống.')
                     console.log("ERROR : ", e);
                 }
             });

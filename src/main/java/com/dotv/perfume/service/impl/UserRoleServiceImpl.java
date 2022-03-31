@@ -35,6 +35,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     ModelMapper modelMapper;
 
+
     @Override
     @Transactional
     public UserRole saveUser(User user) {
@@ -60,6 +61,10 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Transactional
     public void saveEmployee(UserDTO userDTO) {
         Timestamp timeNow = perfumeUtils.getDateNow();
+        if(userDTO.getId()!=null){
+            //nếu cập nhật thì xóa các quyền
+            userRoleRepository.deleteRoleByIdUser(userDTO.getId());
+        }
         User user = modelMapper.map(userDTO,User.class);
         user.setCreatedDate(timeNow);
         user.setPassword(new BCryptPasswordEncoder().encode(("Admin@123")));

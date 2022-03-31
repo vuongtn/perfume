@@ -8,9 +8,382 @@
                                                )}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quản lý tin tức</title>
+    <th:block id="css-resources">
+        <style>
+            .Choicefile {
+                display: block;
+                background: #14142B;
+                border: 1px solid #fff;
+                color: #fff;
+                width: 150px;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 5px 0px;
+                border-radius: 5px;
+                font-weight: 500;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .Choicefile:hover {
+                text-decoration: none;
+                color: white;
+            }
+        </style>
+    </th:block>
 </head>
 <body>
+<th:block id="main-content">
+    <main class="app-content">
+        <h4 style="margin-top:10px; margin-bottom:10px">Danh sách tin tức</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="row element-button">
+                            <div class="col-sm-2">
 
+                                <a class="btn btn-add btn-sm" title="Thêm" data-toggle="modal" onclick="removeData()"
+                                   data-target="#ModalUP"><i class="fas fa-plus"></i>
+                                    Thêm mới</a>
+                            </div>
+                        </div>
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tiêu đề</th>
+                                <th>Ảnh</th>
+                                <th>Ngày tạo</th>
+                                <th>Người tạo</th>
+                                <th>Người sửa</th>
+                                <th>Trạng thái</th>
+                                <th>Chức năng</th>
+                            </tr>
+                            </thead>
+                            <tbody id="lst-news">
+
+                            </tbody>
+                        </table>
+                        <div id="pagination-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--
+  MODAL
+-->
+    <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+         data-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
+                          <span class="thong-tin-thanh-toan">
+                            <h5 id="type-news">Chỉnh sửa thông tin tin tức</h5>
+                          </span>
+                        </div>
+                    </div>
+                    <form id="form-news" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="form-group col-md-12" style="display: none" id="div-id">
+                            <label class="control-label">Mã tin tức </label>
+                            <input class="form-control" id="id-news" name="id" type="number" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Tiêu đề</label>
+                            <input class="form-control" id="title-news" name="title" type="text">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="status-news" class="control-label">Trạng thái</label>
+                            <select class="form-control" id="status-news" name="status">
+                                <option value=1>Hiển thị</option>
+                                <option value=2>Ẩn</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Ảnh tin tức</label>
+                            <br>
+                            <div id="show-image">
+
+                            </div>
+                            <br>
+                            <input type="hidden" name="image" id="name-image"/>
+                            <input id="check-image" type="hidden" value="check"/>
+                            <p><label class="Choicefile" for="ufile" style="cursor: pointer; padding-top:5px">Chọn file ảnh</label></p>
+                            <input name="fileImage" id="ufile" type="file" style="display: none;" accept="image/*" onchange="loadFile(event)" />
+                            <span style="color: red" class="form-message"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Mô tả ngắn</label>
+                            <textarea class="form-control" id="short" name="shortDescription"></textarea>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Mô chỉ tiết</label>
+                            <textarea id="detail" class="form-control" name="detailDescription"></textarea>
+                            <span class="form-message"></span>
+                        </div>
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" type="submit">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    MODAL
+    -->
+</th:block>
+<th:block id="js-resources">
+<script th:inline="javascript">
+    $(document).ready(function() {
+        page(1);
+        $('#detail').summernote({
+            height: 100,
+            focus: true,
+        });
+
+
+        // $('#summernote').summernote({
+        //     callbacks: {
+        //         onChange: function() {
+        //             $('#mess-detail').text('');
+        //         }
+        //     }
+        // });
+    });
+
+    var loadFile = function (event) {
+        var file = $('#ufile')[0].files[0];
+        if(file!=null) {
+            $('#show-image').html('<img id="output" class="img-rounded" alt="Ảnh" width="150" height="150" />');
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+    };
+
+    var checkCurPage=1;
+    //load news
+    function page(curPage){
+        $('#pagination-container').pagination({
+            dataSource: function(done) {
+                $.ajax({
+                    type: 'GET',
+                    contentType : "application/json",
+                    url: '/admin/lst_news',
+                    dataType : 'json',
+                    success: function(response) {
+                        done(response);
+                    }
+                });
+            },
+            pageSize: 5,
+            pageNumber:curPage,
+            autoHidePrevious: true,
+            autoHideNext: true,
+            hideWhenLessThanOnePage:true,
+            callback: function(data, pagination) {
+                var html = loadTable(data);
+                $('#lst-news').html(html);
+                checkCurPage=pagination.pageNumber;
+            }
+        })
+    }
+
+
+    function formatDate(dateTime){
+        var date = new Date(dateTime);
+        var dateStr =
+            ("00" + date.getDate()).slice(-2) + "/" +
+            ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+            date.getFullYear() + " " +
+            ("00" + date.getHours()).slice(-2) + ":" +
+            ("00" + date.getMinutes()).slice(-2) + ":" +
+            ("00" + date.getSeconds()).slice(-2);
+        return dateStr;
+    }
+
+    function loadTable(data){
+        var html = '';
+        $.each(data, function(index, item){
+            var str='<td><span>Hiển thị</span></td>';
+            if(item.status==2){
+                str='<td><span>Ẩn</span></td>';
+            }
+            var personUpdate='';
+            if(item.updatedBy!=null){
+                personUpdate='<td>'+item.updatedBy+'</td>';
+            }
+            else{
+                personUpdate='<td></td>';
+            }
+            html +=
+                '<tr>'+
+                    '<td>'+item.id+'</td>'+
+                    '<td>'+item.title+'</td>'+
+                    '<td><img src="/uploads/news/'+item.image+'" alt="" height="80px" width="80px;"></td>'+
+                    '<td>'+formatDate(item.createdDate)+'</td>'+
+                    '<td>'+item.createdBy+'</td>'+
+                    personUpdate+
+                    str+
+                    '<td>'+
+                        '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa"'+
+                                'onclick="deleteNews('+item.id+')">' +
+                                '<i class="fas fa-trash-alt"></i>'+
+                        '</button>'+
+                        '<button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"'+
+                                'data-target="#ModalUP"'+
+                                'onclick="updateNews('+item.id+')">' +
+                                '<i class="fas fa-edit"></i></button>'+
+
+                    '</td>'+
+                '</tr>'
+
+        });
+        return html;
+    }
+
+    function removeData(){
+        $('#type-news').text('Thêm tin tức');
+        $('#id-news').val('');
+        $('#title-news').val('');
+        $('#status-news').val('1');
+        $('#name-image').val('');
+        $('#show-image').empty();
+        $('#short').val('');
+        $('#detail').summernote('code','');
+        $('.form-group').removeClass('invalid');
+        $('.form-message').text('');
+    }
+
+
+    //Thêm tin tuc
+    Validator({
+        form: '#form-news',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#title-news'),
+            Validator.isRequired('#short'),
+            Validator.isRequired('#detail'),
+            Validator.isImage('#ufile',document.getElementById('name-image')),
+        ],
+        onSubmit: function (form1) {
+            var form = $('#form-news')[0];
+            var data = new FormData(form);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/admin/save_news",
+                data: data,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (result) {
+                    if(result.message==1){
+                        messageSuccess('Thành công!', 'Thêm sản tin tức thành công');
+                        $('#ModalUP').modal('hide');
+                        removeData();
+                        page(1);//về trang đầu tiên
+                    }
+                    if(result.message==2){
+                        messageSuccess('Thành công!', 'Cập nhật tin tức thành công');
+                        $('#ModalUP').modal('hide');
+                        removeData();
+                        page(checkCurPage);//về trang hiện tại
+                    }
+                    if(result.message==3){
+                        messageError('Thất bại!','Lỗi hệ thống.')
+                    }
+                },
+                error: function (e) {
+                    messageError('Thất bại!','Lỗi hệ thống.')
+                    console.log("ERROR : ", e);
+                }
+            });
+        }
+    });
+
+    function deleteNews(id){
+        Swal.fire({
+            title: 'Xác nhận xóa!',
+            text: "Bạn có chắc chắn muốn xóa tin tức này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'green',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText:'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/admin/delete_news",
+                    data: {
+                        id:id,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.message==true){
+                            messageSuccess('Thành công!', 'Xóa tin tức thành công.');
+                            page(checkCurPage);
+                        }
+                        if(data.message==false){
+                            messageError('Thất bại!', 'Không thể xóa tin tức này.');
+                        }
+
+                    },
+                    error: function (e) {
+                        messageError('Thất bại!','Lỗi hệ thống.')
+                        console.log("ERROR : ", e);
+                    }
+                });
+            }
+        })
+    }
+
+    //update news
+    function updateNews(id){
+        $('#div-id').show();
+        $('#type-news').text('Chỉnh sửa tin tức');
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/admin/get_news_id",
+            data : {
+                id:id,
+            },
+            dataType : 'json',
+            // timeout : 100000,
+            success : function(data) {
+                $('#id-news').val(data.id);
+                $('#title-news').val(data.title);
+                $('#status-news').val(data.status);
+                $('#name-image').val(data.image);
+                $('#show-image').html('<img id="output" class="img-rounded" alt="Ảnh" width="150" height="150" src="/uploads/news/'+data.image+'" />');
+                $('#short').val(data.shortDescription);
+                $('#detail').summernote('code',data.detailDescription);
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+</script>
+</th:block>
 </body>
 </html>

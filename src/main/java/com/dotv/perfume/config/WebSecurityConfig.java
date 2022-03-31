@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //.antMatcher("per/**")
                 .authorizeRequests()
-                .antMatchers("/uploads/**","/user/**","/utils/**").permitAll()
+//                .antMatchers("/manage/**","/uploads/**","/user/**","/utils/**","/resources/**").permitAll()
                 .antMatchers("/per/**").hasAnyAuthority("GUEST")
                 //.anyRequest().authenticated()
                 .and()
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         // Khi người dùng đã login, với vai trò USER, Nhưng truy cập vào trang yêu cầu vai trò ADMIN, sẽ chuyển hướng tới trang /403
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/login.html");
         http.csrf().disable();
     }
 

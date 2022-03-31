@@ -62,13 +62,13 @@ public class ManageProductController extends BaseAdminController {
     }
 
     @GetMapping("/get_product_id")
-    public ResponseEntity<Product> saveOrUpdateProduct(@RequestParam int id) {
+    public ResponseEntity<Product> getProductById(@RequestParam int id) {
         productService.getProductById(id);
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PostMapping("/delete_product")
-    public ResponseEntity<JSONObject> deleteBrand(@RequestParam int id){
+    public ResponseEntity<JSONObject> deleteProduct(@RequestParam int id){
         JSONObject result = new JSONObject();
         result.put("message", Boolean.TRUE);
         try {
