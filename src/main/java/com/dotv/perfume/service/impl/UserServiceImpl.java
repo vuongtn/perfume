@@ -1,10 +1,12 @@
 package com.dotv.perfume.service.impl;
 
+import com.dotv.perfume.dto.UserDTO;
 import com.dotv.perfume.entity.User;
 import com.dotv.perfume.exception.EntityNotFoundCustomException;
 import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.PerfumeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,6 +69,15 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public int updateStatusUser(Boolean status, int id) {
         return userRepository.updateStatus(status,id);
+    }
+
+    @Override
+    @Transactional
+    public int updateAccount(UserDTO userDTO) {
+        if(StringUtils.isBlank(userDTO.getPassword()))
+            return userRepository.updateAccount(userDTO.getFullName(),userDTO.getPhone(),userDTO.getEmail(),userDTO.getId());
+        return userRepository.updatePass(userDTO.getPassword(),userDTO.getId());
+
     }
 
 //    @Override

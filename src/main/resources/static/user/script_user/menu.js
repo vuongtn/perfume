@@ -141,7 +141,7 @@ function addProInCart(type,idPro){
         $.ajax({
             type : "post",
             enctype: 'multipart/form-data',
-            url : "/update_cart",
+            url : "/per/update_cart",
             data : {
                 type:3,
                 idPro:idPro,

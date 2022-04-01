@@ -23,12 +23,12 @@ public class ManageLoginController extends BaseAdminController {
         return "admin/login_admin";
     }
 
-    @GetMapping("/check_login")
+    @GetMapping("/check_login_admin")
     public String checkLogin(){
         if(check==1){
-            return "redirect:/admin/login.html?type=2";
+            return "redirect:/admin/login_admin.html?type=2";
         }
-        return "redirect:/admin/login.html";
+        return "redirect:/admin/login_admin.html";
     }
 
     @GetMapping("/login_success")
@@ -36,7 +36,7 @@ public class ManageLoginController extends BaseAdminController {
         User user = getUserLogined();
         if(user.getStatus()==false){
             check=1;
-            return "redirect:/admin/logout.html";
+            return "redirect:/admin/logout_admin.html";
         }
         if ("ADMIN_D".equals(user.getUserRoles().get(0).getRoleName())
         ||"ADMIN_S".equals(user.getUserRoles().get(0).getRoleName())) {

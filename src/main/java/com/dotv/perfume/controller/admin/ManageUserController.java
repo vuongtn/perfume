@@ -12,7 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
@@ -32,8 +34,11 @@ public class ManageUserController extends BaseAdminController {
     UserRepository userRepository;
 
     @GetMapping("/employee")
-    public String getEmployee(){
-        return "admin/employee/employee";
+    public String getEmployee() throws Exception {
+        if(getEmployeeRole()){
+            return "admin/employee/employee";
+        }
+        return "/error/404";
     }
 
     @PostMapping("/save_employee")
@@ -102,6 +107,7 @@ public class ManageUserController extends BaseAdminController {
         }
         catch (Exception e){
             result.put("message", Boolean.FALSE);
+            return ResponseEntity.ok(result);
         }
         return ResponseEntity.ok(result);
     }
@@ -113,7 +119,7 @@ public class ManageUserController extends BaseAdminController {
     }
 
     @PostMapping("/update_status_user")
-    public ResponseEntity<JSONObject> updateStatusContact(@RequestParam int id, @RequestParam Boolean status){
+    public ResponseEntity<JSONObject> updateStatusUser(@RequestParam int id, @RequestParam Boolean status){
         JSONObject result = new JSONObject();
         try {
             //PerfumeUtils perfumeUtils = new PerfumeUtils();
@@ -122,6 +128,62 @@ public class ManageUserController extends BaseAdminController {
         }
         catch (Exception e){
             result.put("message", Boolean.FALSE);
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/account")
+    public String getAccount(){
+        return "admin/account/account";
+    }
+
+    //Trả về user đang đăng nhập
+    @GetMapping("/cur_user")
+    public ResponseEntity<User> getLoginUser() throws Exception {
+        return ResponseEntity.ok(getUserLogined());
+    }
+
+    //Sửa thông tin tài khoản
+    @PostMapping("/update_acc")
+    public ResponseEntity<JSONObject> updateAccount(@ModelAttribute UserDTO userDTO){
+        JSONObject result = new JSONObject();
+        try {
+            if(userRepository.findByIdAndPhone(userDTO.getId(),userDTO.getPhone()).size()>0){
+                result.put("message", 1);
+                return ResponseEntity.ok(result);
+            }
+            if(userRepository.findByIdAndEmail(userDTO.getId(),userDTO.getEmail()).size()>0){
+                result.put("message", 2);
+                return ResponseEntity.ok(result);
+            }
+            if(userService.updateAccount(userDTO)>0)
+                result.put("message", 3);
+            else
+                result.put("message", 4);
+        }
+        catch (Exception e){
+            result.put("message", 4);
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/update_pass")
+    public ResponseEntity<JSONObject> getUpdatePassword(UserDTO userDTO) throws Exception {
+        JSONObject result = new JSONObject();
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        userDTO.setId(getUserLogined().getId());
+        boolean isPass = bcrypt.matches(userDTO.getOldPassword().trim(),getUserLogined().getPassword());//Kiểm tra pass có chính xác
+        if(!isPass){
+            result.put("message", 1);
+        }
+        else {
+            userDTO.setPassword(new BCryptPasswordEncoder().encode((userDTO.getPassword().trim())));
+            if(userService.updateAccount(userDTO)>0)
+                result.put("message", 2);
+            else
+                result.put("message", 3);
         }
         return ResponseEntity.ok(result);
     }

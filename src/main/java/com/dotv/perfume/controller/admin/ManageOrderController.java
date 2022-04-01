@@ -2,7 +2,9 @@ package com.dotv.perfume.controller.admin;
 
 import com.dotv.perfume.controller.BaseAdminController;
 import com.dotv.perfume.controller.BaseController;
+import com.dotv.perfume.dto.ProductInBillDTO;
 import com.dotv.perfume.entity.Bill;
+import com.dotv.perfume.repository.BillDetailRepository;
 import com.dotv.perfume.service.BillService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import org.json.simple.JSONObject;
@@ -26,6 +28,9 @@ public class ManageOrderController extends BaseAdminController {
 
     @Autowired
     PerfumeUtils perfumeUtils;
+
+    @Autowired
+    BillDetailRepository billDetailRepository;
 
     @GetMapping("/order")
     public String getOrder(){
@@ -54,5 +59,10 @@ public class ManageOrderController extends BaseAdminController {
             result.put("message", Boolean.FALSE);
         }
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/product_in_bill")
+    public ResponseEntity<List<ProductInBillDTO>> getProInBill(@RequestParam int idBill) throws Exception {
+        return ResponseEntity.ok( billDetailRepository.getListProductInBill(idBill));
     }
 }

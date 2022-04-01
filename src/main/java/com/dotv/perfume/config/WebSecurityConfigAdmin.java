@@ -42,7 +42,7 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
                 // cấu hình trang đăng nhập
                 .formLogin().loginPage("/admin/login_admin.html")//trang đăng nhập tùy chỉnh
                 .loginProcessingUrl("/admin/perform_login1")//url submit username, pass
-                .defaultSuccessUrl("/admin/brand", true)//Trang đích sau khi đăng nhập thành công
+                .defaultSuccessUrl("/admin/home", true)//Trang đích sau khi đăng nhập thành công
                 .failureUrl("/admin/login_admin.html?login_error=true")//Trang đích sau khi đăng nhập thất bại
                 .permitAll()
 
@@ -50,8 +50,8 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
 
                 //cấu hình cho phần logout
                 .logout()
-                .logoutUrl("/logout_admin.html")
-                .logoutSuccessUrl("/login_admin.html")
+                .logoutUrl("/admin/logout_admin.html")
+                .logoutSuccessUrl("/admin/check_login_admin")
                 .invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll();
 
 

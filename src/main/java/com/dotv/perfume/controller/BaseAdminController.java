@@ -1,6 +1,7 @@
 package com.dotv.perfume.controller;
 
 import com.dotv.perfume.entity.User;
+import com.dotv.perfume.entity.UserRole;
 import com.dotv.perfume.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,120 +51,122 @@ public class BaseAdminController {
         return null;
     }
 
-//    @ModelAttribute("categoryRole")
-//    public UserRole getCategoryRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MC")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("productRole")
-//    public UserRole getProductRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MP")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("categoryBlogRole")
-//    public UserRole getCategoryBlofRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MCB")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("blogRole")
-//    public UserRole getBlogRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MB")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("orderRole")
-//    public UserRole getOrderRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MO")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("accountRole")
-//    public UserRole getAccountRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MA")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("introduceRole")
-//    public UserRole getIntroduceRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MI")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("contactRole")
-//    public UserRole getContactRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("MC")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @ModelAttribute("statiscalRole")
-//    public UserRole getStatiscalRole() throws Exception {
-//        User user = getUserLogined();
-//        if (user != null) {
-//            for (UserRole userRole : user.getUserRoles()) {
-//                if (userRole.getRole().getCode().equalsIgnoreCase("VS")) {
-//                    return userRole;
-//                }
-//            }
-//        }
-//        return null;
-//    }
+    @ModelAttribute("brandRole")
+    public Boolean getCategoryRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MB")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("productRole")
+    public Boolean getProductRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MP")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("orderRole")
+    public Boolean getOrderRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MO")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("newsRole")
+    public Boolean getNewsRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MN")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("userRole")
+    public Boolean getUserRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MU")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("employeeRole")
+    public Boolean getEmployeeRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("ME")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("contactRole")
+    public Boolean getContactRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MC")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("introduceRole")
+    public Boolean getIntroduceRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MI")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @ModelAttribute("reportRole")
+    public Boolean getReportRole() throws Exception {
+        User user = getUserLogined();
+        if (user != null) {
+            for (UserRole userRole : user.getUserRoles()) {
+                if (userRole.getRole().getCode().equalsIgnoreCase("MR")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 }

@@ -37,7 +37,7 @@
                 <th:block th:each="pro:${lstPro}">
                     <div class="product">
                         <div class="product-image-cart">
-                            <img th:src="@{'uploads/product/'+${pro.image}}">
+                            <img th:src="@{'/uploads/product/'+${pro.image}}">
                         </div>
                         <div class="product-details">
                             <p class="product-description" th:text="${pro.name}">Nước hoa abcdxyz</p>
@@ -64,7 +64,7 @@
                         <div class="totals-value" id="cart-subtotal" th:text="${#numbers.formatDecimal(totalPrice, 3, 'POINT', 0, 'POINT')}"></div>
                     </div>
 
-                    <a class="checkout" href="/buy">Đặt hàng</a>
+                    <a class="checkout" href="/per/buy">Đặt hàng</a>
 
                 </div>
                 <!-- end cart -->

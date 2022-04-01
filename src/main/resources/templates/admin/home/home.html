@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <th:block id="css-resources">
+        <style>
+            .Choicefile {
+                display: block;
+                background: #14142B;
+                border: 1px solid #fff;
+                color: #fff;
+                width: 150px;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 5px 0px;
+                border-radius: 5px;
+                font-weight: 500;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .Choicefile:hover {
+                text-decoration: none;
+                color: white;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+<th:block id="main-content">
+    <main class="app-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="form-group col-md-12">
+                            <h1 style="text-align: center;">Trang quản trị website bán nước hoa D.Perfume</h1>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</th:block>
+<th:block id="js-resources">
+    <script th:inline="javascript">
+
+    </script>
+</th:block>
+</body>
+</html>

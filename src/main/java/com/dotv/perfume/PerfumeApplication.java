@@ -9,6 +9,7 @@ public class PerfumeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PerfumeApplication.class, args);
+
     }
 
 }

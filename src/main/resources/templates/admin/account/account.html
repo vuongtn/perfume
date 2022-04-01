@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý thương hiệu</title>
+    <th:block id="css-resources">
+        <style>
+
+        </style>
+    </th:block>
+</head>
+<body>
+<th:block id="main-content">
+    <main class="app-content">
+        <h4 style="margin-top:10px; margin-bottom:10px">Quản lý tài khoản</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="form-group col-md-12">
+                            <div class="row element-button">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="updateAcc()">Cập nhật tài khoản</a>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="updatePass()">
+                                        Đổi mật khẩu</a>
+                                </div>
+                            </div>
+<!--Cập nhật tài khoản-->
+                            <div id="update-acc">
+                                <h5>Cập nhật tài khoản</h5>
+                                <br>
+                                <form id="updateAcc">
+                                <div class="row">
+                                    <input class="form-control" type="hidden" name="id" id="id-user">
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Họ và tên</label>
+                                        <input class="form-control" type="text" id="fullName" name="fullName">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Số điện thoại</label>
+                                        <input class="form-control" type="text" id="phone" name="phone">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Email</label>
+                                        <input class="form-control" type="text" id="email" name="email">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <BR>
+                                        <br>
+                                        <button class="btn btn-save" type="submit">Cập nhật</button>
+                                        <BR>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+
+<!--                            Đổi mật khẩu-->
+                            <div id="update-pass" style="display:none;">
+                                <h5>Đổi mật khẩu</h5>
+                                <br>
+                                <form id="updatePass">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Mật khẩu cũ</label>
+                                        <input class="form-control" type="password" id="password-old"  name="oldPassword">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Mật khẩu mới</label>
+                                        <input class="form-control" type="password" id="password-new" name="password">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Nhập lại</label>
+                                        <input class="form-control" type="password" id="confirm-password" name="confirmPassword">
+                                        <span class="form-message"></span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <br>
+                                        <br>
+                                        <button class="btn btn-save" type="submit">Đổi mật khẩu</button>
+                                        <BR>
+                                    </div>
+
+                                </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</th:block>
+
+
+<th:block id="js-resources">
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            updateAcc();
+        });
+
+        function removeDatePass(){
+            $('#password-old').val('');
+            $('#password-new').val('');
+            $('#confirm-password').val('');
+        }
+
+        function updateAcc(){
+            $('.form-group').removeClass('invalid');
+            $('.form-message').text('');
+            $('#update-pass').hide();
+            $('#update-acc').show();
+            $.ajax({
+                type: 'GET',
+                contentType : "application/json",
+                url: '/admin/cur_user',
+                dataType : 'json',
+                success: function(data) {
+                    $('#id-user').val(data.id);
+                    $('#fullName').val(data.fullName);
+                    $('#phone').val(data.phone);
+                    $('#email').val(data.email);
+                }
+            });
+        }
+
+        Validator({
+            form: '#updateAcc',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#fullName'),//chạy hàm để nhận dữ liệu return trả về
+                Validator.isRequired('#phone'),
+                Validator.isPhone('#phone'),
+                Validator.isRequired('#email'),
+                Validator.isEmail('#email'),
+            ],
+            onSubmit: function(ab) {
+                var form = $('#updateAcc')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/admin/update_acc",
+                    data: data,
+                    processData: false, //prevent jQuery from automatically transforming the data into a query string
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    success: function(result) {
+                        if(result.message==1){
+                            messageError('Cảnh báo!','Số điện thoại đã tồn tại.')
+                        }
+                        if(result.message==2){
+                            messageError('Cảnh báo!','Email đã tồn tại.')
+                        }
+                        if(result.message==3){
+                            messageSuccess('Thành công!', 'Cập nhật tài khoản thành công.');
+                            updateAcc();
+                        }
+                        if(result.message==4){
+                            messageError('Thất bại!','Cập nhật tài khoản thất bại.')
+                        }
+                    },
+                    error: function (e) {
+                        messageError('Thất bại!','Lỗi hệ thống.')
+                        console.log("ERROR : ", e);
+                    }
+                });
+            }
+        });
+
+
+        function updatePass(){
+            $('#update-acc').hide();
+            $('#update-pass').show();
+            $('.form-group').removeClass('invalid');
+            $('.form-message').text('');
+            removeDatePass();
+        }
+        Validator({
+            form: '#updatePass',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#password-old'),
+                Validator.minLength('#password-old',6),
+                Validator.isRequired('#password-new'),
+                Validator.minLength('#password-new',6),
+                Validator.isConfirm('#confirm-password',function() {
+                    return document.querySelector('#updatePass #password-new').value;
+                }),
+            ],
+            onSubmit: function(data) {
+                var form = $('#updatePass')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/admin/update_pass",
+                    data: data,
+                    processData: false, //prevent jQuery from automatically transforming the data into a query string
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    success: function(result) {
+                        if(result.message==1){
+                            messageError('Cảnh báo!','Mật khẩu cũ không chính xác.')
+                        }
+                        if(result.message==2){
+                            messageSuccess('Thành công!','Đổi mật khẩu thành công.')
+                            updatePass();
+                        }
+                        if(result.message==3){
+                            messageError('Thất bại!','Đổi mật khẩu thất bại.')
+                        }
+                    },
+                    error: function (e) {
+                        messageError('Thất bại!','Lỗi hệ thống.')
+                        console.log("ERROR : ", e);
+                    }
+                });
+            }
+        });
+
+    </script>
+</th:block>
+
+</body>
+</html>

@@ -148,6 +148,9 @@ public class ProductController extends BaseController {
     * */
     @GetMapping("/products")
     public String getPro(@RequestParam int type, @RequestParam(required = false) String query, @RequestParam(required = false) String id,@RequestParam(required = false) String se, @RequestParam(required = false) String menu, Model model){
+        if(StringUtils.isBlank(query)){
+            return "redirect:/";
+        }
         model.addAttribute("type",type);
         model.addAttribute("idBrand","");
         if(StringUtils.isNotBlank(menu)){
@@ -161,6 +164,7 @@ public class ProductController extends BaseController {
         model.addAttribute("search",query);
         return "user/product/all_product";
     }
+
 
     //api get list product and filter
     @PostMapping("/list_pro_filter")

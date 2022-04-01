@@ -50,4 +50,12 @@ public interface UserRepository extends JpaRepository<User,Integer>{
     @Query("update User u set u.status=?1 where u.id=?2")
     int updateStatus(Boolean status, int id);
 
+    @Modifying
+    @Query("update User u set u.fullName=?1, u.phone=?2, u.email=?3 where u.id=?4")
+    int updateAccount(String fullName, String phone, String email, int id);
+
+    @Modifying
+    @Query("update User u set u.password=?1 where u.id=?2")
+    int updatePass(String password, int id);
+
 }

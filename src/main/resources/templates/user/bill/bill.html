@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="row">
-                    <form id="form-order" method="post" action="/checkout">
+                    <form id="form-order" method="post" action="/per/checkout">
                         <!-- Thông tin đặt hàng -->
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                             <div class="personal-infomation">
@@ -79,7 +79,7 @@
                             <th:block th:each="pro:${lstPro}">
                                 <div class="product">
                                     <div class="product-image-cart">
-                                        <img th:src="@{'uploads/product/'+${pro.image}}">
+                                        <img th:src="@{'/uploads/product/'+${pro.image}}">
                                     </div>
                                     <div class="product-details" style="width:80%">
                                         <p class="product-description" th:text="${pro.name}">Nước hoa abcdxyz</p>
