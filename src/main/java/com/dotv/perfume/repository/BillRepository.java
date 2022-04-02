@@ -21,4 +21,6 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
     int updateStatusBill(int status,String updateBy,java.sql.Timestamp updatedDate, int idBill);
 
     List<Bill> findAllByStatus(int status);
+
+    List<Bill> findAllByIdUser(int idUser);
 }

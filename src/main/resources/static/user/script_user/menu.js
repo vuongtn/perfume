@@ -1,3 +1,4 @@
+
 //thong bao
 function createAlert(title, summary, details, severity, dismissible, autoDismiss, appendToId) {
     var iconMap = {

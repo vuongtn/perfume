@@ -14,6 +14,9 @@ public class Bill {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "id_user")
+    private Integer idUser;
+
     @Column(name = "receiver_name")
     private String receiverName;
 
@@ -51,10 +54,10 @@ public class Bill {
     @JsonIgnore
     private List<BillDetail> billDetails;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_user")
-    @JsonIgnore
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="id_user")
+//    @JsonIgnore
+//    private User user;
 
     public List<BillDetail> getBillDetails() {
         return billDetails;
@@ -64,13 +67,13 @@ public class Bill {
         this.billDetails = billDetails;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Integer getId() {
         return this.id;
@@ -166,5 +169,13 @@ public class Bill {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 }

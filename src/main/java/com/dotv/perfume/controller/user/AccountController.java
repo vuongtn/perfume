@@ -8,6 +8,7 @@ import com.dotv.perfume.entity.User;
 import com.dotv.perfume.repository.BillDetailRepository;
 import com.dotv.perfume.repository.BillRepository;
 import com.dotv.perfume.repository.UserRepository;
+import com.dotv.perfume.service.BillService;
 import com.dotv.perfume.service.UserService;
 import com.dotv.perfume.utils.Pager;
 import com.dotv.perfume.utils.PerfumeUtils;
@@ -17,12 +18,10 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -50,6 +49,10 @@ public class AccountController extends BaseController {
 
     @Autowired
     BillDetailRepository billDetailRepository;
+    @Autowired
+    BillService billService;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @GetMapping("/manage_acc")
@@ -67,7 +70,7 @@ public class AccountController extends BaseController {
     }
 
     @PostMapping("/update_account")
-    public String updateAcc(User user, Model model) throws Exception {
+    public String updateAcc(@ModelAttribute User user, Model model) throws Exception {
         User userLogin = getUserLogined();
         model.addAttribute("acc",userLogin);
         if(userRepository.findByIdAndUsernameAndType(user.getId(),user.getUsername(),user.getType()).size()!=0){
@@ -82,16 +85,13 @@ public class AccountController extends BaseController {
         }
 
         User userBD = userService.getUserById(user.getId());
-        user.setPhone(user.getPhone().trim());
-        user.setStatus(userBD.getStatus());
-        user.setCreatedBy(userBD.getCreatedBy());
-        user.setUpdatedBy(userBD.getFullName());
-        user.setCreatedDate(userBD.getCreatedDate());
-        user.setUpdatedDate(perfumeUtils.getDateNow());
-        user.setPassword(userBD.getPassword());
-        user.setEmail(userBD.getEmail());
+        userBD.setFullName(user.getFullName());
+        userBD.setUsername(user.getUsername());
+        userBD.setPhone(user.getPhone());
+        userBD.setAddress(user.getAddress());
 
-        userService.saveOrUpdate(user);
+
+        userService.saveOrUpdate(userBD);
         model.addAttribute("type",1);
         model.addAttribute("acc", user);
         model.addAttribute("isLogined",true);
@@ -109,8 +109,8 @@ public class AccountController extends BaseController {
     @PostMapping("/update_password")
     public String getUpdatePassword(UserDTO userDTO, Model model) throws Exception {
         User userLogined = getUserLogined();
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-        boolean isPass = bcrypt.matches(userDTO.getOldPassword().trim(),userLogined.getPassword());//Kiểm tra pass có chính xác
+        //BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        boolean isPass = bCryptPasswordEncoder.matches(userDTO.getOldPassword().trim(),userLogined.getPassword());//Kiểm tra pass có chính xác
         if(!isPass){
             model.addAttribute("errorUser","Mật khẩu cũ không chính xác!");
         }
@@ -125,15 +125,15 @@ public class AccountController extends BaseController {
 
     @GetMapping("/order_acc")
     public String getOrderAcc(@RequestParam int curPage, @RequestParam(required = false) String id, Model model) throws Exception {
-        User user=userService.getUserById(getUserLogined().getId());
         model.addAttribute("idBuy",id);
+        User user = getUserLogined();
         //sắp xếp theo ngày mới nhất
-        List<Bill> bills = user.getBills().stream()
+        List<Bill> bills = billService.getBillByUser(getUserLogined().getId()).stream()
                         .sorted(Comparator.nullsLast((e1, e2) -> e2.getCreatedDate().compareTo(e1.getCreatedDate())))
                         .skip((curPage-1)*PAGE).limit(PAGE).collect(Collectors.toList());
 
 
-        int totalPage=(int)Math.ceil(user.getBills().size()/(float)PAGE);
+        int totalPage=(int)Math.ceil(bills.size()/(float)PAGE);
         Pager pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("curPage", curPage);

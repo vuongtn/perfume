@@ -81,7 +81,7 @@ public class BillController extends BaseController {
         }
         bill.setCreatedDate(perfumeUtils.getDateNow());
         bill.setStatus(1);
-        bill.setUser(user);
+        bill.setIdUser(user.getId());
         billService.saveBill(bill);
         //Thành công chuyển hướng sang trang ql đơn hàng
         return "redirect:/per/order_acc?curPage=1&id="+bill.getId();

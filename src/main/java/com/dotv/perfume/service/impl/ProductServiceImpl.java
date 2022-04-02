@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,8 +43,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${upload.path}")
-    private String fileUpload;
+//    @Value("${upload.path}")
+//    private String fileUpload;
 
 
 //    @Override
@@ -290,9 +291,10 @@ public class ProductServiceImpl implements ProductService {
         if(!productDTO.getFileImage().isEmpty()) {
             product.setImage(productDTO.getFileImage().getOriginalFilename());
             MultipartFile fileImage = productDTO.getFileImage();
-            byte[] bytes = fileImage.getBytes();
-            Path path = Paths.get(fileUpload + "product//" + fileImage.getOriginalFilename());
-            Files.write(path, bytes);
+            //byte[] bytes = fileImage.getBytes();
+            //Path path = Paths.get(System.getProperty("user.dir") + "/product/" + fileImage.getOriginalFilename());
+            //Files.write(path, bytes);
+            fileImage.transferTo(new File(System.getProperty("user.dir") + "/uploads/product/" + fileImage.getOriginalFilename()));
         }
 
         return productRepository.save(product);

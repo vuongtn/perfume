@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServlet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -147,8 +148,8 @@ public class ProductController extends BaseController {
     * type=4: Sản phẩm theo từ khóa search
     * */
     @GetMapping("/products")
-    public String getPro(@RequestParam int type, @RequestParam(required = false) String query, @RequestParam(required = false) String id,@RequestParam(required = false) String se, @RequestParam(required = false) String menu, Model model){
-        if(StringUtils.isBlank(query)){
+    public String getPro(@RequestParam int type, @RequestParam(required = false) String query, @RequestParam(required = false) String id, @RequestParam(required = false) String se, @RequestParam(required = false) String menu, Model model){
+        if(type==4 && StringUtils.isBlank(query)){
             return "redirect:/";
         }
         model.addAttribute("type",type);

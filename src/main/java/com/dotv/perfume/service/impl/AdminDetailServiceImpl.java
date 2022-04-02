@@ -19,6 +19,7 @@ public class AdminDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             return userService.getAdminByUsernameAndType(username, "ADMIN_S","ADMIN_D");
+            //return userService.getUserByUsernameAndType(username,"ADMIN_D");
         } catch (Exception e) {
             return new User();
         }

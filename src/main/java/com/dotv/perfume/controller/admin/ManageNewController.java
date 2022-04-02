@@ -11,6 +11,7 @@ import com.dotv.perfume.utils.PerfumeUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class ManageNewController extends BaseAdminController {
     PerfumeUtils perfumeUtils;
 
     @GetMapping("/introduce")
+    @PreAuthorize("hasAuthority('ADMIN_MI')")
     public String getIntroduce(Model model) {
         if(newsService.getListNew(0).size()>0) {
             model.addAttribute("idIntroduce", newsService.getListNew(0).get(0).getId());
@@ -39,6 +41,7 @@ public class ManageNewController extends BaseAdminController {
     }
 
     @PostMapping("/save_introduce")
+    @PreAuthorize("hasAuthority('ADMIN_MI')")
     public ResponseEntity<JSONObject> saveIntroduce(News news){
         JSONObject result = new JSONObject();
         news.setStatus(0);
@@ -62,10 +65,13 @@ public class ManageNewController extends BaseAdminController {
     }
 
     @GetMapping("/news")
+    @PreAuthorize("hasAuthority('ADMIN_MN')")
     public String getNews(){
         return "admin/news/news";
     }
+
     @GetMapping("/lst_news")
+    @PreAuthorize("hasAuthority('ADMIN_MN')")
     public ResponseEntity<List<News>> getListNews(){
         //List<Brand> lstBrand=brandService.getAllBrand();
         List<News> lstNews=newsService.getListNew(-1);
@@ -73,6 +79,7 @@ public class ManageNewController extends BaseAdminController {
     }
 
     @PostMapping("/save_news")
+    @PreAuthorize("hasAuthority('ADMIN_MN')")
     public ResponseEntity<JSONObject> saveNews(@ModelAttribute NewsDTO newsDTO) throws Exception {
         JSONObject result = new JSONObject();
         PerfumeUtils perfumeUtils = new PerfumeUtils();
@@ -102,6 +109,7 @@ public class ManageNewController extends BaseAdminController {
     }
 
     @PostMapping("/delete_news")
+    @PreAuthorize("hasAuthority('ADMIN_MN')")
     public ResponseEntity<JSONObject> deleteNews(@RequestParam int id){
         JSONObject result = new JSONObject();
         result.put("message", Boolean.TRUE);

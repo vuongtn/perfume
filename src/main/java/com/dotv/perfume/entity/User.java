@@ -59,17 +59,17 @@ public class User implements UserDetails {
     //@JsonIgnore
     private List<UserRole> userRoles;
 
-    @OneToMany(mappedBy = "user",fetch =FetchType.LAZY)
-    @JsonIgnore
-    private List<Bill> bills;
+//    @OneToMany(mappedBy = "user",fetch =FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Bill> bills;
 
-    public List<Bill> getBills() {
-        return bills;
-    }
-
-    public void setBills(List<Bill> bills) {
-        this.bills = bills;
-    }
+//    public List<Bill> getBills() {
+//        return bills;
+//    }
+//
+//    public void setBills(List<Bill> bills) {
+//        this.bills = bills;
+//    }
 
     public List<UserRole> getUserRoles() {
         return userRoles;
@@ -216,4 +216,5 @@ public class User implements UserDetails {
     public void setType(String type) {
         this.type = type;
     }
+
 }

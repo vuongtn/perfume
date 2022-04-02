@@ -37,6 +37,7 @@ public class HomeController extends BaseController {
         model.addAttribute("lstGirlProduct",listGirlProduct);
         model.addAttribute("lstUnisexProduct",listUnisexProduct);
         model.addAttribute("typeMenu",1);
+
         return "user/home/home";
     }
 

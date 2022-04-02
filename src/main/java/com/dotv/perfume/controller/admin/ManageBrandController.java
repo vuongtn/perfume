@@ -11,6 +11,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
+@PreAuthorize("hasAuthority('ADMIN_MB')")
 public class ManageBrandController extends BaseAdminController {
     //Số phần tử hiển thị 1 trang
     private static final int PAGE = 5;

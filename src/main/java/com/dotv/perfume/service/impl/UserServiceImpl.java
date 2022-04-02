@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getAdminByUsernameAndType(String username, String type1, String type2) {
-        User user = userRepository.getAdminByUsernameAndType(username,type1,type2);
+        User user = userRepository.getAdminByUsernameAndType(username,type1, type2);
         return user == null ? new User() : user;
     }
 

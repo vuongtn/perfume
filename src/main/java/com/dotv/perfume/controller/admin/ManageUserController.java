@@ -12,7 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
+@PreAuthorize("hasAuthority('ADMIN_MU')")
 public class ManageUserController extends BaseAdminController {
     @Autowired
     UserRoleService userRoleService;
@@ -32,6 +35,9 @@ public class ManageUserController extends BaseAdminController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/employee")
     public String getEmployee() throws Exception {
@@ -172,9 +178,9 @@ public class ManageUserController extends BaseAdminController {
     @PostMapping("/update_pass")
     public ResponseEntity<JSONObject> getUpdatePassword(UserDTO userDTO) throws Exception {
         JSONObject result = new JSONObject();
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        //BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         userDTO.setId(getUserLogined().getId());
-        boolean isPass = bcrypt.matches(userDTO.getOldPassword().trim(),getUserLogined().getPassword());//Kiểm tra pass có chính xác
+        boolean isPass = bCryptPasswordEncoder.matches(userDTO.getOldPassword().trim(),getUserLogined().getPassword());//Kiểm tra pass có chính xác
         if(!isPass){
             result.put("message", 1);
         }

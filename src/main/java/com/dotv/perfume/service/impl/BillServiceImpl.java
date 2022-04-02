@@ -35,7 +35,7 @@ public class BillServiceImpl implements BillService {
     @Transactional
     public void saveBill(Bill bill) {
         //Lấy tất cả sản phẩm trong giỏ hàng theo idUser
-        List<ProductInCartDTO> lstPro = cartService.getProductInCart(bill.getUser().getId());
+        List<ProductInCartDTO> lstPro = cartService.getProductInCart(bill.getIdUser());
         double totalPrice=0;
         for(ProductInCartDTO pro1:lstPro){
             totalPrice = totalPrice + pro1.getAmount() * pro1.getPrice().doubleValue();
@@ -57,7 +57,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<Bill> getBillByUser(int idUser) {
-        return null;
+        return billRepository.findAllByIdUser(idUser);
     }
 
     @Override

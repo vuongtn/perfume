@@ -262,6 +262,19 @@ insert into cart values
 -- insert admin bảng user
 select * from user;
 
+-- insert bảng user_role
+insert into user_role(id_user,id_role,role_name,status) values
+(1,2,'ADMIN_MB',1),
+(1,3,'ADMIN_MP',1),
+(1,4,'ADMIN_MN',1),
+(1,5,'ADMIN_MI',1),
+(1,6,'ADMIN_MO',1),
+(1,7,'ADMIN_ME',1),
+(1,8,'ADMIN_MC',1),
+(1,9,'ADMIN_MR',1),
+(1,10,'ADMIN_MU',1);
+
+
 
 ----------------------------------------------------------------------------
 SET SQL_SAFE_UPDATES = 0;
@@ -314,3 +327,5 @@ select * from product;
 select * from brand;
 select p.id id, p.name name, p.price, p.image image  from product p inner join brand b on p.id_brand= b.id  where 1=1 and b.status=true and p.status=true  and(  p.id_brand=1  or  p.id_brand=2  )  order by p.name asc;
 select p.id id, p.name name, p.price, p.image image  from product p inner join brand b on p.id_brand= b.id  where 1=1 and b.status=true and p.status=true  and p.gender='Unisex'  and(  p.id_brand=1  )  order by p.price desc 
+;
+select * from user where username=dotv and (type='ADMIN_S' OR type='ADMIN_D');

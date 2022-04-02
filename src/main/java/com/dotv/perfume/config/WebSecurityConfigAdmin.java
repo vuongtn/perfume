@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(1)
 public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
 
@@ -21,10 +22,17 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService adminDetailsServiceImpl;
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(adminDetailsServiceImpl).passwordEncoder(new BCryptPasswordEncoder(4));
-    }
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(adminDetailsServiceImpl).passwordEncoder(passwordEncoder());
+//    }
 //    @Override
 //    public void configure(WebSecurity web) throws Exception {
 //        web.ignoring().antMatchers("/manage/**","/uploads/**","/user/**","/utils/**");
@@ -35,7 +43,7 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
                 .antMatcher("/admin/**")
                 .authorizeRequests()
                 //.antMatchers("/manage/**","/uploads/**","/user/**","/utils/**").permitAll()
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN_S","ADMIN_D")
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN_MB","ADMIN_MP","ADMIN_MN","ADMIN_MI","ADMIN_MO","ADMIN_ME","ADMIN_MC","ADMIN_MR","ADMIN_MU")
                 //.anyRequest().authenticated()
                 .and()
 
@@ -60,8 +68,8 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(adminDetailsService).passwordEncoder(new BCryptPasswordEncoder(4));
-//    }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(adminDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder);
+    }
 }

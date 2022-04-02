@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,8 +28,8 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     ModelMapper modelMapper;
 
-    @Value("${upload.path}")
-    private String fileUpload;
+//    @Value("${upload.path}")
+//    private String fileUpload;
 
     @Override
     public List<News> getListNew(int status) {
@@ -62,9 +63,12 @@ public class NewsServiceImpl implements NewsService {
         if(!newsDTO.getFileImage().isEmpty()) {
             news.setImage(newsDTO.getFileImage().getOriginalFilename());
             MultipartFile fileImage = newsDTO.getFileImage();
-            byte[] bytes = fileImage.getBytes();
-            Path path = Paths.get(fileUpload + "news//" + fileImage.getOriginalFilename());
-            Files.write(path, bytes);
+            //byte[] bytes = fileImage.getBytes();
+            //Path path = Paths.get(System.getProperty("user.dir") + "/news/" + fileImage.getOriginalFilename());
+            //Files.write(path, bytes);
+
+            //new File(globalConfig.getUploadRootPath() + oldCategory.getAvatar()).delete();
+            fileImage.transferTo(new File(System.getProperty("user.dir") + "/uploads/news/" + fileImage.getOriginalFilename()));
         }
 
         return newsRepository.save(news);

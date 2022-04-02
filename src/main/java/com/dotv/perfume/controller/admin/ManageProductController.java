@@ -1,13 +1,13 @@
 package com.dotv.perfume.controller.admin;
 
 import com.dotv.perfume.controller.BaseAdminController;
-import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.service.ProductService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
+@PreAuthorize("hasAuthority('ADMIN_MP')")
 public class ManageProductController extends BaseAdminController {
     @Autowired
     ProductService productService;

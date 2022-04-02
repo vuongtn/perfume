@@ -13,6 +13,7 @@ import com.dotv.perfume.utils.PerfumeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,9 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Override
     @Transactional
@@ -43,7 +47,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         user.setCreatedDate(timeNow);
         user.setCreatedBy(user.getFullName());
         user.setStatus(true);
-        user.setPassword(new BCryptPasswordEncoder().encode((user.getPassword())));
+        user.setPassword(bCryptPasswordEncoder.encode((user.getPassword())));
         user.setType("GUEST");
         //lưu user vào db
         userService.saveOrUpdate(user);
@@ -67,7 +71,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         }
         User user = modelMapper.map(userDTO,User.class);
         user.setCreatedDate(timeNow);
-        user.setPassword(new BCryptPasswordEncoder().encode(("Admin@123")));
+        user.setPassword(bCryptPasswordEncoder.encode(("Admin@123")));
         String permiss="Quản lý ";
         for(int i=0; i<userDTO.getPermiss().length; i++){
             if(i!=0){
@@ -106,8 +110,33 @@ public class UserRoleServiceImpl implements UserRoleService {
             Role role = roleRepository.findByCode(userDTO.getPermiss()[i]);
             //Tạo id user_role
             UserRoleId userRoleId = new UserRoleId(user.getId(),role.getId());
+            //add quyền theo code
+            String per="";
+            switch(userDTO.getPermiss()[i]) {
+                case "MB":
+                    per="ADMIN_MB";
+                    break;
+                case "MP":
+                    per="ADMIN_MP";
+                    break;
+                case "MN":
+                    per="ADMIN_MN";
+                    break;
+                case "MI":
+                    per="ADMIN_MI";
+                    break;
+                case "MO":
+                    per="ADMIN_M0";
+                    break;
+                case "MU":
+                    per="ADMIN_MU";
+                    break;
+                case "MC":
+                    per="ADMIN_MC";
+                    break;
+            }
             //Tạo user_role
-            UserRole userRole = new UserRole(userRoleId,"ADMIN_S",timeNow,true,user,role);
+            UserRole userRole = new UserRole(userRoleId,per,timeNow,true,user,role);
             //save userRole
             userRoleRepository.save(userRole);
         }

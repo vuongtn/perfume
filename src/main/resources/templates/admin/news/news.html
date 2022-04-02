@@ -92,7 +92,7 @@
                     </div>
                     <form id="form-news" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="form-group col-md-12" style="display: none" id="div-id">
+                        <div class="form-group col-md-12" id="div-id">
                             <label class="control-label">Mã tin tức </label>
                             <input class="form-control" id="id-news" name="id" type="number" readonly>
                         </div>
@@ -257,6 +257,7 @@
     }
 
     function removeData(){
+        $('#div-id').hide();
         $('#type-news').text('Thêm tin tức');
         $('#id-news').val('');
         $('#title-news').val('');
