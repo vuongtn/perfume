@@ -25,6 +25,7 @@ public class LoginController extends BaseController {
     @GetMapping("/check_login")
     public String checkLogin(){
         if(check==1){
+            check=0;
             return "redirect:/login.html?type=2";
         }
         return "redirect:/login.html";

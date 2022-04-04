@@ -3,6 +3,24 @@
 
 
 
+function messageErrorLogin(title,message){
+    $.toast({
+        heading: title,
+        text: message,
+        icon: 'error',
+        loader: true,
+        loaderBg: '#fff',
+        showHideTransition: 'plain',
+        hideAfter: 4000,
+        position: {
+            right: 100,
+            top: 30
+        }
+
+    })
+}
+
+
 /* Starts from here */
 function messageError(title,message){
     $.toast({

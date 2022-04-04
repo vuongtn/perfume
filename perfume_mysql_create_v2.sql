@@ -165,9 +165,9 @@ ALTER TABLE `user_role` ADD CONSTRAINT `user_role_fk1` FOREIGN KEY (`id_role`) R
 -- sửa kiểu dữ liệu
 ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
-ALTER TABLE user DROP COLUMN phone;
+ALTER TABLE bill DROP COLUMN reason;
 -- thêm cột
-ALTER TABLE user ADD COLUMN type varchar(100);
+ALTER TABLE bill ADD COLUMN reason text;
 drop table news;
 select * from product;
 

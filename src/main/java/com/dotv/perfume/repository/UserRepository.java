@@ -33,14 +33,13 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 
     List<User> findByPhone(String phone);
     List<User> findByEmail(String email);
-    List<User> findAllByTypeAndUsername(String type, String username);
 
     @Query("select u from User u where u.id<>?1 and u.phone=?2")
     List<User> findByIdAndPhone(int id,String phone);
     @Query("select u from User u where u.id<>?1 and u.email=?2")
     List<User> findByIdAndEmail(int id,String email);
-    @Query("select u from User u where u.id<>?1 and u.username=?2 and u.type=?3")
-    List<User> findByIdAndUsernameAndType(int id, String username, String type);
+    @Query("select u from User u where u.id<>?1 and u.username=?2")
+    List<User> findByIdAndUsername(int id, String username);
 
 
     @Query("select u from User u where u.type=?1 and lower(u.username) like lower(concat('%',?2,'%')) order by u.id asc")

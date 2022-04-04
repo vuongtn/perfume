@@ -13963,11 +13963,11 @@ be a descendant of the grid when it is being dragged.
 }
 
 .app-menu__icon {
-  font-size: 23px;
+  font-size: 20px;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  width: 40px;
+  width: 35px;
 }
 
 .app-menu__label {
@@ -15805,3 +15805,13 @@ td, th {
   margin: 0px 20px 5px 0;
   line-height: 1.4em;
 }
+
+/*fontawsome*/
+/*.fp-prev:before {*/
+/*  color:#000;*/
+/*  content: '\f35a'; !* replace / with \ *!*/
+/*  font-family: "Font Awesome 5 Free"; !* here is the correct font-family *!*/
+/*  font-style: normal;*/
+/*  font-weight: 900;*/
+/*  text-decoration: inherit;*/
+/*}*/

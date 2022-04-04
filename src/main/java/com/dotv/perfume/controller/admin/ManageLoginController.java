@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/admin")
 public class ManageLoginController extends BaseAdminController {
 
     int check=0;
@@ -24,24 +23,21 @@ public class ManageLoginController extends BaseAdminController {
     }
 
     @GetMapping("/check_login_admin")
-    public String checkLogin(){
+    public String checkLoginAdmin(){
         if(check==1){
-            return "redirect:/admin/login_admin.html?type=2";
+            check=0;
+            return "redirect:/login_admin.html?type=2";
         }
-        return "redirect:/admin/login_admin.html";
+        return "redirect:/login_admin.html";
     }
 
-    @GetMapping("/login_success")
+    @GetMapping("/login_admin_success")
     public String loginSuccess() throws Exception {
         User user = getUserLogined();
         if(user.getStatus()==false){
             check=1;
             return "redirect:/admin/logout_admin.html";
         }
-        if ("ADMIN_D".equals(user.getUserRoles().get(0).getRoleName())
-        ||"ADMIN_S".equals(user.getUserRoles().get(0).getRoleName())) {
-            return "redirect:/admin/brand";
-        }
-        return "admin/login_admin";
+        return "redirect:/admin/home";
     }
 }

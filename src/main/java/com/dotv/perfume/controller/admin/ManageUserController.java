@@ -7,16 +7,13 @@ import com.dotv.perfume.entity.User;
 import com.dotv.perfume.repository.UserRepository;
 import com.dotv.perfume.service.UserRoleService;
 import com.dotv.perfume.service.UserService;
-import com.dotv.perfume.utils.PerfumeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
@@ -25,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAuthority('ADMIN_MU')")
 public class ManageUserController extends BaseAdminController {
     @Autowired
     UserRoleService userRoleService;
@@ -40,19 +36,18 @@ public class ManageUserController extends BaseAdminController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/employee")
+    @PreAuthorize("hasAuthority('ADMIN_MI')")
     public String getEmployee() throws Exception {
-        if(getEmployeeRole()){
             return "admin/employee/employee";
-        }
-        return "/error/404";
     }
 
     @PostMapping("/save_employee")
+    @PreAuthorize("hasAuthority('ADMIN_MI')")
     public ResponseEntity<JSONObject> saveOrUpdateEmployee(@ModelAttribute UserDTO userDTO) {
         JSONObject result = new JSONObject();
         try{
             if(userDTO.getId()==null){
-                if(userRepository.findAllByTypeAndUsername("ADMIN_S",userDTO.getUsername()).size()!=0){
+                if(userRepository.findAllByUsername(userDTO.getUsername()).size()!=0){
                     result.put("message", 3);
                     return ResponseEntity.ok(result);
                 }
@@ -66,7 +61,7 @@ public class ManageUserController extends BaseAdminController {
                 }
             }
             else {
-                if(userRepository.findByIdAndUsernameAndType(userDTO.getId(),userDTO.getUsername(),"ADMIN_S").size()!=0){
+                if(userRepository.findByIdAndUsername(userDTO.getId(),userDTO.getUsername()).size()!=0){
                     result.put("message", 3);
                     return ResponseEntity.ok(result);
                 }
@@ -93,6 +88,7 @@ public class ManageUserController extends BaseAdminController {
     }
 
     @GetMapping("/lst_user")
+    @PreAuthorize("hasAuthority('ADMIN_MI')")
     public ResponseEntity<List<User>> getLstEmployee(@RequestParam String type, @RequestParam(required = false) String search){
         if(StringUtils.isBlank(search)){
             return ResponseEntity.ok(userService.getAllEmployee(type).stream()
@@ -105,6 +101,7 @@ public class ManageUserController extends BaseAdminController {
 
     }
     @PostMapping("/delete_user")
+    @PreAuthorize("hasAuthority('ADMIN_MI')")
     public ResponseEntity<JSONObject> deleteEmployee(@RequestParam int id){
         JSONObject result = new JSONObject();
         try {
@@ -120,11 +117,13 @@ public class ManageUserController extends BaseAdminController {
 
 
     @GetMapping("/user")
+    @PreAuthorize("hasAuthority('ADMIN_MU')")
     public String getUser(){
         return "admin/user/user";
     }
 
     @PostMapping("/update_status_user")
+    @PreAuthorize("hasAuthority('ADMIN_MU')")
     public ResponseEntity<JSONObject> updateStatusUser(@RequestParam int id, @RequestParam Boolean status){
         JSONObject result = new JSONObject();
         try {

@@ -138,7 +138,7 @@
                         '<td>'+formatDate(item.createdDate)+'</td>'+
                         '<td>'+person+'</td>';
                     if(item.status==true){
-                        html+='<td><span onclick="updateStatus('+item.id+',false)" style="cursor: pointer" class="badge bg-success">Đã liên hệ</span></td>';
+                        html+='<td><span style="cursor: pointer" class="badge bg-success">Đã liên hệ</span></td>';
                     }
                     if(item.status==false){
                         html+='<td><span onclick="updateStatus('+item.id+',true)" style="cursor: pointer" class="badge bg-danger">Chưa liên hệ</span></td>';

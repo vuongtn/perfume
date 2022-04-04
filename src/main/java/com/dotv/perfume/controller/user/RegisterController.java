@@ -52,7 +52,7 @@ public class RegisterController extends BaseController {
             model.addAttribute("errorUser","Email đã tồn tại");
             return "user/register/register";
         }
-        if(userRepository.findAllByTypeAndUsername("GUEST",userDTO.getUsername().trim()).size()!=0){
+        if(userRepository.findAllByUsername(userDTO.getUsername().trim()).size()!=0){
             model.addAttribute("errorUser","Tên đăng nhập đã tồn tại");
             return "user/register/register";
         }

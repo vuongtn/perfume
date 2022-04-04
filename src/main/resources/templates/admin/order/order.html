@@ -42,7 +42,9 @@
                                 <th>Giá trị</th>
                                 <th>Ngày đặt</th>
                                 <th>Tình trạng</th>
-                                <th id="personCancel" style="display: none">Người hủy</th>
+                                <th id="personCancel">Người hủy</th>
+                                <th id="dateCancel">Ngày hủy</th>
+                                <th id="dateUpdate">Ngày giao</th>
                                 <th>Chức năng</th>
                             </tr>
                             </thead>
@@ -74,6 +76,45 @@
         </div>
 
     </main>
+
+    <!--
+ MODAL
+-->
+<!--    <div class="modal fade" id="modalReason" data-keyboard="true">-->
+<!--        <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--            <div class="modal-content">-->
+
+<!--                <div class="modal-body">-->
+<!--                    <div class="row">-->
+<!--                        <div class="form-group  col-md-12">-->
+<!--                          <span class="thong-tin-thanh-toan">-->
+<!--                            <h5 id="title-brand">Lý do hủy đơn</h5>-->
+<!--                          </span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <form id="form-reason">-->
+<!--                        <div class="row">-->
+<!--                            <div class="form-group col-md-12">-->
+<!--                                <label class="control-label">Lý do hủy đơn</label>-->
+<!--                                <textarea id="name-brand" name="name" class="form-control" type="text"/>-->
+<!--                                <span class="form-message"></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <BR>-->
+<!--                        <button class="btn btn-save" type="submit">Hủy đơn</button>-->
+<!--                        <a class="btn btn-cancel"  id="cancel-order" data-dismiss="modal" href="#"></a>-->
+<!--                    </form>-->
+<!--                    <BR>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+    <!--
+    MODAL
+    -->
+
     <!-- Modal -->
     <!-- Thông tin chi tiết đơn hàng -->
     <div class="modal fade" id="myModalBill" role="dialog">
@@ -184,16 +225,27 @@
                     $('#personCancel').hide();
                     checkTypeOrder=status;
                     if(status==1){
+                        $('#dateUpdate').hide();
+                        $('#personCancel').hide();
+                        $('#dateCancel').hide();
                         $('#title-order').text('Đơn hàng đang xử lý');
                     }
                     if(status==2){
+                        $('#dateUpdate').hide();
+                        $('#personCancel').hide();
+                        $('#dateCancel').hide();
                         $('#title-order').text('Đơn hàng đang giao');
                     }
                     if(status==3){
+                        $('#dateUpdate').show();
+                        $('#personCancel').hide();
+                        $('#dateCancel').hide();
                         $('#title-order').text('Đơn hàng đã giao');
                     }
                     if(status==4){
+                        $('#dateUpdate').hide();
                         $('#personCancel').show();
+                        $('#dateCancel').show();
                         $('#title-order').text('Đơn hàng đã hủy');
                     }
                     var html = loadTable(data,status);
@@ -252,10 +304,11 @@
                         '</td>';
                             if(status==4){
                                 html+='<td>'+item.updatedBy+'</td>';
+                                html+='<td>'+formatDate(item.updatedDate)+'</td>';
                             }
-                            // if(status==4){
-                            //     html+='<td>'+item.updatedBy+'</td>';
-                            // }
+                            if(status==3){
+                                html+='<td>'+formatDate(item.updatedDate)+'</td>';
+                            }
                         html+=
                         '<td>';
                             if(status==1){

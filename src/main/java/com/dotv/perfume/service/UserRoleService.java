@@ -9,6 +9,6 @@ public interface UserRoleService {
     UserRole saveUser(User user);
 
     //Tạo tài khoản nhân viên
-    void saveEmployee(UserDTO userDTO);
+    void saveEmployee(UserDTO userDTO) throws Exception;
 
 }

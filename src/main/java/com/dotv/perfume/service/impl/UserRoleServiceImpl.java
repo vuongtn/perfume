@@ -63,15 +63,17 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @Transactional
-    public void saveEmployee(UserDTO userDTO) {
+    public void saveEmployee(UserDTO userDTO) throws Exception {
         Timestamp timeNow = perfumeUtils.getDateNow();
-        if(userDTO.getId()!=null){
-            //nếu cập nhật thì xóa các quyền
-            userRoleRepository.deleteRoleByIdUser(userDTO.getId());
-        }
         User user = modelMapper.map(userDTO,User.class);
         user.setCreatedDate(timeNow);
         user.setPassword(bCryptPasswordEncoder.encode(("Admin@123")));
+        if(userDTO.getId()!=null){
+            //nếu cập nhật thì xóa các quyền
+            userRoleRepository.deleteRoleByIdUser(userDTO.getId());
+            //set pass cũ
+            user.setPassword(userService.getUserById(userDTO.getId()).getPassword());
+        }
         String permiss="Quản lý ";
         for(int i=0; i<userDTO.getPermiss().length; i++){
             if(i!=0){

@@ -48,10 +48,10 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
                 .and()
 
                 // cấu hình trang đăng nhập
-                .formLogin().loginPage("/admin/login_admin.html")//trang đăng nhập tùy chỉnh
-                .loginProcessingUrl("/admin/perform_login1")//url submit username, pass
-                .defaultSuccessUrl("/admin/home", true)//Trang đích sau khi đăng nhập thành công
-                .failureUrl("/admin/login_admin.html?login_error=true")//Trang đích sau khi đăng nhập thất bại
+                .formLogin().loginPage("/login_admin.html")//trang đăng nhập tùy chỉnh
+                .loginProcessingUrl("/admin/perform_login_admin")//url submit username, pass
+                .defaultSuccessUrl("/login_admin_success", true)//Trang đích sau khi đăng nhập thành công
+                .failureUrl("/login_admin.html?login_error=true")//Trang đích sau khi đăng nhập thất bại
                 .permitAll()
 
                 .and()
@@ -59,7 +59,7 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
                 //cấu hình cho phần logout
                 .logout()
                 .logoutUrl("/admin/logout_admin.html")
-                .logoutSuccessUrl("/admin/check_login_admin")
+                .logoutSuccessUrl("/check_login_admin")
                 .invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll();
 
 
@@ -69,7 +69,7 @@ public class WebSecurityConfigAdmin extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(adminDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder);
     }
 }
