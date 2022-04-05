@@ -70,8 +70,8 @@ public class ManageBrandController extends BaseAdminController {
     public ResponseEntity<JSONObject> deleteBrand(@RequestParam int id){
         JSONObject result = new JSONObject();
         result.put("message", Boolean.TRUE);
-        int sizeTrue = productService.getAllProductByTrademark(id,true).size();
-        int sizeFalse = productService.getAllProductByTrademark(id,false).size();
+        int sizeTrue = productService.getAllProductByBrandAndStatus(id,true).size();
+        int sizeFalse = productService.getAllProductByBrandAndStatus(id,false).size();
         if(sizeFalse!=0||sizeTrue!=0){
             result.put("message", Boolean.FALSE);
             return ResponseEntity.ok(result);

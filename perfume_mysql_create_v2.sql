@@ -329,3 +329,9 @@ select p.id id, p.name name, p.price, p.image image  from product p inner join b
 select p.id id, p.name name, p.price, p.image image  from product p inner join brand b on p.id_brand= b.id  where 1=1 and b.status=true and p.status=true  and p.gender='Unisex'  and(  p.id_brand=1  )  order by p.price desc 
 ;
 select * from user where username=dotv and (type='ADMIN_S' OR type='ADMIN_D');
+
+select * from bill where week(updated_date) = week(curdate()) and month(updated_date) = month(curdate()) and year(updated_date) = year(curdate()) and status=4;
+select * from bill where month(updated_date) = month(curdate()) and year(updated_date) = year(curdate()) and status=3;
+select * from bill where month(updated_date) = '4' and year(`updated_date`) = year('2021-04-03') and status=4;
+select * from bill where year(`updated_date`) = year('2021-04-03') and status=3;
+select year(updated_date) from bill group by year(curdate())

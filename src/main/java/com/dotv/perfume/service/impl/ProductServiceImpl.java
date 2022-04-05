@@ -43,48 +43,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-//    @Value("${upload.path}")
-//    private String fileUpload;
 
-
-//    @Override
-//    public Page<Product> getListProductByTrademark(int idTrademark, Boolean status, int curPage, int page) {
-//        return productRepository.findAllByIdTrademarkAndStatus(idTrademark,status, PageRequest.of(curPage-1, page, Sort.by("name").descending()));
-//    }
-//
-    @Override
-    public List<Product> getListProductByTrademark(int idTrademark, Boolean status, int typeFilter, int curPage, int page) {
-        //Sắp xếp theo tăng dần theo giá
-        if(typeFilter==1){
-            return productRepository.getProductByTrademarkAscPrice(idTrademark,status, PageRequest.of(curPage-1, page));
-        }
-        //Sắp xếp giảm dần theo giá
-        if(typeFilter==2){
-            return productRepository.getProductByTrademarkDescPrice(idTrademark,status,PageRequest.of(curPage-1, page));
-        }
-        //Sắp theo tên
-        if(typeFilter==3){
-            return productRepository.getProductByTrademarkAscName(idTrademark,status,PageRequest.of(curPage-1, page));
-        }
-        return null;
-    }
-
-    @Override
-    public List<Product> getListProductByGender(String gender, Boolean status, int typeFilter, int curPage, int page) {
-        //Sắp xếp theo tăng dần theo giá
-        if(typeFilter==1){
-            return productRepository.getProductByGenderkAscPrice(gender,status, PageRequest.of(curPage-1, page));
-        }
-        //Sắp xếp giảm dần theo giá
-        if(typeFilter==2){
-            return productRepository.getProductByGenderkDescPrice(gender,status,PageRequest.of(curPage-1, page));
-        }
-        //Sắp theo tên
-        if(typeFilter==3){
-            return productRepository.getProductByGenderkAscName(gender,status,PageRequest.of(curPage-1, page));
-        }
-        return null;
-    }
 
     @Override
     public List<Product> getListNewProduct(int typeName,Boolean status) {
@@ -113,37 +72,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProductByTrademark(int id, Boolean status) {
+    public List<Product> getAllProductByBrandAndStatus(int id, Boolean status) {
         return productRepository.getProductByTrademark(id,status);
     }
 
-    @Override
-    public List<Product> getAllProductByStatus(Boolean status, int typeFilter, int curPage, int page) {
-        //Sắp xếp theo tăng dần theo giá
-        if(typeFilter==1){
-            return productRepository.getProductAscPrice(status, PageRequest.of(curPage-1, page));
-        }
-        //Sắp xếp giảm dần theo giá
-        if(typeFilter==2){
-            return productRepository.getProductDescPrice(status, PageRequest.of(curPage-1, page));
-        }
-        //Sắp theo tên
-        if(typeFilter==3){
-            return productRepository.getProductAscName(status, PageRequest.of(curPage-1, page));
-        }
-        return null;
-    }
-
-    @Override
-    public List<Product> getAllProduct(Boolean status) {
-        return productRepository.findAllByStatus(status);
-    }
-
-    @Override
-    public List<Product> searchProductByName(String query,Boolean status) {
-        String name=perfumeUtils.convertToEnglish(query.trim());
-        return productRepository.getProductByName(true,name);
-    }
 
     public StringBuilder getFilterPrice(StringBuilder sqlBuilder, FilterProductDTO f){
         if(ArrayUtils.isNotEmpty(f.getPrices())){
@@ -284,7 +216,7 @@ public class ProductServiceImpl implements ProductService {
         }
         Product product = modelMapper.map(productDTO,Product.class);
         product.setImage(productDTO.getImage());
-        Brand brand = brandService.getTrademarkById(productDTO.getIdBrand());
+        Brand brand = brandService.getBrandById(productDTO.getIdBrand());
         product.setBrand(brand);
 
         //Lưu file

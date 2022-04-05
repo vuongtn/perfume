@@ -46,7 +46,7 @@ public class HomeController extends BaseController {
     @GetMapping("/getMenu")
 //    @ResponseBody
     public ResponseEntity<List<Brand>> getListTrademark(){
-       return ResponseEntity.ok(trademarkService.getTrademarkByStatus(true));
+       return ResponseEntity.ok(trademarkService.getBrandByStatus(true));
     }
 
 

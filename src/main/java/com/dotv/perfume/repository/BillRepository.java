@@ -23,4 +23,15 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
     List<Bill> findAllByStatus(int status);
 
     List<Bill> findAllByIdUser(int idUser);
+
+    //Thống kê
+    @Query(value = "select * from bill where week(updated_date) = week(curdate()) and month(updated_date) = month(curdate()) and year(updated_date) = year(curdate()) and status=3",nativeQuery = true)
+    List<Bill> getListByWeek();
+    @Query(value = "select * from bill where month(updated_date) = month(curdate()) and year(updated_date) = year(curdate()) and status=3",nativeQuery = true)
+    List<Bill> getListByMonth();
+    @Query(value = "select * from bill where year(updated_date) = year(curdate()) and status=3",nativeQuery = true)
+    List<Bill> getListByYear();
+    //
+    @Query(value = "select * from bill where month(updated_date) =?1 and year(updated_date)=?2 and status=3",nativeQuery = true)
+    List<Bill> getListByMonthAndYear(String month, String year);
 }

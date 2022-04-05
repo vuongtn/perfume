@@ -15,7 +15,7 @@ public class BrandServiceImpl implements BrandService {
     BrandRepository brandRepository;
 
     @Override
-    public List<Brand> getTrademarkByStatus(Boolean status) {
+    public List<Brand> getBrandByStatus(Boolean status) {
         return brandRepository.getTrademarkByStatus(true);
     }
 
@@ -25,7 +25,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand getTrademarkById(int id) {
+    public Brand getBrandById(int id) {
         return brandRepository.getBrandById(id);
     }
 

@@ -70,4 +70,51 @@ public class BillServiceImpl implements BillService {
     public List<Bill> getBillByStatus(int status) {
         return billRepository.findAllByStatus(status);
     }
+
+    @Override
+    public Double totalMoneyBillByWeek() {
+        List<Bill> lst = billRepository.getListByWeek();
+        double totalMoney=0;
+        for(Bill bill:lst){
+            totalMoney += bill.getTotalPrice().doubleValue();
+        }
+        return totalMoney;
+    }
+
+    @Override
+    public Double totalMoneyBillByMonth() {
+        List<Bill> lst = billRepository.getListByMonth();
+        double totalMoney=0;
+        for(Bill bill:lst){
+            totalMoney += bill.getTotalPrice().doubleValue();
+        }
+        return totalMoney;
+    }
+
+    @Override
+    public Double totalMoneyBillByYear() {
+        List<Bill> lst = billRepository.getListByYear();
+        double totalMoney=0;
+        for(Bill bill:lst){
+            totalMoney += bill.getTotalPrice().doubleValue();
+        }
+        return totalMoney;
+    }
+
+    @Override
+    public Double[] arrTotalMoneyMonths(String year) {
+        Double[] arrTotalMoney = new Double[12];
+        for(int i=1; i<=12; i++){
+            String month=""+i;
+            List<Bill> lst = billRepository.getListByMonthAndYear(month,year);
+            double totalMoney=0;
+            for(Bill bill:lst){
+                totalMoney += bill.getTotalPrice().doubleValue();
+            }
+            arrTotalMoney[i-1]=totalMoney;
+        }
+        return arrTotalMoney;
+    }
+
+
 }

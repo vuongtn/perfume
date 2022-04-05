@@ -10,4 +10,10 @@ public interface BillService {
     List<Bill> getBillByUser(int idUser);
     int updateSatatusBill(Bill bill);
     List<Bill> getBillByStatus(int status);
+
+    //Thống kê
+    Double totalMoneyBillByWeek();
+    Double totalMoneyBillByMonth();
+    Double totalMoneyBillByYear();
+    Double[] arrTotalMoneyMonths(String year);
 }
