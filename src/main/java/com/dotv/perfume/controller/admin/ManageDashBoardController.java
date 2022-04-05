@@ -11,7 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class ManageDashBoardController extends BaseAdminController {
     @GetMapping("/home")
-    public String getContact(){
+    public String getHome(){
         return "admin/home/home";
     }
+
+
+    @GetMapping("/dash")
+    @PreAuthorize("hasAuthority('ADMIN_MR')")
+    public String getDash(){
+        return "admin/dash/dash";
+    }
+
+
 }

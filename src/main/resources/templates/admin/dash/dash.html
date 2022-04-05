@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý liên hệ</title>
+</head>
+<body>
+<th:block id="main-content">
+    <main class="app-content">
+        <h4 style="margin-top:10px; margin-bottom:10px">Danh sách liên hệ</h4>
+        <div class="row">
+            <!--Left-->
+            <div class="col-md-12 col-lg-12">
+                <div class="row">
+                    <!-- col-6 -->
+                    <div class="col-md-4">
+                        <div class="widget-small primary coloured-icon"><i class="icon fa-solid fa-users fa-3x"></i>
+                            <div class="info">
+                                <h4>Tổng khách hàng</h4>
+                                <p><b>56</b></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- col-6 -->
+                    <div class="col-md-4">
+                        <div class="widget-small info coloured-icon"><i class="icon fa-solid fa-database fa-3x"></i>
+                            <div class="info">
+                                <h4>Tổng sản phẩm</h4>
+                                <p><b>1850</b></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- col-6 -->
+                    <div class="col-md-4">
+                        <div class="widget-small warning coloured-icon"><i class="icon fa-solid fa-briefcase fa-3x"></i>
+                            <div class="info">
+                                <h4>Tổng đơn hàng thành công</h4>
+                                <p><b>247</b></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- col-6 -->
+                    <div class="col-md-4">
+                        <div class="widget-small danger coloured-icon"><i class="icon fa-solid fa-money-check-dollar fa-3x"></i>
+                            <div class="info">
+                                <h4>Doanh thu tuần</h4>
+                                <p><b>100.000.000đ</b></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="widget-small danger coloured-icon"><i class="icon fa-solid fa-money-check-dollar fa-3x"></i>
+                            <div class="info">
+                                <h4>Doanh thu tháng</h4>
+                                <p><b>100.000.000đ</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="widget-small danger coloured-icon"><i class="icon fa-solid fa-money-bill fa-3x"></i>
+                            <div class="info">
+                                <h4>Doanh thu năm</h4>
+                                <p><b>100.000.000đ</b></p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!--END left-->
+            <!--Right-->
+            <div class="col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tile">
+                            <h3 class="tile-title">Thống kê doanh thu năm</h3>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--END right-->
+        </div>
+    </main>
+</th:block>
+<th:block id="js-resources">
+    <script th:inline="javascript">
+        function renderChart(data, labels) {
+            var ctx = document.getElementById("barChartDemo").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Doanh thu',
+                        data: data,
+
+                        hoverBackgroundColor:"rgba(9, 109, 239, 0.651)",
+                        backgroundColor: "rgba(9, 109, 239, 1)",
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                    return float2vnd(value);
+                                }
+                            }
+                        }]
+                    }
+                },
+            });
+        }
+
+        $( document ).ready(function() {
+            data = [2500000, 1400000, 1200000, 1500000, 1800000, 1900000, 2200000];
+            labels =   ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6","Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+            renderChart(data, labels);
+        });
+
+
+        function float2vnd(value) {
+//   return value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+            return value.toLocaleString({style: 'currency', currency: 'VND'});
+        }
+    </script>
+</th:block>
+</body>
+</html>
