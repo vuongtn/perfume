@@ -128,7 +128,7 @@ public class UserRoleServiceImpl implements UserRoleService {
                     per="ADMIN_MI";
                     break;
                 case "MO":
-                    per="ADMIN_M0";
+                    per="ADMIN_MO";
                     break;
                 case "MU":
                     per="ADMIN_MU";

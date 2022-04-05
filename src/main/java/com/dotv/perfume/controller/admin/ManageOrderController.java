@@ -53,7 +53,7 @@ public class ManageOrderController extends BaseAdminController {
             bill.setStatus(status);
             bill.setId(id);
             bill.setUpdatedDate(perfumeUtils.getDateNow());
-            //bill.setUpdatedBy(getUserLogined().getFullName());
+            bill.setUpdatedBy(getUserLogined().getFullName());
             billService.updateSatatusBill(bill);
             result.put("message", Boolean.TRUE);
         }

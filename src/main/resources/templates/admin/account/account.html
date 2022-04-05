@@ -171,8 +171,9 @@
                         }
                         if(result.message==3){
                             messageSuccess('Thành công!', 'Cập nhật tài khoản thành công.');
-                            $(location).attr('href', "/admin/account");
-                            //updateAcc();
+                            $('#login-fullName').text($('#fullName').val().trim()+' ▾');
+                            //$(location).attr('href', "/admin/account");
+                            updateAcc();
                         }
                         if(result.message==4){
                             messageError('Thất bại!','Cập nhật tài khoản thất bại.')
