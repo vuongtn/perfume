@@ -79,32 +79,32 @@
         </div>
         <hr>
         <ul class="app-menu">
-            <th:block th:if="${brandRole}">
-                <li><a class="app-menu__item" href="/admin/dash"><i class="app-menu__icon fa-solid fa-gauge"></i><span class="app-menu__label">Xem thống kê</span></a></li>
+            <th:block th:if="${reportRole}">
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/dash'?'active':''}" href="/admin/dash"><i class="app-menu__icon fa-solid fa-gauge"></i><span class="app-menu__label">Xem thống kê</span></a></li>
             </th:block>
             <th:block th:if="${brandRole}">
-                <li><a class="app-menu__item active" href="/admin/brand"><i class="app-menu__icon fas fa-th-large"></i><span class="app-menu__label">Quản lý thương hiệu</span></a></li>
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/brand'?'active':''}" href="/admin/brand"><i class="app-menu__icon fas fa-th-large"></i><span class="app-menu__label">Quản lý thương hiệu</span></a></li>
             </th:block>
             <th:block th:if="${productRole}">
-                <li><a class="app-menu__item" href="/admin/product"><i class="app-menu__icon fas fa-sitemap"></i><span class="app-menu__label">Quản lý sản phẩm</span></a></li>
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/product'?'active':''}" href="/admin/product"><i class="app-menu__icon fas fa-sitemap"></i><span class="app-menu__label">Quản lý sản phẩm</span></a></li>
             </th:block>
             <th:block th:if="${orderRole}">
-                <li><a class="app-menu__item " href="/admin/order"><i class="app-menu__icon fa-solid fa-money-bills"></i><span class="app-menu__label">Quản lý đơn hàng</span></a></li>
+                <li><a class="app-menu__item " th:classappend="${#httpServletRequest.getRequestURI()=='/admin/order'?'active':''}" href="/admin/order"><i class="app-menu__icon fa-solid fa-money-bills"></i><span class="app-menu__label">Quản lý đơn hàng</span></a></li>
             </th:block>
             <th:block th:if="${newsRole}">
-                <li><a class="app-menu__item" href="/admin/news"><i class="app-menu__icon fa-solid fa-newspaper"></i><span class="app-menu__label">Quản lý tin tức</span></a></li>
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/news'?'active':''}" href="/admin/news"><i class="app-menu__icon fa-solid fa-newspaper"></i><span class="app-menu__label">Quản lý tin tức</span></a></li>
             </th:block>
             <th:block th:if="${userRole}">
-                <li><a class="app-menu__item" href="/admin/user"><i class="app-menu__icon fa-solid fa-users"></i><span class="app-menu__label">Quản lý khách hàng</span></a></li>
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/user'?'active':''}" href="/admin/user"><i class="app-menu__icon fa-solid fa-users"></i><span class="app-menu__label">Quản lý khách hàng</span></a></li>
             </th:block>
             <th:block th:if="${employeeRole}">
-                <li><a class="app-menu__item" href="/admin/employee"><i class="app-menu__icon fa-solid fa-user-gear"></i><span class="app-menu__label">Quản lý nhân viên</span></a></li>
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/employee'?'active':''}" href="/admin/employee"><i class="app-menu__icon fa-solid fa-user-gear"></i><span class="app-menu__label">Quản lý nhân viên</span></a></li>
             </th:block>
             <th:block th:if="${contactRole}">
-                <li><a class="app-menu__item" href="/admin/contact"><i class="app-menu__icon fa-solid fa-address-book"></i><span class="app-menu__label">Quản lý liên hệ</span></a></li>
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/contact'?'active':''}" href="/admin/contact"><i class="app-menu__icon fa-solid fa-address-book"></i><span class="app-menu__label">Quản lý liên hệ</span></a></li>
             </th:block>
             <th:block th:if="${introduceRole}">
-                <li><a class="app-menu__item" href="/admin/introduce"><i class="app-menu__icon fa-solid fa-circle-info"></i><span class="app-menu__label">Quản lý giới thiệu </span></a></li>
+                <li><a class="app-menu__item" th:classappend="${#httpServletRequest.getRequestURI()=='/admin/introduce'?'active':''}" href="/admin/introduce"><i class="app-menu__icon fa-solid fa-circle-info"></i><span class="app-menu__label">Quản lý giới thiệu </span></a></li>
             </th:block>
         </ul>
     </aside>

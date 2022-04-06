@@ -57,4 +57,5 @@ public interface UserRepository extends JpaRepository<User,Integer>{
     @Query("update User u set u.password=?1 where u.id=?2")
     int updatePass(String password, int id);
 
+
 }

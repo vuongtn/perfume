@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -44,33 +45,54 @@ public class RegisterController extends BaseController {
         return "user/register/register";
 
     }
+//    @PostMapping("/verify_register")
+//    public String getVerifyRegister(UserDTO userDTO, Model model){
+//        model.addAttribute("pass",userDTO.getPassword());
+//        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
+//        if(userRepository.findByEmail(userDTO.getEmail().trim()).size()!=0){
+//            model.addAttribute("errorUser","Email đã tồn tại");
+//            return "user/register/register";
+//        }
+//        if(userRepository.findAllByUsername(userDTO.getUsername().trim()).size()!=0){
+//            model.addAttribute("errorUser","Tên đăng nhập đã tồn tại");
+//            return "user/register/register";
+//        }
+//        try {
+//            int code = sendCodeMail(userDTO.getEmail(), userDTO.getFullName());
+//            model.addAttribute("codeSend",code);
+//        }
+//        catch (Exception ex){
+//            model.addAttribute("errorUser","Lỗi hệ thống.");
+//            return "user/register/register";
+//        }
+//        model.addAttribute("check",1);
+////        model.addAttribute("pass",userDTO.getPassword());
+////        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
+//        return "user/register/register";
+//
+//    }
+
     @PostMapping("/verify_register")
-    public String getVerifyRegister(UserDTO userDTO, Model model){
-        model.addAttribute("pass",userDTO.getPassword());
-        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
+    public ResponseEntity<JSONObject> getVerifyRegister(@ModelAttribute UserDTO userDTO){
+        JSONObject result = new JSONObject();
         if(userRepository.findByEmail(userDTO.getEmail().trim()).size()!=0){
-            model.addAttribute("errorUser","Email đã tồn tại");
-            return "user/register/register";
+            result.put("message",1);
+            return ResponseEntity.ok(result);
         }
         if(userRepository.findAllByUsername(userDTO.getUsername().trim()).size()!=0){
-            model.addAttribute("errorUser","Tên đăng nhập đã tồn tại");
-            return "user/register/register";
+            result.put("message",2);
+            return ResponseEntity.ok(result);
         }
         try {
             int code = sendCodeMail(userDTO.getEmail(), userDTO.getFullName());
-            model.addAttribute("codeSend",code);
+            result.put("codeSend",code);
+            return ResponseEntity.ok(result);
         }
         catch (Exception ex){
-            model.addAttribute("errorUser","Lỗi hệ thống.");
-            return "user/register/register";
+            result.put("message",2);
+            return ResponseEntity.ok(result);
         }
-        model.addAttribute("check",1);
-//        model.addAttribute("pass",userDTO.getPassword());
-//        model.addAttribute("confirmPass",userDTO.getConfirmPassword());
-        return "user/register/register";
-
     }
-
     public int sendCodeMail(String emailReceiver,String fullname) throws IOException, MessagingException{
         Random random = new Random();
         Integer code = random.nextInt(900000) + 100000;

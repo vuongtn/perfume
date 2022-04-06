@@ -102,6 +102,11 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public List<Bill> totalBillMonth() {
+        return billRepository.getListByMonth();
+    }
+
+    @Override
     public Double[] arrTotalMoneyMonths(String year) {
         Double[] arrTotalMoney = new Double[12];
         for(int i=1; i<=12; i++){
@@ -114,6 +119,11 @@ public class BillServiceImpl implements BillService {
             arrTotalMoney[i-1]=totalMoney;
         }
         return arrTotalMoney;
+    }
+
+    @Override
+    public List<Bill> lstYear() {
+        return billRepository.getListYear();
     }
 
 

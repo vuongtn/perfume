@@ -8,6 +8,12 @@
 </head>
 <body>
 <div layout:fragment="register">
+    <div style="display: none" class="loader-div" id="loading-send">
+        <span class="loader">
+            <span></span>
+            <span></span>
+        </span>
+    </div>
     <!-- MAIN-CONTENT-SECTION START -->
     <section class="main-content-section">
         <div class="container">
@@ -24,11 +30,9 @@
                             <form class="new-account-box" th:object="${userDTO}" id="accountRegister" method="post" action="/verify_register">
                                 <h3 class="box-subheading">Đăng ký</h3>
                                 <div>
-                                    <th:block th:if="${errorUser}">
-                                        <div id="error-user" class="alert alert-danger" role="alert" th:text="${errorUser}">
+                                    <div id="error-user" class="alert alert-danger" style="display: none" role="alert">
                                            lỗi
-                                        </div>
-                                    </th:block>
+                                    </div>
                                     <div class="form-content">
                                         <div class="form-group primary-form-group">
                                             <label for="fullname">Họ và tên</label>
@@ -123,10 +127,51 @@ Validator({
             return document.querySelector('#accountRegister #password').value;
         }),
     ],
-    // onSubmit: function(data) {
-    //   //Call API
-    //   console.log(data);
-    // }
+    onSubmit: function(da) {
+        var form = $('#accountRegister')[0];
+        var data = new FormData(form);
+        $('#loading-send').show();
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/verify_register",
+            data: data,
+            processData: false, //prevent jQuery from automatically transforming the data into a query string
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                $('#loading-send').hide();
+                if(data.message==1){
+                    //messageError('Cảnh báo!','Email đã tồn tại.')
+                    $('#error-user').text('Email đã tồn tại.');
+                    $('#error-user').show();
+                    $('#loading-send').hide();
+                }
+                else{
+                    if(data.message==2){
+                        $('#error-user').text('Tên đăng nhập đã tồn tại.');
+                        $('#error-user').show();
+                        $('#loading-send').hide();
+                    }
+                    else {
+                        if(data.message!=3){
+                            $('#loading-send').hide();
+                            $('#code-sended').val(data.codeSend);
+                            $('#myModal').modal('show');
+                        }
+                    }
+                }
+                // $(location).attr('href', "/admin/brand?curPage=1");
+
+            },
+            error: function (e) {
+                messageError('Thất bại!','Lỗi hệ thống.')
+                console.log("ERROR : ", e);
+            }
+        });
+
+    }
 });
 
     //verify code js
@@ -220,25 +265,7 @@ Validator({
 
 
 
-
-
-
-    //Gán pass cho input
-    $('#password').val([[${pass}]]);
-    $('#confirm-password').val([[${confirmPass}]]);
-
-    //Gán codeSend cho input để check
-    $('#code-sended').val([[${codeSend}]]);
-
-
-    //sendMail
-    //Xác thực email
-    var check=[[${check}]];
-    if(check==1){
-        $('#myModal').modal('show');
-    }
-
-
+    //call api
     function sendCodeMail(type){
         var fullname=$("#fullname").val();
         var email=$("#email").val();

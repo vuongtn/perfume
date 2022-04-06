@@ -41,11 +41,12 @@ public class ManageDashBoardController extends BaseAdminController {
         JSONObject result = new JSONObject();
         result.put("totalUser",userService.getAllEmployee("GUEST").size());
         result.put("totalProduct",productService.getListProduct("all").size());
-        result.put("totalBillOk",billService.getBillByStatus(3).size());
+        result.put("totalBillMonth",billService.totalBillMonth().size());
         result.put("moneyWeek",billService.totalMoneyBillByWeek());
         result.put("moneyMonth",billService.totalMoneyBillByMonth());
         result.put("moneyYear",billService.totalMoneyBillByYear());
         result.put("arrTotalMoney",billService.arrTotalMoneyMonths(year));
+        result.put("lstYear",billService.lstYear());
         return ResponseEntity.ok(result);
     }
 

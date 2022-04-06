@@ -15,5 +15,7 @@ public interface BillService {
     Double totalMoneyBillByWeek();
     Double totalMoneyBillByMonth();
     Double totalMoneyBillByYear();
+    List<Bill> totalBillMonth();
     Double[] arrTotalMoneyMonths(String year);
+    List<Bill> lstYear();
 }

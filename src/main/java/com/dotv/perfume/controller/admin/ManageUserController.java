@@ -1,7 +1,6 @@
 package com.dotv.perfume.controller.admin;
 
 import com.dotv.perfume.controller.BaseAdminController;
-import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.dto.UserDTO;
 import com.dotv.perfume.entity.User;
 import com.dotv.perfume.repository.UserRepository;
@@ -11,13 +10,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,6 +39,7 @@ public class ManageUserController extends BaseAdminController {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @GetMapping("/employee")
     @PreAuthorize("hasAuthority('ADMIN_MI')")
@@ -184,7 +190,7 @@ public class ManageUserController extends BaseAdminController {
             result.put("message", 1);
         }
         else {
-            userDTO.setPassword(new BCryptPasswordEncoder().encode((userDTO.getPassword().trim())));
+            userDTO.setPassword(bCryptPasswordEncoder.encode((userDTO.getPassword().trim())));
             if(userService.updateAccount(userDTO)>0)
                 result.put("message", 2);
             else
@@ -192,5 +198,7 @@ public class ManageUserController extends BaseAdminController {
         }
         return ResponseEntity.ok(result);
     }
+
+
 
 }

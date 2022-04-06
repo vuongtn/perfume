@@ -31,7 +31,11 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
     List<Bill> getListByMonth();
     @Query(value = "select * from bill where year(updated_date) = year(curdate()) and status=3",nativeQuery = true)
     List<Bill> getListByYear();
+
     //
     @Query(value = "select * from bill where month(updated_date) =?1 and year(updated_date)=?2 and status=3",nativeQuery = true)
     List<Bill> getListByMonthAndYear(String month, String year);
+
+    @Query(value = "select * from bill group by year(updated_date) order by(updated_date) desc",nativeQuery = true)
+    List<Bill> getListYear();
 }

@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class ConfigBean {
+public class BeanConfig {
 
     /*
     *   Standard: không quan tâm thứ tự

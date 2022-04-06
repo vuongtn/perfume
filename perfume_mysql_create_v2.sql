@@ -334,4 +334,4 @@ select * from bill where week(updated_date) = week(curdate()) and month(updated_
 select * from bill where month(updated_date) = month(curdate()) and year(updated_date) = year(curdate()) and status=3;
 select * from bill where month(updated_date) = '4' and year(`updated_date`) = year('2021-04-03') and status=4;
 select * from bill where year(`updated_date`) = year('2021-04-03') and status=3;
-select year(updated_date) from bill group by year(curdate())
+select year(updated_date) from bill group by year(updated_date)
