@@ -44,15 +44,6 @@ public class ManageNewController extends BaseAdminController {
     @PreAuthorize("hasAuthority('ADMIN_MI')")
     public ResponseEntity<JSONObject> saveIntroduce(News news){
         JSONObject result = new JSONObject();
-        news.setStatus(0);
-        if(news.getId()==null){
-            news.setCreatedDate(perfumeUtils.getDateNow());
-//           news.setCreatedBy(getUserLogined().getFullName());
-        }
-        else{
-//           news.setUpdatedBy(getUserLogined().getFullName());
-            news.setUpdatedDate(perfumeUtils.getDateNow());
-        }
         try{
             newsService.saveIntroduce(news);
             result.put("message",Boolean.TRUE);

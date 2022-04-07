@@ -50,17 +50,8 @@ public class ManageBrandController extends BaseAdminController {
     }
 
     @PostMapping("/save_brand")
-    public ResponseEntity<JSONObject> saveBrand(@ModelAttribute Brand brand) throws Exception {
+    public ResponseEntity<JSONObject> saveBrand(@ModelAttribute Brand brand) {
         JSONObject result = new JSONObject();
-        PerfumeUtils perfumeUtils = new PerfumeUtils();
-        if(brand.getId()==null){
-            brand.setCreatedDate(perfumeUtils.getDateNow());
-//            brand.setCreatedBy(getUserLogined().getFullName());
-        }
-        else{
-//            brand.setUpdatedBy(getUserLogined().getFullName());
-            brand.setUpdatedDate(perfumeUtils.getDateNow());
-        }
         brandService.saveOrUpdateBrand(brand);
         result.put("message", Boolean.TRUE);
         return ResponseEntity.ok(result);

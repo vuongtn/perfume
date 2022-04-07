@@ -111,68 +111,6 @@
 </div>
 <script layout:fragment="register_js" th:inline="javascript">
     //Định nghĩa form
-Validator({
-    form: '#accountRegister',
-    errorSelector: '.form-message',
-    rules: [
-        Validator.isRequired('#fullname'),//chạy hàm để nhận dữ liệu return trả về
-        Validator.isRequired('#email'),
-        Validator.isEmail('#email'),
-        Validator.isRequired('#username'),
-        Validator.isUsername('#username'),
-        // Validator.minLength('#username',4,'Tên đăng nhập phải chứa ít nhất 4 kí tự'),
-        Validator.isRequired('#password'),
-        Validator.minLength('#password',6),
-        Validator.isConfirm('#confirm-password',function() {
-            return document.querySelector('#accountRegister #password').value;
-        }),
-    ],
-    onSubmit: function(da) {
-        var form = $('#accountRegister')[0];
-        var data = new FormData(form);
-        $('#loading-send').show();
-        $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "/verify_register",
-            data: data,
-            processData: false, //prevent jQuery from automatically transforming the data into a query string
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function (data) {
-                $('#loading-send').hide();
-                if(data.message==1){
-                    //messageError('Cảnh báo!','Email đã tồn tại.')
-                    $('#error-user').text('Email đã tồn tại.');
-                    $('#error-user').show();
-                    $('#loading-send').hide();
-                }
-                else{
-                    if(data.message==2){
-                        $('#error-user').text('Tên đăng nhập đã tồn tại.');
-                        $('#error-user').show();
-                        $('#loading-send').hide();
-                    }
-                    else {
-                        if(data.message!=3){
-                            $('#loading-send').hide();
-                            $('#code-sended').val(data.codeSend);
-                            $('#myModal').modal('show');
-                        }
-                    }
-                }
-                // $(location).attr('href', "/admin/brand?curPage=1");
-
-            },
-            error: function (e) {
-                messageError('Thất bại!','Lỗi hệ thống.')
-                console.log("ERROR : ", e);
-            }
-        });
-
-    }
-});
 
     //verify code js
     $(function() {
@@ -256,11 +194,72 @@ Validator({
         updateTimer();
     }
 
-    countdown( "ten-countdown", timeCountdown, 0 );//Gọi hàm đếm thời gian
+    //countdown( "ten-countdown", timeCountdown, 0 );//Gọi hàm đếm thời gian
     ///////////////////////////////
 
+    //submit form
+    Validator({
+        form: '#accountRegister',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#fullname'),//chạy hàm để nhận dữ liệu return trả về
+            Validator.isRequired('#email'),
+            Validator.isEmail('#email'),
+            Validator.isRequired('#username'),
+            Validator.isUsername('#username'),
+            // Validator.minLength('#username',4,'Tên đăng nhập phải chứa ít nhất 4 kí tự'),
+            Validator.isRequired('#password'),
+            Validator.minLength('#password',6),
+            Validator.isConfirm('#confirm-password',function() {
+                return document.querySelector('#accountRegister #password').value;
+            }),
+        ],
+        onSubmit: function(da) {
+            var form = $('#accountRegister')[0];
+            var data = new FormData(form);
+            $('#loading-send').show();
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/verify_register",
+                data: data,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    $('#loading-send').hide();
+                    if(data.message==1){
+                        //messageError('Cảnh báo!','Email đã tồn tại.')
+                        $('#error-user').text('Email đã tồn tại.');
+                        $('#error-user').show();
+                        $('#loading-send').hide();
+                    }
+                    else{
+                        if(data.message==2){
+                            $('#error-user').text('Tên đăng nhập đã tồn tại.');
+                            $('#error-user').show();
+                            $('#loading-send').hide();
+                        }
+                        else {
+                            if(data.message!=3){
+                                $('#code-sended').val(data.codeSend);
+                                $('#myModal').modal('show');
+                                countdown( "ten-countdown", timeCountdown, 0 );
+                            }
+                        }
+                    }
+                    // $(location).attr('href', "/admin/brand?curPage=1");
 
+                },
+                error: function (e) {
+                    messageError('Thất bại!','Lỗi hệ thống.')
+                    console.log("ERROR : ", e);
+                }
+            });
 
+        }
+    });
 
 
 

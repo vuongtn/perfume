@@ -6,6 +6,7 @@ import com.dotv.perfume.entity.News;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.repository.NewsRepository;
 import com.dotv.perfume.service.NewsService;
+import com.dotv.perfume.utils.PerfumeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,9 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    PerfumeUtils perfumeUtils;
+
 //    @Value("${upload.path}")
 //    private String fileUpload;
 
@@ -46,6 +50,15 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News saveIntroduce(News news) {
+        news.setStatus(0);
+        if(news.getId()==null){
+            news.setCreatedDate(perfumeUtils.getDateNow());
+//           news.setCreatedBy(getUserLogined().getFullName());
+        }
+        else{
+//           news.setUpdatedBy(getUserLogined().getFullName());
+            news.setUpdatedDate(perfumeUtils.getDateNow());
+        }
         return newsRepository.save(news);
     }
 

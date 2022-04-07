@@ -89,7 +89,7 @@ public class RegisterController extends BaseController {
             return ResponseEntity.ok(result);
         }
         catch (Exception ex){
-            result.put("message",2);
+            result.put("message",3);
             return ResponseEntity.ok(result);
         }
     }
