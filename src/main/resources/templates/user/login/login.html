@@ -57,7 +57,7 @@
                                             <p><a href="#">Quên mật khẩu?</a></p>
                                         </div>
                                         <div class="forget-password">
-                                            <p><a href="#">Bạn chưa có tại khoản: Đăng ký</a></p>
+                                            <p><a href="/register">Bạn chưa có tại khoản: Đăng ký</a></p>
                                         </div>
                                         <button class="form-submit">Đăng nhập</button>
                                     </div>
@@ -65,6 +65,23 @@
 
                                 </div>
                             </form>
+                            <div class="row">
+<!--                                https://www.facebook.com/dialog/oauth?client_id=513083430198436&redirect_uri=https://localhost:8081/signin/facebook-->
+                                <form action="/signin/facebook" method="POST">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left:15px; padding-right:10px">
+<!--                                        <input type="hidden" name="redirect_uri" value="https://localhost:8081/login_facebook" />-->
+                                        <input type="hidden" name="scope" value="email, public_profile" />
+<!--                                        <a href="https://www.facebook.com/dialog/oauth?client_id=702774770765046&redirect_uri=https://localhost:8443/login_facebook">-->
+                                        <button class="form-submit-fb" ><i class="fa-brands fa-facebook fa-xl" style="margin-right: 5px;color:white"></i>Facebook</button>
+<!--                                        </a>-->
+                                    </div>
+                                </form>
+                                <form action="/signin/google" method="POST">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left:10px; padding-right:15px">
+                                        <button class="form-submit-gg"><i class="fa-brands fa-google fa-xl" style="margin-right: 5px;color:white"></i>Google</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <!-- REGISTERED-ACCOUNT END -->
                     </div>

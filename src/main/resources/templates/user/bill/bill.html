@@ -27,20 +27,20 @@
                                     <div class="personal-info-content">
                                         <div class="form-group p-info-group">
                                             <label class="p_buy" for="fullName">Họ tên người nhận <sup></sup></label>
-                                            <input type="text" th:value="${user.fullName}" name="fullName" id="fullName" class="form-control input-feild">
+                                            <input type="text" th:value="${user.fullName}" name="receiverName" id="fullName" class="form-control input-feild">
                                         </div>
                                         <div class="form-group p-info-group">
                                             <label class="p_buy" for="email">Email <sup></sup></label>
-                                            <input type="email" th:value="${user.email}" name="email" id="email" class="form-control input-feild" readonly>
+                                            <input type="email" th:value="${user.email}" name="receiverEmail" id="email" class="form-control input-feild" readonly>
                                         </div>
                                         <div class="form-group p-info-group">
                                             <label class="p_buy" for="email">Số điện thoại<sup></sup></label>
-                                            <input type="text" th:value="${user.phone}" name="phone" id="phone" class="form-control input-feild">
+                                            <input type="text" th:value="${user.phone}" name="receiverPhone" id="phone" class="form-control input-feild">
 <!--                                            <span style="color: red" th:if="${errorUser}" th:text="${errorUser}">Số điện thoại đã tồn tại</span>-->
                                         </div>
                                         <div class="form-group p-info-group">
                                             <label class="p_buy" for="address">Địa chỉ<sup></sup></label>
-                                            <input type="address" th:value="${user.address}" name="address" id="address" class="form-control input-feild">
+                                            <input type="address" th:value="${user.address}" name="receiverAddress" id="address" class="form-control input-feild">
                                         </div>
                                         <div class="form-group p-info-group">
                                             <label class="p_buy" for="note">Ghi chú<sup></sup></label>
@@ -55,10 +55,10 @@
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <h3 class="title-buy">Thanh toán</h3>
                             <span class="form-message"></span>
-                            <input type="radio" checked="true" name="payment" value="1" onclick="show1();" />
+                            <input type="radio" checked="true" name="payment" value="Thanh toán khi nhận hàng" onclick="show1();" />
                             Thanh toán khi nhận hàng
                             <br>
-                            <input type="radio" name="payment" value="2" onclick="show2();" />
+                            <input type="radio" name="payment" value="Chuyển khoản qua ngân hàng" onclick="show2();" />
                             Chuyển khoản qua ngân hàng
 
 
@@ -118,28 +118,28 @@
     //Khi bàn phím được nhấn và thả ra thì sẽ chạy phương thức này
     $("#form-order").validate({
         rules: {
-            fullName: "required",
-            email: {
+            receiverName: "required",
+            receiverEmail: {
                 required: true,
                 email: true
             },
-            phone: {
+            receiverPhone: {
                 required: true,
                 phone:true,
             },
-            address: 'required'
+            receiverAddress: 'required'
         },
         messages: {
-            fullName: "Vui lòng nhập họ tên",
-            email: {
+            receiverName: "Vui lòng nhập họ tên",
+            receiverEmail: {
                 required: "Vui lòng nhập email",
                 email: "Địa chỉ email không hợp lệ"
             },
-            phone: {
+            receiverPhone: {
                 required: "Vui lòng nhập số điện thoại",
                 phone: "Số điện thoại không hợp lệ",
             },
-            address:"Vui lòng nhập địa chỉ"
+            receiverAddress:"Vui lòng nhập địa chỉ"
         }
     });
 

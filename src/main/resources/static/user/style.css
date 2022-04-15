@@ -5441,6 +5441,34 @@ tfoot th:first-child {
 	/* border-radius: 8px; */
 	cursor: pointer;
 }
+
+.form-submit-fb {
+	outline: none;
+	background-color: #4267B2;
+	margin-top: 12px;
+	padding: 10px 16px;
+	font-weight: 600;
+	color: white;
+	border: 1px solid rgba(0,0,0,.26);;
+	width: 100%;
+	font-size: 14px;
+	/* border-radius: 8px; */
+	cursor: pointer;
+}
+.form-submit-gg {
+	outline: none;
+	background-color:  #db4a39;
+	margin-top: 12px;
+	padding: 10px 16px;
+	font-weight: 600;
+	color: white;
+	border: 1px solid rgba(0,0,0,.26);;
+	width: 100%;
+	font-size: 14px;
+	/* border-radius: 8px; */
+	cursor: pointer;
+}
+
 #btn-reverify{
 	margin-top: 35px;
 	margin-bottom: 20px;
@@ -5579,4 +5607,33 @@ tfoot th:first-child {
 	100% {
 		transform: none;
 	}
+}
+
+/*login facebook, google*/
+.auth-form__socials{
+	background-color: #F5F5F5;
+	padding:12px 32px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+.auth-form__socials-icon{
+	font-size: 1.6rem;
+}
+.auth-form__socials--facebook{
+	color: white;
+	background-color:#394c72;
+}
+.auth-form__socials--facebook
+.auth-form__socials-icon{
+	color: white;
+}
+.auth-form__socials-title{
+	margin: 0 10px;
+	font-size: 1.4rem;
+}
+.auth-form__socials--google{
+	background-color: white;
+	color: #666;
 }

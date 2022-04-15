@@ -58,4 +58,11 @@ public class PerfumeUtils {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return Timestamp.valueOf(dtf.format((TemporalAccessor) date));
     }
+
+    //Tính chênh lệch phút
+    public long calculateSecond(Timestamp time){
+        long diff = (getDateNow().getTime() - time.getTime())/(1000);
+        return diff;
+    }
+
 }

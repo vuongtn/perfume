@@ -144,7 +144,7 @@ public class AccountController extends BaseController {
     }
 
     @PostMapping("/product_in_bill")
-    public ResponseEntity<List<ProductInBillDTO>> getProInBill(@RequestParam int idBill) throws Exception {
+    public ResponseEntity<List<ProductInBillDTO>> getProInBill(@RequestParam int idBill){
         return ResponseEntity.ok( billDetailRepository.getListProductInBill(idBill));
     }
 }

@@ -45,6 +45,9 @@ CREATE TABLE `user` (
 	`updated_date` DATETIME,
 	`created_by` varchar(100),
 	`updated_by` varchar(100),
+    `type` varchar(100),
+    `token` varchar(255),
+    `expiry_date` DATETIME,
 	`status` BOOLEAN,
 	PRIMARY KEY (`id`)
 );
@@ -167,9 +170,9 @@ ALTER TABLE product MODIFY COLUMN guarantee varchar(30);
 -- xóa cột
 ALTER TABLE bill DROP COLUMN reason;
 -- thêm cột
-ALTER TABLE bill ADD COLUMN reason text;
+ALTER TABLE user ADD COLUMN expiry_date DATETIME;
 drop table news;
-select * from product;
+select * from user;
 
 
 

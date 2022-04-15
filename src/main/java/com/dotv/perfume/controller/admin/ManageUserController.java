@@ -36,13 +36,13 @@ public class ManageUserController extends BaseAdminController {
 
 
     @GetMapping("/employee")
-    @PreAuthorize("hasAuthority('ADMIN_MI')")
-    public String getEmployee() throws Exception {
+    @PreAuthorize("hasAuthority('ADMIN_ME')")
+    public String getEmployee(){
             return "admin/employee/employee";
     }
 
     @PostMapping("/save_employee")
-    @PreAuthorize("hasAuthority('ADMIN_MI')")
+    @PreAuthorize("hasAuthority('ADMIN_ME')")
     public ResponseEntity<JSONObject> saveOrUpdateEmployee(@ModelAttribute UserDTO userDTO) {
         JSONObject result = new JSONObject();
         try{
@@ -88,7 +88,7 @@ public class ManageUserController extends BaseAdminController {
     }
 
     @GetMapping("/lst_user")
-    @PreAuthorize("hasAuthority('ADMIN_MI')")
+    @PreAuthorize("hasAuthority('ADMIN_MU')")
     public ResponseEntity<List<User>> getLstEmployee(@RequestParam String type, @RequestParam(required = false) String search){
         if(StringUtils.isBlank(search)){
             return ResponseEntity.ok(userService.getAllEmployee(type).stream()
@@ -98,10 +98,9 @@ public class ManageUserController extends BaseAdminController {
         else{
             return ResponseEntity.ok(userService.getUserBySearch(type,search.trim()));
         }
-
     }
     @PostMapping("/delete_user")
-    @PreAuthorize("hasAuthority('ADMIN_MI')")
+    @PreAuthorize("hasAuthority('ADMIN_ME')")
     public ResponseEntity<JSONObject> deleteEmployee(@RequestParam int id){
         JSONObject result = new JSONObject();
         try {

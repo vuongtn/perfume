@@ -1,18 +1,28 @@
 package com.dotv.perfume.controller.user;
 
+import com.dotv.perfume.config.RestFacebook;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.User;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Controller
 //@RequestMapping("/")
 public class LoginController extends BaseController {
+
+    @Autowired
+    private RestFacebook restFB;
+
 
     int check=0;
     @GetMapping("/login.html")
@@ -43,4 +53,24 @@ public class LoginController extends BaseController {
         }
        return "redirect:/logout.html";
     }
+
+    //login facebook
+    @GetMapping("/login_facebook")
+    public String loginFacebook(HttpServletRequest request) {
+        String code = request.getParameter("code");
+        String accessToken = "";
+        try {
+            accessToken = restFB.getToken(code);
+        } catch (IOException e) {
+            return "login?facebook=error";
+        }
+        com.restfb.types.User user = restFB.getUserInfo(accessToken);
+        UserDetails userDetail = restFB.buildUser(user);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null, userDetail.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/";
+    }
+
+
 }

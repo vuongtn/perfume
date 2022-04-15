@@ -112,12 +112,35 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.5.6</version>
         </dependency>
+
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
+
+<!--        send to facebook-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>fluent-hc</artifactId>
+            <version>4.5.5</version>
+        </dependency>
+        <!-- restfb -->
+        <dependency>
+            <groupId>com.restfb</groupId>
+            <artifactId>restfb</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+
     </dependencies>
+
+
 
     <build>
         <plugins>

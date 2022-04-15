@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,8 +56,15 @@ public class User implements UserDetails {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "token")
+    private String token;
+
+    @Column(name = "expiry_date")
+    private java.sql.Timestamp expiryDate;
+
+
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    //@JsonIgnore
+//    @JsonIgnore
     private List<UserRole> userRoles;
 
 //    @OneToMany(mappedBy = "user",fetch =FetchType.LAZY)
@@ -217,4 +225,19 @@ public class User implements UserDetails {
         this.type = type;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Timestamp getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Timestamp expiryDate) {
+        this.expiryDate = expiryDate;
+    }
 }

@@ -4,6 +4,8 @@ import com.dotv.perfume.controller.BaseAdminController;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.User;
 import com.dotv.perfume.repository.UserRepository;
+import com.dotv.perfume.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +31,8 @@ import java.util.Random;
 public class ManageLoginController extends BaseAdminController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private JavaMailSender emailSender;
 
     int check=0;
     @GetMapping("/login_admin.html")
@@ -64,65 +61,30 @@ public class ManageLoginController extends BaseAdminController {
         return "redirect:/admin/home";
     }
 
-    //Lấy lại pass
-    //send pass
-    public int sendCodeMailAdmin(String emailReceiver,String fullname) throws IOException, MessagingException {
-        Random random = new Random();
-        Integer code = random.nextInt(900000) + 100000;
 
-        MimeMessage message = emailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
-        String htmlMsg = "<div>Xin chào " + fullname + " ,</div> <br/>";
-        htmlMsg += "<div>Bạn đã yêu cầu đặt lại mật khẩu tài khoản quản trị tại <b>D.Perfume.</b></div> <br/>";
-        htmlMsg += "<div>Mật khẩu mới của bạn là: <b>" + code + "</b></div><br/>";
-        htmlMsg += "<div>Vui lòng đổi lại mật khẩu và không cung cấp mã trên cho bất kỳ ai.</div><br/>";
-        htmlMsg += "<div>Cảm ơn!</div><br/>";
-        htmlMsg += "<div style=\"color: red;\"><b>D.Perfume</b></div><br/>";
-
-        message.setContent(htmlMsg, "text/html; charset=UTF-8");
-        helper.setTo(emailReceiver);
-        helper.setSubject("[D.Perfume] Đặt lại mật khẩu.");
-        emailSender.send(message);
-        return code;
+    //gửi link update pass về email
+    @PostMapping("/send_link")
+    public ResponseEntity<JSONObject> forgetPassword(HttpServletRequest request, @RequestParam String email, @RequestParam(required = false) int type) throws Exception {
+        JSONObject result = new JSONObject();
+        result.put("message",userService.sendLinkUpdatePass(request,email,type));
+        return ResponseEntity.ok(result);
     }
-//    public int sendCodeMail(String emailReceiver,String fullname) throws IOException, MessagingException {
-//        Random random = new Random();
-//        Integer code = random.nextInt(900000) + 100000;
-//
-//        MimeMessage message = emailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-//
-//        String htmlMsg = "<div>Xin chào " + fullname + " ,</div> <br/>";
-//        htmlMsg += "<div>Bạn đã yêu cầu lấy lại mật khẩu tại <b>D.Perfume.</b></div> <br/>";
-//        htmlMsg += "<div>Mật khẩu mới của bạn là: <b>" + code + "</b></div><br/>";
-//        htmlMsg += "<div>Vui lòng đổi lại mật khẩu và không cung cấp mã trên cho bất kỳ ai.</div><br/>";
-//        htmlMsg += "<div>Cảm ơn!</div><br/>";
-//        htmlMsg += "<div style=\"color: red;\"><b>D.Perfume</b></div><br/>";
-//
-//        message.setContent(htmlMsg, "text/html; charset=UTF-8");
-//        helper.setTo(emailReceiver);
-//        helper.setSubject("[D.Perfume] Cấp lại mật khẩu cho khách hàng.");
-//        emailSender.send(message);
-//        return code;
-//    }
+
+    //kiểm tra token tồn tại thì show form
+    @GetMapping("/reset_password")
+    public String showFormUpdatePass(@RequestParam String token, Model model) {
+        if(userService.checkToken(token)){
+            User user = userService.getUserByToken(token);
+            model.addAttribute("idUser",user.getId());
+            return "admin/forget_pass";
+        }
+        return "admin/login_admin";
+    }
 
     @PostMapping("/forget_pass")
-    @Transactional
-    public ResponseEntity<JSONObject> forgetPassword(@RequestParam String email, @RequestParam(required = false) int type) throws Exception {
+    public ResponseEntity<JSONObject> forgetPassword(@RequestParam int idUser, @RequestParam String password){
         JSONObject result = new JSONObject();
-        List<User> user = userRepository.findByEmail(email.trim());
-
-        //type=1: forget pass admin
-        //type=2: forget pass user
-        if((type==1)&&(user.size()==0||user.get(0).getType().equals("GUEST"))||(type==2)&&(user.size()==0||!user.get(0).getType().equals("GUEST"))){
-            result.put("message", Boolean.FALSE);
-        }
-        else {
-            String passNew=String.valueOf(sendCodeMailAdmin(email.trim(),user.get(0).getFullName()));
-            userRepository.updatePass(bCryptPasswordEncoder.encode((passNew)),user.get(0).getId());
-            result.put("message", Boolean.TRUE);
-        }
+        result.put("message",userService.updatePassToken(idUser,password));
         return ResponseEntity.ok(result);
     }
 }
