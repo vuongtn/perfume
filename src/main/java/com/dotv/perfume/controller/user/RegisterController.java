@@ -75,14 +75,15 @@ public class RegisterController extends BaseController {
     @PostMapping("/verify_register")
     public ResponseEntity<JSONObject> getVerifyRegister(@ModelAttribute UserDTO userDTO){
         JSONObject result = new JSONObject();
+        userDTO.setUsername(userDTO.getEmail());
         if(userRepository.findByEmail(userDTO.getEmail().trim()).size()!=0){
             result.put("message",1);
             return ResponseEntity.ok(result);
         }
-        if(userRepository.findAllByUsername(userDTO.getUsername().trim()).size()!=0){
-            result.put("message",2);
-            return ResponseEntity.ok(result);
-        }
+//        if(userRepository.findAllByUsername(userDTO.getUsername().trim()).size()!=0){
+//            result.put("message",2);
+//            return ResponseEntity.ok(result);
+//        }
         try {
             int code = sendCodeMail(userDTO.getEmail(), userDTO.getFullName());
             result.put("codeSend",code);
@@ -131,6 +132,7 @@ public class RegisterController extends BaseController {
     @PostMapping("/register_account")
     public ResponseEntity<JSONObject> registerAcc(@RequestBody UserDTO userDTO){
         JSONObject result = new JSONObject();
+        userDTO.setUsername(userDTO.getEmail());
         if(userRepository.findByEmail(userDTO.getEmail()).size()!=0||userRepository.findAllByUsername(userDTO.getUsername()).size()!=0){
             result.put("message",Boolean.FALSE);
             return ResponseEntity.ok(result);

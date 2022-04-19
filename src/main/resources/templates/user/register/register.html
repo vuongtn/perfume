@@ -27,7 +27,7 @@
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                         <!-- REGISTERED-ACCOUNT START -->
                         <div class="primari-box registered-account">
-                            <form class="new-account-box" th:object="${userDTO}" id="accountRegister" method="post" action="/verify_register">
+                            <form class="new-account-box" id="accountRegister" method="post" action="/verify_register">
                                 <h3 class="box-subheading">Đăng ký</h3>
                                 <div>
                                     <div id="error-user" class="alert alert-danger" style="display: none" role="alert">
@@ -36,32 +36,32 @@
                                     <div class="form-content">
                                         <div class="form-group primary-form-group">
                                             <label for="fullname">Họ và tên</label>
-                                            <input type="text" th:field="*{fullName}" name="fullname" id="fullname" class="form-control input-feild">
+                                            <input type="text" name="fullName" id="fullname" class="form-control input-feild">
                                             <span class="form-message"></span>
                                         </div>
                                         <div class="form-group primary-form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" th:field="*{email}" name="email" id="email" class="form-control input-feild">
+                                            <input type="text" name="email" id="email" class="form-control input-feild">
                                             <span class="form-message"></span>
                                         </div>
-                                        <div class="form-group primary-form-group">
-                                            <label for="username">Tên đăng nhập</label>
-                                            <input type="text" th:field="*{username}" name="fullname" id="username" class="form-control input-feild">
-                                            <span class="form-message"></span>
-                                        </div>
+<!--                                        <div class="form-group primary-form-group">-->
+<!--                                            <label for="username">Tên đăng nhập</label>-->
+<!--                                            <input type="text" th:field="*{username}" name="fullname" id="username" class="form-control input-feild">-->
+<!--                                            <span class="form-message"></span>-->
+<!--                                        </div>-->
                                         <div class="form-group primary-form-group">
                                             <label for="password">Mật khẩu</label>
-                                            <input type="password" th:field="*{password}" name="password" id="password" class="form-control input-feild">
+                                            <input type="password" name="password" id="password" class="form-control input-feild">
                                             <span class="form-message"></span>
                                         </div>
                                         <div class="form-group primary-form-group">
                                             <label for="confirm-password">Nhập lại mật khẩu</label>
-                                            <input type="password" th:field="*{confirmPassword}" name="password" id="confirm-password" class="form-control input-feild">
+                                            <input type="password" name="password" id="confirm-password" class="form-control input-feild">
                                             <span class="form-message"></span>
                                         </div>
 <!--                                        <input type="text" name="password" id="code-sended" class="form-control input-feild">-->
                                         <div class="forget-password">
-                                            <p><a href="#">Đăng nhập</a></p>
+                                            <p><a href="/login.html">Đăng nhập</a></p>
                                         </div>
 <!--                                        <div onclick="sendCodeMail()" class="submit-button" data-toggle="modal" data-target="#myModal">-->
 <!--                                            <a id="signinCreate" class="btn main-btn">-->
@@ -205,8 +205,8 @@
             Validator.isRequired('#fullname'),//chạy hàm để nhận dữ liệu return trả về
             Validator.isRequired('#email'),
             Validator.isEmail('#email'),
-            Validator.isRequired('#username'),
-            Validator.isUsername('#username'),
+            // Validator.isRequired('#username'),
+            // Validator.isUsername('#username'),
             // Validator.minLength('#username',4,'Tên đăng nhập phải chứa ít nhất 4 kí tự'),
             Validator.isRequired('#password'),
             Validator.minLength('#password',6),
@@ -236,18 +236,18 @@
                         $('#loading-send').hide();
                     }
                     else{
-                        if(data.message==2){
-                            $('#error-user').text('Tên đăng nhập đã tồn tại.');
-                            $('#error-user').show();
-                            $('#loading-send').hide();
-                        }
-                        else {
+                        // if(data.message==2){
+                        //     $('#error-user').text('Tên đăng nhập đã tồn tại.');
+                        //     $('#error-user').show();
+                        //     $('#loading-send').hide();
+                        // }
+                        // else {
                             if(data.message!=3){
                                 $('#code-sended').val(data.codeSend);
                                 $('#myModal').modal('show');
                                 countdown( "ten-countdown", timeCountdown, 0 );
                             }
-                        }
+                        // }
                     }
                     // $(location).attr('href', "/admin/brand?curPage=1");
 
@@ -267,7 +267,7 @@
     //call api
     function sendCodeMail(type){
         var fullname=$("#fullname").val();
-        var email=$("#email").val();
+        var email=$("#email").val().trim();
         if(type==2){
             document.getElementById("title-verify").innerText="Đang gửi lại mã xác nhận...";
             document.getElementById("btn-reverify").disabled = true;
@@ -314,12 +314,12 @@
             $('#error-verify').text('');
             var fullname= $('#fullname').val().trim();
             var email= $('#email').val().trim();
-            var username= $('#username').val().trim();
+            // var username= $('#username').val().trim();
             var password= $('#password').val().trim();
             var json={
                 "fullName":fullname,
                 "email":email,
-                "username":username,
+                // "username":username,
                 "password":password
             }
             $.ajax({

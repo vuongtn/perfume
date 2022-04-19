@@ -46,7 +46,7 @@
                                     </th:block>
                                     <div class="form-content">
                                         <div class="form-group primary-form-group">
-                                            <label for="loginemail">Tên đăng nhập</label>
+                                            <label for="loginemail">Email</label>
                                             <input type="text" value="" name="username" id="loginemail" class="form-control input-feild">
                                         </div>
                                         <div class="form-group primary-form-group">
@@ -76,11 +76,13 @@
 <!--                                        </a>-->
                                     </div>
                                 </form>
-                                <form action="/signin/google" method="POST">
+<!--                                <form action="" method="POST">-->
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left:10px; padding-right:15px">
-                                        <button class="form-submit-gg"><i class="fa-brands fa-google fa-xl" style="margin-right: 5px;color:white"></i>Google</button>
+                                        <a th:href="${link}">
+                                            <button class="form-submit-gg"><i class="fa-brands fa-google fa-xl" style="margin-right: 5px;color:white"></i>Google</button>
+                                        </a>
                                     </div>
-                                </form>
+<!--                                </form>-->
                             </div>
                         </div>
                         <!-- REGISTERED-ACCOUNT END -->

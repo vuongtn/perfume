@@ -73,11 +73,11 @@ public class AccountController extends BaseController {
     public String updateAcc(@ModelAttribute User user, Model model) throws Exception {
         User userLogin = getUserLogined();
         model.addAttribute("acc",userLogin);
-        if(userRepository.findByIdAndUsername(user.getId(),user.getUsername()).size()!=0){
-            model.addAttribute("errorUser","Tên đăng nhập đã tồn tại!");
-            model.addAttribute("acc",user);
-            return "user/account/update_acc";
-        }
+//        if(userRepository.findByIdAndUsername(user.getId(),user.getUsername()).size()!=0){
+//            model.addAttribute("errorUser","Tên đăng nhập đã tồn tại!");
+//            model.addAttribute("acc",user);
+//            return "user/account/update_acc";
+//        }
         if(userRepository.findByIdAndPhone(user.getId(),user.getPhone()).size()!=0){
             model.addAttribute("errorUser","Số điện thoại đã tồn tại!");
             model.addAttribute("acc",user);
@@ -86,7 +86,7 @@ public class AccountController extends BaseController {
 
         User userBD = userService.getUserById(user.getId());
         userBD.setFullName(user.getFullName());
-        userBD.setUsername(user.getUsername());
+        //userBD.setUsername(user.getUsername());
         userBD.setPhone(user.getPhone());
         userBD.setAddress(user.getAddress());
 

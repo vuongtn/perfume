@@ -25,14 +25,14 @@
                         </div>
                         <div style="margin-bottom:6px">
                             <label><b>Tìm kiếm:</b></label>
-                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onkeyup="page(1,this.value)" placeholder="Nhập tên đăng nhập" type="text" name="search-user" id="search-user">
+                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onkeyup="page(1,this.value)" placeholder="Nhập email" type="text" name="search-user" id="search-user">
                         </div>
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                             <tr>
                                 <th>Mã</th>
-                                <th>Tên KH</th>
-                                <th>Tên đăng nhập</th>
+                                <th>Tên khách hàng</th>
+<!--                                <th>Tên đăng nhập</th>-->
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
                                 <th>Địa chỉ</th>
@@ -108,7 +108,7 @@
                     '<tr>'+
                         '<td>'+item.id+'</td>'+
                         '<td>'+item.fullName+'</td>'+
-                        '<td>'+item.username+'</td>'+
+                        // '<td>'+item.username+'</td>'+
                         '<td>'+item.email+'</td>'+
                         '<td>'+phone+'</td>'+
                         '<td>'+address+'</td>';

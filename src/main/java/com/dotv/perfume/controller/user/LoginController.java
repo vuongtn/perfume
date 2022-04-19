@@ -1,10 +1,13 @@
 package com.dotv.perfume.controller.user;
 
+import com.dotv.perfume.config.GooglePojo;
+import com.dotv.perfume.config.GoogleUtils;
 import com.dotv.perfume.config.RestFacebook;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.User;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,12 +26,22 @@ public class LoginController extends BaseController {
     @Autowired
     private RestFacebook restFB;
 
+    @Autowired
+    private GoogleUtils googleUtils;
+
+    @Value("${spring.social.google.clientId}")
+    String clientId;
+    @Value("${spring.social.google.clientSecret}")
+    String clientSecret;
 
     int check=0;
     @GetMapping("/login.html")
-    public String getLogin(@RequestParam(required = false) String type, @RequestParam(required = false) String login_error, Model model){
+    public String getLogin(@RequestParam(required = false) String type, @RequestParam(required = false) String login_error, Model model, HttpServletRequest request){
         model.addAttribute("login_error",login_error);
         model.addAttribute("type",type);
+        String siteURL = request.getRequestURL().toString().replace(request.getServletPath(), "");
+        String link="https://accounts.google.com/o/oauth2/auth?scope=openid+profile+email&redirect_uri="+siteURL+"/login_google&response_type=code&client_id="+clientId+"&approval_prompt=force";
+        model.addAttribute("link",link);
         return "user/login/login";
     }
 
@@ -72,5 +85,29 @@ public class LoginController extends BaseController {
         return "redirect:/";
     }
 
+    @GetMapping("/login_google")
+    public String loginGoogle(HttpServletRequest request) throws IOException {
+        String code = request.getParameter("code");
+
+        if (code == null || code.isEmpty()) {
+            return "redirect:/login.html?type=error_google";
+        }
+        String accessToken = googleUtils.getToken(code,request);
+
+        GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
+        User user = googleUtils.buildUser(googlePojo);
+        UserDetails userDetail = user;
+        if(!user.getType().equals("GUEST")) {
+            return "redirect:/";
+        }
+        if(!user.getStatus()){
+            return "redirect:/login.html?type=2";
+        }
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+                userDetail.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/";
+    }
 
 }

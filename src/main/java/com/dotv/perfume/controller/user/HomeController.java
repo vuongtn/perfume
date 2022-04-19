@@ -22,7 +22,7 @@ public class HomeController extends BaseController {
     private static final int AMOUNT_GENDER_PRODUCT = 20;
 
     @Autowired
-    BrandService trademarkService;
+    BrandService brandService;
     @Autowired
     ProductService productService;
 
@@ -37,7 +37,6 @@ public class HomeController extends BaseController {
         model.addAttribute("lstGirlProduct",listGirlProduct);
         model.addAttribute("lstUnisexProduct",listUnisexProduct);
         model.addAttribute("typeMenu",1);
-
         return "user/home/home";
     }
 
@@ -46,7 +45,7 @@ public class HomeController extends BaseController {
     @GetMapping("/getMenu")
 //    @ResponseBody
     public ResponseEntity<List<Brand>> getListTrademark(){
-       return ResponseEntity.ok(trademarkService.getBrandByStatus(true));
+       return ResponseEntity.ok(brandService.getBrandByStatus(true));
     }
 
 
