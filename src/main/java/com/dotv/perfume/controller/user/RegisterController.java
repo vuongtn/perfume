@@ -8,6 +8,7 @@ import com.dotv.perfume.service.UserRoleService;
 import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -38,10 +39,18 @@ public class RegisterController extends BaseController {
     @Autowired
     UserRepository userRepository;
 
+    @Value("${spring.social.google.clientId}")
+    String clientId;
+    @Value("${spring.social.google.clientSecret}")
+    String clientSecret;
+
     @GetMapping("/register")
-    public String getFormRegister(Model model){
+    public String getFormRegister(Model model, HttpServletRequest request){
         UserDTO user = new UserDTO();
         model.addAttribute("userDTO",user);
+        String siteURL = request.getRequestURL().toString().replace(request.getServletPath(), "");
+        String link="https://accounts.google.com/o/oauth2/auth?scope=openid+profile+email&redirect_uri="+siteURL+"/login_google&response_type=code&client_id="+clientId+"&approval_prompt=force";
+        model.addAttribute("link",link);
         return "user/register/register";
 
     }

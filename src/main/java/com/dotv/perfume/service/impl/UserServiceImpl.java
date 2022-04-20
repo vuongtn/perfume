@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
         String htmlMsg = "<div>Xin chào " + fullname + ",</div> <br/>";
-        htmlMsg += "<div>Bạn đã yêu cầu đặt lại mật khẩu tài khoản quản trị tại <b>D.Perfume.</b></div> <br/>";
+        htmlMsg += "<div>Bạn đã yêu cầu đặt lại mật khẩu tài khoản tại <b>D.Perfume.</b></div> <br/>";
         htmlMsg += "<div>Bạn vui lòng truy cập vào liên kết dưới đây để đặt lại mật khẩu.</div><br/>";
         htmlMsg += "<div><a href=\""+link+"\">Đặt lại mật khẩu</a></div><br/>";
         htmlMsg += "<div>Cảm ơn!</div><br/>";

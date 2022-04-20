@@ -387,10 +387,16 @@
                 },
                 dataType: 'json',
                 success: function (result) {
-                    if(result.message==true){
+                    if(result.message==true&&result.typeUser==1){
                         messageSuccess('Đổi mật khẩu thành công.', '');
                         setTimeout(function(){
                             $(location).attr('href', "/login_admin.html");
+                        }, 3000);
+                    }
+                    else {
+                        messageSuccess('Đổi mật khẩu thành công.', '');
+                        setTimeout(function(){
+                            $(location).attr('href', "/login.html");
                         }, 3000);
                     }
                     if(result.message==false){

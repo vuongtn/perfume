@@ -82,8 +82,15 @@ public class ManageLoginController extends BaseAdminController {
     }
 
     @PostMapping("/forget_pass")
-    public ResponseEntity<JSONObject> forgetPassword(@RequestParam int idUser, @RequestParam String password){
+    public ResponseEntity<JSONObject> forgetPassword(@RequestParam int idUser, @RequestParam String password) throws Exception {
         JSONObject result = new JSONObject();
+        User user = userService.getUserById(idUser);
+        if(user.getType().equals("GUEST")){
+            result.put("typeUser",2);
+        }
+        else{
+            result.put("typeUser",1);
+        }
         result.put("message",userService.updatePassToken(idUser,password));
         return ResponseEntity.ok(result);
     }
