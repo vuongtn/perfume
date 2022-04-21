@@ -78,7 +78,7 @@ public class ManageLoginController extends BaseAdminController {
             model.addAttribute("idUser",user.getId());
             return "admin/forget_pass";
         }
-        return "admin/login_admin";
+        return "redirect:/expire";
     }
 
     @PostMapping("/forget_pass")

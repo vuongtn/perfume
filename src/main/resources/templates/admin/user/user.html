@@ -36,6 +36,7 @@
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
                                 <th>Địa chỉ</th>
+                                <th>Ngày tạo</th>
                                 <th>Trạng thái</th>
                             </tr>
                             </thead>
@@ -92,6 +93,17 @@
             })
         }
 
+        function formatDate(dateTime){
+            var date = new Date(dateTime);
+            var dateStr =
+                ("00" + date.getDate()).slice(-2) + "/" +
+                ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+                date.getFullYear() + " " +
+                ("00" + date.getHours()).slice(-2) + ":" +
+                ("00" + date.getMinutes()).slice(-2) + ":" +
+                ("00" + date.getSeconds()).slice(-2);
+            return dateStr;
+        }
         //for load dữ liệu
         function loadTable(data){
             var html = '';
@@ -111,7 +123,8 @@
                         // '<td>'+item.username+'</td>'+
                         '<td>'+item.email+'</td>'+
                         '<td>'+phone+'</td>'+
-                        '<td>'+address+'</td>';
+                        '<td>'+address+'</td>'+
+                        '<td>'+formatDate(item.createdDate)+'</td>';
                         if(item.status==true){
                             html+='<td><span onclick="updateStatus('+item.id+',false)" style="cursor: pointer" class="badge bg-success">Mở</span></td>';
                         }

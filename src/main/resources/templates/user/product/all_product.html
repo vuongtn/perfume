@@ -59,45 +59,45 @@
               <ul>
                 <li>
                   <label class="cheker">
-                    <input value=1 class="input-price" type="checkbox" name="prices"/>
+                    <input value=1 class="input-price" type="checkbox" name="prices" id="cbb-price1"/>
                     <span></span>
                   </label>
-                  <p>Dưới 200.000đ</p>
+                  <p><label class="cbb-filter" for="cbb-price1">Dưới 200.000đ</label></p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input value=2 class="input-price" type="checkbox" name="prices"/>
+                    <input value=2 class="input-price" type="checkbox" name="prices" id="cbb-price2"/>
                     <span></span>
                   </label>
-                  <p>200.000 - 400.000đ</p>
+                  <p><label class="cbb-filter" for="cbb-price2">200.000 - 400.000đ</label></p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input value=3 class="input-price" type="checkbox" name="prices"/>
+                    <input value=3 class="input-price" type="checkbox" name="prices" id="cbb-price3"/>
                     <span></span>
                   </label>
-                  <p>400.000 - 600.000đ</p>
+                  <p><label class="cbb-filter" for="cbb-price3">400.000 - 600.000đ</label></p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input value=4 class="input-price" type="checkbox" name="prices"/>
+                    <input value=4 class="input-price" type="checkbox" name="prices" id="cbb-price4"/>
                     <span></span>
                   </label>
-                  <p>600.000 - 800.000đ</p>
+                  <p><label class="cbb-filter" for="cbb-price4">600.000 - 800.000đ</label></p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input value=5 class="input-price" type="checkbox" name="prices"/>
+                    <input value=5 class="input-price" type="checkbox" name="prices" id="cbb-price5"/>
                     <span></span>
                   </label>
-                  <p>800.000 - 1.000.000đ</p>
+                  <p><label class="cbb-filter" for="cbb-price5">800.000 - 1.000.000đ</label></p>
                 </li>
                 <li>
                   <label class="cheker">
-                    <input value=6 class="input-price" type="checkbox" name="prices"/>
+                    <input value=6 class="input-price" type="checkbox" name="prices" id="cbb-price6"/>
                     <span></span>
                   </label>
-                  <p>Trên 1.000.000đ</p>
+                  <p><label class="cbb-filter" for="cbb-price6">Trên 1.000.000đ</label></p>
                 </li>
               </ul>
             </div>
@@ -207,10 +207,10 @@
           html+=
           '<li>'+
             '<label class="cheker">'+
-              '<input class="input-brand" value='+item.id+' type="checkbox" name="brands" />'+
+              '<input class="input-brand" value='+item.id+' type="checkbox" name="brands" id="cbb-brand'+item.id+'"/>'+
               '<span></span>'+
             '</label>'+
-            '<p>'+item.name+'</p>'+
+            '<p><label class="cbb-filter" for="cbb-brand'+item.id+'">'+item.name+'</label></p>'+
           '</li>';
         })
         $('#all-brand-filter').html(html);

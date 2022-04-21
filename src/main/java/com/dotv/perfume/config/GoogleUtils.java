@@ -81,7 +81,7 @@ public class GoogleUtils {
             User user = new User();
             user.setFullName(googlePojo.getName());
             user.setUsername(googlePojo.getEmail());
-            user.setPassword(RandomStringUtils.randomAlphabetic(8));
+            user.setPassword(RandomStringUtils.randomAlphabetic(20));
             user.setEmail(googlePojo.getEmail());
             user.setCreatedDate(perfumeUtils.getDateNow());
             user.setStatus(true);

@@ -32,6 +32,7 @@
                                 <th>Mã</th>
                                 <th>Họ và tên</th>
                                 <th>Tên đăng nhập</th>
+                                <th>Ngày tạo</th>
                                 <th>Quyền</th>
                                 <th>Trạng thái</th>
                                 <th>Chức năng</th>
@@ -267,6 +268,17 @@
             }
         });
 
+        function formatDate(dateTime){
+            var date = new Date(dateTime);
+            var dateStr =
+                ("00" + date.getDate()).slice(-2) + "/" +
+                ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+                date.getFullYear() + " " +
+                ("00" + date.getHours()).slice(-2) + ":" +
+                ("00" + date.getMinutes()).slice(-2) + ":" +
+                ("00" + date.getSeconds()).slice(-2);
+            return dateStr;
+        }
 
           //load dữ liệu
         var checkCurPage=1;
@@ -321,6 +333,7 @@
                             '<td>'+item.id+'</td>'+
                             '<td>'+item.fullName+'</td>'+
                             '<td>'+item.username+'</td>'+
+                            '<td>'+formatDate(item.createdDate)+'</td>'+
                             '<td>'+item.permission+'</td>'+
                             '<td>'+sta+'</td>'+
                             '<td>'+
