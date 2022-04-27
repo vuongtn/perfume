@@ -60,6 +60,7 @@
             }
         );
 
+        var pageSize=[[${pageSize}]];
         //load dữ liệu
         var checkCurPage=1;
         function page(curPage,query){
@@ -79,7 +80,7 @@
                         }
                     });
                 },
-                pageSize: 5,
+                pageSize: pageSize,
                 pageNumber:curPage,
                 pageRage:1,
                 autoHidePrevious: true,

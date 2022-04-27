@@ -15426,6 +15426,7 @@ be a descendant of the grid when it is being dragged.
   background: #f7c3c2;
   border: none;
   color: #de0400;
+  margin-right: 2px;
 }
 .app-menu{
   padding: 5px;

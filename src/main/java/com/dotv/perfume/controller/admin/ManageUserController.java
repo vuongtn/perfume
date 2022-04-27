@@ -9,10 +9,12 @@ import com.dotv.perfume.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
@@ -34,10 +36,17 @@ public class ManageUserController extends BaseAdminController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Value("${admin.page.employee}")
+    String pageSizeEmployee;
+
+    @Value("${admin.page.user}")
+    String pageSizeUser;
+
 
     @GetMapping("/employee")
     @PreAuthorize("hasAuthority('ADMIN_ME')")
-    public String getEmployee(){
+    public String getEmployee(Model model){
+            model.addAttribute("pageSize",pageSizeEmployee);
             return "admin/employee/employee";
     }
 
@@ -117,7 +126,8 @@ public class ManageUserController extends BaseAdminController {
 
     @GetMapping("/user")
     @PreAuthorize("hasAuthority('ADMIN_MU')")
-    public String getUser(){
+    public String getUser(Model model){
+        model.addAttribute("pageSize",pageSizeUser);
         return "admin/user/user";
     }
 
@@ -191,7 +201,4 @@ public class ManageUserController extends BaseAdminController {
         }
         return ResponseEntity.ok(result);
     }
-
-
-
 }

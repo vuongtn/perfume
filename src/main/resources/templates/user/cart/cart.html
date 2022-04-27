@@ -171,6 +171,12 @@
                     $('#total-pro-cart').attr('data-count', data.totalPro);
 
                 }
+                if(data.message==10){
+                    messageError("Số lượng vượt quá trong kho.")
+                    setTimeout(function(){
+                        $(location).attr('href', "/per/product_cart");
+                    }, 1000);
+                }
             },
             error : function(e) {
                 console.log("ERROR: ", e);

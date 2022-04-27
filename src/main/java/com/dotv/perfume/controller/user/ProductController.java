@@ -10,6 +10,7 @@ import com.dotv.perfume.service.BrandService;
 import com.dotv.perfume.utils.Pager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +27,14 @@ import java.util.stream.Collectors;
 @Controller
 public class ProductController extends BaseController {
 
-
     @Autowired
     ProductService productService;
+
     @Autowired
     BrandService brandService;
 
+    @Value("${user.page.allProduct}")
+    String pageSize;
 
     @GetMapping("/single_product")
     public String getProductById(@RequestParam int id, Model model){
@@ -42,13 +45,11 @@ public class ProductController extends BaseController {
         return "user/product/details_product";
     }
 
-
     //list thương hiệu với status = true;
     @GetMapping("/all_brand")
     public ResponseEntity<List<Brand>> getListBrand(){
         return ResponseEntity.ok(brandService.getBrandByStatus(true));
     }
-
 
     /*
     * Trả về trang tất cả sản phẩm
@@ -73,15 +74,13 @@ public class ProductController extends BaseController {
         }
         model.addAttribute("sex",se);
         model.addAttribute("search",query);
+        model.addAttribute("pageSize",pageSize);
         return "user/product/all_product";
     }
-
 
     //api get list product and filter
     @PostMapping("/list_pro_filter")
     public ResponseEntity<List<Product>> getAllProFilter(@ModelAttribute FilterProductDTO filterProductDTO){
         return ResponseEntity.ok(productService.getListProductByFilter(filterProductDTO));
     }
-
-
 }

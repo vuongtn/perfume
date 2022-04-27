@@ -13,6 +13,7 @@ public interface ProductService {
     List<Product> getListNewProduct(int typeName,Boolean status);
     Product getProductById(int id);
     List<Product> getAllProductByBrandAndStatus(int id, Boolean status);
+    int updateAmountProduct(int id, int amount);
 
     //filter product
     List<Product> getListProductByFilter(FilterProductDTO f);

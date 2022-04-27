@@ -154,9 +154,13 @@ function addProInCart(type,idPro){
                 if(data.message==0){
                     var totalOld = parseInt($('#total-pro-cart').attr('data-count'));
                     $('#total-pro-cart').attr('data-count', totalOld+1);
-
                 }
-                messageSuccess("Thành công!","Thêm vào giỏ hàng thành công.")
+                if(data.message==10){
+                    messageError("Số lượng vượt quá trong kho.")
+                }
+                if(data.message!=10){
+                    messageSuccess("Thành công!","Thêm vào giỏ hàng thành công.")
+                }
             },
             error : function(e) {
                 $(location).attr('href', "/login.html");
@@ -168,3 +172,32 @@ function addProInCart(type,idPro){
 
 }
 
+function showBrand() {
+    $.ajax({
+        type : "GET",
+        contentType : "application/json",
+        url : "/all_brand",
+        data : {
+            // test:'do'
+        },
+        dataType : 'json',
+        // timeout : 100000,
+        success : function(data) {
+            var html='';
+            $.each(data,function (i,item){
+                html+=
+                    '<li>'+
+                    '<label class="cheker">'+
+                    '<input class="input-brand" value='+item.id+' type="checkbox" name="brands" id="cbb-brand'+item.id+'"/>'+
+                    '<span></span>'+
+                    '</label>'+
+                    '<p><label class="cbb-filter" for="cbb-brand'+item.id+'">'+item.name+'</label></p>'+
+                    '</li>';
+            })
+            $('#all-brand-filter').html(html);
+        },
+        error : function(e) {
+            console.log("ERROR: ", e);
+        }
+    });
+}

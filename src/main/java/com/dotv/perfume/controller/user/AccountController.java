@@ -16,6 +16,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +32,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/per")
 public class AccountController extends BaseController {
     //Số phần tử hiển thị 1 trang
-    private static final int PAGE = 5;
     private static final int BUTTONS_TO_SHOW = 5;
 
     @Autowired
@@ -53,6 +53,9 @@ public class AccountController extends BaseController {
     BillService billService;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Value("${user.page.order}")
+    int page;
 
 
     @GetMapping("/manage_acc")
@@ -130,10 +133,10 @@ public class AccountController extends BaseController {
         //sắp xếp theo ngày mới nhất
         List<Bill> bills = billService.getBillByUser(getUserLogined().getId()).stream()
                         .sorted(Comparator.nullsLast((e1, e2) -> e2.getCreatedDate().compareTo(e1.getCreatedDate())))
-                        .skip((curPage-1)*PAGE).limit(PAGE).collect(Collectors.toList());
+                        .skip((curPage-1)*page).limit(page).collect(Collectors.toList());
 
 
-        int totalPage=(int)Math.ceil(bills.size()/(float)PAGE);
+        int totalPage=(int)Math.ceil(bills.size()/(float)page);
         Pager pager = new Pager(totalPage,curPage-1, BUTTONS_TO_SHOW);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("curPage", curPage);

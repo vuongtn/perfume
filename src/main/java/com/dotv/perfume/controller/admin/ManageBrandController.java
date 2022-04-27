@@ -10,6 +10,7 @@ import com.dotv.perfume.utils.PerfumeUtils;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,8 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasAuthority('ADMIN_MB')")
 public class ManageBrandController extends BaseAdminController {
     //Số phần tử hiển thị 1 trang
-    private static final int PAGE = 5;
-    private static final int BUTTONS_TO_SHOW = 5;
+//    private static final int PAGE = 5;
+//    private static final int BUTTONS_TO_SHOW = 5;
 
     @Autowired
     BrandService brandService;
@@ -35,9 +36,13 @@ public class ManageBrandController extends BaseAdminController {
     @Autowired
     ProductService productService;
 
+    @Value("${admin.page.brand}")
+    String pageSize;
+
     @GetMapping("/brand")
     public String getBrand(Model model){
         model.addAttribute("typeMenu",2);
+        model.addAttribute("pageSize",pageSize);
         return "admin/brand/brand";
     }
     @GetMapping("/lst_brand")

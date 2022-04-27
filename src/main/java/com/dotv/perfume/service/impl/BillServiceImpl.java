@@ -1,5 +1,6 @@
 package com.dotv.perfume.service.impl;
 
+import com.dotv.perfume.dto.ProductInBillDTO;
 import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.Bill;
 import com.dotv.perfume.entity.BillDetail;
@@ -39,6 +40,10 @@ public class BillServiceImpl implements BillService {
         double totalPrice=0;
         for(ProductInCartDTO pro1:lstPro){
             totalPrice = totalPrice + pro1.getAmount() * pro1.getPrice().doubleValue();
+
+            //Đặt thành công trừ số lượng sản phẩm
+            productService.updateAmountProduct(pro1.getId(),pro1.getAmount());
+
         }
         bill.setTotalPrice(BigDecimal.valueOf(totalPrice));
         billRepository.save(bill);
@@ -63,7 +68,18 @@ public class BillServiceImpl implements BillService {
     @Override
     @Transactional
     public int updateSatatusBill(Bill bill) {
-        return billRepository.updateStatusBill(bill.getStatus(),bill.getUpdatedBy(),bill.getUpdatedDate(),bill.getId());
+       billRepository.updateStatusBill(bill.getStatus(),bill.getUpdatedBy(),bill.getUpdatedDate(),bill.getId());
+
+        //status=4:nếu hủy đơn hàng thì cập nhật lại số lượng của sản phẩm.
+        if(bill.getStatus()==4){
+            //Lấy tất cả sản phẩm trong bill theo idUser
+            List<ProductInBillDTO> lstPro = billDetailRepository.getListProductInBill(bill.getId());
+            for(ProductInBillDTO pro:lstPro){
+                //Hủy đơn hàng thành công set lại số lượng của sản phẩm
+                productService.updateAmountProduct(pro.getId(),-pro.getAmount());
+            }
+        }
+        return 1;
     }
 
     @Override

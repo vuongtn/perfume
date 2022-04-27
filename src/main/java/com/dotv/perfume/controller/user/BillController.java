@@ -76,6 +76,10 @@ public class BillController extends BaseController {
     @PostMapping("/update-status-bill")
     public ResponseEntity<JSONObject> updateStatusBill(@RequestParam int id,@RequestParam int status){
         JSONObject result = new JSONObject();
+        //status=1: đang xử lý
+        //status=2: đang giao
+        //status=3: đã giao
+        //status=4: đã hủy
         try {
             Bill bill = new Bill();
             bill.setStatus(status);

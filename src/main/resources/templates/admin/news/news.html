@@ -194,6 +194,7 @@
         }
     };
 
+    var pageSize=[[${pageSize}]];
     var checkCurPage=1;
     //load news
     function page(curPage){
@@ -209,7 +210,7 @@
                     }
                 });
             },
-            pageSize: 5,
+            pageSize: pageSize,
             pageNumber:curPage,
             autoHidePrevious: true,
             autoHideNext: true,

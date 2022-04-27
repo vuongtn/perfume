@@ -67,7 +67,7 @@ public class Product {
     @JoinColumn(name="id_brand")
     private Brand brand;
 
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<BillDetail> billDetails;
 

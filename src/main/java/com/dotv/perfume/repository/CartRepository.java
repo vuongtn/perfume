@@ -4,6 +4,7 @@ import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.Cart;
 import com.dotv.perfume.entity.CartId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,10 @@ public interface CartRepository extends JpaRepository<Cart,CartId> {
 //            "and id_account=?1 and i.type='main'", nativeQuery = true)
     @Query(name = "ProductTest",nativeQuery = true)
     List<ProductInCartDTO> getProductInCart(int idUser);
+
+    void deleteById(CartId cartId);
+
+    @Modifying
+    @Query("update Cart c set c.amount=?2 where c.id=?1")
+    void updateAmountCart(CartId cartId, int amount);
 }

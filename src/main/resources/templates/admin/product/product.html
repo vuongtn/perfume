@@ -218,8 +218,6 @@
                             </div>
                         </div>
                         <BR>
-                        <BR>
-                        <BR>
                         <button class="btn btn-save" type="submit">Lưu lại</button>
                         <a class="btn btn-cancel" id="cancel-modal" data-dismiss="modal" href="#">Hủy bỏ</a>
                     </form>
@@ -297,7 +295,8 @@
     //     a.value = a.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     // }
 
-    checkCurPage=1;
+    var pageSize=[[${pageSize}]];
+    var checkCurPage=1;
     //text editor
 
     $(document).ready(function() {
@@ -307,18 +306,18 @@
             height: 500,
             focus: true,
             // fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48' , '64', '82', '150'],
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'hr']],
-                ['view', ['codeview']]
-            ],
+            // toolbar: [
+            //     ['style', ['style']],
+            //     ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+            //     ['fontname', ['fontname']],
+            //     ['fontsize', ['fontsize']],
+            //     ['color', ['color']],
+            //     ['para', ['ul', 'ol', 'paragraph']],
+            //     ['height', ['height']],
+            //     ['table', ['table']],
+            //     ['insert', ['link', 'picture', 'video', 'hr']],
+            //     ['view', ['codeview']]
+            // ],
             //fontsize: '16'
         });
 

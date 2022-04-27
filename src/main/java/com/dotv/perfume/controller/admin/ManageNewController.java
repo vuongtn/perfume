@@ -10,6 +10,7 @@ import com.dotv.perfume.service.NewsService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class ManageNewController extends BaseAdminController {
 
     @Autowired
     PerfumeUtils perfumeUtils;
+
+    @Value("${admin.page.news}")
+    String pageSize;
 
     @GetMapping("/introduce")
     @PreAuthorize("hasAuthority('ADMIN_MI')")
@@ -57,7 +61,8 @@ public class ManageNewController extends BaseAdminController {
 
     @GetMapping("/news")
     @PreAuthorize("hasAuthority('ADMIN_MN')")
-    public String getNews(){
+    public String getNews(Model model){
+        model.addAttribute("pageSize",pageSize);
         return "admin/news/news";
     }
 

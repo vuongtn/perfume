@@ -7,9 +7,11 @@ import com.dotv.perfume.service.ContactService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +28,12 @@ public class ManageContactController extends BaseAdminController {
     @Autowired
     ContactService contactService;
 
+    @Value("${admin.page.contact}")
+    String pageSize;
+
     @GetMapping("/contact")
-    public String getContact(){
+    public String getContact(Model model){
+        model.addAttribute("pageSize",pageSize);
         return "admin/contact/contact";
     }
 

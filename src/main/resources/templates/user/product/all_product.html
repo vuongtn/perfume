@@ -242,6 +242,7 @@
   });
 
 
+  var pageSize=[[${pageSize}]]
   //load san pham
     function page(){
       $('#pagination-container').pagination({
@@ -262,7 +263,7 @@
             },
           });
         },
-        pageSize: 12,
+        pageSize: pageSize,
         pageNumber:1,
         // pageRage:1,
         autoHidePrevious: true,

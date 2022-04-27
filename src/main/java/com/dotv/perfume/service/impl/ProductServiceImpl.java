@@ -76,6 +76,12 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getProductByTrademark(id,status);
     }
 
+    @Override
+    @Transactional
+    public int updateAmountProduct(int id, int amount) {
+        return productRepository.updateAmount(id,amount);
+    }
+
 
     public StringBuilder getFilterPrice(StringBuilder sqlBuilder, FilterProductDTO f){
         if(ArrayUtils.isNotEmpty(f.getPrices())){
@@ -149,7 +155,7 @@ public class ProductServiceImpl implements ProductService {
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder.append("select p.id id, p.name name, p.price, p.image image  ");
         sqlBuilder.append("from product p inner join brand b on p.id_brand= b.id  ");
-        sqlBuilder.append("where 1=1 and b.status=true and p.status=true  ");
+        sqlBuilder.append("where 1=1 and b.status=true and p.status=true and p.amount>0  ");
 
         //Tất cả sản phẩm
         if(f.getType()==1){

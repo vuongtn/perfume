@@ -196,6 +196,7 @@
             }
         )
 
+        var pageSize=[[${pageSize}]];
         var checkCurPage=1;
         var checkTypeOrder=1;
         //load bill
@@ -215,7 +216,7 @@
                         }
                     });
                 },
-                pageSize: 5,
+                pageSize: pageSize,
                 pageNumber:curPage,
                 pageRage:1,
                 autoHidePrevious: true,
@@ -319,7 +320,7 @@
                             '<button class="btn btn-primary btn-sm edit" type="button" title="Xem"' +
                             'onclick="getModal('+item.id+',\''+item.receiverName+'\',\''+item.receiverEmail+'\',\''+item.receiverPhone+'\',\''+item.receiverAddress+'\',\''+item.payment+'\',\''+item.totalPrice+'\',\''+item.note+'\','+item.status+')"'+
                             '>' +
-                            '<i class="fa fa-edit"></i></button>'+
+                            '<i class="fa-solid fa-eye"></i></button>'+
                         '</td>'+
                     '</tr>'
             });

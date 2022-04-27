@@ -4337,7 +4337,7 @@ span.large-btn:hover i{
 }
 .single-product-descirption p{
 	margin:0;
-	font-size:13px;
+	font-size:14px;
 	color:#333;
 	line-height:18px;
 }
@@ -4347,7 +4347,7 @@ span.large-btn:hover i{
 	line-height: 29px;
 	margin: 0 0 5px;
 	padding: 0 0 5px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 .single-product-social-share, .single-product-condition, .single-product-price, .product-in-stock, .single-product-info, .single-product-info a, .single-product-quantity, .single-product-size select option, .single-product-right-sidebar ul li, .r-sidebar-pro-content, .r-sidebar-pro-content h5{
 	overflow:hidden;
@@ -4457,7 +4457,7 @@ span.large-btn:hover i{
 	color:#777;
 }
 .product-in-stock{
-	padding: 15px 0 0;
+	/*padding: 15px 0 0;*/
 }
 .single-product-desc .product-in-stock p{
 	margin-bottom:15px;

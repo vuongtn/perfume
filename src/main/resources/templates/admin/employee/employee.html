@@ -281,6 +281,7 @@
         }
 
           //load dữ liệu
+        var pageSize=[[${pageSize}]];
         var checkCurPage=1;
         function page(curPage){
                 $('#pagination-container').pagination({
@@ -298,7 +299,7 @@
                             }
                         });
                     },
-                    pageSize: 5,
+                    pageSize: pageSize,
                     pageNumber:curPage,
                     pageRage:1,
                     autoHidePrevious: true,

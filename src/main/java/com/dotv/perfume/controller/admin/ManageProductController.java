@@ -6,9 +6,11 @@ import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.service.ProductService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -23,9 +25,12 @@ public class ManageProductController extends BaseAdminController {
     @Autowired
     ProductService productService;
 
+    @Value("${admin.page.product}")
+    String pageSize;
 
     @GetMapping("/product")
-    public String getProduct() {
+    public String getProduct(Model model) {
+        model.addAttribute("pageSize",pageSize);
         return "admin/product/product";
     }
 

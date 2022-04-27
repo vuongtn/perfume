@@ -5,8 +5,10 @@ import com.dotv.perfume.dto.CartDTO;
 import com.dotv.perfume.dto.ProductInCartDTO;
 import com.dotv.perfume.entity.Cart;
 import com.dotv.perfume.entity.CartId;
+import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.repository.CartRepository;
 import com.dotv.perfume.service.CartService;
+import com.dotv.perfume.service.ProductService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,9 @@ public class CartController extends BaseController {
     @Autowired
     CartRepository cartRepository;
 
+    @Autowired
+    ProductService productService;
+
     @GetMapping("/product_cart")
     public String getProductInCart(Model model) throws Exception {
         int idUser = getUserLogined().getId();
@@ -36,7 +41,7 @@ public class CartController extends BaseController {
         }
         double totalPrice=0;
         for(ProductInCartDTO pro:lstPro){
-            totalPrice = totalPrice + pro.getAmount() * pro.getPrice().doubleValue();
+                totalPrice = totalPrice + pro.getAmount() * pro.getPrice().doubleValue();
         }
         model.addAttribute("totalPrice",totalPrice);
         model.addAttribute("lstPro",lstPro);
@@ -51,6 +56,11 @@ public class CartController extends BaseController {
         Cart cart = new Cart(new CartId(idPro, idUser), amount);
         //Cập nhật số lượng trong giỏ hàng
         if(type==1) {
+            Product product = productService.getProductById(cart.getId().getIdProduct());
+            if(cart.getAmount()>product.getAmount()){
+                result.put("message", 10);
+                return ResponseEntity.ok(result);
+            }
             cartRepository.save(cart);
             result.put("message", Boolean.TRUE);
         }

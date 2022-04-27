@@ -2,10 +2,8 @@ package com.dotv.perfume.controller.user;
 
 import com.dotv.perfume.config.GooglePojo;
 import com.dotv.perfume.config.GoogleUtils;
-import com.dotv.perfume.config.RestFacebook;
 import com.dotv.perfume.controller.BaseController;
 import com.dotv.perfume.entity.User;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,9 +20,6 @@ import java.io.IOException;
 @Controller
 //@RequestMapping("/")
 public class LoginController extends BaseController {
-
-    @Autowired
-    private RestFacebook restFB;
 
     @Autowired
     private GoogleUtils googleUtils;
@@ -65,24 +60,6 @@ public class LoginController extends BaseController {
             return "redirect:/";
         }
        return "redirect:/logout.html";
-    }
-
-    //login facebook
-    @GetMapping("/login_facebook")
-    public String loginFacebook(HttpServletRequest request) {
-        String code = request.getParameter("code");
-        String accessToken = "";
-        try {
-            accessToken = restFB.getToken(code);
-        } catch (IOException e) {
-            return "login?facebook=error";
-        }
-        com.restfb.types.User user = restFB.getUserInfo(accessToken);
-        UserDetails userDetail = restFB.buildUser(user);
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null, userDetail.getAuthorities());
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "redirect:/";
     }
 
     @GetMapping("/login_google")

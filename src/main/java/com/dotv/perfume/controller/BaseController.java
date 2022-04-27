@@ -1,14 +1,23 @@
 package com.dotv.perfume.controller;
 
+import com.dotv.perfume.dto.ProductInBillDTO;
 import com.dotv.perfume.dto.ProductInCartDTO;
+import com.dotv.perfume.entity.Cart;
+import com.dotv.perfume.entity.CartId;
+import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.entity.User;
+import com.dotv.perfume.repository.CartRepository;
 import com.dotv.perfume.service.CartService;
+import com.dotv.perfume.service.ProductService;
 import com.dotv.perfume.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
 
 
 @Controller
@@ -17,12 +26,34 @@ public abstract class BaseController {
     CartService cartService;
 
     @Autowired
+    CartRepository cartRepository;
+
+    @Autowired
     private UserService userService;
 
+    @Autowired
+    ProductService productService;
+
     @ModelAttribute("totalProInCart")
+    @Transactional
     public int totalProInCart() throws Exception {
         if(isLogined()==true){
             int idUser = getUserLogined().getId();
+            //Kiểm tra product đó số lượng <= 0 thì ẩn
+            List<ProductInCartDTO> lstPro = cartService.getProductInCart(idUser);
+            for(ProductInCartDTO pro:lstPro){
+                Product product = productService.getProductById(pro.getId());
+                if(product.getAmount()<=0){
+                    //lstPro.remove(pro);
+                    cartRepository.deleteById(new CartId(pro.getId(),idUser));
+                }
+                else {
+                    if (product.getAmount() < pro.getAmount()) {
+                        cartRepository.updateAmountCart(new CartId(pro.getId(), idUser), product.getAmount());
+                    }
+                }
+            }
+
             return cartService.getProductInCart(idUser).size();
         }
         return 0;
