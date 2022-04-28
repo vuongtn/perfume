@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,Integer> {
 //
     //Trả về list sản phẩm theo thương hiệu status=true
-    @Query("select p from Product p join p.brand t where t.id=?1 and p.status=?2 and p.amount>0")
+    @Query("select p from Product p join p.brand b where b.id=?1 and b.status=true and p.status=?2 and p.amount>0")
     List<Product> getProductByTrademark(int id, boolean status);
 
     //Trả về tất cả sản phẩm có status = true
@@ -36,11 +36,11 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     /////////////////////////////////////////////////////////////////////
 
     //Trả về list sản phẩm sắp xếp theo ngày gần nhất
-    @Query("select p from Product p where p.status=?1 and p.amount>0 order by p.createdDate desc")
+    @Query("select p from Product p join p.brand b where b.status=true and p.status=?1 and p.amount>0 order by p.createdDate desc")
     List<Product> findAllByStatusOrderByCreatedDateDesc(Boolean status);
 
     //Trả về list sản phẩm theo giới tính
-    @Query("select p from Product p where p.status=?1 and p.gender=?2 and p.amount>0")
+    @Query("select p from Product p join p.brand b where b.status=true and p.status=?1 and p.gender=?2 and p.amount>0")
     List<Product> findAllByStatusAndGender(Boolean status,String gender);
 
     ////////////////////////////Giới tính///////////////////////////////

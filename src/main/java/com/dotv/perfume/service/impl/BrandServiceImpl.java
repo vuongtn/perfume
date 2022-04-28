@@ -39,6 +39,7 @@ public class BrandServiceImpl implements BrandService {
 //            brand.setCreatedBy(getUserLogined().getFullName());
         }
         else{
+            brand.setCreatedDate(getBrandById(brand.getId()).getCreatedDate());
 //            brand.setUpdatedBy(getUserLogined().getFullName());
             brand.setUpdatedDate(perfumeUtils.getDateNow());
         }

@@ -137,6 +137,7 @@
                     </div>
                     <form id="form-product" method="post" enctype="multipart/form-data">
                         <div class="row">
+                            <input id="created-date" name="createdDate" type="hidden">
                             <div class="form-group col-md-12" id="div-id">
                                 <label class="control-label">Mã sản phẩm </label>
                                 <input name="id" id="id-pro" class="form-control" type="number" readonly placeholder="Tự tăng">
@@ -458,6 +459,18 @@
         return dateStr;
     }
 
+    function formatDate2(dateTime){
+        var date = new Date(dateTime);
+        var dateStr =
+            date.getFullYear() + "-" +
+            ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+            ("00" + date.getDate()).slice(-2) + " " +
+            ("00" + date.getHours()).slice(-2) + ":" +
+            ("00" + date.getMinutes()).slice(-2) + ":" +
+            ("00" + date.getSeconds()).slice(-2);
+        return dateStr;
+    }
+
     //for load dữ liệu
     function loadTable(data){
         var html = '';
@@ -547,13 +560,13 @@
                 success: function (result) {
                     if(result.message==1){
                         messageSuccess('Thành công!', 'Thêm sản phẩm thành công');
-                        page(1,'all');//về trang đầu tiên
+                        page(1);//về trang đầu tiên
                         $('#ModalUP').modal('hide');
                         removeData();
                     }
                     if(result.message==2){
                         messageSuccess('Thành công!', 'Cập nhật sản phẩm thành công');
-                        searchProduct(checkCurPage);//về trang hiện tại
+                        page(checkCurPage);//về trang hiện tại
                         $('#ModalUP').modal('hide');
                         removeData();
                     }
@@ -585,6 +598,7 @@
             dataType : 'json',
             // timeout : 100000,
             success : function(data) {
+                    $('#created-date').val(formatDate2(data.createdDate));
                     $('#id-pro').val(data.id);
                     $('#name-pro').val(data.name);
                     $('#lst-brand').val(data.brand.id);

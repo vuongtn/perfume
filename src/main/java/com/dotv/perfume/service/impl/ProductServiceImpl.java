@@ -221,6 +221,9 @@ public class ProductServiceImpl implements ProductService {
         if(productDTO.getId()==null) {
             productDTO.setCreatedDate(perfumeUtils.getDateNow());
         }
+        if(productDTO.getId()!=null){
+            productDTO.setUpdatedDate(perfumeUtils.getDateNow());
+        }
         Product product = modelMapper.map(productDTO,Product.class);
         product.setImage(productDTO.getImage());
         Brand brand = brandService.getBrandById(productDTO.getIdBrand());
