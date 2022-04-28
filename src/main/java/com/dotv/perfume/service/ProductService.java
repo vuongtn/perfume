@@ -1,4 +1,5 @@
 package com.dotv.perfume.service;
+import com.dotv.perfume.dto.FilterProductAdminDTO;
 import com.dotv.perfume.dto.FilterProductDTO;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Product;
@@ -23,6 +24,7 @@ public interface ProductService {
     List<Product> getListProduct(String search);
     Product saveOrUpdate(ProductDTO productDTO) throws IOException;
     void deleteProduct(int id);
-
+    //filter product admin
+    List<ProductDTO> getListProductByFilterAdmin(FilterProductAdminDTO f);
 
 }

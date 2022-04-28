@@ -1,5 +1,6 @@
 package com.dotv.perfume.service.impl;
 
+import com.dotv.perfume.dto.FilterProductAdminDTO;
 import com.dotv.perfume.dto.FilterProductDTO;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Brand;
@@ -241,6 +242,40 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(int id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductDTO> getListProductByFilterAdmin(FilterProductAdminDTO f) {
+        Map<String, Object> parameters = new HashMap<>();
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("select p.id id, p.name name, p.image image, p.amount, b.name brandName, p.price, p.status, p.created_date createdDate  ");
+        sqlBuilder.append("from product p inner join brand b on p.id_brand= b.id  ");
+        sqlBuilder.append("where 1=1  ");
+
+        //tìm sản phẩm
+        if(StringUtils.isNotBlank(f.getSearch())){
+            sqlBuilder.append("and lower(p.name) like lower(concat('%',:query,'%'))  ");
+            parameters.put("query", perfumeUtils.convertToEnglish(f.getSearch().trim()));
+        }
+        if(StringUtils.isNotBlank(f.getBrand())){
+            sqlBuilder.append("and b.id=:id  ");
+            parameters.put("id", f.getBrand());
+        }
+        if(StringUtils.isNotBlank(f.getGender())){
+            sqlBuilder.append("and p.gender=:gender  ");
+            parameters.put("gender", f.getGender());
+        }
+        if(StringUtils.isNotBlank(f.getStatus())){
+            if("true".equalsIgnoreCase(f.getStatus().trim())){
+                sqlBuilder.append("and p.status=true  ");
+            }
+            if("false".equalsIgnoreCase(f.getStatus().trim())){
+                sqlBuilder.append("and p.status=false  ");
+            }
+        }
+        sqlBuilder.append(f.getSort());
+        List<ProductDTO> lstProduct = namedParameterJdbcTemplate.query(sqlBuilder.toString(), parameters, BeanPropertyRowMapper.newInstance(ProductDTO.class));
+        return lstProduct;
     }
 
 

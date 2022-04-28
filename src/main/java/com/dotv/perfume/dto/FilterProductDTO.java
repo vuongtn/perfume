@@ -1,14 +1,14 @@
 package com.dotv.perfume.dto;
 
 public class FilterProductDTO {
-    Integer type;
-    String idBrand;
-    String sex;
-    String search;
-    String sortBy;
-    String gender;
-    Integer prices[];
-    Integer brands[];
+    private Integer type;
+    private String idBrand;
+    private String sex;
+    private String search;
+    private String sortBy;
+    private String gender;
+    private Integer prices[];
+    private Integer brands[];
 
     public FilterProductDTO() {
 

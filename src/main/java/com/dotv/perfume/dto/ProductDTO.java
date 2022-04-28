@@ -24,6 +24,15 @@ public class ProductDTO {
     private String updatedBy;
     private Boolean status;
     private Integer manufactureYear;
+    private String brandName;
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
 
     public MultipartFile getFileImage() {
         return fileImage;

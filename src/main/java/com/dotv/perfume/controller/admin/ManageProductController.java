@@ -1,6 +1,7 @@
 package com.dotv.perfume.controller.admin;
 
 import com.dotv.perfume.controller.BaseAdminController;
+import com.dotv.perfume.dto.FilterProductAdminDTO;
 import com.dotv.perfume.dto.ProductDTO;
 import com.dotv.perfume.entity.Product;
 import com.dotv.perfume.service.ProductService;
@@ -34,15 +35,20 @@ public class ManageProductController extends BaseAdminController {
         return "admin/product/product";
     }
 
+//    @GetMapping("/lst_product")
+//    public ResponseEntity<List<Product>> getListProduct(@RequestParam(required = false) String search){
+//        if(!search.equals("all")){
+//           return ResponseEntity.ok(productService.getListProduct(search.trim()));
+//        }
+//        List<Product> lstPro=productService.getListProduct("all").stream()
+//                .sorted(Comparator.nullsLast((e1, e2) -> e2.getId().compareTo(e1.getId())))
+//                .collect(Collectors.toList());
+//       return ResponseEntity.ok(lstPro);
+//    }
+
     @GetMapping("/lst_product")
-    public ResponseEntity<List<Product>> getListProduct(@RequestParam(required = false) String search){
-        if(!search.equals("all")){
-           return ResponseEntity.ok(productService.getListProduct(search.trim()));
-        }
-        List<Product> lstPro=productService.getListProduct("all").stream()
-                .sorted(Comparator.nullsLast((e1, e2) -> e2.getId().compareTo(e1.getId())))
-                .collect(Collectors.toList());
-       return ResponseEntity.ok(lstPro);
+    public ResponseEntity<List<ProductDTO>> getListProduct(@ModelAttribute FilterProductAdminDTO f){
+        return ResponseEntity.ok(productService.getListProductByFilterAdmin(f));
     }
 
     @PostMapping("/save_product")

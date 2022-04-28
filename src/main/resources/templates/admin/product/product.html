@@ -44,15 +44,40 @@
                     <div class="tile-body">
                         <div class="row element-button">
                             <div class="col-sm-2">
-
                                 <a class="btn btn-add btn-sm" title="Thêm" data-toggle="modal" id="insert-product"
                                    data-target="#ModalUP"><i class="fas fa-plus"></i>
-                                    Thêm mới</a>
+                                    Thêm mới
+                                </a>
                             </div>
                         </div>
                         <div style="margin-bottom:6px">
-                            <label><b>Tìm kiếm:</b></label>
-                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:250px;border: 1px solid #dadada;" onkeyup="searchProduct(1)" placeholder="Nhập tên sản phẩm" type="text" name="search-product" id="search-product">
+                            <label><b>Tìm:</b></label>
+                            <input style="border-radius: 0.3rem; background-color: #f1f1f1;height:30px;width:25%;border: 1px solid #dadada;" onkeyup="page(1)" placeholder="Nhập tên sản phẩm" type="text" name="search-product" id="search-product">
+                        </div>
+                        <div style="margin-bottom:6px">
+                            <label><b>Lọc:</b></label>
+                            <select style="border-radius: 0.3rem;background-color: #f1f1f1;height:30px;width:20%;border: 1px solid #dadada;" id="fil-brand">
+                            </select>
+                            <select style="border-radius: 0.3rem;background-color: #f1f1f1;height:30px;width:15%;border: 1px solid #dadada;" id="fil-gender">
+                                <option value="">Giới tính (tất cả)</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Unisex">Unisex</option>
+                            </select>
+                            <select style="border-radius: 0.3rem;background-color: #f1f1f1;height:30px;width:20%;border: 1px solid #dadada;" id="fil-status">
+                                <option value="">Trạng thái (tất cả)</option>
+                                <option value="true">Hiển thị</option>
+                                <option value="false">Ẩn</option>
+                            </select>
+                            <select style="border-radius: 0.3rem;background-color: #f1f1f1;height:30px;width:25%;border: 1px solid #dadada;" id="fil-sort">
+                                <option value="order by p.id desc">Xếp theo mã</option>
+                                <option value="order by p.name asc">Xếp theo tên</option>
+                                <option value="order by p.amount asc">Xếp theo số lượng tăng dần</option>
+                                <option value="order by p.amount desc">Xếp theo số lượng giảm dần</option>
+                                <option value="order by p.price asc">Xếp theo giá tăng dần</option>
+                                <option value="order by p.price desc">Xếp theo giá giảm dần</option>
+                            </select>
+                            </div>
                         </div>
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
@@ -63,6 +88,7 @@
                                 <th>Số lượng</th>
                                 <th>Thương hiệu</th>
                                 <th>Giá tiền</th>
+                                <th>Ngày tạo</th>
                                 <th>Trang thái</th>
                                 <th>Chức năng</th>
                             </tr>
@@ -105,7 +131,7 @@
                     <div class="row">
                         <div class="form-group  col-md-12">
                         <span class="thong-tin-thanh-toan">
-                            <h5>Chỉnh sửa thông tin sản phẩm</h5>
+                            <h5 id="title-pro">Chỉnh sửa thông tin sản phẩm</h5>
                         </span>
                         </div>
                     </div>
@@ -300,28 +326,12 @@
     //text editor
 
     $(document).ready(function() {
-        page(1,'all');
+        page(1);
         loadBrand();
         $('#detail').summernote({
             height: 500,
             focus: true,
-            // fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48' , '64', '82', '150'],
-            // toolbar: [
-            //     ['style', ['style']],
-            //     ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-            //     ['fontname', ['fontname']],
-            //     ['fontsize', ['fontsize']],
-            //     ['color', ['color']],
-            //     ['para', ['ul', 'ol', 'paragraph']],
-            //     ['height', ['height']],
-            //     ['table', ['table']],
-            //     ['insert', ['link', 'picture', 'video', 'hr']],
-            //     ['view', ['codeview']]
-            // ],
-            //fontsize: '16'
         });
-
-
         $('#summernote').summernote({
             callbacks: {
                 onChange: function() {
@@ -329,6 +339,24 @@
                 }
             }
         });
+
+        //load all brand filter
+        $.ajax({
+            type: 'GET',
+            contentType : "application/json",
+            url: '/admin/lst_brand',
+            dataType : 'json',
+            success: function(data) {
+                var html='';
+                html += '<option value="">Thương hiệu (tất cả)</option>';
+                $.each(data, function(index, item) {
+                    html += '<option value='+item.id+'>'+item.name+'</option>';
+                })
+                $('#fil-brand').html(html);
+            }
+        });
+
+
     });
 
     //load brand
@@ -374,11 +402,18 @@
     //Clich thêm
     $( "#insert-product" ).click(function() {
         $('#div-id').hide();
+        $('#title-pro').text('Thêm mới sản phẩm');
        removeData();
     });
 
 
-    function page(curPage,search){
+    function page(curPage){
+        var search=$('#search-product').val();
+        var brand=$('#fil-brand').val();
+        var gender=$('#fil-gender').val();
+        var status=$('#fil-status').val();
+        var sort=$('#fil-sort').val();
+        debugger
         $('#pagination-container').pagination({
             dataSource: function(done) {
                 $.ajax({
@@ -387,6 +422,10 @@
                     url: '/admin/lst_product',
                     data:{
                         search:search,
+                        brand:brand,
+                        gender:gender,
+                        status:status,
+                        sort:sort
                     },
                     dataType : 'json',
                     success: function(response) {
@@ -407,6 +446,17 @@
         })
     }
 
+    function formatDate(dateTime){
+        var date = new Date(dateTime);
+        var dateStr =
+            ("00" + date.getDate()).slice(-2) + "/" +
+            ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+            date.getFullYear() + " " +
+            ("00" + date.getHours()).slice(-2) + ":" +
+            ("00" + date.getMinutes()).slice(-2) + ":" +
+            ("00" + date.getSeconds()).slice(-2);
+        return dateStr;
+    }
 
     //for load dữ liệu
     function loadTable(data){
@@ -419,8 +469,9 @@
                     '<td>'+item.name+'</td>'+
                     '<td><img src="/uploads/product/'+item.image+'" alt="" height="80px" width="80px;"></td>'+
                     '<td>'+item.amount+'</td>'+
-                    '<td>'+item.brand.name+'</td>'+
+                    '<td>'+item.brandName+'</td>'+
                     '<td>'+total+'đ</td>'+
+                    '<td>'+formatDate(item.createdDate)+'</td>'+
                     '<td>';
             if(item.status==true){
                 html +='<span>Hiển thị</span>';
@@ -444,17 +495,22 @@
         return html;
     }
 
-    //search
-    function searchProduct(curPage){
-        var data = $('#search-product').val().trim();
-        if(data!=''){
-            page(curPage,data);
-        }
-        if(data==''){
-            page(curPage,'all');
-        }
-    }
-
+    //lọc
+    // $("#search-product").onkeyup(function () {
+    //     page(1);
+    // });
+    $("#fil-brand").change(function () {
+        page(1);
+    });
+    $("#fil-gender").change(function () {
+        page(1);
+    });
+    $("#fil-status").change(function () {
+        page(1);
+    });
+    $("#fil-sort").change(function () {
+        page(1);
+    });
 
 
 
@@ -518,6 +574,7 @@
 //    update product
     function getModalProduct(id){
         $('#div-id').show();
+        $('#title-pro').text('Chỉnh sửa thông tin sản phẩm');
         $.ajax({
             type : "GET",
             contentType : "application/json",
