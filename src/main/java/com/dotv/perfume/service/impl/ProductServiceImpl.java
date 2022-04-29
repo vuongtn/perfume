@@ -222,6 +222,7 @@ public class ProductServiceImpl implements ProductService {
             productDTO.setCreatedDate(perfumeUtils.getDateNow());
         }
         if(productDTO.getId()!=null){
+            productDTO.setCreatedDate(getProductById(productDTO.getId()).getCreatedDate());
             productDTO.setUpdatedDate(perfumeUtils.getDateNow());
         }
         Product product = modelMapper.map(productDTO,Product.class);

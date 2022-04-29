@@ -137,7 +137,6 @@
                     </div>
                     <form id="form-product" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <input id="created-date" name="createdDate" type="hidden">
                             <div class="form-group col-md-12" id="div-id">
                                 <label class="control-label">Mã sản phẩm </label>
                                 <input name="id" id="id-pro" class="form-control" type="number" readonly placeholder="Tự tăng">
@@ -335,11 +334,14 @@
         });
         $('#summernote').summernote({
             callbacks: {
-                onChange: function() {
+                onFocus: function() {
                     $('#mess-detail').text('');
                 }
             }
         });
+
+        $('#summernote').summernote('fontName', 'Arial');
+
 
         //load all brand filter
         $.ajax({
@@ -434,7 +436,7 @@
                     }
                 });
             },
-            pageSize: 5,
+            pageSize: pageSize,
             pageNumber:curPage,
             autoHidePrevious: true,
             autoHideNext: true,
@@ -459,17 +461,17 @@
         return dateStr;
     }
 
-    function formatDate2(dateTime){
-        var date = new Date(dateTime);
-        var dateStr =
-            date.getFullYear() + "-" +
-            ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
-            ("00" + date.getDate()).slice(-2) + " " +
-            ("00" + date.getHours()).slice(-2) + ":" +
-            ("00" + date.getMinutes()).slice(-2) + ":" +
-            ("00" + date.getSeconds()).slice(-2);
-        return dateStr;
-    }
+    // function formatDate2(dateTime){
+    //     var date = new Date(dateTime);
+    //     var dateStr =
+    //         date.getFullYear() + "-" +
+    //         ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+    //         ("00" + date.getDate()).slice(-2) + " " +
+    //         ("00" + date.getHours()).slice(-2) + ":" +
+    //         ("00" + date.getMinutes()).slice(-2) + ":" +
+    //         ("00" + date.getSeconds()).slice(-2);
+    //     return dateStr;
+    // }
 
     //for load dữ liệu
     function loadTable(data){
@@ -598,7 +600,6 @@
             dataType : 'json',
             // timeout : 100000,
             success : function(data) {
-                    $('#created-date').val(formatDate2(data.createdDate));
                     $('#id-pro').val(data.id);
                     $('#name-pro').val(data.name);
                     $('#lst-brand').val(data.brand.id);
