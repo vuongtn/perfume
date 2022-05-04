@@ -314,6 +314,7 @@ h2.page-title{
 	text-transform: uppercase;
 
 }
+
 /*-----------------------
 2.6 scroll to top
 -------------------------*/
@@ -324,7 +325,7 @@ h2.page-title{
 	z-index: 999999;
 }
 a.bstore-scrollertop{
-	background: #3a3d42 none repeat scroll 0 0;
+	background: #155946 none repeat scroll 0 0;
 	color: #fff;
 	display: block;
 	height: 40px;
@@ -343,10 +344,10 @@ a.bstore-scrollertop i{
 2.7 mobile-menu
 -------------------------*/
 .mean-container .mean-nav{
-	background: #3A3D42 none repeat scroll 0 0;
+	background:#155946 none repeat scroll 0 0;
 }
 .mean-container .mean-bar{
-	background: #3A3D42 none repeat scroll 0 0;
+	background: #155946 none repeat scroll 0 0;
 }
 span.mobile-menu-title{
 	color: #fff;
@@ -405,12 +406,12 @@ span.mobile-menu-title{
 	font-size:11px;
 	color:#adadad;
 }
-.header-left-menu{
+/* .header-left-menu{
 	display: block;
 	min-height: 35px;
 	padding:5px 0 6px 0px;
 	color:#fff;
-}
+} */
 .welcome-info{
 	border-right: 1px solid #555;
 	float: left;
@@ -497,7 +498,9 @@ span.mobile-menu-title{
 	padding-top: 5px;
 }
 .header-right-menu nav{}
-.header-right-menu nav ul{}
+.header-right-menu nav ul{
+	min-height: 29px;
+}
 .header-right-menu nav ul li{
 	border-right:1px solid white;
 	padding-left:8px;
@@ -5202,6 +5205,7 @@ a.write-review-btn{
 	font-size: 11.8px;
 	border: none;
 	margin:0px;
+	min-height: 29px;
 }
 /* Thiết lập vị trí cho thẻ div với class dropdown*/
 .dropdown {

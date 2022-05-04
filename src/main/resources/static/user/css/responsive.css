@@ -1,5 +1,13 @@
 /*large screen 1170*/
 @media (min-width: 1170px) and (max-width: 1199px) {
+	#logo-perfume{
+		width:380px;
+		height: 90px
+	}
+
+	/* .categorys-product-search {
+		padding-right: 80px;
+	} */
 	.mainmenu nav ul li a {
 		padding: 0 15px;
 		font-size:12px;
@@ -33,7 +41,7 @@
 		width: 344px;
 	}
 	.main-menu-area {
-		background: #3a3d42 none repeat scroll 0 0;
+		/* background: #3a3d42 none repeat scroll 0 0; */
 		height: 55px;
 		position: relative;
 	}
@@ -64,6 +72,11 @@
 	}
 	.logo {
 		padding-top: 40px;
+	}
+	#logo-perfume{
+		width:350px;
+		height:90px;
+		margin-top:-12px
 	}
 	.category-header-text {
 		left: 30px;
@@ -154,14 +167,21 @@
 
 /* Tablet desktop :768px. */
 @media (min-width: 768px) and (max-width: 991px) {
+	#logo-perfume {
+		width: 275px;
+		height: 90px;
+	}
+	.do-cart{
+		margin-bottom: -39px;
+	}
 	#mob-menu{
 		display:none !important;
 	}
 	.categorys-product-search{
 		margin-bottom: 24px;
-		padding-right: 30px;
+		padding-right: 94px;
 		padding-top: 0px;
-		width: 689px;
+		width: 400px;
 		height: 43px;
 		margin-top:5px;
 	}
@@ -171,8 +191,9 @@
 		width: 614px;
 	}
 	.main-menu-area {
-		background: #ebebeb none repeat scroll 0 0;
-		height: 120px;
+		/* background: #ebebeb none repeat scroll 0 0; */
+		background: white;
+		/* height: 120px; */
 		position: relative;
 	}
 	.welcome-info{
@@ -442,6 +463,22 @@
 	.mainmenu{
 		display:none;
 	}
+	#logo-perfume{
+		width: 210px;
+		height: 66px;
+		margin-right: 78px;
+		margin-top:0px;
+		margin-bottom: -15px;
+		/* position: absolute;
+		top: 6px;
+		right: 83px; */
+	}
+	.do-cart{
+		margin-top:-38px;
+		position: absolute;
+		right:0px;
+		top:57px;
+	}
 	td.delivery-method-icon img{
 		max-width:inherit;
 	}
@@ -500,8 +537,9 @@
 		width:284px;
 	}
 	.main-menu-area {
-		background: #ebebeb none repeat scroll 0 0;
-		height: 130px;
+		/* background: #ebebeb none repeat scroll 0 0; */
+		background: white;
+		/* height: 130px; */
 	}
 	.shopping-cart-out {
 		width: 270px;
@@ -883,10 +921,20 @@
 }
 
 /* shoping cart menu css */
-@media (min-width: 768px) {
+@media (min-width: 767px) {
 	ul.step {
 		border-radius: 4px;
 	}
+	/* #logo-perfume {
+		width: 335px;
+		height: 90px;
+	}
+	.categorys-product-search{
+		padding-right: 105px;
+	}
+	.do-cart{
+		margin-bottom: -88px;
+	} */
 	ul.step li.first {
 		border-bottom-left-radius: 4px;
 		border-top-left-radius: 4px;
@@ -963,6 +1011,14 @@
 	.mainmenu{
 		display:none;
 	}
+	.do-cart{
+		margin-top: -30px;
+		padding-right: -2px;
+	}
+	#logo-perfume{
+		width:293px;
+		height: 80px;
+	}
 	.header-left-menu {
 		margin: 0px 0px 5px 0px;
 		padding-left:50px;
@@ -1010,8 +1066,9 @@
 		width:367px;
 	}
 	.main-menu-area {
-		background: #ebebeb none repeat scroll 0 0;
-		height: 130px;
+		/* background: #ebebeb none repeat scroll 0 0; */
+		height: 55px;
+		background:white;
 	}
 	.shopping-cart-out {
 		float: left !important;
