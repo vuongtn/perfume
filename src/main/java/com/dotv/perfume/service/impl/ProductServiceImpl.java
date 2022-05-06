@@ -93,22 +93,22 @@ public class ProductServiceImpl implements ProductService {
                 }
                 switch (f.getPrices()[i]) {
                     case 1:
-                        sqlBuilder.append("p.price < 200000  ");
+                        sqlBuilder.append("p.price < 500000  ");
                         break;
                     case 2:
-                        sqlBuilder.append("p.price >= 200000 and p.price <=400000  ");
+                        sqlBuilder.append("p.price >= 500000 and p.price <=1000000  ");
                         break;
                     case 3:
-                        sqlBuilder.append("p.price >= 400000 and p.price <=600000  ");
+                        sqlBuilder.append("p.price >= 1000000 and p.price <=1500000  ");
                         break;
                     case 4:
-                        sqlBuilder.append("p.price >= 600000 and p.price <=800000  ");
+                        sqlBuilder.append("p.price >= 1500000 and p.price <=2000000  ");
                         break;
                     case 5:
-                        sqlBuilder.append("p.price >= 800000 and p.price <=1000000  ");
+                        sqlBuilder.append("p.price >= 2000000 and p.price <=2500000  ");
                         break;
                     case 6:
-                        sqlBuilder.append("p.price > 1000000  ");
+                        sqlBuilder.append("p.price > 2500000  ");
                         break;
                 }
             }

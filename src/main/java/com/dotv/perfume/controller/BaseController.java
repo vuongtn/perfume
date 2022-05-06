@@ -91,6 +91,8 @@ public abstract class BaseController {
             user.setPhone(userBD.getPhone());
             user.setPermission(userBD.getPermission());
             user.setType(userBD.getType());
+            user.setToken(userBD.getToken());
+            user.setExpiryDate(userBD.getExpiryDate());
             return user;
         }
         return null;

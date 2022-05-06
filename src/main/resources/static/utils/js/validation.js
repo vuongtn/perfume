@@ -157,8 +157,8 @@ Validator.isCheckBox = function(selector,checkBox,message) {
     return {
         selector: selector,
         test: function(value) {
-            console.log(value);
             return value>0 ? undefined : message||'Vui lòng chọn quyền';
         }
     };
 }
+

@@ -129,7 +129,7 @@
                         <div class="form-group col-md-12">
                             <label class="control-label">Mô chỉ tiết</label>
                             <textarea id="detail" class="form-control" name="detailDescription"></textarea>
-                            <span class="form-message"></span>
+                            <span id="mess" class="form-message"></span>
                         </div>
                     </div>
                     <BR>
@@ -149,40 +149,16 @@
 </th:block>
 <th:block id="js-resources">
 <script th:inline="javascript">
+    CKEDITOR.replace( 'detail',{
+        height:700,
+        language:'vi',
+        editorplaceholder:'Nhập thông tin...',
+    });
+    $(".modal").removeAttr("tabindex");
+
+
     $(document).ready(function() {
         page(1);
-        $('#detail').summernote({
-            height: 500,
-            focus: true,
-            // fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48' , '64', '82', '150'],
-            // toolbar: [
-            //     ['style', ['style']],
-            //     ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-            //     ['fontname', ['fontname']],
-            //     ['fontsize', ['fontsize']],
-            //     ['color', ['color']],
-            //     ['para', ['ul', 'ol', 'paragraph']],
-            //     ['height', ['height']],
-            //     ['table', ['table']],
-            //     ['insert', ['link', 'picture', 'video', 'hr']],
-            //     ['view', ['codeview']]
-            // ],
-            //fontsize: '16'
-            //fontSizes: ['8', '9', '10', '11', '12','13', '14','15','16','17', '18','19','20','22', '24', '36', '48' , '64', '82', '150'],
-
-    });
-
-
-        $('#detail').summernote({
-
-        });
-        // $('#summernote').summernote({
-        //     callbacks: {
-        //         onChange: function() {
-        //             $('#mess-detail').text('');
-        //         }
-        //     }
-        // });
     });
 
     var loadFile = function (event) {
@@ -285,11 +261,16 @@
         $('#name-image').val('');
         $('#show-image').empty();
         $('#short').val('');
-        $('#detail').summernote('code','');
+        CKEDITOR.instances.detail.setData('');
+        $('#detail').val('');
         $('.form-group').removeClass('invalid');
         $('.form-message').text('');
     }
 
+    CKEDITOR.instances.detail.on('change', function() {
+        $('#mess').text('');
+        $('#detail').val(CKEDITOR.instances.detail.getData());
+    });
 
     //Thêm tin tuc
     Validator({
@@ -304,6 +285,7 @@
         onSubmit: function (form1) {
             var form = $('#form-news')[0];
             var data = new FormData(form);
+            data.set('detailDescription',CKEDITOR.instances.detail.getData());
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
@@ -379,6 +361,7 @@
 
     //update news
     function updateNews(id){
+        removeData();
         $('#div-id').show();
         $('#type-news').text('Chỉnh sửa tin tức');
         $.ajax({
@@ -397,7 +380,9 @@
                 $('#name-image').val(data.image);
                 $('#show-image').html('<img id="output" class="img-rounded" alt="Ảnh" width="150" height="150" src="/uploads/news/'+data.image+'" />');
                 $('#short').val(data.shortDescription);
-                $('#detail').summernote('code',data.detailDescription);
+                CKEDITOR.instances.detail.setData(data.detailDescription);
+                console.log( $('#detail').val());
+                // $('#detail').val('a');
             },
             error : function(e) {
                 console.log("ERROR: ", e);

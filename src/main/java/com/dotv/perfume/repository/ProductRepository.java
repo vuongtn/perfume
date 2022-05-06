@@ -40,7 +40,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     List<Product> findAllByStatusOrderByCreatedDateDesc(Boolean status);
 
     //Trả về list sản phẩm theo giới tính
-    @Query("select p from Product p join p.brand b where b.status=true and p.status=?1 and p.gender=?2 and p.amount>0")
+    @Query("select p from Product p join p.brand b where b.status=true and p.status=?1 and p.gender=?2 and p.amount>0 order by p.createdDate desc")
     List<Product> findAllByStatusAndGender(Boolean status,String gender);
 
     ////////////////////////////Giới tính///////////////////////////////

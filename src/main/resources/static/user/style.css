@@ -311,7 +311,7 @@ h2.page-title{
 	margin-top: 0px;
 	overflow: hidden;
 	padding: 0 0 17px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 
 }
 
@@ -4644,11 +4644,11 @@ p.small-title{
 .tab-description{
 	padding: 0 20px 20px;
 }
-.tab-description p{
-	font-size: 13px;
-	line-height: 18px;
-	margin: 0 0 9px;
-}
+/*.tab-description p{*/
+/*	font-size: 13px;*/
+/*	line-height: 18px;*/
+/*	margin: 0 0 9px;*/
+/*}*/
 .deta-sheet{
 	padding-bottom:10px;
 }

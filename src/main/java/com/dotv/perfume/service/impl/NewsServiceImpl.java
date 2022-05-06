@@ -52,12 +52,12 @@ public class NewsServiceImpl implements NewsService {
     public News saveIntroduce(News news) {
         news.setStatus(0);
         if(news.getId()==null){
-            news.setCreatedDate(perfumeUtils.getDateNow());
+            //news.setCreatedDate(perfumeUtils.getDateNow());
 //           news.setCreatedBy(getUserLogined().getFullName());
         }
         else{
 //           news.setUpdatedBy(getUserLogined().getFullName());
-            news.setUpdatedDate(perfumeUtils.getDateNow());
+            //news.setUpdatedDate(perfumeUtils.getDateNow());
         }
         return newsRepository.save(news);
     }

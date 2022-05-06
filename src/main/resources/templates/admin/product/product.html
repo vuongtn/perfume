@@ -135,7 +135,7 @@
                         </span>
                         </div>
                     </div>
-                    <form id="form-product" method="post" enctype="multipart/form-data">
+                    <form id="form-product">
                         <div class="row">
                             <div class="form-group col-md-12" id="div-id">
                                 <label class="control-label">Mã sản phẩm </label>
@@ -238,7 +238,6 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Mô chỉ tiết</label>
-
                                 <textarea id="detail" class="form-control" name="detailDescription"></textarea>
                                 <span id="mess-detail" class="form-message"></span>
                             </div>
@@ -261,6 +260,7 @@
 
 <th:block id="js-resources">
 <script>
+
     //format price khi nhap
     $('#price-pro').on( "keyup", function( event ) {
         // When user select text in the document, also abort.
@@ -324,30 +324,36 @@
     var pageSize=[[${pageSize}]];
     var checkCurPage=1;
     //text editor
+    CKEDITOR.replace( 'detail',{
+        height:700,
+        language:'vi',
+        editorplaceholder:'Nhập thông tin...',
+    });
+    //fix lỗi không nhập input editor
+    $(".modal").removeAttr("tabindex");
 
     $(document).ready(function() {
         page(1);
         loadBrand();
-        $('#detail').summernote({
-            height: 500,
-            focus: true,
-        });
-        $('#summernote').summernote({
-            callbacks: {
-                onFocus: function() {
-                    $('#mess-detail').text('');
-                }
-            }
-        });
+        // $('#detail').summernote({
+        //     height: 500,
+        //     focus: true,
+        // });
+        // $('#summernote').summernote({
+        //     callbacks: {
+        //         onFocus: function() {
+        //             $('#mess-detail').text('');
+        //         }
+        //     }
+        // });
 
-        $('#summernote').summernote('fontName', 'Arial');
 
 
         //load all brand filter
         $.ajax({
             type: 'GET',
             contentType : "application/json",
-            url: '/admin/lst_brand',
+            url: '/admin/lst_brand_pro',
             dataType : 'json',
             success: function(data) {
                 var html='';
@@ -367,7 +373,7 @@
         $.ajax({
             type: 'GET',
             contentType : "application/json",
-            url: '/admin/lst_brand',
+            url: '/admin/lst_brand_pro',
             dataType : 'json',
             success: function(data) {
                 var html='';
@@ -394,7 +400,10 @@
         $('#name-image').val('');
         $('#show-image').empty();
         $('#short-detail').val('');
-        $('#detail').summernote('code','');
+        $('#ufile').val('');
+        // $('#detail').summernote('code','');
+        $('#detail').val('');
+        CKEDITOR.instances.detail.setData('');
     }
     //close modal
     $( "#cancel-modal" ).click(function() {
@@ -402,13 +411,17 @@
         $('.form-message').text('');
     });
 
-    //Clich thêm
+    //Click thêm
     $( "#insert-product" ).click(function() {
         $('#div-id').hide();
         $('#title-pro').text('Thêm mới sản phẩm');
        removeData();
     });
 
+    CKEDITOR.instances.detail.on('change', function() {
+        $('#mess-detail').text('');
+        $('#detail').val(CKEDITOR.instances.detail.getData());
+    });
 
     function page(curPage){
         var search=$('#search-product').val();
@@ -549,6 +562,7 @@
         onSubmit: function (form1) {
             var form = $('#form-product')[0];
             var data = new FormData(form);
+            data.set('detailDescription',CKEDITOR.instances.detail.getData());
             data.set('price',data.get('price').replace(/\./g,''));
             $.ajax({
                 type: "POST",
@@ -614,7 +628,8 @@
                     $('#show-image').html('<img id="output" class="img-rounded" alt="Ảnh" width="150" height="150" src="/uploads/product/'+data.image+'" />');
                     // $('#ufile').val('/uploads/product/'+data.image);
                     $('#short-detail').val(data.shortDescription);
-                    $('#detail').summernote('code',data.detailDescription);
+                    // $('#detail').summernote('code',data.detailDescription);
+                    CKEDITOR.instances.detail.setData(data.detailDescription);
             },
             error : function(e) {
                 console.log("ERROR: ", e);

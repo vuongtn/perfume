@@ -20,7 +20,7 @@
           <div class="tile-body">
             <form method="post" id="form-intro">
             <div class="form-group col-md-12">
-              <label class="control-label">Thông tin giới thiệu</label>
+              <!-- <label class="control-label">Thông tin giới thiệu</label> -->
               <input name="id" id="id-introduce" type="hidden"/>
               <textarea name="detailDescription" id="detail"></textarea>
             </div>
@@ -37,36 +37,26 @@
 
 <th:block id="js-resources">
 <script th:inline="javascript">
+  CKEDITOR.replace( 'detail',{
+    height:700,
+    language:'vi',
+    editorplaceholder:'Nhập thông tin...',
+  });
+  $(".modal").removeAttr("tabindex");
+
   $(document).ready(function() {
-    $('#detail').summernote({
-      height: 700,
-      focus: true,
-      // toolbar: [
-      //   ['style', ['style']],
-      //   ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-      //   ['fontname', ['fontname']],
-      //   ['fontsize', ['fontsize']],
-      //   ['color', ['color']],
-      //   ['para', ['ul', 'ol', 'paragraph']],
-      //   ['height', ['height']],
-      //   ['table', ['table']],
-      //   ['insert', ['link', 'picture', 'video', 'hr']],
-      //   ['view', ['codeview']]
-      // ],
-      //fontsize: '16'
-      //fontSizes: ['8', '9', '10', '11', '12','13', '14','15','16','17', '18','19','20','22', '24', '36', '48' , '64', '82', '150'],
-    });
-
-    $('#detail').summernote('code',[[${introduce}]]);
-    $('#id-introduce').val([[${idIntroduce}]]);
-
+    
   });
 
+  // $('#detail').val([[${introduce}]]);
+  $('#id-introduce').val([[${idIntroduce}]]);
+  CKEDITOR.instances.detail.setData([[${introduce}]])
 
 
   function saveIntro() {
     var form = $('#form-intro')[0];
     var data = new FormData(form);
+    data.set('detailDescription',CKEDITOR.instances.detail.getData());
     $.ajax({
       type: "POST",
       enctype: 'multipart/form-data',
@@ -91,9 +81,6 @@
       }
     });
   }
-
-
-
 
 </script>
 </th:block>
