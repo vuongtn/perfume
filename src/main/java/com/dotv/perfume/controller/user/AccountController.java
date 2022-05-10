@@ -93,7 +93,6 @@ public class AccountController extends BaseController {
         userBD.setPhone(user.getPhone());
         userBD.setAddress(user.getAddress());
 
-
         userService.saveOrUpdate(userBD);
         model.addAttribute("type",1);
         model.addAttribute("acc", user);

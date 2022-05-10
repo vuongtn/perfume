@@ -32,6 +32,7 @@
                                 <th>Mã</th>
                                 <th>Họ và tên</th>
                                 <th>Tên đăng nhập</th>
+                                <th>Email</th>
                                 <th>Ngày tạo</th>
                                 <th>Quyền</th>
                                 <th>Trạng thái</th>
@@ -153,7 +154,7 @@
                             <span id="mess-pe" class="form-message"></span>
                         </div>
                     </div>
-                    <BR>
+
                     <button class="btn btn-save" type="submit">Lưu lại</button>
                     <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
                     </form>
@@ -335,6 +336,7 @@
                             '<td>'+item.id+'</td>'+
                             '<td>'+item.fullName+'</td>'+
                             '<td>'+item.username+'</td>'+
+                            '<td>'+item.email+'</td>'+
                             '<td>'+formatDate(item.createdDate)+'</td>'+
                             '<td>'+item.permission+'</td>'+
                             '<td>'+sta+'</td>'+

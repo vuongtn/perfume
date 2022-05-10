@@ -325,7 +325,7 @@
     var checkCurPage=1;
     //text editor
     CKEDITOR.replace( 'detail',{
-        height:700,
+        // height:300,
         language:'vi',
         editorplaceholder:'Nhập thông tin...',
     });
@@ -662,11 +662,11 @@
                     success: function (data) {
                         if(data.message==true){
                             messageSuccess('Thành công!', 'Xóa sản phẩm thành công.');
-                            searchProduct(checkCurPage);
+                            page(checkCurPage);
                         }
                         if(data.message==false){
                             messageError('Thất bại!', 'Không thể xóa sản phẩm này.');
-                            searchProduct(checkCurPage);
+                            page(checkCurPage);
                         }
 
                     },

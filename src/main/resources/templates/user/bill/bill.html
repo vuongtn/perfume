@@ -55,18 +55,28 @@
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <h3 class="title-buy">Thanh toán</h3>
                             <span class="form-message"></span>
-                            <input type="radio" checked="true" name="payment" value="Thanh toán khi nhận hàng" onclick="show1();" />
-                            Thanh toán khi nhận hàng
-                            <br>
-                            <input type="radio" name="payment" value="Chuyển khoản qua ngân hàng" onclick="show2();" />
-                            Chuyển khoản qua ngân hàng
+                            <ul>
+                                <li>
+                                    <input style="float: left" type="radio" id="ck1" checked="true" name="payment" value="Thanh toán khi nhận hàng" onclick="show1();" />
+                                    <label style="font-weight: normal;margin-left: 5px" for="ck1">Thanh toán khi nhận hàng</label>
+                                </li>
+                                <li>
+                                    <input style="float: left" id="ck2" type="radio" name="payment" value="Chuyển khoản qua ngân hàng" onclick="show2();" />
+                                    <label style="font-weight: normal;margin-left: 5px" for="ck2">Chuyển khoản qua ngân hàng</label>
+                                </li>
+                            </ul>
+<!--                            <input style="float: left" type="radio" id="ck1" checked="true" name="payment" value="Thanh toán khi nhận hàng" onclick="show1();" />-->
+<!--                            <label style="font-weight: normal" for="ck1">Thanh toán khi nhận hàng</label>-->
+<!--                            <br>-->
+<!--                            <input style="float: left" id="ck2" type="radio" name="payment" value="Chuyển khoản qua ngân hàng" onclick="show2();" />-->
+<!--                            <p><label style="font-weight: normal" for="ck2">Chuyển khoản ngân hàng</label></p>-->
 
 
                             <br>
                             <div id="div1" class="content-buy">
                                 <p>Bước 1: Quý khách vui lòng thanh toán hóa đơn theo thông tin sau:</p>
                                 <p>- Ngân hàng BIDV</p>
-                                <p>- STK: 1234567</p>
+                                <p>- STK: 03853456</p>
                                 <p>- Chủ TK: Trần Thị Quỳnh</p>
                                 <p>- Nội dung CK: Họ Tên + SDT</p>
                                 <p>Bước 2: D.Perfume sẽ gọi điện thoại cho Quý khách để xác nhận thanh toán</p>
