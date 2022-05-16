@@ -9,7 +9,6 @@ import com.dotv.perfume.service.BillService;
 import com.dotv.perfume.service.CartService;
 import com.dotv.perfume.utils.PerfumeUtils;
 import org.json.simple.JSONObject;
-import org.junit.validator.PublicClassValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/per")
